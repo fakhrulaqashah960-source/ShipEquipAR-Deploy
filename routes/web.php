@@ -61,32 +61,14 @@ require __DIR__.'/auth.php';
 
 Route::middleware([
     'auth',
-    'prevent.back'
-])
-->get('/ar-model/{file}', function ($file) {
+    'prevent.back',
+])->get('/ar-model/{file}', function ($file) {
 
+    $url = 'https://github.com/fakhrulaqashah960-source/ShipEquipAR/releases/latest/download/'
+        . rawurlencode($file);
 
-    $path = public_path(
-        'uploads/reality/'.$file
-    );
-
-
-    if(!file_exists($path))
-    {
-        abort(404);
-    }
-
-
-    return response()->file($path);
-
-
-})
-->name('ar.model');
-
-
-
-
-
+    return redirect()->away($url);
+});
 
 
 /*

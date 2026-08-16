@@ -371,8 +371,7 @@ Description
 
 
 
-<a href="{{ asset('uploads/reality/'.$marker->model_file) }}"
-
+href="{{ 'https://github.com/fakhrulaqashah960-source/ShipEquipAR/releases/latest/download/' . rawurlencode($marker->model_file) }}"
 class="btn"
 
 target="_blank">
