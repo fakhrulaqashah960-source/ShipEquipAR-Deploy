@@ -50,25 +50,35 @@ require __DIR__.'/auth.php';
 
 
 
-
-
 /*
 |--------------------------------------------------------------------------
-| AR MODEL
+| AR MODEL LEGACY ROUTE
 |--------------------------------------------------------------------------
+|
+| Route ini dikekalkan untuk data lama yang
+| masih menggunakan nama fail sahaja.
+|
 */
 
 
 Route::middleware([
     'auth',
     'prevent.back',
-])->get('/ar-model/{file}', function ($file) {
+])
+->get('/ar-model/{file}', function ($file) {
 
-    $url = 'https://github.com/fakhrulaqashah960-source/ShipEquipAR/releases/latest/download/'
-        . rawurlencode($file);
+    $url =
+        'https://github.com/' .
+        'fakhrulaqashah960-source/' .
+        'ShipEquipAR/' .
+        'releases/latest/download/' .
+        rawurlencode($file);
 
     return redirect()->away($url);
-});
+
+})
+->name('ar.model');
+
 
 
 /*
@@ -94,10 +104,12 @@ Route::middleware([
     */
 
 
-    Route::get('/dashboard', function(){
+    Route::get('/dashboard', function () {
 
-
-        $modules = \App\Models\Module::with('equipments')->get();
+        $modules =
+            \App\Models\Module::with(
+                'equipments'
+            )->get();
 
 
         return view(
@@ -105,43 +117,53 @@ Route::middleware([
             compact('modules')
         );
 
-
     })
     ->name('dashboard');
 
 
-/*
-|--------------------------------------------------------------------------
-| LEARNING MODULE
-|--------------------------------------------------------------------------
-*/
+
+    /*
+    |--------------------------------------------------------------------------
+    | SHIP MODEL AR
+    |--------------------------------------------------------------------------
+    */
+
+
+    Route::get(
+        '/ship-models',
+        [ShipController::class, 'userIndex']
+    )
+    ->name('user.ship-models');
 
 
 
-Route::get(
-    '/learning-module/{id}',
-    [ModuleController::class,'userShow']
-)
-->name('learning.show');
+    /*
+    |--------------------------------------------------------------------------
+    | LEARNING MODULE
+    |--------------------------------------------------------------------------
+    */
+
+
+    Route::get(
+        '/learning-module/{id}',
+        [ModuleController::class, 'userShow']
+    )
+    ->name('learning.show');
 
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | EQUIPMENT / AR PAGE
+    |--------------------------------------------------------------------------
+    */
 
-
-
-    // EQUIPMENT / AR PAGE
 
     Route::get(
         '/learning-module/{id}/equipment',
-        [ModuleController::class,'userShow']
+        [ModuleController::class, 'userShow']
     )
     ->name('learning.equipment');
-
-
-
-
-
-
 
 
 
@@ -154,15 +176,9 @@ Route::get(
 
     Route::get(
         '/equipment/{id}',
-        [EquipmentController::class,'userShow']
+        [EquipmentController::class, 'userShow']
     )
     ->name('equipment.show');
-
-
-
-
-
-
 
 
 
@@ -175,23 +191,16 @@ Route::get(
 
     Route::get(
         '/module-notes',
-        [NoteController::class,'index']
+        [NoteController::class, 'index']
     )
     ->name('user.notes');
 
 
-
     Route::get(
         '/module-notes/{id}',
-        [NoteController::class,'show']
+        [NoteController::class, 'show']
     )
     ->name('user.notes.show');
-
-
-
-
-
-
 
 
 
@@ -204,15 +213,9 @@ Route::get(
 
     Route::get(
         '/course/{id}',
-        [CourseController::class,'userShow']
+        [CourseController::class, 'userShow']
     )
     ->name('course.show');
-
-
-
-
-
-
 
 
 
@@ -225,15 +228,9 @@ Route::get(
 
     Route::get(
         '/lesson/{id}',
-        [LessonController::class,'userShow']
+        [LessonController::class, 'userShow']
     )
     ->name('lesson.show');
-
-
-
-
-
-
 
 
 
@@ -246,35 +243,27 @@ Route::get(
 
     Route::get(
         '/quiz',
-        [QuizController::class,'index']
+        [QuizController::class, 'index']
     )
     ->name('quiz.index');
 
 
-
     Route::get(
         '/quiz/start/{id}',
-        [QuizController::class,'show']
+        [QuizController::class, 'show']
     )
     ->name('quiz.show');
 
 
-
     Route::post(
         '/quiz/{id}/submit',
-        [QuizController::class,'submit']
+        [QuizController::class, 'submit']
     )
     ->name('quiz.submit');
 
 
 
 });
-
-
-
-
-
-
 
 
 
@@ -295,26 +284,18 @@ Route::middleware([
 
 
 
-
-
     /*
     |--------------------------------------------------------------------------
-    | DASHBOARD
+    | ADMIN DASHBOARD
     |--------------------------------------------------------------------------
     */
 
 
     Route::get(
         '/',
-        [AdminDashboardController::class,'index']
+        [AdminDashboardController::class, 'index']
     )
     ->name('admin.dashboard');
-
-
-
-
-
-
 
 
 
@@ -341,12 +322,6 @@ Route::middleware([
 
 
 
-
-
-
-
-
-
     /*
     |--------------------------------------------------------------------------
     | MODULE MANAGEMENT
@@ -355,23 +330,16 @@ Route::middleware([
 
 
     Route::resource(
-    'modules',
-    ModuleController::class
-);
-
+        'modules',
+        ModuleController::class
+    );
 
 
     Route::get(
         'modules/{id}/equipment',
-        [ModuleController::class,'equipment']
+        [ModuleController::class, 'equipment']
     )
     ->name('admin.module.equipment');
-
-
-
-
-
-
 
 
 
@@ -390,12 +358,6 @@ Route::middleware([
 
 
 
-
-
-
-
-
-
     /*
     |--------------------------------------------------------------------------
     | SHIP MANAGEMENT
@@ -408,12 +370,6 @@ Route::middleware([
         ShipController::class
     )
     ->names('admin.ships');
-
-
-
-
-
-
 
 
 
@@ -432,12 +388,6 @@ Route::middleware([
 
 
 
-
-
-
-
-
-
     /*
     |--------------------------------------------------------------------------
     | QUIZ MANAGEMENT
@@ -453,12 +403,6 @@ Route::middleware([
 
 
 
-
-
-
-
-
-
     /*
     |--------------------------------------------------------------------------
     | COURSE
@@ -470,12 +414,6 @@ Route::middleware([
         'course',
         CourseController::class
     );
-
-
-
-
-
-
 
 
 
@@ -497,12 +435,6 @@ Route::middleware([
 
 
 
-
-
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | PROFILE
@@ -517,29 +449,25 @@ Route::middleware([
 ->group(function () {
 
 
-
     Route::get(
         '/profile',
-        [ProfileController::class,'edit']
+        [ProfileController::class, 'edit']
     )
     ->name('profile.edit');
 
 
-
     Route::patch(
         '/profile',
-        [ProfileController::class,'update']
+        [ProfileController::class, 'update']
     )
     ->name('profile.update');
 
 
-
     Route::delete(
         '/profile',
-        [ProfileController::class,'destroy']
+        [ProfileController::class, 'destroy']
     )
     ->name('profile.destroy');
-
 
 
 });
