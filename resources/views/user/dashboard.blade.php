@@ -860,7 +860,7 @@
 
 
                                 <a
-                                    href="{{ route('user.ship-models') }}"
+                                    href="{{ route('ship.show', $ship->id) }}"
                                     class="ship-sidebar-card"
                                 >
 
@@ -1003,6 +1003,42 @@
                                     )
 
                                         🎧
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Razor Wire'
+                                        )
+                                    )
+
+                                        ⛓️ 
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Upperdeck Lighting'
+                                        )
+                                    )
+
+                                        💡
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Water Spray & Foam Monitoring'
+                                        )
+                                    )
+
+                                       💨 
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Automatic Identification System'
+                                        )
+                                    )
+
+                                        📡
 
 
                                     @else

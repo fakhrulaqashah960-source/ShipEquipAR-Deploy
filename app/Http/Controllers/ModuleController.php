@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+
 use App\Models\Module;
+use App\Models\Ship;
 
 
 class ModuleController extends Controller
@@ -64,8 +66,6 @@ class ModuleController extends Controller
 
 
 
-
-
     /*
     |--------------------------------------------------------------------------
     | ADMIN CREATE MODULE
@@ -85,9 +85,6 @@ class ModuleController extends Controller
 
 
 
-
-
-
     /*
     |--------------------------------------------------------------------------
     | ADMIN STORE MODULE
@@ -97,21 +94,19 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
 
-
         $request->validate([
 
-            'title'=>'required',
+            'title' => 'required',
 
-            'category'=>'required',
+            'category' => 'required',
 
-            'description'=>'required',
+            'description' => 'required',
 
-            'function'=>'nullable',
+            'function' => 'nullable',
 
-            'image'=>'nullable|image'
+            'image' => 'nullable|image'
 
         ]);
-
 
 
 
@@ -119,64 +114,62 @@ class ModuleController extends Controller
 
 
 
-        if($request->hasFile('image'))
-        {
+        if ($request->hasFile('image')) {
 
 
-            $imageName = time().'_'.$request->image->getClientOriginalName();
+            $imageName =
+                time() . '_' .
+                $request->image
+                    ->getClientOriginalName();
 
 
 
             $request->image->move(
 
-                public_path('images/modules'),
+                public_path(
+                    'images/modules'
+                ),
 
                 $imageName
 
             );
 
-
         }
-
-
-
 
 
 
         Module::create([
 
+            'title' =>
+                $request->title,
 
-            'title'=>$request->title,
+            'category' =>
+                $request->category,
 
+            'description' =>
+                $request->description,
 
-            'category'=>$request->category,
+            'function' =>
+                $request->function,
 
-
-            'description'=>$request->description,
-
-
-            'function'=>$request->function,
-
-
-            'image'=>$imageName
-
+            'image' =>
+                $imageName
 
         ]);
 
 
 
-
-
-
-
         return redirect('/admin/modules')
-    ->with(
-        'success',
-        'Module Added Successfully'
-    );
 
+            ->with(
+                'success',
+                'Module Added Successfully'
+            );
 
     }
+
+
+
 
 
     /*
@@ -188,9 +181,8 @@ class ModuleController extends Controller
     public function edit($id)
     {
 
-
-        $module = Module::findOrFail($id);
-
+        $module =
+            Module::findOrFail($id);
 
 
         return view(
@@ -201,12 +193,7 @@ class ModuleController extends Controller
 
         );
 
-
     }
-
-
-
-
 
 
 
@@ -218,105 +205,133 @@ class ModuleController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function update(Request $request, Module $module)
-{
+    public function update(
+        Request $request,
+        Module $module
+    ) {
 
-$request->validate([
+        $request->validate([
 
-'title'=>'required',
+            'title' =>
+                'required',
 
-'category'=>'required',
+            'category' =>
+                'required',
 
-'description'=>'required',
+            'description' =>
+                'required',
 
-'function'=>'required',
+            'function' =>
+                'required',
 
-'image'=>'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'image' =>
+                'nullable|image|mimes:jpg,jpeg,png|max:2048'
 
-]);
-
-
-
-
-$data = [
-
-'title'=>$request->title,
-
-'category'=>$request->category,
-
-'description'=>$request->description,
-
-'function'=>$request->function,
-
-];
+        ]);
 
 
 
+        $data = [
+
+            'title' =>
+                $request->title,
+
+            'category' =>
+                $request->category,
+
+            'description' =>
+                $request->description,
+
+            'function' =>
+                $request->function,
+
+        ];
 
 
-/*
-|--------------------------------------------------------------------------
-| UPDATE IMAGE
-|--------------------------------------------------------------------------
-*/
+
+        /*
+        |--------------------------------------------------------------------------
+        | UPDATE IMAGE
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->hasFile('image')) {
 
 
-if($request->hasFile('image')){
+            /*
+            |--------------------------------------------------------------------------
+            | DELETE OLD IMAGE
+            |--------------------------------------------------------------------------
+            */
+
+            if (
+                $module->image &&
+                file_exists(
+                    public_path(
+                        'uploads/modules/' .
+                        $module->image
+                    )
+                )
+            ) {
+
+                unlink(
+                    public_path(
+                        'uploads/modules/' .
+                        $module->image
+                    )
+                );
+
+            }
 
 
-    // delete old image
 
-    if($module->image && 
-    file_exists(public_path('uploads/modules/'.$module->image)))
-    {
+            $image =
+                $request->file('image');
 
-        unlink(
-        public_path('uploads/modules/'.$module->image)
-        );
+
+            $imageName =
+                time() .
+                '_' .
+                $image->getClientOriginalName();
+
+
+
+            $image->move(
+
+                public_path(
+                    'uploads/modules'
+                ),
+
+                $imageName
+
+            );
+
+
+
+            $data['image'] =
+                $imageName;
+
+        }
+
+
+
+        $module->update($data);
+
+
+
+        return redirect()
+
+            ->route('modules.index')
+
+            ->with(
+                'success',
+                'Module updated successfully'
+            );
 
     }
 
 
 
-    $image = $request->file('image');
-
-
-    $imageName = time()
-    .'_'.$image->getClientOriginalName();
-
-
-
-    $image->move(
-
-        public_path('uploads/modules'),
-
-        $imageName
-
-    );
-
-
-
-    $data['image']=$imageName;
-
-
-}
-
-
-
-
-
-$module->update($data);
-
-
-
-return redirect()
-
-->route('modules.index')
-
-->with('success','Module updated successfully');
-
-
-}
 
 
     /*
@@ -328,19 +343,21 @@ return redirect()
     public function destroy($id)
     {
 
-
-        $module = Module::findOrFail($id);
-
+        $module =
+            Module::findOrFail($id);
 
 
         $module->delete();
 
 
-
-        return redirect('/admin/modules');
-
+        return redirect(
+            '/admin/modules'
+        );
 
     }
+
+
+
 
 
     /*
@@ -352,9 +369,8 @@ return redirect()
     public function intro($id)
     {
 
-
-        $module = Module::findOrFail($id);
-
+        $module =
+            Module::findOrFail($id);
 
 
         return view(
@@ -365,12 +381,7 @@ return redirect()
 
         );
 
-
     }
-
-
-
-
 
 
 
@@ -378,35 +389,78 @@ return redirect()
 
     /*
     |--------------------------------------------------------------------------
-    | USER EQUIPMENT PAGE
+    | USER MODULE PAGE
+    |--------------------------------------------------------------------------
+    |
+    | Page:
+    | /learning-module/{id}
+    |
+    | Equipment datang daripada relationship module.
+    |
+    | Ship pula datang daripada table ships.
+    | Data ships akan digunakan oleh Ship Model module
+    | untuk paparkan:
+    |
+    | - Bulk Carrier
+    | - Container Vessel
+    | - ship lain yang admin tambah
+    |
     |--------------------------------------------------------------------------
     */
 
     public function userShow($id)
     {
 
+        /*
+        |--------------------------------------------------------------------------
+        | GET MODULE + EQUIPMENT
+        |--------------------------------------------------------------------------
+        */
 
-        $module = Module::with('equipments')
+        $module =
+            Module::with('equipments')
+                ->findOrFail($id);
 
-            ->findOrFail($id);
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | GET SHIPS FROM DATABASE
+        |--------------------------------------------------------------------------
+        |
+        | Ini yang sebelum ini tiada.
+        |
+        | Semua ship yang admin tambah akan dihantar
+        | ke user.modules.show.
+        |
+        */
+
+        $ships =
+            Ship::orderBy(
+                'id',
+                'asc'
+            )->get();
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SEND DATA TO USER MODULE PAGE
+        |--------------------------------------------------------------------------
+        */
 
         return view(
 
             'user.modules.show',
 
-            compact('module')
+            compact(
+                'module',
+                'ships'
+            )
 
         );
 
-
     }
-
-
-
-
-
 
 
 
@@ -421,9 +475,8 @@ return redirect()
     public function video($id)
     {
 
-
-        $module = Module::findOrFail($id);
-
+        $module =
+            Module::findOrFail($id);
 
 
         return view(
@@ -433,7 +486,6 @@ return redirect()
             compact('module')
 
         );
-
 
     }
 

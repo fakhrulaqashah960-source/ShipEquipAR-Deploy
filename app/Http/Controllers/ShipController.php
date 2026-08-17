@@ -53,6 +53,20 @@ class ShipController extends Controller
         );
     }
 
+    // =========================================================
+// USER SHOW ONE SHIP
+// =========================================================
+
+public function userShow($id)
+{
+    $ship = Ship::findOrFail($id);
+
+    return view(
+        'user.ship-show',
+        compact('ship')
+    );
+}
+
 
 
     // =========================================================

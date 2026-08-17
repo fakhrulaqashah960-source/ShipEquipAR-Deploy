@@ -1,8 +1,6 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
-
 
 use App\Http\Controllers\ProfileController;
 
@@ -23,13 +21,11 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\NoteController;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | PUBLIC
 |--------------------------------------------------------------------------
 */
-
 
 Route::get('/', function () {
 
@@ -38,28 +34,23 @@ Route::get('/', function () {
 });
 
 
-
 /*
 |--------------------------------------------------------------------------
 | AUTH
 |--------------------------------------------------------------------------
 */
 
-
 require __DIR__.'/auth.php';
-
 
 
 /*
 |--------------------------------------------------------------------------
-| AR MODEL LEGACY ROUTE
+| LEGACY AR MODEL
 |--------------------------------------------------------------------------
 |
-| Route ini dikekalkan untuk data lama yang
-| masih menggunakan nama fail sahaja.
+| Digunakan untuk data lama yang hanya simpan nama fail.
 |
 */
-
 
 Route::middleware([
     'auth',
@@ -80,13 +71,11 @@ Route::middleware([
 ->name('ar.model');
 
 
-
 /*
 |--------------------------------------------------------------------------
 | USER AREA
 |--------------------------------------------------------------------------
 */
-
 
 Route::middleware([
     'auth',
@@ -96,47 +85,47 @@ Route::middleware([
 ->group(function () {
 
 
-
     /*
     |--------------------------------------------------------------------------
     | USER DASHBOARD
     |--------------------------------------------------------------------------
     */
 
-
     Route::get('/dashboard', function () {
 
-    $modules =
-        \App\Models\Module::with(
-            'equipments'
-        )->get();
+        $modules =
+            \App\Models\Module::with(
+                'equipments'
+            )
+            ->get();
 
-    $ships =
-        \App\Models\Ship::orderBy(
-            'id',
-            'asc'
-        )->get();
+        $ships =
+            \App\Models\Ship::orderBy(
+                'id',
+                'asc'
+            )
+            ->get();
 
+        return view(
+            'user.dashboard',
+            compact(
+                'modules',
+                'ships'
+            )
+        );
 
-    return view(
-        'user.dashboard',
-        compact(
-            'modules',
-            'ships'
-        )
-    );
-
-})
-->name('dashboard');
-
+    })
+    ->name('dashboard');
 
 
     /*
     |--------------------------------------------------------------------------
-    | SHIP MODEL AR
+    | ALL SHIP MODELS
     |--------------------------------------------------------------------------
+    |
+    | Page yang paparkan semua ship.
+    |
     */
-
 
     Route::get(
         '/ship-models',
@@ -145,13 +134,31 @@ Route::middleware([
     ->name('user.ship-models');
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | INDIVIDUAL SHIP DETAIL
+    |--------------------------------------------------------------------------
+    |
+    | Contoh:
+    | /ship/1
+    |
+    | Bila user klik Container Vessel / Bulk Carrier dalam sidebar,
+    | page ini akan tunjuk satu ship sahaja.
+    |
+    */
+
+    Route::get(
+        '/ship/{id}',
+        [ShipController::class, 'userShow']
+    )
+    ->name('ship.show');
+
 
     /*
     |--------------------------------------------------------------------------
     | LEARNING MODULE
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/learning-module/{id}',
@@ -160,13 +167,11 @@ Route::middleware([
     ->name('learning.show');
 
 
-
     /*
     |--------------------------------------------------------------------------
-    | EQUIPMENT / AR PAGE
+    | LEARNING MODULE EQUIPMENT
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/learning-module/{id}/equipment',
@@ -175,13 +180,11 @@ Route::middleware([
     ->name('learning.equipment');
 
 
-
     /*
     |--------------------------------------------------------------------------
     | EQUIPMENT DETAIL
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/equipment/{id}',
@@ -190,13 +193,11 @@ Route::middleware([
     ->name('equipment.show');
 
 
-
     /*
     |--------------------------------------------------------------------------
-    | NOTES
+    | MODULE NOTES
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/module-notes',
@@ -212,13 +213,11 @@ Route::middleware([
     ->name('user.notes.show');
 
 
-
     /*
     |--------------------------------------------------------------------------
     | COURSE
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/course/{id}',
@@ -227,13 +226,11 @@ Route::middleware([
     ->name('course.show');
 
 
-
     /*
     |--------------------------------------------------------------------------
     | LESSON
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/lesson/{id}',
@@ -242,13 +239,11 @@ Route::middleware([
     ->name('lesson.show');
 
 
-
     /*
     |--------------------------------------------------------------------------
     | QUIZ USER
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/quiz',
@@ -270,10 +265,7 @@ Route::middleware([
     )
     ->name('quiz.submit');
 
-
-
 });
-
 
 
 /*
@@ -281,7 +273,6 @@ Route::middleware([
 | ADMIN AREA
 |--------------------------------------------------------------------------
 */
-
 
 Route::middleware([
     'auth',
@@ -292,13 +283,11 @@ Route::middleware([
 ->group(function () {
 
 
-
     /*
     |--------------------------------------------------------------------------
     | ADMIN DASHBOARD
     |--------------------------------------------------------------------------
     */
-
 
     Route::get(
         '/',
@@ -307,13 +296,11 @@ Route::middleware([
     ->name('admin.dashboard');
 
 
-
     /*
     |--------------------------------------------------------------------------
-    | USERS
+    | USER MANAGEMENT
     |--------------------------------------------------------------------------
     */
-
 
     Route::resource(
         'users',
@@ -330,13 +317,11 @@ Route::middleware([
     ->names('admin.users');
 
 
-
     /*
     |--------------------------------------------------------------------------
     | MODULE MANAGEMENT
     |--------------------------------------------------------------------------
     */
-
 
     Route::resource(
         'modules',
@@ -351,13 +336,11 @@ Route::middleware([
     ->name('admin.module.equipment');
 
 
-
     /*
     |--------------------------------------------------------------------------
     | EQUIPMENT MANAGEMENT
     |--------------------------------------------------------------------------
     */
-
 
     Route::resource(
         'equipment',
@@ -366,13 +349,11 @@ Route::middleware([
     ->names('admin.equipment');
 
 
-
     /*
     |--------------------------------------------------------------------------
     | SHIP MANAGEMENT
     |--------------------------------------------------------------------------
     */
-
 
     Route::resource(
         'ships',
@@ -381,13 +362,11 @@ Route::middleware([
     ->names('admin.ships');
 
 
-
     /*
     |--------------------------------------------------------------------------
-    | NOTES
+    | NOTES MANAGEMENT
     |--------------------------------------------------------------------------
     */
-
 
     Route::resource(
         'notes',
@@ -396,13 +375,11 @@ Route::middleware([
     ->names('admin.notes');
 
 
-
     /*
     |--------------------------------------------------------------------------
     | QUIZ MANAGEMENT
     |--------------------------------------------------------------------------
     */
-
 
     Route::resource(
         'quiz',
@@ -411,13 +388,11 @@ Route::middleware([
     ->names('admin.quiz');
 
 
-
     /*
     |--------------------------------------------------------------------------
-    | COURSE
+    | COURSE MANAGEMENT
     |--------------------------------------------------------------------------
     */
-
 
     Route::resource(
         'course',
@@ -425,23 +400,18 @@ Route::middleware([
     );
 
 
-
     /*
     |--------------------------------------------------------------------------
-    | LESSON
+    | LESSON MANAGEMENT
     |--------------------------------------------------------------------------
     */
-
 
     Route::resource(
         'lesson',
         LessonController::class
     );
 
-
-
 });
-
 
 
 /*
@@ -449,7 +419,6 @@ Route::middleware([
 | PROFILE
 |--------------------------------------------------------------------------
 */
-
 
 Route::middleware([
     'auth',
@@ -477,6 +446,5 @@ Route::middleware([
         [ProfileController::class, 'destroy']
     )
     ->name('profile.destroy');
-
 
 });
