@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipment;
 use App\Models\Module;
-use GuzzleHttp\Psr7\Utils;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -16,7 +16,6 @@ class EquipmentController extends Controller
     // =========================
     // ADMIN LIST EQUIPMENT
     // =========================
-
     public function index()
     {
         $equipments = Equipment::with('module')->get();
@@ -31,7 +30,6 @@ class EquipmentController extends Controller
     // =========================
     // CREATE PAGE
     // =========================
-
     public function create()
     {
         $modules = Module::all();
@@ -46,7 +44,6 @@ class EquipmentController extends Controller
     // =========================
     // STORE EQUIPMENT
     // =========================
-
     public function store(Request $request)
     {
         $request->validate([
@@ -70,55 +67,49 @@ class EquipmentController extends Controller
         ]);
 
 
-        // =========================
-        // IMAGE UPLOAD
-        // =========================
+        $imageUrl = null;
+        $modelUrl = null;
 
-        $imageName = null;
 
+        // =========================
+        // IMAGE → GITHUB RELEASE
+        // =========================
         if ($request->hasFile('image')) {
 
-            $imageName =
-                time() . '_' .
-                $request->file('image')->getClientOriginalName();
-
-            $imageDirectory = public_path('uploads/equipment');
-
-            if (!is_dir($imageDirectory)) {
-                mkdir($imageDirectory, 0755, true);
-            }
-
-            $request->file('image')->move(
-                $imageDirectory,
-                $imageName
+            $imageAsset = $this->uploadToGitHubRelease(
+                $request->file('image'),
+                ['jpg', 'jpeg', 'png'],
+                'equipment-image'
             );
+
+            // Simpan URL penuh dalam database
+            $imageUrl = $imageAsset['url'];
         }
 
 
         // =========================
         // AR MODEL → GITHUB RELEASE
         // =========================
-
-        $modelName = null;
-
         if ($request->hasFile('model_file')) {
-            $modelName = $this->uploadRealityToGitHub(
-                $request->file('model_file')
+
+            $modelAsset = $this->uploadToGitHubRelease(
+                $request->file('model_file'),
+                ['reality'],
+                'equipment-ar'
             );
+
+            // Simpan URL penuh dalam database
+            $modelUrl = $modelAsset['url'];
         }
 
-
-        // =========================
-        // SAVE DATABASE
-        // =========================
 
         Equipment::create([
             'module_id'   => $request->module_id,
             'name'        => $request->name,
-            'image'       => $imageName,
+            'image'       => $imageUrl,
             'description' => $request->description,
             'function'    => $request->function,
-            'model_file'  => $modelName,
+            'model_file'  => $modelUrl,
         ]);
 
 
@@ -134,7 +125,6 @@ class EquipmentController extends Controller
     // =========================
     // EDIT PAGE
     // =========================
-
     public function edit($id)
     {
         $equipment = Equipment::findOrFail($id);
@@ -154,7 +144,6 @@ class EquipmentController extends Controller
     // =========================
     // UPDATE EQUIPMENT
     // =========================
-
     public function update(Request $request, $id)
     {
         $equipment = Equipment::findOrFail($id);
@@ -191,39 +180,30 @@ class EquipmentController extends Controller
         // =========================
         // UPDATE IMAGE
         // =========================
-
         if ($request->hasFile('image')) {
 
-            $imageName =
-                time() . '_' .
-                $request->file('image')->getClientOriginalName();
-
-            $imageDirectory = public_path('uploads/equipment');
-
-            if (!is_dir($imageDirectory)) {
-                mkdir($imageDirectory, 0755, true);
-            }
-
-            $request->file('image')->move(
-                $imageDirectory,
-                $imageName
+            $imageAsset = $this->uploadToGitHubRelease(
+                $request->file('image'),
+                ['jpg', 'jpeg', 'png'],
+                'equipment-image'
             );
 
-            $data['image'] = $imageName;
+            $data['image'] = $imageAsset['url'];
         }
 
 
         // =========================
         // UPDATE AR MODEL
         // =========================
-
         if ($request->hasFile('model_file')) {
 
-            $modelName = $this->uploadRealityToGitHub(
-                $request->file('model_file')
+            $modelAsset = $this->uploadToGitHubRelease(
+                $request->file('model_file'),
+                ['reality'],
+                'equipment-ar'
             );
 
-            $data['model_file'] = $modelName;
+            $data['model_file'] = $modelAsset['url'];
         }
 
 
@@ -242,7 +222,6 @@ class EquipmentController extends Controller
     // =========================
     // DELETE EQUIPMENT
     // =========================
-
     public function destroy($id)
     {
         $equipment = Equipment::findOrFail($id);
@@ -261,7 +240,6 @@ class EquipmentController extends Controller
     // =========================
     // USER VIEW EQUIPMENT
     // =========================
-
     public function userShow($id)
     {
         $equipment = Equipment::with('module')
@@ -274,27 +252,37 @@ class EquipmentController extends Controller
     }
 
 
-    // ==========================================================
-    // UPLOAD .REALITY FILE TO GITHUB RELEASE
-    // ==========================================================
+    // =========================================================
+    // UPLOAD FILE TO GITHUB RELEASE
+    // =========================================================
+    private function uploadToGitHubRelease(
+        UploadedFile $file,
+        array $allowedExtensions,
+        string $prefix
+    ): array {
 
-    private function uploadRealityToGitHub($file): string
-    {
-        // Pastikan extension ialah .reality
         $extension = strtolower(
             $file->getClientOriginalExtension()
         );
 
-        if ($extension !== 'reality') {
+
+        // =========================
+        // VALIDATE EXTENSION
+        // =========================
+        if (!in_array($extension, $allowedExtensions, true)) {
 
             throw ValidationException::withMessages([
-                'model_file' =>
-                    'AR model mestilah fail .reality',
+                $prefix === 'equipment-ar'
+                    ? 'model_file'
+                    : 'image'
+                    => 'Jenis fail tidak dibenarkan.',
             ]);
         }
 
 
-        // Ambil config GitHub
+        // =========================
+        // GITHUB CONFIG
+        // =========================
         $token = config('services.github_ar.token');
         $owner = config('services.github_ar.owner');
         $repo  = config('services.github_ar.repo');
@@ -304,12 +292,14 @@ class EquipmentController extends Controller
 
             throw ValidationException::withMessages([
                 'model_file' =>
-                    'GitHub AR configuration belum lengkap.',
+                    'GitHub upload configuration belum lengkap.',
             ]);
         }
 
 
-        // Bersihkan nama fail
+        // =========================
+        // SAFE UNIQUE FILE NAME
+        // =========================
         $originalName = basename(
             $file->getClientOriginalName()
         );
@@ -320,9 +310,9 @@ class EquipmentController extends Controller
             $originalName
         );
 
-
-        // Nama unik supaya GitHub tak kena duplicate asset
-        $modelName =
+        $assetName =
+            $prefix .
+            '_' .
             now()->format('YmdHis') .
             '_' .
             bin2hex(random_bytes(4)) .
@@ -333,9 +323,8 @@ class EquipmentController extends Controller
         try {
 
             // =========================
-            // 1. GET LATEST RELEASE
+            // GET LATEST RELEASE
             // =========================
-
             $releaseResponse = Http::withToken($token)
                 ->withHeaders([
                     'Accept' =>
@@ -354,7 +343,7 @@ class EquipmentController extends Controller
             if (!$releaseResponse->successful()) {
 
                 Log::error(
-                    'GitHub latest release failed',
+                    'GitHub release request failed',
                     [
                         'status' =>
                             $releaseResponse->status(),
@@ -371,33 +360,47 @@ class EquipmentController extends Controller
             }
 
 
-            $release = $releaseResponse->json();
+            $uploadUrl = $releaseResponse->json('upload_url');
 
 
-            if (empty($release['upload_url'])) {
+            if (!$uploadUrl) {
 
                 throw ValidationException::withMessages([
                     'model_file' =>
-                        'GitHub Release tidak mempunyai upload URL.',
+                        'GitHub Release upload URL tidak dijumpai.',
                 ]);
             }
 
 
-            // GitHub beri URL begini:
-            // .../assets{?name,label}
-            // Kita buang {?name,label}
+            // GitHub beri:
+            // https://uploads.github.com/.../assets{?name,label}
+            // Buang template akhir tersebut.
 
             $uploadUrl = preg_replace(
                 '/\{\?name,label\}$/',
                 '',
-                $release['upload_url']
+                $uploadUrl
             );
 
 
             // =========================
-            // 2. OPEN FILE AS STREAM
+            // MIME TYPE
             // =========================
+            if ($extension === 'reality') {
 
+                $contentType = 'application/octet-stream';
+
+            } else {
+
+                $contentType =
+                    $file->getMimeType()
+                    ?: 'application/octet-stream';
+            }
+
+
+            // =========================
+            // OPEN FILE AS STREAM
+            // =========================
             $handle = fopen(
                 $file->getRealPath(),
                 'rb'
@@ -408,43 +411,51 @@ class EquipmentController extends Controller
 
                 throw ValidationException::withMessages([
                     'model_file' =>
-                        'Fail AR tidak dapat dibaca.',
+                        'Fail tidak dapat dibaca.',
                 ]);
             }
 
 
-            $stream = Utils::streamFor($handle);
+            try {
+
+                // =========================
+                // UPLOAD RAW BINARY
+                // =========================
+                $uploadResponse = Http::withToken($token)
+                    ->withHeaders([
+                        'Accept' =>
+                            'application/vnd.github+json',
+
+                        'X-GitHub-Api-Version' =>
+                            '2026-03-10',
+
+                        'Content-Type' =>
+                            $contentType,
+                    ])
+                    ->withOptions([
+                        'body' => $handle,
+                    ])
+                    ->connectTimeout(30)
+                    ->timeout(900)
+                    ->post(
+                        $uploadUrl .
+                        '?name=' .
+                        rawurlencode($assetName)
+                    );
+
+            } finally {
+
+                if (is_resource($handle)) {
+                    fclose($handle);
+                }
+            }
 
 
-            // =========================
-            // 3. UPLOAD TO GITHUB
-            // =========================
-
-            $uploadResponse = Http::withToken($token)
-                ->withHeaders([
-                    'Accept' =>
-                        'application/vnd.github+json',
-
-                    'X-GitHub-Api-Version' =>
-                        '2026-03-10',
-                ])
-                ->withBody(
-                    $stream,
-                    'application/octet-stream'
-                )
-                ->connectTimeout(30)
-                ->timeout(900)
-                ->post(
-                    $uploadUrl .
-                    '?name=' .
-                    rawurlencode($modelName)
-                );
-
-
+            // GitHub upload success = 201
             if ($uploadResponse->status() !== 201) {
 
                 Log::error(
-                    'GitHub AR upload failed',
+                    'GitHub asset upload failed',
                     [
                         'status' =>
                             $uploadResponse->status(),
@@ -455,13 +466,33 @@ class EquipmentController extends Controller
                 );
 
                 throw ValidationException::withMessages([
-                    'model_file' =>
-                        'Upload AR model ke GitHub gagal.',
+                    $extension === 'reality'
+                        ? 'model_file'
+                        : 'image'
+                        => 'Upload ke GitHub Release gagal.',
                 ]);
             }
 
 
-            return $modelName;
+            $browserUrl =
+                $uploadResponse->json(
+                    'browser_download_url'
+                );
+
+
+            if (!$browserUrl) {
+
+                throw ValidationException::withMessages([
+                    'model_file' =>
+                        'GitHub tidak memulangkan URL fail.',
+                ]);
+            }
+
+
+            return [
+                'name' => $assetName,
+                'url'  => $browserUrl,
+            ];
 
         } catch (ValidationException $e) {
 
@@ -470,7 +501,7 @@ class EquipmentController extends Controller
         } catch (Throwable $e) {
 
             Log::error(
-                'AR model upload exception',
+                'GitHub file upload exception',
                 [
                     'message' => $e->getMessage(),
                 ]
@@ -478,8 +509,10 @@ class EquipmentController extends Controller
 
 
             throw ValidationException::withMessages([
-                'model_file' =>
-                    'Ralat semasa upload AR model. Sila cuba lagi.',
+                $extension === 'reality'
+                    ? 'model_file'
+                    : 'image'
+                    => 'Ralat semasa upload. Sila cuba lagi.',
             ]);
         }
     }
