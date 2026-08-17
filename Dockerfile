@@ -43,25 +43,14 @@ ENV COMPOSER_PROCESS_TIMEOUT=900
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Install PHP dependencies with retry
-RUN set -eux; \
-    attempt=1; \
-    while [ "$attempt" -le 3 ]; do \
-        if composer install \
-            --no-dev \
-            --optimize-autoloader \
-            --prefer-dist \
-            --no-interaction \
-            --no-progress; then \
-            break; \
-        fi; \
-        if [ "$attempt" -eq 3 ]; then \
-            echo "Composer install failed after 3 attempts."; \
-            exit 1; \
-        fi; \
-        echo "Composer failed. Waiting 30 seconds before retry..."; \
-        attempt=$((attempt + 1)); \
-        sleep 30; \
-    done
+# Install PHP dependencies using Git source
+# Avoid GitHub codeload ZIP HTTP 429
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --prefer-source \
+    --no-interaction \
+    --no-progress
 
 # Install and build Vite
 RUN npm ci && npm run build
