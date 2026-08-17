@@ -1,5 +1,7 @@
 FROM php:8.2-apache
 
+COPY docker/uploads.ini /usr/local/etc/php/conf.d/uploads.ini
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
