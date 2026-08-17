@@ -674,29 +674,82 @@ Explore different types of maritime vessels through Augmented Reality technology
 
 </p>
 
+@if(isset($ships) && $ships->count() > 0)
+
+<div class="equipment-grid">
+
+    @foreach($ships as $ship)
+
+        @php
+
+            $shipImageUrl = null;
+
+            if ($ship->image) {
+
+                if (
+                    str_starts_with($ship->image, 'http://')
+                    ||
+                    str_starts_with($ship->image, 'https://')
+                ) {
+
+                    $shipImageUrl = $ship->image;
+
+                } else {
+
+                    $shipImageUrl =
+                        asset('uploads/ships/' . $ship->image);
+
+                }
+            }
+
+        @endphp
 
 
-
-@if(isset($module->ship))
-
-
-<a href="#"
-class="btn-ar">
-
-🚢 Open Ship AR Model
-
-</a>
+        <div class="equipment-card">
 
 
-@else
+            @if($shipImageUrl)
+
+                <img
+                    src="{{ $shipImageUrl }}"
+                    alt="{{ $ship->name }}"
+                    class="equipment-image"
+                >
+
+            @endif
 
 
-<div class="empty-equipment">
+            <h2>
+                {{ $ship->name }}
+            </h2>
 
-No AR ship model available.
+
+            <p>
+                {{ $ship->description }}
+            </p>
+
+
+            <a
+                href="{{ route('ship.show', $ship->id) }}"
+                class="btn-ar"
+            >
+                🚢 View Ship
+            </a>
+
+
+        </div>
+
+    @endforeach
 
 </div>
 
+@else
+
+<div class="empty-equipment">
+
+    No ship model available.
+
+</div>
 
 @endif
 
