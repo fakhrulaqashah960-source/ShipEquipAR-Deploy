@@ -1,279 +1,285 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>
-Type of Ship Management
-</title>
+    <meta charset="UTF-8">
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<style>
+    <title>
+        Type of Ship Management
+    </title>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
-}
 
+    <style>
 
-body{
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
-background:#eef6fb;
 
-padding:40px;
+        body {
+            background: #eef6fb;
+            padding: 40px;
+            color: #0f172a;
+        }
 
-color:#0f172a;
 
-}
+        /* =========================
+           HEADER
+        ========================= */
 
+        .header {
+            background: white;
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .12);
+            margin-bottom: 25px;
+        }
 
-/* HEADER */
 
-.header{
+        .header h1 {
+            font-size: 38px;
+            font-weight: 800;
+        }
 
-background:white;
 
-padding:35px;
+        .header p {
+            margin-top: 10px;
+            color: #64748b;
+            font-size: 17px;
+        }
 
-border-radius:25px;
 
-box-shadow:0 10px 25px rgba(0,0,0,.12);
 
-margin-bottom:25px;
+        /* =========================
+           ADD BUTTON
+        ========================= */
 
-}
+        .add-btn {
+            display: inline-block;
+            background: #0284c7;
+            color: white;
+            padding: 13px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
 
 
-.header h1{
+        .add-btn:hover {
+            background: #0369a1;
+        }
 
-font-size:38px;
 
-font-weight:800;
 
-}
+        /* =========================
+           CARD
+        ========================= */
 
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 22px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .12);
+        }
 
-.header p{
 
-margin-top:10px;
+        .card img {
+            width: 250px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: block;
+        }
 
-color:#64748b;
 
-}
+        .card h2 {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
 
 
+        .card p {
+            color: #64748b;
+            line-height: 1.7;
+        }
 
 
 
-/* BUTTON */
+        /* =========================
+           AR MODEL
+        ========================= */
 
-.add-btn{
+        .ar-section {
+            margin-top: 18px;
+            margin-bottom: 20px;
+        }
 
-display:inline-block;
 
-background:#0284c7;
+        .ar-title {
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 10px;
+        }
 
-color:white;
 
-padding:13px 25px;
+        .ar-btn {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #7c3aed;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+        }
 
-border-radius:10px;
 
-text-decoration:none;
+        .ar-btn:hover {
+            background: #6d28d9;
+        }
 
-font-weight:600;
 
-margin-bottom:30px;
+        .no-ar {
+            color: #94a3b8;
+        }
 
-}
 
 
+        /* =========================
+           ACTION BUTTONS
+        ========================= */
 
-.add-btn:hover{
+        .actions {
+            margin-top: 25px;
+        }
 
-background:#0369a1;
 
-}
+        .btn {
+            display: inline-block;
+            padding: 11px 20px;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 10px;
+        }
 
 
+        .view {
+            background: #0284c7;
+        }
 
 
+        .edit {
+            background: #2563eb;
+        }
 
-/* CARD */
 
+        .delete {
+            background: #dc2626;
+        }
 
-.card{
 
-background:white;
+        .delete:hover {
+            background: #b91c1c;
+        }
 
-padding:30px;
 
-border-radius:22px;
+        button {
+            border: none;
+            cursor: pointer;
+        }
 
-margin-bottom:25px;
 
-box-shadow:0 10px 25px rgba(0,0,0,.12);
 
-}
+        /* =========================
+           EMPTY
+        ========================= */
 
+        .empty {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
 
+        .empty h2 {
+            margin-bottom: 10px;
+        }
 
 
-.card img{
+        .empty p {
+            color: #64748b;
+        }
 
-width:250px;
 
-height:160px;
 
-object-fit:cover;
+        /* =========================
+           BACK BUTTON
+        ========================= */
 
-border-radius:15px;
+        .back {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: #0f172a;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+        }
 
-margin-bottom:20px;
 
-}
+        .back:hover {
+            background: #1e293b;
+        }
 
 
 
+        /* =========================
+           RESPONSIVE
+        ========================= */
 
+        @media (max-width: 768px) {
 
-.card h2{
+            body {
+                padding: 20px;
+            }
 
-font-size:30px;
 
-margin-bottom:15px;
+            .header {
+                padding: 25px;
+            }
 
-}
 
+            .header h1 {
+                font-size: 29px;
+            }
 
 
-.card p{
+            .card img {
+                width: 100%;
+                height: auto;
+                max-height: 260px;
+            }
 
-color:#64748b;
 
-line-height:1.7;
+            .btn {
+                margin-bottom: 10px;
+            }
+        }
 
-}
-
-
-
-
-
-.ar{
-
-margin-top:15px;
-
-font-weight:600;
-
-color:#0284c7;
-
-}
-
-
-
-
-
-.actions{
-
-margin-top:25px;
-
-}
-
-
-
-.btn{
-
-display:inline-block;
-
-padding:11px 20px;
-
-border-radius:10px;
-
-color:white;
-
-text-decoration:none;
-
-font-weight:600;
-
-margin-right:10px;
-
-}
-
-
-
-.view{
-
-background:#0284c7;
-
-}
-
-
-
-.edit{
-
-background:#2563eb;
-
-}
-
-
-
-.delete{
-
-background:#dc2626;
-
-}
-
-
-
-button{
-
-border:none;
-
-cursor:pointer;
-
-}
-
-
-
-
-
-.empty{
-
-background:white;
-
-padding:40px;
-
-border-radius:20px;
-
-text-align:center;
-
-}
-
-
-.back{
-
-display:inline-block;
-
-margin-top:30px;
-
-padding:12px 25px;
-
-background:#0f172a;
-
-color:white;
-
-border-radius:10px;
-
-text-decoration:none;
-
-}
-
-
-</style>
-
+    </style>
 
 </head>
 
@@ -281,154 +287,313 @@ text-decoration:none;
 <body>
 
 
+    {{-- =========================
+         HEADER
+    ========================== --}}
 
-<div class="header">
+    <div class="header">
 
+        <h1>
+            🚢 Type of Ship Management
+        </h1>
 
-<h1>
+        <p>
+            Manage ship categories and AR learning models
+        </p>
 
-🚢 Type of Ship Management
+    </div>
 
-</h1>
 
 
-<p>
+    {{-- =========================
+         ADD SHIP
+    ========================== --}}
 
-Manage ship categories and AR learning models
+    <a href="{{ route('admin.ships.create') }}"
+       class="add-btn">
 
-</p>
+        + Add Ship
 
+    </a>
 
-</div>
 
 
+    {{-- =========================
+         SUCCESS MESSAGE
+    ========================== --}}
 
+    @if(session('success'))
 
+        <div style="
+            background:#dcfce7;
+            color:#166534;
+            padding:15px 20px;
+            border-radius:10px;
+            margin-bottom:25px;
+            font-weight:600;
+        ">
 
-<a href="{{ route('admin.ships.create') }}"
-class="add-btn">
+            {{ session('success') }}
 
-+ Add Ship
+        </div>
 
-</a>
+    @endif
 
 
 
+    {{-- =========================
+         NO SHIPS
+    ========================== --}}
 
+    @if($ships->count() == 0)
 
+        <div class="empty">
 
-@if($ships->count()==0)
+            <h2>
+                No Ship Type Available
+            </h2>
 
+            <p>
+                Please add ship category.
+            </p>
 
-<div class="empty">
+        </div>
 
-<h2>
-No Ship Type Available
-</h2>
+    @endif
 
-<p>
-Please add ship category.
-</p>
 
-</div>
 
+    {{-- =========================
+         SHIP LIST
+    ========================== --}}
 
-@endif
+    @foreach($ships as $ship)
 
+        @php
 
+            /*
+            |--------------------------------------------------------------------------
+            | IMAGE URL
+            |--------------------------------------------------------------------------
+            |
+            | Data baru:
+            | https://github.com/.../image.jpg
+            |
+            | Data lama:
+            | filename.jpg
+            |
+            */
 
+            $shipImageUrl = null;
 
+            if ($ship->image) {
 
+                if (
+                    str_starts_with($ship->image, 'http://') ||
+                    str_starts_with($ship->image, 'https://')
+                ) {
 
+                    $shipImageUrl = $ship->image;
 
-@foreach($ships as $ship)
+                } else {
 
+                    $shipImageUrl =
+                        asset('uploads/ships/' . $ship->image);
 
-<div class="card">
+                }
 
+            }
 
-@if($ship->image)
 
-<img src="{{ $ship->image }}" alt="{{ $ship->name }}">
+            /*
+            |--------------------------------------------------------------------------
+            | AR MODEL URL
+            |--------------------------------------------------------------------------
+            |
+            | Data baru:
+            | URL penuh GitHub Release
+            |
+            | Data lama:
+            | nama fail .reality
+            |
+            */
 
-@endif
+            $shipArUrl = null;
 
+            if ($ship->ar_model) {
 
+                if (
+                    str_starts_with($ship->ar_model, 'http://') ||
+                    str_starts_with($ship->ar_model, 'https://')
+                ) {
 
-<h2>
+                    $shipArUrl = $ship->ar_model;
 
-🚢 {{ $ship->name }}
+                } else {
 
-</h2>
+                    $shipArUrl =
+                        'https://github.com/' .
+                        'fakhrulaqashah960-source/' .
+                        'ShipEquipAR/' .
+                        'releases/latest/download/' .
+                        rawurlencode($ship->ar_model);
 
+                }
 
-<p>
+            }
 
-{{ $ship->description }}
+        @endphp
 
-</p>
 
 
+        <div class="card">
 
-<p>
 
-📦 AR Model:
+            {{-- =========================
+                 SHIP IMAGE
+            ========================== --}}
 
-{{ $ship->ar_model }}
+            @if($shipImageUrl)
 
-</p>
+                <img
+                    src="{{ $shipImageUrl }}"
+                    alt="{{ $ship->name }}"
+                    loading="lazy"
+                    onerror="this.style.display='none';"
+                >
 
+            @endif
 
 
 
-<a href="{{ route('admin.ships.edit',$ship->id) }}"
-class="btn edit">
+            {{-- =========================
+                 SHIP NAME
+            ========================== --}}
 
-✏ Edit
+            <h2>
+                🚢 {{ $ship->name }}
+            </h2>
 
-</a>
 
 
+            {{-- =========================
+                 DESCRIPTION
+            ========================== --}}
 
+            @if($ship->description)
 
+                <p>
+                    {{ $ship->description }}
+                </p>
 
-<form action="{{ route('admin.ships.destroy',$ship->id) }}"
-method="POST"
-style="display:inline">
+            @else
 
+                <p>
+                    No description available.
+                </p>
 
-@csrf
+            @endif
 
-@method('DELETE')
 
 
-<button class="btn delete">
+            {{-- =========================
+                 AR MODEL
+            ========================== --}}
 
-🗑 Delete
+            <div class="ar-section">
 
-</button>
+                <div class="ar-title">
+                    📦 AR Model
+                </div>
 
 
-</form>
+                @if($shipArUrl)
 
+                    <a
+                        href="{{ $shipArUrl }}"
+                        class="ar-btn"
+                        rel="ar"
+                    >
 
-</div>
+                        📱 Open AR Model
 
+                    </a>
 
-@endforeach
+                @else
 
+                    <span class="no-ar">
+                        No AR model uploaded
+                    </span>
 
+                @endif
 
+            </div>
 
 
-<a href="{{ route('admin.dashboard') }}"
-class="back">
 
-← Back Dashboard
+            {{-- =========================
+                 ACTIONS
+            ========================== --}}
 
-</a>
+            <div class="actions">
 
 
+                <a
+                    href="{{ route('admin.ships.edit', $ship->id) }}"
+                    class="btn edit"
+                >
+
+                    ✏ Edit
+
+                </a>
+
+
+
+                <form
+                    action="{{ route('admin.ships.destroy', $ship->id) }}"
+                    method="POST"
+                    style="display:inline"
+                    onsubmit="return confirm('Delete this ship?')"
+                >
+
+                    @csrf
+
+                    @method('DELETE')
+
+
+                    <button
+                        type="submit"
+                        class="btn delete"
+                    >
+
+                        🗑 Delete
+
+                    </button>
+
+                </form>
+
+
+            </div>
+
+
+        </div>
+
+    @endforeach
+
+
+
+    {{-- =========================
+         BACK
+    ========================== --}}
+
+    <a
+        href="{{ route('admin.dashboard') }}"
+        class="back"
+    >
+
+        ← Back Dashboard
+
+    </a>
 
 
 </body>
