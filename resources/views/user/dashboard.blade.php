@@ -1,539 +1,698 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>
-ShipEquipAR Dashboard
-</title>
+    <meta charset="UTF-8">
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<style>
+    <title>
+        ShipEquipAR Dashboard
+    </title>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
-}
 
+    <style>
 
-body{
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
-min-height:100vh;
 
-background:
-linear-gradient(
-135deg,
-rgba(15,23,42,.95),
-rgba(2,132,199,.75)
-),
-url('/images/ship-bg.jpg');
+        body {
 
-background-size:cover;
-background-position:center;
+            min-height: 100vh;
 
-color:white;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(15,23,42,.95),
+                    rgba(2,132,199,.75)
+                ),
+                url('/images/ship-bg.jpg');
 
-}
+            background-size: cover;
+            background-position: center;
 
+            color: white;
+        }
 
-/* SIDEBAR */
 
-.sidebar{
 
-position:fixed;
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
 
-left:0;
-top:0;
+        .sidebar {
 
-width:245px;
+            position: fixed;
 
-height:100vh;
+            left: 0;
+            top: 0;
 
-background:#0f172a;
+            width: 245px;
 
-padding:25px 20px;
+            height: 100vh;
 
-overflow-y:auto;
+            background: #0f172a;
 
-}
+            padding: 25px 20px;
 
+            overflow-y: auto;
+        }
 
 
-.logo{
 
-font-size:25px;
+        .logo {
 
-font-weight:800;
+            font-size: 25px;
 
-text-align:center;
+            font-weight: 800;
 
-margin-bottom:35px;
+            text-align: center;
 
-}
+            margin-bottom: 35px;
+        }
 
 
 
-.logo span{
+        .logo span {
 
-color:#38bdf8;
+            color: #38bdf8;
+        }
 
-}
 
 
+        .menu {
 
-.menu{
+            display: flex;
 
-display:flex;
+            flex-direction: column;
 
-flex-direction:column;
+            gap: 8px;
+        }
 
-gap:8px;
 
-}
 
+        /* =====================================================
+           NORMAL MENU
+        ===================================================== */
 
+        .menu > a {
 
-/* NORMAL MENU */
+            display: flex;
 
+            align-items: center;
 
-.menu>a{
+            padding: 12px 14px;
 
-display:flex;
+            border-radius: 10px;
 
-align-items:center;
+            color: #cbd5e1;
 
-padding:12px 14px;
+            text-decoration: none;
 
-border-radius:10px;
+            font-size: 14px;
 
-color:#cbd5e1;
+            font-weight: 400;
 
-text-decoration:none;
+            transition: .3s;
+        }
 
-font-size:14px;
 
-font-weight:400;
 
-transition:.3s;
+        .menu > a:hover {
 
-}
+            background: #0284c7;
 
+            color: white;
+        }
 
 
 
-.menu>a:hover{
+        .menu > a.active {
 
-background:#0284c7;
+            background: #0284c7;
 
-color:white;
+            color: white;
 
-}
+            font-weight: 700;
+        }
 
 
 
+        /* =====================================================
+           LEARNING MODULE TITLE
+        ===================================================== */
 
-.menu>a.active{
+        .module-title {
 
-background:#0284c7;
+            display: flex;
 
-color:white;
+            justify-content: space-between;
 
-font-weight:700;
+            align-items: center;
 
-}
+            background: #1e293b;
 
+            padding: 13px 14px;
 
+            border-radius: 10px;
 
-/* LEARNING MODULE */
+            cursor: pointer;
 
+            font-size: 14px;
 
-.module-title{
+            font-weight: 400;
 
-display:flex;
+            color: #cbd5e1;
 
-justify-content:space-between;
+            transition: .3s;
+        }
 
-align-items:center;
 
-background:#1e293b;
 
-padding:13px 14px;
+        .module-title.active {
 
-border-radius:10px;
+            background: #0284c7;
 
-cursor:pointer;
+            color: white;
 
-font-size:14px;
+            font-weight: 700;
+        }
 
-font-weight:400;
 
-color:#cbd5e1;
 
-transition:.3s;
+        .module-title span:last-child {
 
-}
+            font-size: 15px;
+        }
 
 
 
+        .module-content {
 
-.module-title.active{
+            display: none;
 
-background:#0284c7;
+            margin-top: 8px;
 
-color:white;
+            margin-left: 14px;
+        }
 
-font-weight:700;
 
-}
 
+        .module-content.active {
 
+            display: block;
+        }
 
 
-.module-title span:last-child{
 
-font-size:15px;
+        /* =====================================================
+           MODULE ITEM
+        ===================================================== */
 
-}
+        .module-item {
 
+            display: flex;
 
+            justify-content: space-between;
 
+            align-items: center;
 
+            background: #1e293b;
 
-.module-content{
+            padding: 12px;
 
-display:none;
+            border-radius: 10px;
 
-margin-top:8px;
+            margin-bottom: 8px;
 
-margin-left:14px;
+            cursor: pointer;
 
-}
+            font-size: 14px;
 
+            font-weight: 400;
+        }
 
 
-.module-content.active{
 
-display:block;
+        .module-item:hover {
 
-}
+            background: #0284c7;
+        }
 
 
 
+        .module-list {
 
+            display: none;
 
-.module-item{
+            margin-left: 10px;
 
+            margin-bottom: 10px;
+        }
 
-display:flex;
 
-justify-content:space-between;
 
-align-items:center;
+        .module-list.active {
 
-background:#1e293b;
+            display: block;
+        }
 
-padding:12px;
 
-border-radius:10px;
 
-margin-bottom:8px;
+        /* =====================================================
+           INTRODUCTION LINK
+        ===================================================== */
 
-cursor:pointer;
+        .intro-link {
 
-font-size:14px;
+            display: block;
 
-font-weight:400;
+            background: #0f766e;
 
-}
+            padding: 10px;
 
+            border-radius: 10px;
 
+            margin-bottom: 8px;
 
-.module-item:hover{
+            color: white;
 
-background:#0284c7;
+            text-decoration: none;
 
-}
+            font-size: 13px;
 
+            font-weight: 600;
 
+            line-height: 1.5;
+        }
 
 
 
+        .intro-link:hover {
 
+            background: #0d9488;
+        }
 
-.module-list{
 
-display:none;
 
-margin-left:10px;
+        /* =====================================================
+           EQUIPMENT CARD
+        ===================================================== */
 
-}
+        .equipment-card {
 
+            display: flex;
 
+            align-items: center;
 
-.module-list.active{
+            gap: 10px;
 
-display:block;
+            background: #172554;
 
-}
+            padding: 10px;
 
+            border-radius: 10px;
 
+            margin-bottom: 7px;
 
+            text-decoration: none;
 
+            color: white;
 
+            font-size: 13px;
 
+            transition: .3s;
+        }
 
-.intro-link{
 
-display:block;
 
-background:#0f766e;
+        .equipment-card:hover {
 
-padding:10px;
+            background: #0284c7;
+        }
 
-border-radius:10px;
 
-margin-bottom:8px;
 
-color:white;
+        .equipment-icon {
 
-text-decoration:none;
+            font-size: 18px;
+        }
 
-font-size:13px;
 
-font-weight:600;
 
-}
+        .equipment-card strong {
 
+            color: #bae6fd;
 
+            font-weight: 500;
+        }
 
 
 
-.equipment-card{
+        /* =====================================================
+           SHIP CARD - USER SIDEBAR
+        ===================================================== */
 
-display:flex;
+        .ship-sidebar-card {
 
-align-items:center;
+            display: flex;
 
-gap:10px;
+            align-items: center;
 
-background:#172554;
+            gap: 10px;
 
-padding:10px;
+            background: #164e63;
 
-border-radius:10px;
+            padding: 10px;
 
-margin-bottom:7px;
+            border-radius: 10px;
 
-text-decoration:none;
+            margin-bottom: 7px;
 
-color:white;
+            color: white;
 
-font-size:13px;
+            text-decoration: none;
 
-}
+            font-size: 13px;
 
+            transition: .3s;
+        }
 
 
 
-.equipment-card:hover{
+        .ship-sidebar-card:hover {
 
-background:#0284c7;
+            background: #0284c7;
 
-}
+            transform: translateX(3px);
+        }
 
 
 
+        .ship-sidebar-icon {
 
-.equipment-icon{
+            font-size: 18px;
 
-font-size:18px;
+            flex-shrink: 0;
+        }
 
-}
 
 
+        .ship-sidebar-card strong {
 
+            color: #cffafe;
 
-.equipment-card strong{
+            font-weight: 600;
 
-color:#bae6fd;
+            line-height: 1.4;
+        }
 
-font-weight:500;
 
-}
 
-/* LOGOUT */
+        .no-ship-sidebar {
 
-.logout-btn{
+            display: block;
 
-margin-top:30px;
+            background: #334155;
 
-width:100%;
+            padding: 10px;
 
-padding:12px;
+            border-radius: 10px;
 
-background:#ef4444;
+            margin-bottom: 7px;
 
-border:none;
+            color: #94a3b8;
 
-border-radius:10px;
+            font-size: 12px;
 
-color:white;
+            text-align: center;
+        }
 
-font-weight:600;
 
-cursor:pointer;
 
-}
+        /* =====================================================
+           LOGOUT
+        ===================================================== */
 
+        .logout-btn {
 
+            margin-top: 30px;
 
-/* CONTENT */
+            width: 100%;
 
+            padding: 12px;
 
-.content{
+            background: #ef4444;
 
-margin-left:245px;
+            border: none;
 
-padding:35px;
+            border-radius: 10px;
 
-}
+            color: white;
 
+            font-weight: 600;
 
+            cursor: pointer;
+        }
 
-.welcome{
 
 
-background:
+        .logout-btn:hover {
 
-linear-gradient(
-135deg,
-#0e7490,
-#0f172a
-);
+            background: #dc2626;
+        }
 
 
-padding:45px;
 
-border-radius:25px;
+        /* =====================================================
+           CONTENT
+        ===================================================== */
 
-display:flex;
+        .content {
 
-justify-content:space-between;
+            margin-left: 245px;
 
-align-items:center;
+            padding: 35px;
+        }
 
-}
 
 
+        .welcome {
 
-.welcome h1{
+            background:
+                linear-gradient(
+                    135deg,
+                    #0e7490,
+                    #0f172a
+                );
 
-font-size:40px;
+            padding: 45px;
 
-}
+            border-radius: 25px;
 
+            display: flex;
 
+            justify-content: space-between;
 
-.welcome h2{
+            align-items: center;
+        }
 
-color:#7dd3fc;
 
-margin-top:10px;
 
-}
+        .welcome h1 {
 
+            font-size: 40px;
+        }
 
 
-.welcome p{
 
-margin-top:20px;
+        .welcome h2 {
 
-line-height:1.7;
+            color: #7dd3fc;
 
-max-width:650px;
+            margin-top: 10px;
+        }
 
-}
 
 
+        .welcome p {
 
-.ship{
+            margin-top: 20px;
 
-font-size:90px;
+            line-height: 1.7;
 
-}
+            max-width: 650px;
+        }
 
 
 
-.introduction-section{
+        .ship {
 
-margin-top:35px;
+            font-size: 90px;
+        }
 
-display:grid;
 
-grid-template-columns:repeat(2,1fr);
 
-gap:20px;
+        /* =====================================================
+           INTRODUCTION SECTION
+        ===================================================== */
 
-}
+        .introduction-section {
 
+            margin-top: 35px;
 
+            display: grid;
 
-.section-title{
+            grid-template-columns:
+                repeat(2, 1fr);
 
-grid-column:1/3;
+            gap: 20px;
+        }
 
-font-size:30px;
 
-color:#bae6fd;
 
-}
+        .section-title {
 
+            grid-column: 1 / 3;
 
+            font-size: 30px;
 
-.intro-item{
+            color: #bae6fd;
+        }
 
-background:rgba(255,255,255,.15);
 
-padding:25px;
 
-border-radius:20px;
+        .intro-item {
 
-}
+            background:
+                rgba(255,255,255,.15);
 
+            padding: 25px;
 
+            border-radius: 20px;
+        }
 
-.intro-item h3{
 
-margin-bottom:15px;
 
-}
+        .intro-item h3 {
 
+            margin-bottom: 15px;
+        }
 
 
-.intro-item p{
 
-line-height:1.7;
+        .intro-item p {
 
-}
+            line-height: 1.7;
+        }
 
-.notes-btn{
 
-background:#0284c7;
 
-color:white;
+        .notes-btn {
 
-padding:12px 25px;
+            background: #0284c7;
 
-border-radius:10px;
+            color: white;
 
-text-decoration:none;
+            padding: 12px 25px;
 
-}
+            border-radius: 10px;
 
+            text-decoration: none;
+        }
 
-</style>
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media(max-width:900px) {
+
+            .sidebar {
+
+                width: 220px;
+            }
+
+
+            .content {
+
+                margin-left: 220px;
+
+                padding: 25px;
+            }
+
+
+            .welcome {
+
+                padding: 30px;
+            }
+
+
+            .welcome h1 {
+
+                font-size: 32px;
+            }
+
+
+            .ship {
+
+                font-size: 65px;
+            }
+
+        }
+
+
+
+        @media(max-width:700px) {
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+            }
+
+
+            .content {
+
+                margin-left: 0;
+            }
+
+
+            .welcome {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 20px;
+            }
+
+
+            .introduction-section {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .section-title {
+
+                grid-column: 1;
+            }
+
+        }
+
+    </style>
 
 
 </head>
@@ -542,556 +701,700 @@ text-decoration:none;
 <body>
 
 
+
+{{-- =========================================================
+     SIDEBAR
+========================================================= --}}
+
 <div class="sidebar">
 
 
+    {{-- LOGO --}}
 
-<div class="logo">
+    <div class="logo">
 
-⚓ Ship<span>EquipAR</span>
+        ⚓ Ship<span>EquipAR</span>
+
+    </div>
+
+
+
+    <div class="menu">
+
+
+        {{-- =================================================
+             DASHBOARD
+        ================================================== --}}
+
+        <a
+            href="{{ route('dashboard') }}"
+            class="{{ request()->is('dashboard') ? 'active' : '' }}"
+        >
+
+            🏠 Dashboard
+
+        </a>
+
+
+
+        {{-- =================================================
+             LEARNING MODULE
+        ================================================== --}}
+
+        <div>
+
+
+            <div
+                id="learningTitle"
+                class="module-title"
+                onclick="toggleModule()"
+            >
+
+
+                <span>
+
+                    📚 Learning Module
+
+                </span>
+
+
+                <span id="mainArrow">
+
+                    ▼
+
+                </span>
+
+
+            </div>
+
+
+
+            <div
+                id="moduleContent"
+                class="module-content"
+            >
+
+
+                @foreach($modules as $module)
+
+
+                    {{-- =====================================
+                         MODULE TITLE
+                    ====================================== --}}
+
+                    <div
+                        class="module-item"
+                        onclick="toggleEquipment({{ $module->id }})"
+                    >
+
+
+                        <span>
+
+                            📘 {{ $module->title }}
+
+                        </span>
+
+
+                        <span id="arrow{{ $module->id }}">
+
+                            ▼
+
+                        </span>
+
+
+                    </div>
+
+
+
+                    {{-- =====================================
+                         MODULE CONTENT
+                    ====================================== --}}
+
+                    <div
+                        id="equipment{{ $module->id }}"
+                        class="module-list"
+                    >
+
+
+
+                        {{-- INTRODUCTION --}}
+
+                        <a
+                            href="{{ route('learning.show', $module->id) }}"
+                            class="intro-link"
+                        >
+
+                            📖 Introduction to
+                            {{ ucfirst($module->category) }}
+
+                        </a>
+
+
+
+                        {{-- =================================
+                             SHIP MODELS
+
+                             Ship hanya muncul dalam module
+                             Cargo / Freight.
+                        ================================== --}}
+
+                        @if(
+                            str_contains(
+                                strtolower($module->category ?? ''),
+                                'cargo'
+                            )
+                            ||
+                            str_contains(
+                                strtolower($module->category ?? ''),
+                                'freight'
+                            )
+                            ||
+                            str_contains(
+                                strtolower($module->title ?? ''),
+                                'ship model'
+                            )
+                        )
+
+
+                            @forelse(($ships ?? collect()) as $ship)
+
+
+                                <a
+                                    href="{{ route('user.ship-models') }}"
+                                    class="ship-sidebar-card"
+                                >
+
+
+                                    <span class="ship-sidebar-icon">
+
+                                        🚢
+
+                                    </span>
+
+
+                                    <strong>
+
+                                        {{ $ship->name }}
+
+                                    </strong>
+
+
+                                </a>
+
+
+                            @empty
+
+
+                                <span class="no-ship-sidebar">
+
+                                    No ship available
+
+                                </span>
+
+
+                            @endforelse
+
+
+                        @endif
+
+
+
+                        {{-- =================================
+                             EQUIPMENT LIST
+                        ================================== --}}
+
+                        @foreach($module->equipments as $equipment)
+
+
+                            <a
+                                href="{{ route('equipment.show', $equipment->id) }}"
+                                class="equipment-card"
+                            >
+
+
+                                <span class="equipment-icon">
+
+
+                                    @if(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Helmet'
+                                        )
+                                    )
+
+                                        ⛑️
+
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Glasses'
+                                        )
+                                    )
+
+                                        🥽
+
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Gloves'
+                                        )
+                                    )
+
+                                        🧤
+
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Coverall'
+                                        )
+                                    )
+
+                                        🥼
+
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Boots'
+                                        )
+                                    )
+
+                                        🥾
+
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'CCTV'
+                                        )
+                                    )
+
+                                        📹
+
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Alarm'
+                                        )
+                                    )
+
+                                        🚨
+
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Radar'
+                                        )
+                                    )
+
+                                        📡
+
+
+                                    @elseif(
+                                        str_contains(
+                                            $equipment->name,
+                                            'Ear muffs'
+                                        )
+                                    )
+
+                                        🎧
+
+
+                                    @else
+
+                                        ⚓
+
+                                    @endif
+
+
+                                </span>
+
+
+
+                                <strong>
+
+                                    {{ $equipment->name }}
+
+                                </strong>
+
+
+                            </a>
+
+
+                        @endforeach
+
+
+                    </div>
+
+
+                @endforeach
+
+
+            </div>
+
+
+        </div>
+
+
+
+        {{-- =================================================
+             MODULE NOTES
+        ================================================== --}}
+
+        <a href="{{ route('user.notes') }}">
+
+            📘 Module Notes
+
+        </a>
+
+
+
+        {{-- =================================================
+             QUIZ
+        ================================================== --}}
+
+        <a href="{{ route('quiz.index') }}">
+
+            📝 Start Quiz
+
+        </a>
+
+
+
+        {{-- =================================================
+             CERTIFICATE
+        ================================================== --}}
+
+        <a href="#">
+
+            🏆 Get Certificate
+
+        </a>
+
+
+
+        {{-- =================================================
+             SHIP BOT
+        ================================================== --}}
+
+        <a href="#">
+
+            🤖 Ship Bot
+
+        </a>
+
+
+
+        {{-- =================================================
+             PROFILE
+        ================================================== --}}
+
+        <a href="{{ route('profile.edit') }}">
+
+            👤 Profile
+
+        </a>
+
+
+
+        {{-- =================================================
+             LOGOUT
+        ================================================== --}}
+
+        <form
+            method="POST"
+            action="{{ route('logout') }}"
+        >
+
+            @csrf
+
+
+            <button
+                type="submit"
+                class="logout-btn"
+            >
+
+                Logout
+
+            </button>
+
+
+        </form>
+
+
+    </div>
+
 
 </div>
 
 
 
-
-<div class="menu">
-
-
-
-
-
-<a href="/dashboard"
-class="{{request()->is('dashboard') ? 'active':''}}">
-
-🏠 Dashboard
-
-</a>
-
-
-
-
-
-<div>
-
-
-
-<div id="learningTitle"
-class="module-title"
-onclick="toggleModule()">
-
-
-
-<span>
-
-📚 Learning Module
-
-</span>
-
-
-<span id="mainArrow">
-
-▼
-
-</span>
-
-
-</div>
-
-
-
-
-
-
-
-<div id="moduleContent"
-class="module-content">
-
-
-
-@foreach($modules as $module)
-
-
-
-<div class="module-item"
-onclick="toggleEquipment({{$module->id}})">
-
-
-
-<span>
-
-📘 {{$module->title}}
-
-</span>
-
-
-
-<span id="arrow{{$module->id}}">
-
-▼
-
-</span>
-
-
-</div>
-
-
-
-
-
-
-
-<div id="equipment{{$module->id}}"
-class="module-list">
-
-
-
-
-
-<a href="{{route('learning.show',$module->id)}}"
-class="intro-link">
-
-📖 Introduction to {{ ucfirst($module->category) }}
-
-</a>
-
-
-
-
-
-
-@foreach($module->equipments as $equipments)
-
-
-
-<a href="{{route('equipment.show',$equipments->id)}}"
-class="equipment-card">
-
-
-
-<span class="equipment-icon">
-
-
-@if(str_contains($equipments->name,'Helmet'))
-
-⛑️
-
-
-@elseif(str_contains($equipments->name,'Glasses'))
-
-🥽
-
-
-@elseif(str_contains($equipments->name,'Gloves'))
-
-🧤
-
-
-@elseif(str_contains($equipments->name,'Coverall'))
-
-🥼
-
-
-@elseif(str_contains($equipments->name,'Boots'))
-
-🥾
-
-
-@elseif(str_contains($equipments->name,'CCTV'))
-
-📹
-
-
-@elseif(str_contains($equipments->name,'Alarm'))
-
-🚨
-
-
-@elseif(str_contains($equipments->name,'Radar'))
-
-📡
-
-@elseif(str_contains($equipments->name,'Ear muffs'))
-
-🎧
-
-@else
-
-⚓
-
-@endif
-
-
-</span>
-
-
-
-<strong>
-
-{{$equipments->name}}
-
-</strong>
-
-
-</a>
-
-
-
-@endforeach
-
-
-
-
-</div>
-
-
-
-@endforeach
-
-
-
-</div>
-
-
-
-</div>
-
-
-<a href="{{ route('user.notes') }}">
-
-📘 Module Notes
-
-</a>
-
-
-<a href="{{ route('quiz.index') }}">
-
-📝 Start Quiz
-
-</a>
-
-
-<a href="#">
-
-🏆 Get Certificate
-
-</a>
-
-
-
-
-
-<a href="#">
-
-🤖 Ship Bot
-
-</a>
-
-
-
-
-
-<a href="/profile">
-
-👤 Profile
-
-</a>
-
-
-
-
-
-<form method="POST" action="{{route('logout')}}">
-
-@csrf
-
-
-<button class="logout-btn">
-
-Logout
-
-</button>
-
-
-</form>
-
-
-
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
+{{-- =========================================================
+     MAIN CONTENT
+========================================================= --}}
 
 <div class="content">
 
 
 
+    {{-- =====================================================
+         WELCOME
+    ====================================================== --}}
+
+    <div class="welcome">
 
 
-<div class="welcome">
+        <div>
+
+
+            <h1>
+
+                ⚓ Welcome to ShipEquipAR
+
+            </h1>
+
+
+            <h2>
+
+                Augmented Reality Maritime Learning Platform
+
+            </h2>
+
+
+            <p>
+
+                Explore ship equipment, marine components
+                and safety systems through interactive
+                AR-based learning.
+
+            </p>
+
+
+        </div>
 
 
 
-<div>
+        <div class="ship">
+
+            🚢
+
+        </div>
 
 
-<h1>
-
-⚓ Welcome to ShipEquipAR
-
-</h1>
-
-
-
-<h2>
-
-Augmented Reality Maritime Learning Platform
-
-</h2>
+    </div>
 
 
 
-<p>
+    {{-- =====================================================
+         WEBSITE INTRODUCTION
+    ====================================================== --}}
 
-Explore ship equipment, marine components and safety systems through interactive AR-based learning.
+    <div class="introduction-section">
 
-</p>
+
+        <div class="section-title">
+
+            Website Introduction
+
+        </div>
+
+
+
+        <div class="intro-item">
+
+
+            <h3>
+
+                ⚓ What is ShipEquipAR?
+
+            </h3>
+
+
+            <p>
+
+                ShipEquipAR is an Augmented Reality
+                maritime learning platform designed
+                to help users understand ship equipment
+                through interactive digital learning.
+
+            </p>
+
+
+        </div>
+
+
+
+        <div class="intro-item">
+
+
+            <h3>
+
+                🎯 System Objectives
+
+            </h3>
+
+
+            <p>
+
+                The system provides learning materials,
+                equipment information, AR visualization
+                and interactive maritime education.
+
+            </p>
+
+
+        </div>
+
+
+
+        <div class="intro-item">
+
+
+            <h3>
+
+                📱 AR Application
+
+            </h3>
+
+
+            <p>
+
+                AR technology allows users to visualize
+                marine equipment models in a real-world
+                environment.
+
+            </p>
+
+
+        </div>
+
+
+
+        <div class="intro-item">
+
+
+            <h3>
+
+                ✨ Platform Benefits
+
+            </h3>
+
+
+            <p>
+
+                Provides immersive learning experience,
+                easy information access and interactive
+                maritime education.
+
+            </p>
+
+
+        </div>
+
+
+    </div>
 
 
 </div>
 
 
 
-
-<div class="ship">
-
-🚢
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="introduction-section">
-
-
-
-<div class="section-title">
-
-Website Introduction
-
-</div>
-
-
-
-
-
-<div class="intro-item">
-
-
-<h3>
-
-⚓ What is ShipEquipAR?
-
-</h3>
-
-
-<p>
-
-ShipEquipAR is an Augmented Reality maritime learning platform designed to help users understand ship equipment through interactive digital learning.
-
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="intro-item">
-
-
-<h3>
-
-🎯 System Objectives
-
-</h3>
-
-
-<p>
-
-The system provides learning materials, equipment information, AR visualization and interactive maritime education.
-
-</p>
-
-
-</div>
-
-
-
-
-
-
-<div class="intro-item">
-
-
-<h3>
-
-📱 AR Application
-
-</h3>
-
-
-<p>
-
-AR technology allows users to visualize marine equipment models in a real-world environment.
-
-</p>
-
-
-</div>
-
-
-
-
-
-
-<div class="intro-item">
-
-
-<h3>
-
-✨ Platform Benefits
-
-</h3>
-
-
-<p>
-
-Provides immersive learning experience, easy information access and interactive maritime education.
-
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-</div>
-
-
-
-
-
-
+{{-- =========================================================
+     JAVASCRIPT
+========================================================= --}}
 
 <script>
 
 
-function toggleModule()
+    function toggleModule()
+    {
 
-{
+        let box =
+            document.getElementById(
+                "moduleContent"
+            );
 
+        let arrow =
+            document.getElementById(
+                "mainArrow"
+            );
 
-let box=document.getElementById("moduleContent");
-
-let arrow=document.getElementById("mainArrow");
-
-let title=document.getElementById("learningTitle");
-
-
-
-box.classList.toggle("active");
-
-title.classList.toggle("active");
-
-
-
-if(box.classList.contains("active"))
-
-{
-
-arrow.innerHTML="▲";
-
-}
-
-else
-
-{
-
-arrow.innerHTML="▼";
-
-}
+        let title =
+            document.getElementById(
+                "learningTitle"
+            );
 
 
-}
+        box.classList.toggle(
+            "active"
+        );
 
 
+        title.classList.toggle(
+            "active"
+        );
 
 
+        if (
+            box.classList.contains(
+                "active"
+            )
+        ) {
 
+            arrow.innerHTML = "▲";
 
-function toggleEquipment(id)
+        } else {
 
-{
+            arrow.innerHTML = "▼";
 
+        }
 
-let box=document.getElementById("equipment"+id);
-
-let arrow=document.getElementById("arrow"+id);
+    }
 
 
 
-box.classList.toggle("active");
+    function toggleEquipment(id)
+    {
+
+        let box =
+            document.getElementById(
+                "equipment" + id
+            );
+
+        let arrow =
+            document.getElementById(
+                "arrow" + id
+            );
 
 
-
-if(box.classList.contains("active"))
-
-{
-
-arrow.innerHTML="▲";
-
-}
-
-else
-
-{
-
-arrow.innerHTML="▼";
-
-}
+        box.classList.toggle(
+            "active"
+        );
 
 
+        if (
+            box.classList.contains(
+                "active"
+            )
+        ) {
 
-}
+            arrow.innerHTML = "▲";
+
+        } else {
+
+            arrow.innerHTML = "▼";
+
+        }
+
+    }
 
 
 </script>
-
 
 
 </body>

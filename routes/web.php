@@ -106,19 +106,28 @@ Route::middleware([
 
     Route::get('/dashboard', function () {
 
-        $modules =
-            \App\Models\Module::with(
-                'equipments'
-            )->get();
+    $modules =
+        \App\Models\Module::with(
+            'equipments'
+        )->get();
+
+    $ships =
+        \App\Models\Ship::orderBy(
+            'id',
+            'asc'
+        )->get();
 
 
-        return view(
-            'user.dashboard',
-            compact('modules')
-        );
+    return view(
+        'user.dashboard',
+        compact(
+            'modules',
+            'ships'
+        )
+    );
 
-    })
-    ->name('dashboard');
+})
+->name('dashboard');
 
 
 
