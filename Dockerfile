@@ -33,8 +33,14 @@ WORKDIR /var/www/html
 # Copy Laravel project
 COPY . .
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
+ENV COMPOSER_MAX_PARALLEL_HTTP=4
+
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --prefer-dist \
+    --no-interaction \
+    --no-progress
 
 # Install and build Vite
 RUN npm ci && npm run build
