@@ -39,6 +39,6 @@ return [
     'token' => env('GITHUB_AR_TOKEN'),
     'owner' => env('GITHUB_AR_OWNER'),
     'repo'  => env('GITHUB_AR_REPO'),
-    ],
+],
 
 ];
