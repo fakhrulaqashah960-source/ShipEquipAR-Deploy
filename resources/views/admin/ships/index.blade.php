@@ -349,7 +349,7 @@ Please add ship category.
 
 @if($ship->image)
 
-<img src="{{ asset('uploads/ships/'.$ship->image) }}">
+<img src="{{ $ship->image }}" alt="{{ $ship->name }}">
 
 @endif
 
