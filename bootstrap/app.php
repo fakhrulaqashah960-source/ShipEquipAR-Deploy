@@ -1,19 +1,16 @@
 <?php
 
-
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-
 
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\PreventBackHistory;
 
 
-
 return Application::configure(basePath: dirname(__DIR__))
-
 
     ->withRouting(
 
@@ -26,8 +23,30 @@ return Application::configure(basePath: dirname(__DIR__))
     )
 
 
-
     ->withMiddleware(function (Middleware $middleware) {
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Trust Render Proxy
+        |--------------------------------------------------------------------------
+        |
+        | Render berada di depan Laravel sebagai proxy.
+        | Ini memastikan Laravel tahu request sebenar menggunakan HTTPS.
+        |
+        */
+
+        $middleware->trustProxies(
+
+            at: '*',
+
+            headers:
+                Request::HEADER_X_FORWARDED_FOR |
+                Request::HEADER_X_FORWARDED_HOST |
+                Request::HEADER_X_FORWARDED_PORT |
+                Request::HEADER_X_FORWARDED_PROTO
+
+        );
 
 
 
@@ -37,21 +56,15 @@ return Application::configure(basePath: dirname(__DIR__))
         |--------------------------------------------------------------------------
         */
 
-
         $middleware->alias([
 
+            'admin' => AdminMiddleware::class,
 
-        'admin'=>AdminMiddleware::class,
+            'user' => UserMiddleware::class,
 
-        'user'=>UserMiddleware::class,
+            'prevent.back' => PreventBackHistory::class,
 
-
-        'prevent.back'=>PreventBackHistory::class,
-
-
-]);
-
-
+        ]);
 
 
 
@@ -61,26 +74,20 @@ return Application::configure(basePath: dirname(__DIR__))
         |--------------------------------------------------------------------------
         */
 
-
         $middleware->append([
-
 
             PreventBackHistory::class,
 
-
         ]);
 
-
-
     })
-
 
 
     ->withExceptions(function (Exceptions $exceptions) {
 
+        //
 
     })
-
 
 
     ->create();
