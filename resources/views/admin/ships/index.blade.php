@@ -80,6 +80,21 @@
 
 
         /* =========================
+           SUCCESS MESSAGE
+        ========================= */
+
+        .success-box {
+            background: #dcfce7;
+            color: #166534;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+
+
+        /* =========================
            CARD
         ========================= */
 
@@ -93,11 +108,11 @@
 
 
         .card img {
-            width: 250px;
-            height: 160px;
+            width: 310px;
+            height: 200px;
             object-fit: cover;
             border-radius: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: block;
         }
 
@@ -110,46 +125,36 @@
 
         .card p {
             color: #64748b;
-            line-height: 1.7;
+            line-height: 1.8;
+            font-size: 16px;
         }
 
 
 
         /* =========================
-           AR MODEL
+           STATUS
         ========================= */
 
-        .ar-section {
+        .model-status {
             margin-top: 18px;
-            margin-bottom: 20px;
-        }
-
-
-        .ar-title {
-            font-weight: 700;
-            color: #334155;
-            margin-bottom: 10px;
-        }
-
-
-        .ar-btn {
-            display: inline-block;
-            padding: 10px 18px;
-            background: #7c3aed;
-            color: white;
-            text-decoration: none;
+            padding: 12px 16px;
+            background: #f8fafc;
             border-radius: 10px;
+            display: inline-block;
             font-weight: 600;
+            color: #475569;
         }
 
 
-        .ar-btn:hover {
-            background: #6d28d9;
+        .model-ready {
+            color: #166534;
+            background: #dcfce7;
         }
 
 
-        .no-ar {
-            color: #94a3b8;
+        .model-empty {
+            color: #64748b;
+            background: #f1f5f9;
         }
 
 
@@ -160,6 +165,10 @@
 
         .actions {
             margin-top: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
 
@@ -170,17 +179,19 @@
             color: white;
             text-decoration: none;
             font-weight: 600;
-            margin-right: 10px;
-        }
-
-
-        .view {
-            background: #0284c7;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
         }
 
 
         .edit {
             background: #2563eb;
+        }
+
+
+        .edit:hover {
+            background: #1d4ed8;
         }
 
 
@@ -191,12 +202,6 @@
 
         .delete:hover {
             background: #b91c1c;
-        }
-
-
-        button {
-            border: none;
-            cursor: pointer;
         }
 
 
@@ -237,6 +242,7 @@
             color: white;
             border-radius: 10px;
             text-decoration: none;
+            font-weight: 600;
         }
 
 
@@ -267,6 +273,11 @@
             }
 
 
+            .card {
+                padding: 22px;
+            }
+
+
             .card img {
                 width: 100%;
                 height: auto;
@@ -274,8 +285,25 @@
             }
 
 
+            .actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+
             .btn {
-                margin-bottom: 10px;
+                width: 100%;
+                text-align: center;
+            }
+
+
+            .actions form {
+                width: 100%;
+            }
+
+
+            .actions form button {
+                width: 100%;
             }
         }
 
@@ -298,7 +326,7 @@
         </h1>
 
         <p>
-            Manage ship categories and AR learning models
+            Manage ship categories, images and AR learning models
         </p>
 
     </div>
@@ -309,11 +337,11 @@
          ADD SHIP
     ========================== --}}
 
-    <a href="{{ route('admin.ships.create') }}"
-       class="add-btn">
-
+    <a
+        href="{{ route('admin.ships.create') }}"
+        class="add-btn"
+    >
         + Add Ship
-
     </a>
 
 
@@ -324,17 +352,8 @@
 
     @if(session('success'))
 
-        <div style="
-            background:#dcfce7;
-            color:#166534;
-            padding:15px 20px;
-            border-radius:10px;
-            margin-bottom:25px;
-            font-weight:600;
-        ">
-
+        <div class="success-box">
             {{ session('success') }}
-
         </div>
 
     @endif
@@ -342,7 +361,7 @@
 
 
     {{-- =========================
-         NO SHIPS
+         EMPTY
     ========================== --}}
 
     @if($ships->count() == 0)
@@ -377,10 +396,10 @@
             |--------------------------------------------------------------------------
             |
             | Data baru:
-            | https://github.com/.../image.jpg
+            | GitHub Release full URL
             |
             | Data lama:
-            | filename.jpg
+            | filename sahaja
             |
             */
 
@@ -399,44 +418,6 @@
 
                     $shipImageUrl =
                         asset('uploads/ships/' . $ship->image);
-
-                }
-
-            }
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | AR MODEL URL
-            |--------------------------------------------------------------------------
-            |
-            | Data baru:
-            | URL penuh GitHub Release
-            |
-            | Data lama:
-            | nama fail .reality
-            |
-            */
-
-            $shipArUrl = null;
-
-            if ($ship->ar_model) {
-
-                if (
-                    str_starts_with($ship->ar_model, 'http://') ||
-                    str_starts_with($ship->ar_model, 'https://')
-                ) {
-
-                    $shipArUrl = $ship->ar_model;
-
-                } else {
-
-                    $shipArUrl =
-                        'https://github.com/' .
-                        'fakhrulaqashah960-source/' .
-                        'ShipEquipAR/' .
-                        'releases/latest/download/' .
-                        rawurlencode($ship->ar_model);
 
                 }
 
@@ -497,63 +478,50 @@
 
 
             {{-- =========================
-                 AR MODEL
+                 AR STATUS ONLY
+                 ADMIN TAK BOLEH OPEN
             ========================== --}}
 
-            <div class="ar-section">
+            @if($ship->ar_model)
 
-                <div class="ar-title">
-                    📦 AR Model
+                <div class="model-status model-ready">
+                    ✅ AR Model Uploaded
                 </div>
 
+            @else
 
-                @if($shipArUrl)
+                <div class="model-status model-empty">
+                    No AR Model Uploaded
+                </div>
 
-                    <a
-                        href="{{ $shipArUrl }}"
-                        class="ar-btn"
-                        rel="ar"
-                    >
-
-                        📱 Open AR Model
-
-                    </a>
-
-                @else
-
-                    <span class="no-ar">
-                        No AR model uploaded
-                    </span>
-
-                @endif
-
-            </div>
+            @endif
 
 
 
             {{-- =========================
-                 ACTIONS
+                 ADMIN ACTIONS
             ========================== --}}
 
             <div class="actions">
 
 
+                {{-- EDIT --}}
+
                 <a
                     href="{{ route('admin.ships.edit', $ship->id) }}"
                     class="btn edit"
                 >
-
                     ✏ Edit
-
                 </a>
 
 
 
+                {{-- DELETE --}}
+
                 <form
                     action="{{ route('admin.ships.destroy', $ship->id) }}"
                     method="POST"
-                    style="display:inline"
-                    onsubmit="return confirm('Delete this ship?')"
+                    onsubmit="return confirm('Are you sure you want to delete this ship?')"
                 >
 
                     @csrf
@@ -565,9 +533,7 @@
                         type="submit"
                         class="btn delete"
                     >
-
                         🗑 Delete
-
                     </button>
 
                 </form>
@@ -590,9 +556,7 @@
         href="{{ route('admin.dashboard') }}"
         class="back"
     >
-
         ← Back Dashboard
-
     </a>
 
 
