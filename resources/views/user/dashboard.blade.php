@@ -701,13 +701,27 @@
 
 <body>
 
+<!-- MOBILE TOPBAR -->
+<div class="mobile-topbar">
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        ☰
+    </button>
+
+    <div class="mobile-brand">
+        ⚓ Ship<span>EquipAR</span>
+    </div>
+</div>
+
+<!-- OVERLAY -->
+<div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
+
 
 
 {{-- =========================================================
      SIDEBAR
 ========================================================= --}}
 
-<div class="sidebar">
+<div id="mainSidebar" class="sidebar">
 
 
     {{-- LOGO --}}
@@ -1429,6 +1443,16 @@
         }
 
     }
+
+function toggleSidebar() {
+    document.getElementById('mainSidebar').classList.toggle('show');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+}
+
+function closeSidebar() {
+    document.getElementById('mainSidebar').classList.remove('show');
+    document.getElementById('sidebarOverlay').classList.remove('show');
+}
 
 
 </script>

@@ -42,11 +42,6 @@ NAVBAR
 
 nav{
 
-position:absolute;
-
-top:0;
-
-left:0;
 
 width:100%;
 
@@ -487,11 +482,6 @@ font-size:18px;
 }
 
 
-
-
-
-
-
 /* =====================
 DOTS
 ===================== */
@@ -760,27 +750,17 @@ NAVIGATION
 
 
 
-<div class="menu">
+<div class="auth-buttons">
+    <a href="{{ route('login') }}" class="auth-btn">
+        Login
+    </a>
 
-
-<a href="{{route('login')}}">
-Login
-</a>
-
-
-<a href="{{route('register')}}">
-Register
-</a>
-
-
+    <a href="{{ route('register') }}" class="auth-btn">
+        Register
+    </a>
 </div>
 
 </nav>
-
-
-
-
-
 
 
 
@@ -808,9 +788,6 @@ SLIDE 1 : WELCOME
 
 
 <div class="overlay"></div>
-
-
-
 
 
 <div class="carousel-content welcome">
