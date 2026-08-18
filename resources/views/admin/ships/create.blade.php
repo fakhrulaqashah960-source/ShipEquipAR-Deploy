@@ -7,6 +7,7 @@
 Add Type of Ship
 </title>
 
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 
 <style>
 

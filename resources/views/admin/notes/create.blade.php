@@ -7,6 +7,7 @@
 Add Module Notes
 </title>
 
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 
 <style>
 

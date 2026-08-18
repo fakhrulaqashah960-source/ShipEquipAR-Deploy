@@ -1,0 +1,842 @@
+/* =========================================================
+   SHIPEQUIPAR GLOBAL RESPONSIVE CSS
+   Admin + User
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img,
+video,
+iframe {
+    max-width: 100%;
+}
+
+img {
+    height: auto;
+}
+
+body {
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   GENERAL CONTAINER
+========================================================= */
+
+.container {
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+h1,
+h2,
+h3,
+p,
+a,
+span,
+button,
+label {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+p {
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+form {
+    max-width: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+    max-width: 100%;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+}
+
+textarea {
+    resize: vertical;
+}
+
+
+/* =========================================================
+   IMAGES
+========================================================= */
+
+.card img,
+.module-card img,
+.equipment-image,
+.ship-image {
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.equipment-grid,
+.ship-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(
+                min(280px, 100%),
+                1fr
+            )
+        ) !important;
+
+    gap: 25px !important;
+
+    align-items: stretch !important;
+}
+
+
+/* =========================================================
+   CARD HEIGHT
+========================================================= */
+
+.equipment-card,
+.ship-card {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    min-width: 0 !important;
+
+    height: 100% !important;
+}
+
+
+/* =========================================================
+   CARD DESCRIPTION
+========================================================= */
+
+.card-description,
+.ship-description,
+.equipment-description {
+    flex: 1 !important;
+}
+
+
+/* =========================================================
+   FIX BUTTON AT BOTTOM + CENTER
+========================================================= */
+
+.card-action {
+    margin-top: auto !important;
+
+    padding-top: 20px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    width: 100% !important;
+}
+
+
+.equipment-card .btn-ar,
+.ship-card .btn-ar {
+    margin-top: auto !important;
+
+    margin-left: auto !important;
+
+    margin-right: auto !important;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    text-align: center !important;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn,
+.btn-ar,
+.view-btn,
+.add-btn,
+.back-btn,
+.back-dashboard {
+    white-space: normal;
+
+    text-align: center;
+
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   VIDEO / IFRAME
+========================================================= */
+
+iframe {
+    width: 100% !important;
+
+    border: 0;
+}
+
+
+/* =========================================================
+   DASHBOARD SIDEBAR - DESKTOP
+========================================================= */
+
+.sidebar {
+    max-width: 100%;
+}
+
+.content {
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   LARGE TABLET / SMALL LAPTOP
+   <= 1024px
+========================================================= */
+
+@media (max-width: 1024px) {
+
+    body {
+        padding: 25px;
+    }
+
+
+    .module-card,
+    .card {
+        padding: 28px;
+    }
+
+
+    .equipment-grid,
+    .ship-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+
+    .module-header h1 {
+        font-size: 32px !important;
+    }
+
+
+    .section-title h2 {
+        font-size: 25px !important;
+    }
+
+
+    .welcome h1 {
+        font-size: 34px !important;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+   <= 768px
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* BODY */
+
+    body {
+        padding: 18px !important;
+    }
+
+
+    /* MAIN CARD */
+
+    .module-card,
+    .card {
+        width: 100% !important;
+
+        padding: 22px !important;
+
+        border-radius: 18px !important;
+    }
+
+
+    /* GRID */
+
+    .equipment-grid,
+    .ship-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 18px !important;
+    }
+
+
+    /* HEADER */
+
+    .module-header {
+        gap: 14px !important;
+    }
+
+
+    .module-header h1 {
+        font-size: 28px !important;
+    }
+
+
+    .module-icon {
+        width: 52px !important;
+
+        height: 52px !important;
+
+        font-size: 24px !important;
+
+        flex-shrink: 0;
+    }
+
+
+    /* SECTION */
+
+    .section-title {
+        gap: 10px !important;
+    }
+
+
+    .section-title h2 {
+        font-size: 23px !important;
+    }
+
+
+    /* =====================================================
+       DASHBOARD SIDEBAR
+    ===================================================== */
+
+    .sidebar {
+        position: relative !important;
+
+        top: auto !important;
+
+        left: auto !important;
+
+        width: 100% !important;
+
+        height: auto !important;
+
+        max-height: none !important;
+
+        padding: 20px !important;
+
+        overflow-y: visible !important;
+    }
+
+
+    .content {
+        width: 100% !important;
+
+        margin-left: 0 !important;
+
+        padding: 20px !important;
+    }
+
+
+    .welcome {
+        width: 100% !important;
+
+        flex-direction: column !important;
+
+        align-items: flex-start !important;
+
+        gap: 20px !important;
+
+        padding: 28px !important;
+    }
+
+
+    .welcome h1 {
+        font-size: 30px !important;
+    }
+
+
+    .welcome h2 {
+        font-size: 22px !important;
+    }
+
+
+    .ship {
+        font-size: 65px !important;
+    }
+
+
+    .introduction-section {
+        grid-template-columns: 1fr !important;
+    }
+
+
+    .section-title {
+        grid-column: 1 !important;
+    }
+
+
+    /* ACTION BUTTONS */
+
+    .actions {
+        display: flex !important;
+
+        flex-wrap: wrap !important;
+
+        gap: 10px !important;
+    }
+
+
+    /* FORMS */
+
+    form {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   <= 600px
+========================================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 12px !important;
+    }
+
+
+    /* HEADER */
+
+    .header {
+        padding: 22px !important;
+
+        border-radius: 18px !important;
+    }
+
+
+    .header h1 {
+        font-size: 27px !important;
+    }
+
+
+    /* MODULE CARD */
+
+    .module-card,
+    .card {
+        padding: 18px !important;
+
+        border-radius: 16px !important;
+
+        margin-bottom: 18px !important;
+    }
+
+
+    /* SINGLE COLUMN */
+
+    .equipment-grid,
+    .ship-grid {
+        grid-template-columns: 1fr !important;
+
+        gap: 18px !important;
+    }
+
+
+    /* CARD */
+
+    .equipment-card,
+    .ship-card {
+        width: 100% !important;
+    }
+
+
+    /* IMAGE */
+
+    .equipment-image,
+    .ship-image {
+        width: 100% !important;
+
+        height: 210px !important;
+
+        object-fit: contain !important;
+    }
+
+
+    /* SHIP IMAGE */
+
+    .ship-image {
+        object-fit: cover !important;
+    }
+
+
+    /* TITLES */
+
+    .module-header h1 {
+        font-size: 25px !important;
+    }
+
+
+    .section-title h2 {
+        font-size: 21px !important;
+    }
+
+
+    .equipment-card h2,
+    .ship-card h2 {
+        font-size: 20px !important;
+    }
+
+
+    /* TEXT */
+
+    p {
+        font-size: 14px !important;
+
+        line-height: 1.7 !important;
+    }
+
+
+    /* BUTTON */
+
+    .btn-ar {
+        min-width: 150px;
+
+        max-width: 100%;
+
+        padding: 12px 20px !important;
+    }
+
+
+    /* ADMIN ACTIONS */
+
+    .actions {
+        flex-direction: column !important;
+
+        align-items: stretch !important;
+    }
+
+
+    .actions .btn,
+    .actions .view-btn,
+    .actions form,
+    .actions form button {
+        width: 100% !important;
+
+        margin: 0 !important;
+    }
+
+
+    /* ADD BUTTON */
+
+    .button-group {
+        flex-direction: column !important;
+
+        width: 100% !important;
+    }
+
+
+    .add-btn {
+        width: 100% !important;
+
+        justify-content: center !important;
+    }
+
+
+    /* DASHBOARD */
+
+    .sidebar {
+        border-radius: 0 !important;
+    }
+
+
+    .logo {
+        font-size: 24px !important;
+    }
+
+
+    .welcome {
+        padding: 22px !important;
+    }
+
+
+    .welcome h1 {
+        font-size: 27px !important;
+    }
+
+
+    .welcome h2 {
+        font-size: 20px !important;
+    }
+
+
+    .welcome p {
+        font-size: 14px !important;
+    }
+
+
+    .ship {
+        font-size: 55px !important;
+    }
+
+
+    /* VIDEO */
+
+    iframe,
+    .video-frame {
+        height: 240px !important;
+    }
+
+
+    /* BACK */
+
+    .back-btn,
+    .back-dashboard {
+        width: 100%;
+
+        justify-content: center;
+
+        text-align: center;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   <= 400px
+========================================================= */
+
+@media (max-width: 400px) {
+
+    body {
+        padding: 8px !important;
+    }
+
+
+    .header,
+    .module-card,
+    .card {
+        padding: 15px !important;
+    }
+
+
+    .header h1 {
+        font-size: 23px !important;
+    }
+
+
+    .module-header h1 {
+        font-size: 22px !important;
+    }
+
+
+    .module-icon {
+        width: 45px !important;
+
+        height: 45px !important;
+
+        font-size: 21px !important;
+    }
+
+
+    .section-title h2 {
+        font-size: 19px !important;
+    }
+
+
+    .section-icon {
+        width: 36px !important;
+
+        height: 36px !important;
+
+        font-size: 20px !important;
+    }
+
+
+    .equipment-image,
+    .ship-image {
+        height: 180px !important;
+    }
+
+
+    .btn,
+    .btn-ar,
+    .view-btn,
+    .add-btn {
+        font-size: 13px !important;
+    }
+
+    /* =========================================================
+   ADMIN DASHBOARD RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .modules {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        padding: 25px 20px !important;
+    }
+
+    .content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 20px !important;
+    }
+
+    .welcome {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 20px !important;
+        padding: 30px !important;
+    }
+
+    .welcome h1 {
+        font-size: 32px !important;
+    }
+
+    .ship {
+        font-size: 65px !important;
+    }
+
+    .stats {
+        grid-template-columns: 1fr !important;
+    }
+
+    .modules {
+        grid-template-columns: 1fr !important;
+    }
+
+    .stat-card,
+    .card {
+        width: 100% !important;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .content {
+        padding: 12px !important;
+    }
+
+    .sidebar {
+        padding: 20px 15px !important;
+    }
+
+    .logo-name {
+        font-size: 25px !important;
+    }
+
+    .welcome {
+        padding: 22px !important;
+        border-radius: 20px !important;
+    }
+
+    .welcome h1 {
+        font-size: 26px !important;
+    }
+
+    .welcome p {
+        font-size: 15px !important;
+    }
+
+    .stat-card {
+        padding: 22px !important;
+    }
+
+    .card {
+        padding: 25px !important;
+        min-height: auto !important;
+    }
+
+    .title {
+        font-size: 28px !important;
+    }
+
+    .btn {
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+}
+
+}
