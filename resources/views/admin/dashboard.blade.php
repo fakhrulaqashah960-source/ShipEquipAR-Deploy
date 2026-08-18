@@ -10,1144 +10,1532 @@
 
     <title>ShipEquipAR Admin Dashboard</title>
 
-    @vite([
-        'resources/css/app.css',
-        'resources/js/app.js'
-    ])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-}
+        :root{
+            --sidebar-width:260px;
+            --nav-bg:#0f172a;
+            --nav-item:#1e293b;
+            --blue:#0284c7;
+            --cyan:#38bdf8;
+        }
 
 
-body{
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
 
-    min-height:100vh;
 
-    background:
-    linear-gradient(
-    rgba(3,37,65,.88),
-    rgba(2,132,199,.72)
-    ),
-    url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
+        html,
+        body{
+            width:100%;
+            min-height:100%;
+            overflow-x:hidden;
+        }
 
-    background-size:cover;
 
-    background-position:center;
+        body{
+            min-height:100vh;
 
-}
+            background:
+            linear-gradient(
+                rgba(3,37,65,.88),
+                rgba(2,132,199,.72)
+            ),
+            url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
 
+            background-size:cover;
+            background-position:center;
+            background-attachment:fixed;
+        }
 
 
-/* ================= SIDEBAR ================= */
+        body.sidebar-open{
+            overflow:hidden;
+        }
 
 
-.sidebar{
 
-    width:320px;
+        /* =====================================================
+           MOBILE TOPBAR
+        ===================================================== */
 
-    height:100vh;
+        .mobile-topbar{
+            display:none;
+        }
 
-    position:fixed;
 
-    left:0;
-    top:0;
+        .mobile-brand{
+            font-weight:900;
+            color:white;
+        }
 
-    background:
-    rgba(15,23,42,.98);
 
-    color:white;
+        .mobile-brand span{
+            color:var(--cyan);
+        }
 
-    padding:35px 25px;
 
-    overflow-y:auto;
 
-}
+        /* =====================================================
+           OVERLAY
+        ===================================================== */
 
+        .sidebar-overlay{
+            position:fixed;
+            inset:0;
 
+            background:rgba(0,0,0,.55);
 
+            opacity:0;
+            visibility:hidden;
 
+            transition:.25s;
 
-/* LOGO */
+            z-index:1290;
+        }
 
 
-.logo{
+        .sidebar-overlay.open{
+            opacity:1;
+            visibility:visible;
+        }
 
-    display:flex;
 
-    align-items:center;
 
-    gap:15px;
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
 
-    margin-bottom:55px;
+        .sidebar{
+            position:fixed;
 
-}
+            top:0;
+            left:0;
 
+            width:var(--sidebar-width);
 
+            height:100vh;
+            height:100dvh;
 
-.logo-icon{
+            background:rgba(15,23,42,.98);
 
-    font-size:45px;
+            padding:28px 20px;
 
-}
+            overflow-y:auto;
 
+            z-index:1300;
+        }
 
 
-.logo-name{
+        .drawer-close{
+            display:none;
+        }
 
-    font-size:32px;
 
-    font-weight:900;
 
-    letter-spacing:-1px;
+        /* =====================================================
+           LOGO
+        ===================================================== */
 
-}
+        .logo{
+            width:100%;
 
+            text-align:center;
 
-.logo-name span{
+            margin-bottom:32px;
 
-    color:#38bdf8;
+            font-size:28px;
 
-}
+            font-weight:900;
 
+            color:white;
+        }
 
 
+        .logo span{
+            color:var(--cyan);
+        }
 
 
-/* MENU */
 
+        /* =====================================================
+           MENU
+        ===================================================== */
 
-.menu a{
+        .menu{
+            width:100%;
 
+            display:flex;
 
-    display:flex;
+            flex-direction:column;
 
-    align-items:center;
+            gap:10px;
+        }
 
-    gap:12px;
 
+        .menu-link{
+            width:100%;
 
-    padding:16px 18px;
+            min-height:52px;
 
+            display:flex;
 
-    margin-bottom:12px;
+            align-items:center;
 
+            gap:11px;
 
-    color:#cbd5e1;
+            padding:13px 14px;
 
+            background:var(--nav-item);
 
-    text-decoration:none;
+            color:#e2e8f0;
 
+            border-radius:12px;
 
-    border-radius:15px;
+            text-decoration:none;
 
+            font-size:14px;
 
-    font-size:18px;
+            font-weight:600;
 
+            transition:.22s;
+        }
 
-    font-weight:700;
 
+        .menu-link:hover{
+            background:#0369a1;
 
-    transition:.3s;
+            color:white;
 
+            transform:translateX(3px);
+        }
 
-}
 
+        .menu-link.active{
+            background:var(--blue);
 
+            color:white;
+        }
 
 
-.menu a:hover{
+        .menu-icon{
+            width:24px;
 
+            flex-shrink:0;
 
-    background:#0284c7;
+            text-align:center;
+        }
 
 
-    color:white;
+        .menu-text{
+            flex:1;
 
+            min-width:0;
 
-    transform:translateX(8px);
+            white-space:nowrap;
+        }
 
 
-}
 
+        /* =====================================================
+           LOGOUT
+        ===================================================== */
 
+        .logout-form{
+            width:100%;
+        }
 
 
-/* LOGOUT */
+        .logout-btn{
+            width:100%;
 
+            min-height:52px;
 
-.logout-btn{
+            margin-top:10px;
 
+            padding:13px;
 
-    width:100%;
+            border:none;
 
+            border-radius:12px;
 
-    margin-top:45px;
+            background:#dc2626;
 
+            color:white;
 
-    padding:16px;
+            font-size:14px;
 
+            font-weight:700;
 
-    background:#dc2626;
+            cursor:pointer;
 
+            transition:.2s;
+        }
 
-    color:white;
 
+        .logout-btn:hover{
+            background:#b91c1c;
+        }
 
-    border:none;
 
 
-    border-radius:15px;
+        /* =====================================================
+           CONTENT
+        ===================================================== */
 
+        .content{
+            margin-left:var(--sidebar-width);
 
-    cursor:pointer;
+            width:calc(100% - var(--sidebar-width));
 
+            min-height:100vh;
 
-    font-size:18px;
+            padding:clamp(24px,3vw,42px);
+        }
 
 
-    font-weight:800;
+        .content-inner{
+            width:100%;
 
+            max-width:1450px;
 
-}
+            margin:0 auto;
+        }
 
 
 
-.logout-btn:hover{
+        /* =====================================================
+           WELCOME
+        ===================================================== */
 
+        .welcome{
+            width:100%;
 
-    background:#b91c1c;
+            background:
+            linear-gradient(
+                135deg,
+                rgba(14,116,144,.96),
+                rgba(15,23,42,.96)
+            );
 
+            border-radius:26px;
 
-}
+            padding:clamp(30px,4vw,48px);
 
+            color:white;
 
+            display:flex;
 
+            align-items:center;
 
+            justify-content:space-between;
 
-/* ================= CONTENT ================= */
+            gap:30px;
 
+            box-shadow:0 12px 30px rgba(0,0,0,.16);
+        }
 
-.content{
 
+        .welcome-copy{
+            flex:1;
+            min-width:0;
+        }
 
-    margin-left:320px;
 
+        .welcome h1{
+            font-size:clamp(30px,3vw,45px);
 
-    padding:45px;
+            line-height:1.2;
 
+            font-weight:900;
+        }
 
-}
 
+        .welcome p{
+            margin-top:12px;
 
+            font-size:clamp(14px,1.2vw,18px);
 
+            line-height:1.65;
+        }
 
 
-/* WELCOME */
+        .ship{
+            flex-shrink:0;
 
+            font-size:clamp(65px,7vw,100px);
+        }
 
-.welcome{
 
 
-    background:
+        /* =====================================================
+           STATISTICS
+        ===================================================== */
 
+        .stats{
+            margin-top:28px;
 
-    linear-gradient(
-    135deg,
-    rgba(14,116,144,.95),
-    rgba(15,23,42,.95)
-    );
+            display:grid;
 
+            grid-template-columns:
+            repeat(4,minmax(0,1fr));
 
-    border-radius:30px;
+            gap:20px;
+        }
 
 
-    padding:50px;
+        .stat-card{
+            min-width:0;
 
+            background:white;
 
-    color:white;
+            padding:25px;
 
+            border-radius:22px;
 
-    display:flex;
+            display:flex;
 
+            align-items:center;
 
-    justify-content:space-between;
+            gap:18px;
 
+            box-shadow:0 8px 22px rgba(0,0,0,.14);
+        }
 
-    align-items:center;
 
+        .stat-icon{
+            flex-shrink:0;
 
-}
+            font-size:42px;
+        }
 
 
+        .stat-info{
+            min-width:0;
+        }
 
-.welcome h1{
 
+        .stat-card h2{
+            color:#0f172a;
 
-    font-size:48px;
+            font-size:30px;
 
+            font-weight:900;
+        }
 
-    font-weight:900;
 
+        .stat-card p{
+            margin-top:4px;
 
-}
+            color:#64748b;
 
+            font-size:14px;
+        }
 
 
-.welcome p{
 
+        /* =====================================================
+           SECTION TITLE
+        ===================================================== */
 
-    margin-top:15px;
+        .title{
+            margin:35px 0 22px;
 
+            color:white;
 
-    font-size:19px;
+            font-size:clamp(27px,2.5vw,36px);
 
+            font-weight:900;
+        }
 
-}
 
 
+        /* =====================================================
+           MANAGEMENT CARDS
+        ===================================================== */
 
+        .modules{
+            display:grid;
 
-.ship{
+            grid-template-columns:
+            repeat(3,minmax(0,1fr));
 
+            gap:24px;
 
-    font-size:110px;
+            align-items:stretch;
+        }
 
 
-}
+        .card{
+            min-width:0;
 
+            min-height:330px;
 
+            background:white;
 
+            padding:30px;
 
+            border-radius:24px;
 
+            box-shadow:0 10px 26px rgba(0,0,0,.16);
 
+            display:flex;
 
-/* STATISTICS */
+            flex-direction:column;
+        }
 
 
-.stats{
+        .icon{
+            font-size:50px;
+        }
 
 
-    margin-top:40px;
+        .card h2{
+            margin-top:20px;
 
+            color:#0284c7;
 
-    display:grid;
+            font-size:23px;
 
+            line-height:1.35;
 
-    grid-template-columns:repeat(4,1fr);
+            font-weight:900;
+        }
 
 
-    gap:25px;
+        .card p{
+            margin-top:15px;
 
+            color:#64748b;
 
-}
+            font-size:15px;
 
+            line-height:1.7;
 
+            flex:1;
+        }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | BUTTON SENTIASA PALING BAWAH + CENTER
+        |--------------------------------------------------------------------------
+        */
 
-.stat-card{
+        .btn{
+            display:flex;
 
+            align-items:center;
 
-    background:white;
+            justify-content:center;
 
+            width:100%;
 
-    padding:32px;
+            max-width:190px;
 
+            min-height:48px;
 
-    border-radius:25px;
+            margin-top:25px;
 
+            margin-left:auto;
 
-    display:flex;
+            margin-right:auto;
 
+            padding:12px 18px;
 
-    align-items:center;
+            background:#0284c7;
 
+            color:white;
 
-    gap:20px;
+            border-radius:12px;
 
+            text-decoration:none;
 
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.15);
+            text-align:center;
 
+            font-size:14px;
 
-}
+            font-weight:800;
 
+            transition:.2s;
+        }
 
 
+        .btn:hover{
+            background:#0369a1;
 
-.stat-icon{
+            transform:translateY(-2px);
+        }
 
 
-    font-size:50px;
 
+        /* =====================================================
+           LAPTOP
+        ===================================================== */
 
-}
+        @media(max-width:1150px){
 
+            :root{
+                --sidebar-width:230px;
+            }
 
 
+            .stats{
+                grid-template-columns:
+                repeat(2,minmax(0,1fr));
+            }
 
 
-.stat-card h2{
+            .modules{
+                grid-template-columns:
+                repeat(2,minmax(0,1fr));
+            }
 
+        }
 
-    color:#0f172a;
 
 
-    font-size:35px;
+        /* =====================================================
+           MOBILE / TABLET
+        ===================================================== */
 
+        @media(max-width:768px){
 
-    font-weight:900;
 
+            body{
+                background-attachment:scroll;
+            }
 
-}
 
 
+            /* TOPBAR */
 
+            .mobile-topbar{
+                position:sticky;
 
-.stat-card p{
+                top:0;
 
+                z-index:1200;
 
-    color:#64748b;
+                width:100%;
 
+                min-height:72px;
 
-    font-size:17px;
+                display:flex;
 
+                align-items:center;
 
-}
+                justify-content:center;
 
-/* ================= TITLE ================= */
+                padding:10px 16px;
 
+                background:#0f172a;
 
-.title{
+                box-shadow:0 3px 15px rgba(0,0,0,.2);
+            }
 
 
-    margin:45px 0 30px;
+            .mobile-menu-btn{
+                position:absolute;
 
+                left:14px;
+                top:50%;
 
-    color:white;
+                transform:translateY(-50%);
 
+                width:48px;
+                height:48px;
 
-    font-size:36px;
+                border:none;
 
+                border-radius:13px;
 
-    font-weight:900;
+                background:#0284c7;
 
+                color:white;
 
-}
+                font-size:25px;
 
+                cursor:pointer;
+            }
 
 
+            .mobile-brand{
+                width:100%;
 
+                padding:0 60px;
 
+                text-align:center;
 
-/* ================= DASHBOARD CARD ================= */
+                font-size:25px;
+            }
 
 
 
-.modules{
+            /* SIDEBAR DRAWER */
 
+            .sidebar{
+                position:fixed !important;
 
-    display:grid;
+                top:0 !important;
+                left:0 !important;
 
+                width:min(86vw,340px) !important;
 
-    grid-template-columns:repeat(3,1fr);
+                height:100vh !important;
+                height:100dvh !important;
 
+                padding:20px 16px 28px !important;
 
-    gap:30px;
+                transform:translateX(-105%);
 
+                transition:transform .28s ease;
 
-}
+                box-shadow:10px 0 35px rgba(0,0,0,.3);
+            }
 
 
+            .sidebar.open{
+                transform:translateX(0);
+            }
 
 
+            .drawer-close{
+                position:absolute;
 
-.card{
+                top:14px;
+                right:14px;
 
+                width:38px;
+                height:38px;
 
-    background:white;
+                display:flex;
 
+                align-items:center;
 
-    padding:38px;
+                justify-content:center;
 
+                border:none;
 
-    border-radius:30px;
+                border-radius:10px;
 
+                background:#1e293b;
 
-    box-shadow:
+                color:white;
 
-    0 10px 30px rgba(0,0,0,.18);
+                font-size:22px;
 
+                cursor:pointer;
+            }
 
-    min-height:350px;
 
+            .logo{
+                padding:7px 42px 0;
 
-    display:flex;
+                margin-bottom:24px;
 
+                font-size:25px;
+            }
 
-    flex-direction:column;
 
+            .menu-link{
+                min-height:54px;
 
-}
+                font-size:14px;
 
+                white-space:normal;
+            }
 
 
+            .menu-text{
+                white-space:normal;
+            }
 
 
-.icon{
 
+            /* CONTENT */
 
-    font-size:60px;
+            .content{
+                margin-left:0 !important;
 
+                width:100% !important;
 
-}
+                padding:14px !important;
+            }
 
 
+            .welcome{
+                padding:25px 20px;
 
+                border-radius:21px;
 
+                flex-direction:column;
 
-.card h2{
+                align-items:flex-start;
 
+                gap:14px;
+            }
 
-    margin-top:25px;
 
+            .welcome h1{
+                font-size:clamp(28px,8vw,36px);
+            }
 
-    color:#0284c7;
 
+            .welcome p{
+                font-size:15px;
+            }
 
-    font-size:25px;
 
+            .ship{
+                display:none;
+            }
 
-    font-weight:900;
 
 
-}
+            /* STATISTICS */
 
+            .stats{
+                margin-top:18px;
 
+                grid-template-columns:
+                repeat(2,minmax(0,1fr));
 
+                gap:12px;
+            }
 
 
-.card p{
+            .stat-card{
+                padding:18px;
 
+                border-radius:17px;
 
-    margin-top:18px;
+                gap:12px;
+            }
 
 
-    color:#64748b;
+            .stat-icon{
+                font-size:34px;
+            }
 
 
-    font-size:17px;
+            .stat-card h2{
+                font-size:25px;
+            }
 
 
-    line-height:1.8;
+            .stat-card p{
+                font-size:12px;
+            }
 
 
-    flex-grow:1;
 
+            /* MANAGEMENT */
 
-}
+            .title{
+                margin:27px 0 18px;
 
+                font-size:27px;
+            }
 
 
+            .modules{
+                grid-template-columns:1fr;
 
+                gap:16px;
+            }
 
-.btn{
 
+            .card{
+                min-height:0;
 
-    display:block;
+                padding:24px;
+            }
 
 
-    width:max-content;
+            .card p{
+                flex:1;
+            }
 
 
-    margin:auto;
+            .btn{
+                max-width:220px;
+            }
 
+        }
 
-    padding:15px 35px;
 
 
-    background:#0284c7;
+        /* =====================================================
+           SMALL PHONE
+        ===================================================== */
 
+        @media(max-width:440px){
 
-    color:white;
+            .content{
+                padding:10px !important;
+            }
 
 
-    border-radius:15px;
+            .mobile-topbar{
+                min-height:68px;
+            }
 
 
-    text-decoration:none;
+            .mobile-menu-btn{
+                width:44px;
+                height:44px;
 
+                font-size:23px;
+            }
 
-    font-weight:800;
 
+            .mobile-brand{
+                font-size:23px;
+            }
 
-    font-size:17px;
 
+            .stats{
+                grid-template-columns:1fr;
+            }
 
-}
 
+            .stat-card{
+                min-height:90px;
+            }
 
 
-.btn:hover{
+            .welcome{
+                padding:20px 17px;
+            }
 
 
-    background:#0369a1;
+            .card{
+                padding:21px;
+            }
 
 
-}
+            .btn{
+                width:100%;
 
+                max-width:none;
+            }
 
+        }
 
+    </style>
 
-
-</style>
-
-
-
+</head>
 
 
 <body>
 
 
+{{-- =========================================================
+     MOBILE TOPBAR
+========================================================= --}}
 
-<!-- ================= SIDEBAR ================= -->
+<div class="mobile-topbar">
 
-
-<div class="sidebar">
-
-
-
-<div class="logo">
-
-
-<div class="logo-icon">
-
-⚓
-
-</div>
+    <button
+        type="button"
+        class="mobile-menu-btn"
+        onclick="toggleSidebar()"
+        aria-label="Open admin menu"
+    >
+        ☰
+    </button>
 
 
-<div class="logo-name">
+    <div class="mobile-brand">
 
-Ship<span>EquipAR</span>
+        Ship<span>EquipAR</span>
 
-</div>
-
+    </div>
 
 </div>
 
 
 
+{{-- =========================================================
+     OVERLAY
+========================================================= --}}
 
+<div
+    id="sidebarOverlay"
+    class="sidebar-overlay"
+    onclick="closeSidebar()"
+></div>
 
-<div class="menu">
 
 
+{{-- =========================================================
+     SIDEBAR
+========================================================= --}}
 
-<a href="/admin">
+<aside
+    id="adminSidebar"
+    class="sidebar"
+>
 
-🏠 Admin Dashboard
 
-</a>
+    <button
+        type="button"
+        class="drawer-close"
+        onclick="closeSidebar()"
+        aria-label="Close menu"
+    >
+        ×
+    </button>
 
 
 
+    <div class="logo">
 
-<a href="/admin/users">
+        Ship<span>EquipAR</span>
 
-👥 Manage Users
-</a>
+    </div>
 
 
 
+    <nav class="menu">
 
 
-<a href="/admin/modules">
+        <a
+            href="{{ route('admin.dashboard') }}"
+            class="menu-link active"
+            onclick="closeSidebar()"
+        >
 
-📚 Manage Module
+            <span class="menu-icon">
+                🏠
+            </span>
 
-</a>
+            <span class="menu-text">
+                Admin Dashboard
+            </span>
 
+        </a>
 
 
 
+        <a
+            href="/admin/users"
+            class="menu-link"
+            onclick="closeSidebar()"
+        >
 
-<a href="/admin/notes">
+            <span class="menu-icon">
+                👥
+            </span>
 
-📘 Manage Notes
+            <span class="menu-text">
+                Manage Users
+            </span>
 
-</a>
+        </a>
 
 
 
+        <a
+            href="/admin/modules"
+            class="menu-link"
+            onclick="closeSidebar()"
+        >
 
+            <span class="menu-icon">
+                📚
+            </span>
 
-<a href="/admin/equipment">
+            <span class="menu-text">
+                Manage Module
+            </span>
 
-🦺 Manage Equipments
+        </a>
 
-</a>
 
 
+        <a
+            href="/admin/notes"
+            class="menu-link"
+            onclick="closeSidebar()"
+        >
 
+            <span class="menu-icon">
+                📘
+            </span>
 
+            <span class="menu-text">
+                Manage Notes
+            </span>
 
-<a href="{{ route('admin.ships.index') }}">
+        </a>
 
-🚢 Manage Ships
 
-</a>
 
+        <a
+            href="/admin/equipment"
+            class="menu-link"
+            onclick="closeSidebar()"
+        >
 
+            <span class="menu-icon">
+                🦺
+            </span>
 
+            <span class="menu-text">
+                Manage Equipments
+            </span>
 
+        </a>
 
-<a href="/admin/course">
 
-📝 Manage Quiz
 
-</a>
+        <a
+            href="{{ route('admin.ships.index') }}"
+            class="menu-link"
+            onclick="closeSidebar()"
+        >
 
+            <span class="menu-icon">
+                🚢
+            </span>
 
+            <span class="menu-text">
+                Manage Ships
+            </span>
 
+        </a>
 
 
-<a href="#">
 
-🏆 Manage Cerificate
+        <a
+            href="{{ route('admin.quiz.index') }}"
+            class="menu-link"
+            onclick="closeSidebar()"
+        >
 
-</a>
+            <span class="menu-icon">
+                📝
+            </span>
 
+            <span class="menu-text">
+                Manage Quiz
+            </span>
 
+        </a>
 
 
 
+        <a
+            href="#"
+            class="menu-link"
+        >
 
+            <span class="menu-icon">
+                🏆
+            </span>
 
-<form method="POST" action="{{route('logout')}}">
+            <span class="menu-text">
+                Manage Certificate
+            </span>
 
-@csrf
+        </a>
 
 
-<button class="logout-btn">
 
-🚪 Logout
+        <form
+            method="POST"
+            action="{{ route('logout') }}"
+            class="logout-form"
+        >
 
-</button>
+            @csrf
 
 
-</form>
+            <button
+                type="submit"
+                class="logout-btn"
+            >
+                Logout
+            </button>
 
+        </form>
 
 
-</div>
+    </nav>
 
 
-</div>
+</aside>
 
 
 
+{{-- =========================================================
+     CONTENT
+========================================================= --}}
 
+<main class="content">
 
 
+    <div class="content-inner">
 
 
-<!-- ================= CONTENT ================= -->
+        {{-- =====================================================
+             WELCOME
+        ====================================================== --}}
 
+        <section class="welcome">
 
-<div class="content">
 
+            <div class="welcome-copy">
 
 
+                <h1>
+                    Welcome Admin to ShipEquipAR
+                </h1>
 
 
-<div class="welcome">
+                <p>
+                    Admin Management Panel
+                </p>
 
 
-<div>
+                <p>
+                    Manage maritime learning modules, ships,
+                    equipment and digital content.
+                </p>
 
 
-<h1>
+            </div>
 
-Welcome Admin to ShipEquipAR
 
-</h1>
 
+            <div class="ship">
+                🚢
+            </div>
 
-<p>
 
-Admin Management Panel
+        </section>
 
-</p>
 
 
-<p>
+        {{-- =====================================================
+             STATISTICS
+        ====================================================== --}}
 
-Manage maritime learning modules, ships, equipment and digital content.
+        <section class="stats">
 
-</p>
 
+            <div class="stat-card">
 
-</div>
+                <div class="stat-icon">
+                    👥
+                </div>
 
+                <div class="stat-info">
 
+                    <h2>
+                        {{ \App\Models\User::count() }}
+                    </h2>
 
+                    <p>
+                        Total Users
+                    </p>
 
-<div class="ship">
+                </div>
 
-🚢
+            </div>
 
-</div>
 
 
-</div>
+            <div class="stat-card">
 
+                <div class="stat-icon">
+                    📚
+                </div>
 
+                <div class="stat-info">
 
+                    <h2>
+                        {{ \App\Models\Module::count() }}
+                    </h2>
 
+                    <p>
+                        Learning Modules
+                    </p>
 
+                </div>
 
+            </div>
 
 
 
-<!-- STAT -->
+            <div class="stat-card">
 
+                <div class="stat-icon">
+                    🦺
+                </div>
 
-<div class="stats">
+                <div class="stat-info">
 
+                    <h2>
+                        {{ \App\Models\Equipment::count() }}
+                    </h2>
 
+                    <p>
+                        Equipment
+                    </p>
 
-<div class="stat-card">
+                </div>
 
+            </div>
 
-<div class="stat-icon">
 
-👥
 
-</div>
+            <div class="stat-card">
 
+                <div class="stat-icon">
+                    🚢
+                </div>
 
-<div>
+                <div class="stat-info">
 
-<h2>
+                    <h2>
+                        {{ \App\Models\Ship::count() }}
+                    </h2>
 
-{{\App\Models\User::count()}}
+                    <p>
+                        Ships
+                    </p>
 
-</h2>
+                </div>
 
+            </div>
 
-<p>
 
-Total Users
+        </section>
 
-</p>
 
-</div>
 
+        {{-- =====================================================
+             SYSTEM OVERVIEW
+        ====================================================== --}}
 
-</div>
+        <div class="title">
+            📊 System Overview
+        </div>
 
 
 
+        <section class="modules">
 
 
+            {{-- LEARNING MODULE --}}
 
+            <article class="card">
 
-<div class="stat-card">
 
+                <div class="icon">
+                    📚
+                </div>
 
-<div class="stat-icon">
 
-📚
+                <h2>
+                    Learning Module Management
+                </h2>
 
-</div>
 
+                <p>
+                    Manage maritime learning contents such as
+                    PPE Equipment, Safety System and Engine
+                    Knowledge.
+                </p>
 
-<div>
 
-<h2>
+                <a
+                    href="/admin/modules"
+                    class="btn"
+                >
+                    Manage Module
+                </a>
 
-{{\App\Models\Module::count()}}
 
-</h2>
+            </article>
 
 
-<p>
 
-Learning Modules
+            {{-- SHIP --}}
 
-</p>
+            <article class="card">
 
-</div>
 
+                <div class="icon">
+                    🚢
+                </div>
 
-</div>
 
+                <h2>
+                    Ship Management
+                </h2>
 
 
+                <p>
+                    Manage ship categories, upload Reality
+                    Composer AR files and provide ship
+                    information for users.
+                </p>
 
 
+                <a
+                    href="{{ route('admin.ships.index') }}"
+                    class="btn"
+                >
+                    Manage Ship
+                </a>
 
 
+            </article>
 
-<div class="stat-card">
 
 
-<div class="stat-icon">
+            {{-- EQUIPMENT --}}
 
-🦺
+            <article class="card">
 
-</div>
 
+                <div class="icon">
+                    🦺
+                </div>
 
-<div>
 
-<h2>
+                <h2>
+                    Equipment Management
+                </h2>
 
-{{\App\Models\Equipment::count()}}
 
-</h2>
+                <p>
+                    Maintain marine equipment database including
+                    safety equipment and specifications.
+                </p>
 
 
-<p>
+                <a
+                    href="/admin/equipment"
+                    class="btn"
+                >
+                    Manage Equipment
+                </a>
 
-Equipment
 
-</p>
+            </article>
 
-</div>
 
+        </section>
 
-</div>
 
+    </div>
 
 
+</main>
 
 
 
+{{-- =========================================================
+     JAVASCRIPT
+========================================================= --}}
 
+<script>
 
-<div class="stat-card">
+    function toggleSidebar()
+    {
+        const sidebar =
+            document.getElementById(
+                'adminSidebar'
+            );
 
+        const overlay =
+            document.getElementById(
+                'sidebarOverlay'
+            );
 
-<div class="stat-icon">
 
-🚢
+        const isOpen =
+            sidebar.classList.toggle(
+                'open'
+            );
 
-</div>
 
+        overlay.classList.toggle(
+            'open',
+            isOpen
+        );
 
-<div>
 
-<h2>
+        document.body.classList.toggle(
+            'sidebar-open',
+            isOpen
+        );
+    }
 
-{{\App\Models\Ship::count()}}
 
-</h2>
 
+    function closeSidebar()
+    {
+        const sidebar =
+            document.getElementById(
+                'adminSidebar'
+            );
 
-<p>
+        const overlay =
+            document.getElementById(
+                'sidebarOverlay'
+            );
 
-Ships
 
-</p>
+        sidebar.classList.remove(
+            'open'
+        );
 
-</div>
+        overlay.classList.remove(
+            'open'
+        );
 
+        document.body.classList.remove(
+            'sidebar-open'
+        );
+    }
 
-</div>
 
 
+    document.addEventListener(
+        'keydown',
+        function(event)
+        {
+            if(event.key === 'Escape'){
+                closeSidebar();
+            }
+        }
+    );
 
 
-</div>
 
+    window.addEventListener(
+        'resize',
+        function()
+        {
+            if(window.innerWidth > 768){
+                closeSidebar();
+            }
+        }
+    );
 
-
-
-
-
-
-
-
-<div class="title">
-
-📊 System Overview
-
-</div>
-
-
-
-
-
-
-
-
-<div class="modules">
-
-
-
-
-
-
-
-<!-- MODULE -->
-
-
-<div class="card">
-
-
-<div class="icon">
-
-📚
-
-</div>
-
-
-<h2>
-
-Learning Module Management
-
-</h2>
-
-
-
-<p>
-
-Manage maritime learning contents such as PPE Equipment, Safety System and Engine Knowledge.
-
-</p>
-
-
-
-
-<a href="/admin/modules" class="btn">
-
-Manage Module
-
-</a>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- SHIP -->
-
-
-<div class="card">
-
-
-<div class="icon">
-
-🚢
-
-</div>
-
-
-<h2>
-
-Ship Management
-
-</h2>
-
-
-
-<p>
-
-Manage ship categories, upload Reality Composer AR files and provide ship information for users.
-
-</p>
-
-
-
-
-<a href="{{ route('admin.ships.index') }}" class="btn">
-
-Manage Ship
-
-</a>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- EQUIPMENT -->
-
-
-<div class="card">
-
-
-<div class="icon">
-
-🦺
-
-</div>
-
-
-<h2>
-
-Equipment Management
-
-</h2>
-
-
-
-<p>
-
-Maintain marine equipment database including safety equipment and specifications.
-
-</p>
-
-
-
-
-<a href="/admin/equipment" class="btn">
-
-Manage Equipment
-
-</a>
-
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-
+</script>
 
 
 </body>
