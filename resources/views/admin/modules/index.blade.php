@@ -1,301 +1,428 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
 <title>Module Management</title>
+
 
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
 }
 
 
 body{
-
-background:#eef6fb;
-padding:40px;
-color:#0f172a;
-
+    background:#eef6fb;
+    padding:40px;
+    color:#0f172a;
 }
 
 
-/* HEADER */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .header{
-
-background:white;
-padding:35px;
-border-radius:25px;
-box-shadow:0 10px 25px rgba(0,0,0,.12);
-margin-bottom:25px;
-
+    background:white;
+    padding:35px;
+    border-radius:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+    margin-bottom:25px;
 }
 
 
 .header h1{
-
-font-size:38px;
-font-weight:800;
-
+    font-size:38px;
+    font-weight:800;
 }
 
 
 .header p{
-
-margin-top:10px;
-color:#64748b;
-
+    margin-top:10px;
+    color:#64748b;
+    font-size:16px;
 }
 
 
-/* BUTTON */
+/* =========================================================
+   ADD BUTTON
+========================================================= */
 
 .button-group{
-
-display:flex;
-gap:20px;
-margin-bottom:30px;
-
+    display:flex;
+    gap:20px;
+    margin-bottom:30px;
 }
 
 
 .add-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
 
-padding:13px 25px;
-border-radius:10px;
-background:#0284c7;
-color:white;
-text-decoration:none;
-font-weight:600;
+    padding:13px 25px;
 
+    border-radius:10px;
+
+    background:#0284c7;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    transition:.3s;
 }
 
 
 .add-btn:hover{
-
-background:#0369a1;
-
+    background:#0369a1;
+    transform:translateY(-2px);
 }
 
 
-
-/* CARD */
+/* =========================================================
+   MODULE CARD
+========================================================= */
 
 .card{
+    background:white;
 
-background:white;
-padding:30px;
-margin-bottom:25px;
-border-radius:22px;
-box-shadow:0 8px 20px rgba(0,0,0,.12);
+    padding:30px;
 
+    margin-bottom:25px;
+
+    border-radius:22px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
 }
 
 
+/* =========================================================
+   MODULE IMAGE
+========================================================= */
 
-.card img{
+.image-wrapper{
+    width:220px;
+    height:150px;
 
-width:220px;
-height:170px;
-object-fit:cover;
-border-radius:15px;
-margin-bottom:20px;
+    background:#f1f5f9;
 
+    border-radius:15px;
+
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:20px;
+
+    border:1px solid #e2e8f0;
 }
 
 
+.module-image{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+
+.no-image{
+    width:100%;
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#64748b;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    text-align:center;
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
 
 .card h2{
-
-font-size:30px;
-margin-bottom:10px;
-
+    font-size:30px;
+    margin-bottom:10px;
 }
-
 
 
 .category{
-
-color:#0284c7;
-font-weight:700;
-margin-bottom:20px;
-
+    color:#0284c7;
+    font-weight:700;
+    margin-bottom:20px;
 }
-
 
 
 .card h3{
-
-margin-top:20px;
-margin-bottom:8px;
-
+    margin-top:20px;
+    margin-bottom:8px;
+    font-size:17px;
 }
-
 
 
 .card p{
-
-color:#475569;
-line-height:1.7;
-
+    color:#475569;
+    line-height:1.7;
 }
 
 
-
-
-/* BUTTON */
+/* =========================================================
+   ACTIONS
+========================================================= */
 
 .actions{
+    margin-top:25px;
 
-margin-top:25px;
+    display:flex;
 
+    align-items:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
 }
 
 
-
-.btn{
-
-display:inline-block;
-padding:11px 18px;
-border-radius:10px;
-text-decoration:none;
-color:white;
-font-weight:600;
-border:none;
-cursor:pointer;
-margin-right:8px;
-
+.actions form{
+    display:inline-flex;
 }
 
+
+/* =========================================================
+   NORMAL BUTTON
+========================================================= */
+
+.btn,
+.view-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    min-height:42px;
+
+    padding:11px 18px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    color:white;
+
+    font-weight:700;
+
+    font-size:14px;
+
+    border:none;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+
+/* EDIT */
 
 .edit{
-
-background:#2563eb;
-
+    background:#2563eb;
 }
 
 
+.edit:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+
+/* DELETE */
 
 .delete{
-
-background:#dc2626;
-
+    background:#dc2626;
 }
 
 
-
-.view{
-
-background:#0284c7;
-
+.delete:hover{
+    background:#b91c1c;
+    transform:translateY(-2px);
 }
 
 
+/* =========================================================
+   VIEW SHIP
+========================================================= */
 
-/* EMPTY */
+.ship-btn{
+    background:#0284c7;
+}
+
+
+.ship-btn:hover{
+    background:#0369a1;
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   VIEW EQUIPMENT
+========================================================= */
+
+.equipment-btn{
+    background:#059669;
+}
+
+
+.equipment-btn:hover{
+    background:#047857;
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   VIEW CONTENT
+========================================================= */
+
+.content-btn{
+    background:#7c3aed;
+}
+
+
+.content-btn:hover{
+    background:#6d28d9;
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
 
 .empty{
+    background:white;
 
-background:white;
-padding:40px;
-border-radius:20px;
-text-align:center;
+    padding:40px;
 
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 
 
+.empty h2{
+    margin-bottom:10px;
+}
 
-/* BACK */
+
+.empty p{
+    color:#64748b;
+}
+
+
+/* =========================================================
+   BACK
+========================================================= */
 
 .back-dashboard{
+    display:inline-block;
 
-display:inline-block;
-margin-top:40px;
-padding:12px 25px;
-background:#0f172a;
-color:white;
-border-radius:12px;
-text-decoration:none;
+    margin-top:40px;
 
+    padding:12px 25px;
+
+    background:#0f172a;
+
+    color:white;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    transition:.3s;
 }
 
 
 .back-dashboard:hover{
-
-background:#0284c7;
-
-}
-
-.view-btn{
-
-display:inline-flex;
-
-align-items:center;
-
-justify-content:center;
-
-gap:8px;
-
-padding:12px 22px;
-
-border-radius:10px;
-
-text-decoration:none;
-
-font-weight:700;
-
-font-size:14px;
-
-color:white;
-
-transition:.3s;
-
-margin-left:10px;
-
+    background:#0284c7;
 }
 
 
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-.ship-btn{
+@media(max-width:700px){
 
-background:#0284c7;
+    body{
+        padding:20px;
+    }
+
+    .header{
+        padding:25px;
+    }
+
+    .header h1{
+        font-size:28px;
+    }
+
+    .card{
+        padding:22px;
+    }
+
+    .image-wrapper{
+        width:100%;
+        height:220px;
+    }
+
+    .actions{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .btn,
+    .view-btn{
+        width:100%;
+    }
+
+    .actions form{
+        width:100%;
+    }
+
+    .actions form button{
+        width:100%;
+    }
 
 }
-
-
-
-.ship-btn:hover{
-
-background:#0369a1;
-
-transform:translateY(-2px);
-
-}
-
-
-
-
-.equipment-btn{
-
-background:#059669;
-
-}
-
-
-
-.equipment-btn:hover{
-
-background:#047857;
-
-transform:translateY(-2px);
-
-}
-
 
 </style>
 
@@ -303,263 +430,450 @@ transform:translateY(-2px);
 </head>
 
 
-
 <body>
 
 
+{{-- =========================================================
+     HEADER
+========================================================= --}}
 
 <div class="header">
 
+    <h1>
+        ⚓ ShipEquipAR Learning Management
+    </h1>
 
-<h1>
-
-⚓ ShipEquipAR Learning Management
-
-</h1>
-
-
-<p>
-
-Manage marine learning modules
-
-</p>
-
+    <p>
+        Manage marine learning modules
+    </p>
 
 </div>
 
 
 
-
+{{-- =========================================================
+     ADD MODULE
+========================================================= --}}
 
 <div class="button-group">
 
-
-<a href="/admin/modules/create"
-class="add-btn">
-
-+ Add Module
-
-</a>
-
+    <a
+        href="/admin/modules/create"
+        class="add-btn"
+    >
+        + Add Module
+    </a>
 
 </div>
 
 
 
+{{-- =========================================================
+     EMPTY
+========================================================= --}}
 
+@if(count($modules) == 0)
 
+    <div class="empty">
 
+        <h2>
+            No Module Available
+        </h2>
 
+        <p>
+            Please add new learning module.
+        </p>
 
-@if(count($modules)==0)
-
-
-<div class="empty">
-
-<h2>
-No Module Available
-</h2>
-
-
-<p>
-Please add new learning module.
-</p>
-
-
-</div>
-
+    </div>
 
 @endif
 
 
 
-
-
-
+{{-- =========================================================
+     MODULE LIST
+========================================================= --}}
 
 @foreach($modules as $module)
 
 
+    @php
 
-<div class="card">
+        /*
+        |--------------------------------------------------------------------------
+        | MODULE IMAGE URL
+        |--------------------------------------------------------------------------
+        |
+        | Support:
+        |
+        | 1. Full URL
+        | 2. public/uploads/modules
+        | 3. public/images/modules
+        |
+        */
 
+        $moduleImageUrl = null;
 
 
-@if($module->image)
+        if ($module->image) {
 
-<img 
 
-src="{{ asset('uploads/modules/'.$module->image) }}"
+            if (
+                str_starts_with($module->image, 'http://')
+                ||
+                str_starts_with($module->image, 'https://')
+            ) {
 
-style="
-width:220px;
-height:140px;
-object-fit:cover;
-border-radius:15px;
-">
+                $moduleImageUrl =
+                    $module->image;
 
+            }
 
-@endif
+            elseif (
+                file_exists(
+                    public_path(
+                        'uploads/modules/' .
+                        $module->image
+                    )
+                )
+            ) {
 
+                $moduleImageUrl =
+                    asset(
+                        'uploads/modules/' .
+                        $module->image
+                    );
 
+            }
 
+            elseif (
+                file_exists(
+                    public_path(
+                        'images/modules/' .
+                        $module->image
+                    )
+                )
+            ) {
 
-<h2>
+                $moduleImageUrl =
+                    asset(
+                        'images/modules/' .
+                        $module->image
+                    );
 
-{{ $module->title }}
+            }
 
-</h2>
+        }
 
 
 
-<p class="category">
+        /*
+        |--------------------------------------------------------------------------
+        | MODULE TYPE
+        |--------------------------------------------------------------------------
+        */
 
-📚 {{ $module->category }}
+        $moduleTitle =
+            strtolower(
+                $module->title ?? ''
+            );
 
-</p>
 
+        $moduleCategory =
+            strtolower(
+                $module->category ?? ''
+            );
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | SHIP MODEL
+        |--------------------------------------------------------------------------
+        */
 
+        $isShipModel =
 
-<h3>
+            str_contains(
+                $moduleTitle,
+                'ship model'
+            )
 
-Description
+            ||
 
-</h3>
+            str_contains(
+                $moduleCategory,
+                'cargo'
+            )
 
+            ||
 
-<p>
+            str_contains(
+                $moduleCategory,
+                'freight'
+            )
 
-{{ $module->description }}
+            ||
 
-</p>
+            str_contains(
+                $moduleCategory,
+                'passenger'
+            )
 
+            ||
 
+            str_contains(
+                $moduleCategory,
+                'offshore'
+            );
 
 
 
-<h3>
+        /*
+        |--------------------------------------------------------------------------
+        | SAFETY / PPE
+        |--------------------------------------------------------------------------
+        */
 
-Function
+        $isSafetyEquipment =
 
-</h3>
+            str_contains(
+                $moduleTitle,
+                'safety equipment'
+            )
 
+            ||
 
-<p>
+            str_contains(
+                $moduleCategory,
+                'ppe'
+            )
 
-{{ $module->function }}
+            ||
 
-</p>
+            str_contains(
+                $moduleCategory,
+                'safety'
+            );
 
+    @endphp
 
 
 
+    <div class="card">
 
 
+        {{-- =================================================
+             IMAGE
+        ================================================== --}}
 
-<div class="actions">
+        <div class="image-wrapper">
 
 
+            @if($moduleImageUrl)
 
-<a href="/admin/modules/{{ $module->id }}/edit"
-class="btn edit">
+                <img
+                    src="{{ $moduleImageUrl }}"
+                    alt="{{ $module->title }}"
+                    class="module-image"
 
-✏ Edit
+                    onerror="
+                        this.style.display='none';
+                        this.nextElementSibling.style.display='flex';
+                    "
+                >
 
-</a>
 
+                <div
+                    class="no-image"
+                    style="display:none;"
+                >
+                    🖼️ Image unavailable
+                </div>
 
 
+            @else
 
+                <div class="no-image">
+                    🖼️ No Module Image
+                </div>
 
+            @endif
 
-<form action="/admin/modules/{{ $module->id }}"
-method="POST"
-style="display:inline">
 
+        </div>
 
-@csrf
 
-@method('DELETE')
 
+        {{-- =================================================
+             TITLE
+        ================================================== --}}
 
-<button class="btn delete"
-onclick="return confirm('Delete module?')">
+        <h2>
+            {{ $module->title }}
+        </h2>
 
-🗑 Delete
 
-</button>
 
+        {{-- =================================================
+             CATEGORY
+        ================================================== --}}
 
-</form>
+        <p class="category">
 
+            📚 {{ $module->category }}
 
+        </p>
 
-@if($module->category == 'Cargo & Freight Ships')
 
-<a href="{{ route('admin.module.equipment',$module->id) }}"
-class="view-btn ship-btn">
 
-🚢 View Ship
+        {{-- =================================================
+             DESCRIPTION
+        ================================================== --}}
 
-</a>
+        <h3>
+            Description
+        </h3>
 
 
-@elseif($module->category == 'PPE')
+        <p>
 
+            {{ $module->description }}
 
-<a href="{{ route('admin.module.equipment',$module->id) }}"
-class="view-btn equipment-btn">
+        </p>
 
-⚓ View Equipment
 
-</a>
 
+        {{-- =================================================
+             FUNCTION
+        ================================================== --}}
 
-@else
+        <h3>
+            Function
+        </h3>
 
 
-<a href="{{ route('admin.module.equipment',$module->id) }}"
-class="view-btn">
+        <p>
 
-📚 View Content
+            {{ $module->function }}
 
-</a>
+        </p>
 
 
-@endif
 
+        {{-- =================================================
+             ACTIONS
+        ================================================== --}}
 
-</div>
+        <div class="actions">
 
 
+            {{-- EDIT --}}
 
+            <a
+                href="/admin/modules/{{ $module->id }}/edit"
+                class="btn edit"
+            >
+                ✏ Edit
+            </a>
 
 
-</div>
 
+            {{-- DELETE --}}
 
+            <form
+                action="/admin/modules/{{ $module->id }}"
+                method="POST"
+                onsubmit="return confirm('Delete this module?')"
+            >
 
+                @csrf
+
+                @method('DELETE')
+
+
+                <button
+                    type="submit"
+                    class="btn delete"
+                >
+                    🗑 Delete
+                </button>
+
+            </form>
+
+
+
+            {{-- =================================================
+                 SHIP MODEL
+            ================================================== --}}
+
+            @if($isShipModel)
+
+                <a
+                    href="{{ route('admin.ships.index') }}"
+                    class="view-btn ship-btn"
+                >
+                    🚢 View Ships
+                </a>
+
+
+
+            {{-- =================================================
+                 SAFETY EQUIPMENT
+            ================================================== --}}
+
+            @elseif($isSafetyEquipment)
+
+                <a
+                    href="{{ route(
+                        'admin.module.equipment',
+                        $module->id
+                    ) }}"
+                    class="view-btn equipment-btn"
+                >
+                    ⚓ View Equipment
+                </a>
+
+
+
+            {{-- =================================================
+                 OTHER MODULES
+            ================================================== --}}
+
+            @else
+
+                <a
+                    href="{{ route(
+                        'admin.module.equipment',
+                        $module->id
+                    ) }}"
+                    class="view-btn content-btn"
+                >
+                    📚 View Content
+                </a>
+
+            @endif
+
+
+        </div>
+
+
+    </div>
 
 
 @endforeach
 
 
 
+{{-- =========================================================
+     BACK DASHBOARD
+========================================================= --}}
 
-
-
-
-<a href="{{ route('admin.dashboard') }}"
-class="back-dashboard">
-
-← Back to Dashboard
-
+<a
+    href="{{ route('admin.dashboard') }}"
+    class="back-dashboard"
+>
+    ← Back to Dashboard
 </a>
-
-
-
 
 
 </body>
