@@ -1,24 +1,37 @@
 /* =========================================================
-   SHIPEQUIPAR GLOBAL RESPONSIVE CSS
-   Admin + User
+   SHIPEQUIPAR RESPONSIVE SYSTEM
 ========================================================= */
+
+:root {
+    --sidebar-desktop: 280px;
+    --sidebar-tablet: 220px;
+
+    --page-max: 1440px;
+
+    --space-desktop: clamp(24px, 3vw, 48px);
+    --space-card: clamp(18px, 2vw, 32px);
+}
 
 
 /* =========================================================
-   GLOBAL RESET
+   GLOBAL
 ========================================================= */
-
-html,
-body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-}
 
 *,
 *::before,
 *::after {
     box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 img,
@@ -31,118 +44,72 @@ img {
     height: auto;
 }
 
-body {
-    min-height: 100vh;
-}
-
 
 /* =========================================================
-   GENERAL CONTAINER
+   CONTAINER
 ========================================================= */
 
 .container {
-    width: 100% !important;
-    max-width: 1200px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    width: min(100% - 32px, 1200px);
+    margin-inline: auto;
 }
 
 
 /* =========================================================
-   TEXT
+   FLUID TYPOGRAPHY
 ========================================================= */
 
-h1,
-h2,
-h3,
-p,
-a,
-span,
-button,
-label {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+h1 {
+    font-size: clamp(1.7rem, 3vw, 2.8rem);
+}
+
+h2 {
+    font-size: clamp(1.3rem, 2vw, 2rem);
+}
+
+h3 {
+    font-size: clamp(1.05rem, 1.5vw, 1.35rem);
 }
 
 p {
-    max-width: 100%;
+    font-size: clamp(.875rem, 1vw, 1rem);
 }
 
 
 /* =========================================================
-   FORMS
-========================================================= */
-
-form {
-    max-width: 100%;
-}
-
-input,
-select,
-textarea,
-button {
-    max-width: 100%;
-}
-
-input,
-select,
-textarea {
-    width: 100%;
-}
-
-textarea {
-    resize: vertical;
-}
-
-
-/* =========================================================
-   IMAGES
-========================================================= */
-
-.card img,
-.module-card img,
-.equipment-image,
-.ship-image {
-    max-width: 100%;
-}
-
-
-/* =========================================================
-   GRID
+   FLEXIBLE GRID
 ========================================================= */
 
 .equipment-grid,
-.ship-grid {
-    display: grid !important;
+.ship-grid,
+.modules {
+    display: grid;
 
     grid-template-columns:
         repeat(
             auto-fit,
-            minmax(
-                min(280px, 100%),
-                1fr
-            )
-        ) !important;
+            minmax(min(260px, 100%), 1fr)
+        );
 
-    gap: 25px !important;
+    gap: clamp(18px, 2vw, 30px);
 
-    align-items: stretch !important;
+    align-items: stretch;
 }
 
 
 /* =========================================================
-   CARD HEIGHT
+   CARDS
 ========================================================= */
 
 .equipment-card,
-.ship-card {
-    display: flex !important;
+.ship-card,
+.modules .card {
+    min-width: 0;
 
-    flex-direction: column !important;
+    display: flex;
+    flex-direction: column;
 
-    min-width: 0 !important;
-
-    height: 100% !important;
+    height: 100%;
 }
 
 
@@ -153,62 +120,74 @@ textarea {
 .card-description,
 .ship-description,
 .equipment-description {
-    flex: 1 !important;
+    flex: 1;
 }
 
 
 /* =========================================================
-   FIX BUTTON AT BOTTOM + CENTER
+   BUTTON ALWAYS BOTTOM + CENTER
 ========================================================= */
 
 .card-action {
-    margin-top: auto !important;
+    margin-top: auto;
 
-    padding-top: 20px !important;
+    padding-top: 20px;
 
-    display: flex !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    align-items: center !important;
-
-    justify-content: center !important;
-
-    width: 100% !important;
+    width: 100%;
 }
 
-
 .equipment-card .btn-ar,
-.ship-card .btn-ar {
-    margin-top: auto !important;
+.ship-card .btn-ar,
+.modules .card .btn {
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
 
-    margin-left: auto !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    margin-right: auto !important;
+    text-align: center;
 
-    display: inline-flex !important;
-
-    align-items: center !important;
-
-    justify-content: center !important;
-
-    text-align: center !important;
+    min-width: 150px;
 }
 
 
 /* =========================================================
-   BUTTONS
+   IMAGES INSIDE CARDS
 ========================================================= */
 
-.btn,
-.btn-ar,
-.view-btn,
-.add-btn,
-.back-btn,
-.back-dashboard {
-    white-space: normal;
+.equipment-image,
+.ship-image {
+    width: 100%;
 
-    text-align: center;
+    height: clamp(180px, 18vw, 230px);
 
+    object-fit: contain;
+}
+
+.ship-image {
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+input,
+textarea,
+select {
+    width: 100%;
     max-width: 100%;
+}
+
+textarea {
+    resize: vertical;
 }
 
 
@@ -218,78 +197,104 @@ textarea {
 
 .table-wrapper {
     width: 100%;
-
     overflow-x: auto;
-
     -webkit-overflow-scrolling: touch;
 }
 
-table {
-    max-width: 100%;
-}
-
 
 /* =========================================================
-   VIDEO / IFRAME
-========================================================= */
-
-iframe {
-    width: 100% !important;
-
-    border: 0;
-}
-
-
-/* =========================================================
-   DASHBOARD SIDEBAR - DESKTOP
+   ADMIN / USER SIDEBAR - DESKTOP
 ========================================================= */
 
 .sidebar {
-    max-width: 100%;
+    width: var(--sidebar-desktop);
 }
 
 .content {
-    max-width: 100%;
+    margin-left: var(--sidebar-desktop);
+
+    width: calc(100% - var(--sidebar-desktop));
+
+    padding:
+        clamp(24px, 3vw, 45px);
 }
 
 
 /* =========================================================
-   LARGE TABLET / SMALL LAPTOP
-   <= 1024px
+   ADMIN WELCOME
 ========================================================= */
 
-@media (max-width: 1024px) {
+.welcome {
+    width: 100%;
 
-    body {
-        padding: 25px;
+    gap: 30px;
+}
+
+.welcome h1 {
+    font-size:
+        clamp(2rem, 3vw, 3rem);
+}
+
+.ship {
+    font-size:
+        clamp(65px, 8vw, 110px);
+}
+
+
+/* =========================================================
+   ADMIN STATISTICS
+========================================================= */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0, 1fr)
+        );
+
+    gap:
+        clamp(15px, 2vw, 25px);
+}
+
+.stat-card {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   ADMIN SYSTEM CARDS
+========================================================= */
+
+.modules {
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+}
+
+
+/* =========================================================
+   LAPTOP
+   1200px
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    :root {
+        --sidebar-desktop: 240px;
     }
 
-
-    .module-card,
-    .card {
-        padding: 28px;
-    }
-
-
-    .equipment-grid,
-    .ship-grid {
+    .stats {
         grid-template-columns:
-            repeat(2, minmax(0, 1fr)) !important;
+            repeat(2, minmax(0, 1fr));
     }
 
-
-    .module-header h1 {
-        font-size: 32px !important;
-    }
-
-
-    .section-title h2 {
-        font-size: 25px !important;
-    }
-
-
-    .welcome h1 {
-        font-size: 34px !important;
+    .modules {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
     }
 
 }
@@ -297,161 +302,40 @@ iframe {
 
 /* =========================================================
    TABLET
-   <= 768px
+   900px
 ========================================================= */
 
-@media (max-width: 768px) {
-
-    /* BODY */
-
-    body {
-        padding: 18px !important;
-    }
-
-
-    /* MAIN CARD */
-
-    .module-card,
-    .card {
-        width: 100% !important;
-
-        padding: 22px !important;
-
-        border-radius: 18px !important;
-    }
-
-
-    /* GRID */
-
-    .equipment-grid,
-    .ship-grid {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr)) !important;
-
-        gap: 18px !important;
-    }
-
-
-    /* HEADER */
-
-    .module-header {
-        gap: 14px !important;
-    }
-
-
-    .module-header h1 {
-        font-size: 28px !important;
-    }
-
-
-    .module-icon {
-        width: 52px !important;
-
-        height: 52px !important;
-
-        font-size: 24px !important;
-
-        flex-shrink: 0;
-    }
-
-
-    /* SECTION */
-
-    .section-title {
-        gap: 10px !important;
-    }
-
-
-    .section-title h2 {
-        font-size: 23px !important;
-    }
-
-
-    /* =====================================================
-       DASHBOARD SIDEBAR
-    ===================================================== */
+@media (max-width: 900px) {
 
     .sidebar {
-        position: relative !important;
-
-        top: auto !important;
-
-        left: auto !important;
-
-        width: 100% !important;
-
-        height: auto !important;
-
-        max-height: none !important;
-
-        padding: 20px !important;
-
-        overflow-y: visible !important;
+        width: var(--sidebar-tablet);
     }
-
 
     .content {
-        width: 100% !important;
+        margin-left: var(--sidebar-tablet);
 
-        margin-left: 0 !important;
+        width:
+            calc(100% - var(--sidebar-tablet));
 
-        padding: 20px !important;
+        padding: 24px;
     }
 
-
-    .welcome {
-        width: 100% !important;
-
-        flex-direction: column !important;
-
-        align-items: flex-start !important;
-
-        gap: 20px !important;
-
-        padding: 28px !important;
+    .logo-name {
+        font-size: 24px;
     }
 
-
-    .welcome h1 {
-        font-size: 30px !important;
+    .menu a {
+        font-size: 14px;
+        padding: 12px;
     }
 
-
-    .welcome h2 {
-        font-size: 22px !important;
+    .stats {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
     }
 
-
-    .ship {
-        font-size: 65px !important;
-    }
-
-
-    .introduction-section {
-        grid-template-columns: 1fr !important;
-    }
-
-
-    .section-title {
-        grid-column: 1 !important;
-    }
-
-
-    /* ACTION BUTTONS */
-
-    .actions {
-        display: flex !important;
-
-        flex-wrap: wrap !important;
-
-        gap: 10px !important;
-    }
-
-
-    /* FORMS */
-
-    form {
-        width: 100%;
+    .modules {
+        grid-template-columns: 1fr;
     }
 
 }
@@ -459,384 +343,184 @@ iframe {
 
 /* =========================================================
    MOBILE
-   <= 600px
+   700px
 ========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
 
-    body {
-        padding: 12px !important;
+    /*
+     * Sidebar no longer consumes desktop width.
+     * It becomes normal page content.
+     */
+
+    .sidebar {
+        position: relative;
+        inset: auto;
+
+        width: 100%;
+        height: auto;
+
+        padding: 18px;
+
+        overflow: visible;
+    }
+
+    .content {
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 16px;
     }
 
 
-    /* HEADER */
+    /* Logo */
 
-    .header {
-        padding: 22px !important;
+    .logo {
+        margin-bottom: 20px;
+    }
 
-        border-radius: 18px !important;
+    .logo-icon {
+        font-size: 32px;
+    }
+
+    .logo-name {
+        font-size: 25px;
     }
 
 
-    .header h1 {
-        font-size: 27px !important;
+    /* Menu */
+
+    .menu a {
+        font-size: 14px;
+
+        padding: 12px 14px;
+
+        margin-bottom: 7px;
     }
 
 
-    /* MODULE CARD */
+    /* Welcome */
+
+    .welcome {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 24px;
+
+        border-radius: 20px;
+    }
+
+    .welcome h1 {
+        font-size:
+            clamp(1.7rem, 8vw, 2.2rem);
+    }
+
+    .welcome p {
+        font-size: 14px;
+    }
+
+    .ship {
+        font-size: 55px;
+    }
+
+
+    /* Statistics */
+
+    .stats {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+
+        margin-top: 22px;
+    }
+
+
+    /* Module cards */
+
+    .modules {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .modules .card {
+        min-height: 0;
+
+        padding: 24px;
+    }
+
+
+    /* General cards */
 
     .module-card,
     .card {
-        padding: 18px !important;
+        width: 100%;
 
-        border-radius: 16px !important;
-
-        margin-bottom: 18px !important;
+        padding:
+            clamp(16px, 5vw, 24px);
     }
 
 
-    /* SINGLE COLUMN */
+    /* User module grids */
 
     .equipment-grid,
     .ship-grid {
-        grid-template-columns: 1fr !important;
-
-        gap: 18px !important;
+        grid-template-columns: 1fr;
     }
 
 
-    /* CARD */
-
-    .equipment-card,
-    .ship-card {
-        width: 100% !important;
-    }
-
-
-    /* IMAGE */
+    /* Images */
 
     .equipment-image,
     .ship-image {
-        width: 100% !important;
-
-        height: 210px !important;
-
-        object-fit: contain !important;
+        height: 200px;
     }
 
 
-    /* SHIP IMAGE */
+    /* Buttons */
 
-    .ship-image {
-        object-fit: cover !important;
-    }
-
-
-    /* TITLES */
-
-    .module-header h1 {
-        font-size: 25px !important;
-    }
-
-
-    .section-title h2 {
-        font-size: 21px !important;
-    }
-
-
-    .equipment-card h2,
-    .ship-card h2 {
-        font-size: 20px !important;
-    }
-
-
-    /* TEXT */
-
-    p {
-        font-size: 14px !important;
-
-        line-height: 1.7 !important;
-    }
-
-
-    /* BUTTON */
-
-    .btn-ar {
-        min-width: 150px;
-
-        max-width: 100%;
-
-        padding: 12px 20px !important;
-    }
-
-
-    /* ADMIN ACTIONS */
-
-    .actions {
-        flex-direction: column !important;
-
-        align-items: stretch !important;
-    }
-
-
-    .actions .btn,
-    .actions .view-btn,
-    .actions form,
-    .actions form button {
-        width: 100% !important;
-
-        margin: 0 !important;
-    }
-
-
-    /* ADD BUTTON */
-
-    .button-group {
-        flex-direction: column !important;
-
-        width: 100% !important;
-    }
-
-
+    .btn,
+    .btn-ar,
+    .view-btn,
     .add-btn {
-        width: 100% !important;
-
-        justify-content: center !important;
-    }
-
-
-    /* DASHBOARD */
-
-    .sidebar {
-        border-radius: 0 !important;
-    }
-
-
-    .logo {
-        font-size: 24px !important;
-    }
-
-
-    .welcome {
-        padding: 22px !important;
-    }
-
-
-    .welcome h1 {
-        font-size: 27px !important;
-    }
-
-
-    .welcome h2 {
-        font-size: 20px !important;
-    }
-
-
-    .welcome p {
-        font-size: 14px !important;
-    }
-
-
-    .ship {
-        font-size: 55px !important;
-    }
-
-
-    /* VIDEO */
-
-    iframe,
-    .video-frame {
-        height: 240px !important;
-    }
-
-
-    /* BACK */
-
-    .back-btn,
-    .back-dashboard {
-        width: 100%;
-
-        justify-content: center;
-
-        text-align: center;
+        max-width: 100%;
     }
 
 }
 
 
 /* =========================================================
-   SMALL MOBILE
-   <= 400px
+   SMALL PHONE
 ========================================================= */
 
-@media (max-width: 400px) {
-
-    body {
-        padding: 8px !important;
-    }
-
-
-    .header,
-    .module-card,
-    .card {
-        padding: 15px !important;
-    }
-
-
-    .header h1 {
-        font-size: 23px !important;
-    }
-
-
-    .module-header h1 {
-        font-size: 22px !important;
-    }
-
-
-    .module-icon {
-        width: 45px !important;
-
-        height: 45px !important;
-
-        font-size: 21px !important;
-    }
-
-
-    .section-title h2 {
-        font-size: 19px !important;
-    }
-
-
-    .section-icon {
-        width: 36px !important;
-
-        height: 36px !important;
-
-        font-size: 20px !important;
-    }
-
-
-    .equipment-image,
-    .ship-image {
-        height: 180px !important;
-    }
-
-
-    .btn,
-    .btn-ar,
-    .view-btn,
-    .add-btn {
-        font-size: 13px !important;
-    }
-
-    /* =========================================================
-   ADMIN DASHBOARD RESPONSIVE
-========================================================= */
-
-@media (max-width: 1100px) {
-
-    .stats {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-
-    .modules {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-
-}
-
-
-@media (max-width: 768px) {
-
-    .sidebar {
-        position: relative !important;
-        width: 100% !important;
-        height: auto !important;
-        padding: 25px 20px !important;
-    }
+@media (max-width: 420px) {
 
     .content {
-        margin-left: 0 !important;
-        width: 100% !important;
-        padding: 20px !important;
-    }
-
-    .welcome {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 20px !important;
-        padding: 30px !important;
-    }
-
-    .welcome h1 {
-        font-size: 32px !important;
-    }
-
-    .ship {
-        font-size: 65px !important;
-    }
-
-    .stats {
-        grid-template-columns: 1fr !important;
-    }
-
-    .modules {
-        grid-template-columns: 1fr !important;
-    }
-
-    .stat-card,
-    .card {
-        width: 100% !important;
-    }
-
-}
-
-
-@media (max-width: 480px) {
-
-    .content {
-        padding: 12px !important;
+        padding: 10px;
     }
 
     .sidebar {
-        padding: 20px 15px !important;
-    }
-
-    .logo-name {
-        font-size: 25px !important;
+        padding: 14px;
     }
 
     .welcome {
-        padding: 22px !important;
-        border-radius: 20px !important;
-    }
-
-    .welcome h1 {
-        font-size: 26px !important;
-    }
-
-    .welcome p {
-        font-size: 15px !important;
+        padding: 18px;
     }
 
     .stat-card {
-        padding: 22px !important;
+        padding: 18px;
     }
 
+    .module-card,
     .card {
-        padding: 25px !important;
-        min-height: auto !important;
+        padding: 16px;
     }
 
-    .title {
-        font-size: 28px !important;
+    .equipment-image,
+    .ship-image {
+        height: 175px;
     }
 
-    .btn {
-        width: 100% !important;
-        text-align: center !important;
-    }
-
-}
-
-}
+}s
