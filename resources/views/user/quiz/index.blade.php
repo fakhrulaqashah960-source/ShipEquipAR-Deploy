@@ -1,558 +1,746 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>
-ShipEquipAR Quiz
-</title>
+    <meta charset="UTF-8">
 
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
+    <title>ShipEquipAR Maritime Quiz</title>
 
-<style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
-}
 
+    <style>
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
-body{
 
-min-height:100vh;
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
 
-background:
 
-linear-gradient(
-rgba(3,37,65,.85),
-rgba(2,132,199,.65)
-),
+        body.quiz-page {
 
-url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
+            min-height: 100vh;
 
+            background:
+                linear-gradient(
+                    rgba(3,37,65,.88),
+                    rgba(2,132,199,.68)
+                ),
+                url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
 
-background-size:cover;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
 
-background-position:center;
+            padding: 30px 18px 45px;
+        }
 
-padding:40px;
 
-}
 
+        /* =====================================================
+           MAIN WRAPPER
+        ===================================================== */
 
+        .quiz-wrapper {
 
-/* ================= HEADER ================= */
+            width: 100%;
 
+            max-width: 1200px;
 
-.header{
+            margin: 0 auto;
+        }
 
 
-max-width:1100px;
 
-margin:auto;
+        /* =====================================================
+           TOP NAV
+        ===================================================== */
 
+        .quiz-topbar {
 
-background:
+            width: 100%;
 
-linear-gradient(
-135deg,
-#0284c7,
-#0f172a
-);
+            display: flex;
 
+            align-items: center;
 
-padding:40px;
+            justify-content: space-between;
 
-border-radius:30px;
+            gap: 15px;
 
-color:white;
+            margin-bottom: 20px;
+        }
 
 
-box-shadow:
+        .quiz-brand {
 
-0 15px 30px rgba(0,0,0,.25);
+            color: white;
 
+            font-size: 25px;
 
-}
+            font-weight: 900;
+        }
 
 
+        .quiz-brand span {
+            color: #38bdf8;
+        }
 
-.header h1{
 
-font-size:42px;
+        .quiz-back-btn {
 
-font-weight:900;
+            display: inline-flex;
 
-}
+            align-items: center;
 
+            justify-content: center;
 
+            min-height: 44px;
 
-.header p{
+            padding: 10px 18px;
 
-margin-top:12px;
+            border-radius: 12px;
 
-font-size:18px;
+            background: #0f172a;
 
-color:#dbeafe;
+            color: white;
 
-}
+            text-decoration: none;
 
+            font-size: 14px;
 
+            font-weight: 700;
 
+            transition: .2s ease;
+        }
 
 
+        .quiz-back-btn:hover {
 
-/* ================= CONTAINER ================= */
+            background: #0284c7;
 
+            transform: translateY(-2px);
+        }
 
-.container{
 
 
-max-width:1100px;
+        /* =====================================================
+           HEADER
+        ===================================================== */
 
-margin:35px auto;
+        .quiz-header {
 
+            width: 100%;
 
-}
+            padding: 35px;
 
+            border-radius: 25px;
 
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(2,132,199,.97),
+                    rgba(15,23,42,.97)
+                );
 
+            color: white;
 
+            box-shadow:
+                0 15px 35px rgba(0,0,0,.22);
+        }
 
 
-/* ================= QUIZ CARD ================= */
+        .quiz-header-label {
 
+            display: inline-flex;
 
-.quiz-card{
+            align-items: center;
 
+            gap: 8px;
 
-background:white;
+            margin-bottom: 12px;
 
-padding:35px;
+            padding: 8px 13px;
 
+            border-radius: 999px;
 
-border-radius:25px;
+            background: rgba(255,255,255,.12);
 
+            color: #e0f2fe;
 
-box-shadow:
+            font-size: 13px;
 
-0 10px 25px rgba(0,0,0,.2);
+            font-weight: 700;
+        }
 
 
-margin-bottom:25px;
+        .quiz-header h1 {
 
+            font-size: clamp(30px, 4vw, 46px);
 
-}
+            font-weight: 900;
 
+            line-height: 1.2;
+        }
 
 
+        .quiz-header p {
 
-.quiz-card h2{
+            max-width: 760px;
 
+            margin-top: 13px;
 
-font-size:30px;
+            color: #dbeafe;
 
-color:#0284c7;
+            font-size: 16px;
 
-margin-bottom:20px;
+            line-height: 1.7;
+        }
 
 
-}
 
+        /* =====================================================
+           QUIZ INFORMATION
+        ===================================================== */
 
+        .quiz-info-grid {
 
+            width: 100%;
 
+            margin-top: 20px;
 
+            display: grid;
 
+            grid-template-columns:
+                repeat(3, minmax(0,1fr));
 
-.info{
+            gap: 14px;
+        }
 
 
-background:#eff6ff;
+        .quiz-info-card {
 
-padding:20px;
+            min-width: 0;
 
-border-radius:15px;
+            padding: 17px;
 
+            border-radius: 16px;
 
-}
+            background: rgba(255,255,255,.12);
 
+            border: 1px solid rgba(255,255,255,.10);
+        }
 
 
+        .quiz-info-card strong {
 
-.info p{
+            display: block;
 
+            margin-bottom: 5px;
 
-margin:10px 0;
+            color: white;
 
-color:#334155;
+            font-size: 14px;
+        }
 
-font-weight:600;
 
+        .quiz-info-card span {
 
-}
+            color: #dbeafe;
 
+            font-size: 13px;
 
+            line-height: 1.5;
+        }
 
 
 
+        /* =====================================================
+           EMBED CONTAINER
+        ===================================================== */
 
+        .quiz-embed-card {
 
-/* ================= BUTTON ================= */
+            width: 100%;
 
+            margin-top: 24px;
 
-.btn{
+            padding: 18px;
 
+            border-radius: 25px;
 
-display:inline-block;
+            background: white;
 
+            box-shadow:
+                0 12px 32px rgba(0,0,0,.22);
 
-margin-top:25px;
+            overflow: hidden;
+        }
 
 
-padding:14px 30px;
+        .quiz-embed-heading {
 
+            padding: 5px 5px 17px;
 
-background:#0284c7;
+            border-bottom: 1px solid #e2e8f0;
 
+            margin-bottom: 15px;
+        }
 
-color:white;
 
+        .quiz-embed-heading h2 {
 
-border-radius:12px;
+            color: #0f172a;
 
+            font-size: 23px;
 
-text-decoration:none;
+            font-weight: 800;
+        }
 
 
-font-weight:700;
+        .quiz-embed-heading p {
 
+            margin-top: 5px;
 
-font-size:16px;
+            color: #64748b;
 
+            font-size: 14px;
 
-transition:.3s;
+            line-height: 1.5;
+        }
 
 
-}
 
+        /* =====================================================
+           PROPROFS IFRAME
+        ===================================================== */
 
+        .proprofs-frame {
 
-.btn:hover{
+            display: block;
 
+            width: 100% !important;
 
-background:#0369a1;
+            min-width: 100%;
 
-transform:translateY(-2px);
+            height: 1000px;
 
+            border: 0;
 
-}
+            margin: 0;
 
+            padding: 0;
 
+            background: white;
+        }
 
 
 
+        /* =====================================================
+           NOTICE
+        ===================================================== */
 
-/* ================= EMPTY ================= */
+        .quiz-notice {
 
+            margin-top: 18px;
 
-.empty{
+            padding: 15px 18px;
 
+            border-radius: 14px;
 
-background:white;
+            background: #ecfeff;
 
-padding:40px;
+            color: #155e75;
 
-border-radius:20px;
+            font-size: 13px;
 
-text-align:center;
+            line-height: 1.6;
+        }
 
 
-}
 
+        /* =====================================================
+           MOBILE
+        ===================================================== */
 
+        @media(max-width:768px) {
 
+            body.quiz-page {
 
+                padding: 0 0 25px;
 
+                background-attachment: scroll;
+            }
 
 
+            .quiz-wrapper {
+                max-width: none;
+            }
 
-/* ================= BACK BUTTON ================= */
 
+            .quiz-topbar {
 
-.back-area{
+                position: sticky;
 
-margin-top:35px;
+                top: 0;
 
-}
+                z-index: 1000;
 
+                min-height: 68px;
 
+                margin-bottom: 0;
 
-.back-btn{
+                padding: 10px 14px;
 
+                background: #0f172a;
+            }
 
-display:inline-block;
 
+            .quiz-brand {
 
-padding:14px 30px;
+                font-size: 21px;
+            }
 
 
-background:#0f172a;
+            .quiz-back-btn {
 
+                min-height: 42px;
 
-color:white;
+                padding: 9px 13px;
 
+                font-size: 12px;
+            }
 
-border-radius:12px;
 
+            .quiz-header {
 
-text-decoration:none;
+                border-radius: 0;
 
+                padding: 25px 18px;
+            }
 
-font-weight:700;
 
+            .quiz-header h1 {
 
-font-size:16px;
+                font-size: 29px;
+            }
 
 
-transition:.3s;
+            .quiz-header p {
 
+                font-size: 14px;
+            }
 
-}
 
+            .quiz-info-grid {
 
+                grid-template-columns: 1fr;
 
-.back-btn:hover{
+                gap: 9px;
+            }
 
 
-background:#0284c7;
+            .quiz-info-card {
 
+                padding: 14px;
+            }
 
-transform:translateY(-2px);
 
+            .quiz-embed-card {
 
-}
+                margin-top: 12px;
 
+                padding: 7px;
 
+                border-radius: 0;
 
+                box-shadow: none;
+            }
 
 
-</style>
+            .quiz-embed-heading {
 
+                padding: 12px 10px 15px;
+
+                margin-bottom: 8px;
+            }
+
+
+            .quiz-embed-heading h2 {
+
+                font-size: 20px;
+            }
+
+
+            .proprofs-frame {
+
+                width: 100% !important;
+
+                min-width: 100% !important;
+
+                height: 1100px;
+            }
+
+
+            .quiz-notice {
+
+                margin: 12px 8px 0;
+            }
+
+        }
+
+
+
+        /* =====================================================
+           SMALL PHONE
+        ===================================================== */
+
+        @media(max-width:430px) {
+
+            .quiz-brand {
+                font-size: 19px;
+            }
+
+
+            .quiz-back-btn {
+
+                padding: 9px 11px;
+
+                font-size: 11px;
+            }
+
+
+            .quiz-header {
+
+                padding: 22px 15px;
+            }
+
+
+            .quiz-header h1 {
+
+                font-size: 26px;
+            }
+
+
+            .quiz-embed-card {
+
+                padding-left: 0;
+
+                padding-right: 0;
+            }
+
+
+            .quiz-embed-heading {
+
+                padding-left: 14px;
+
+                padding-right: 14px;
+            }
+
+
+            .proprofs-frame {
+
+                height: 1200px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
 
+<body class="quiz-page">
+
+
+<div class="quiz-wrapper">
+
+
+    {{-- =====================================================
+         TOP BAR
+    ====================================================== --}}
+
+    <div class="quiz-topbar">
+
+
+        <div class="quiz-brand">
+
+            Ship<span>EquipAR</span>
+
+        </div>
+
+
+        <a
+            href="{{ route('dashboard') }}"
+            class="quiz-back-btn"
+        >
+
+            ← Dashboard
+
+        </a>
+
+
+    </div>
 
 
 
-<body>
+    {{-- =====================================================
+         HEADER
+    ====================================================== --}}
+
+    <section class="quiz-header">
+
+
+        <div class="quiz-header-label">
+
+            📝 Maritime Assessment
+
+        </div>
+
+
+        <h1>
+
+            ShipEquipAR Maritime Knowledge Quiz
+
+        </h1>
+
+
+        <p>
+
+            Test your maritime knowledge by completing
+            the assessment below. Answer all questions
+            carefully and submit your answers to view
+            your final result.
+
+        </p>
 
 
 
-
-<!-- HEADER -->
-
-
-<div class="header">
+        <div class="quiz-info-grid">
 
 
-<h1>
+            <div class="quiz-info-card">
 
-📄 ShipEquipAR Quiz
+                <strong>
+                    🎯 Passing Score
+                </strong>
 
-</h1>
+                <span>
+                    70% or above
+                </span>
+
+            </div>
 
 
-<p>
 
-Complete assessment to receive your official certificate.
+            <div class="quiz-info-card">
 
-</p>
+                <strong>
+                    📝 Assessment
+                </strong>
+
+                <span>
+                    Multiple-choice questions
+                </span>
+
+            </div>
+
+
+
+            <div class="quiz-info-card">
+
+                <strong>
+                    🏆 Certificate
+                </strong>
+
+                <span>
+                    Available after successful completion
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    {{-- =====================================================
+         PROPROFS QUIZ
+    ====================================================== --}}
+
+    <section class="quiz-embed-card">
+
+
+        <div class="quiz-embed-heading">
+
+
+            <h2>
+
+                Start Assessment
+
+            </h2>
+
+
+            <p>
+
+                Complete all questions below.
+                Your score will be calculated automatically
+                after submission.
+
+            </p>
+
+
+        </div>
+
+
+
+        <iframe
+            name="proprofs"
+            id="proprofs"
+            class="proprofs-frame"
+            src="https://www.proprofs.com/quiz-school/ugc/story.php?title=shipequipar-maritime-knowledge-quiz-272&id=4794765&ew=430"
+            frameborder="0"
+            marginwidth="0"
+            marginheight="0"
+            scrolling="yes"
+            allow="camera *; microphone *; fullscreen;"
+            allowfullscreen
+            title="ShipEquipAR Maritime Knowledge Quiz">
+        </iframe>
+
+
+        <div class="quiz-notice">
+
+            🏆 Users who achieve the required passing score
+            can receive the completion certificate configured
+            for this assessment.
+
+        </div>
+
+
+    </section>
 
 
 </div>
-
-
-
-
-
-
-
-
-<!-- QUIZ LIST -->
-
-
-<div class="container">
-
-
-
-
-
-
-@if(count($quizzes)==0)
-
-
-
-<div class="empty">
-
-
-<h2>
-
-No Quiz Available
-
-</h2>
-
-
-<p>
-
-Please complete learning module first.
-
-</p>
-
-
-</div>
-
-
-
-@endif
-
-
-
-
-
-
-
-@foreach($quizzes as $quiz)
-
-
-
-
-
-<div class="quiz-card">
-
-
-
-
-
-<h2>
-
-📄 {{ $quiz->title }}
-
-</h2>
-
-
-
-
-
-
-
-<div class="info">
-
-
-
-<p>
-
-🎯 Passing Score :
-
-{{ $quiz->passing_score }}%
-
-</p>
-
-
-
-
-<p>
-
-🌐 Platform :
-
-{{ $quiz->platform }}
-
-</p>
-
-
-
-
-
-<p>
-
-🏆 Certificate :
-
-Available after successful completion
-
-</p>
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<a href="{{ route('quiz.show',$quiz->id) }}"
-class="btn">
-
-
-Start Quiz →
-
-
-</a>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-@endforeach
-
-
-
-
-
-
-
-<div class="back-area">
-
-
-<a href="{{ route('dashboard') }}"
-class="back-btn">
-
-
-🏠 Back to Dashboard
-
-
-</a>
-
-
-</div>
-
-
-
-</div>
-
-
-
 
 
 </body>
-
 
 </html>
