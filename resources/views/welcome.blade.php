@@ -742,15 +742,22 @@ NAVIGATION
 <nav>
 
 
-<div class="topbar">
-    <div class="brand">
-        ShipEquipAR
-    </div>
+<div class="logo">
 
-    <div class="auth-buttons">
-        <a href="{{ route('login') }}" class="auth-btn">Login</a>
-        <a href="{{ route('register') }}" class="auth-btn">Register</a>
-    </div>
+⚓ ShipEquipAR
+
+</div>
+
+
+
+<div class="auth-buttons">
+    <a href="{{ route('login') }}" class="auth-btn">
+        Login
+    </a>
+
+    <a href="{{ route('register') }}" class="auth-btn">
+        Register
+    </a>
 </div>
 
 </nav>

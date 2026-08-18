@@ -12,7 +12,6 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-
     <style>
 
         * {
@@ -22,23 +21,19 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
-
         html,
         body {
             width: 100%;
             min-height: 100%;
-            overflow-x: hidden;
         }
 
-
-        body.quiz-page {
-
+        body.shipquiz-page {
             min-height: 100vh;
 
             background:
                 linear-gradient(
-                    rgba(3,37,65,.88),
-                    rgba(2,132,199,.68)
+                    rgba(3,37,65,.86),
+                    rgba(2,132,199,.65)
                 ),
                 url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
 
@@ -46,74 +41,266 @@
             background-position: center;
             background-attachment: fixed;
 
-            padding: 30px 18px 45px;
-        }
+            padding: 28px 15px 40px;
 
+            overflow-x: hidden;
+        }
 
 
         /* =====================================================
-           MAIN WRAPPER
+           MAIN
         ===================================================== */
 
-        .quiz-wrapper {
-
-            width: 100%;
-
-            max-width: 1200px;
-
-            margin: 0 auto;
+        body.shipquiz-page .shipquiz-wrapper {
+            width: 100% !important;
+            max-width: 760px !important;
+            margin: 0 auto !important;
         }
-
 
 
         /* =====================================================
-           TOP NAV
+           BRAND
         ===================================================== */
 
-        .quiz-topbar {
-
-            width: 100%;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 15px;
-
-            margin-bottom: 20px;
-        }
-
-
-        .quiz-brand {
+        body.shipquiz-page .shipquiz-brand {
+            text-align: center;
+            margin-bottom: 15px;
 
             color: white;
 
-            font-size: 25px;
-
+            font-size: 23px;
             font-weight: 900;
         }
 
-
-        .quiz-brand span {
+        body.shipquiz-page .shipquiz-brand span {
             color: #38bdf8;
         }
 
 
-        .quiz-back-btn {
+        /* =====================================================
+           HEADER
+        ===================================================== */
 
+        body.shipquiz-page .shipquiz-header {
+            width: 100%;
+
+            padding: 25px 28px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0284c7,
+                    #0f172a
+                );
+
+            color: white;
+
+            box-shadow:
+                0 12px 28px rgba(0,0,0,.20);
+        }
+
+        body.shipquiz-page .shipquiz-label {
+            display: inline-block;
+
+            padding: 6px 11px;
+
+            margin-bottom: 10px;
+
+            border-radius: 999px;
+
+            background: rgba(255,255,255,.13);
+
+            color: #e0f2fe;
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        body.shipquiz-page .shipquiz-header h1 {
+            font-size: 29px;
+            font-weight: 900;
+            line-height: 1.25;
+        }
+
+        body.shipquiz-page .shipquiz-header > p {
+            margin-top: 9px;
+
+            color: #dbeafe;
+
+            font-size: 13px;
+            line-height: 1.65;
+        }
+
+
+        /* =====================================================
+           INFO
+        ===================================================== */
+
+        body.shipquiz-page .shipquiz-info {
+            margin-top: 17px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0,1fr));
+
+            gap: 10px;
+        }
+
+        body.shipquiz-page .shipquiz-info-card {
+            padding: 12px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,.11);
+
+            border:
+                1px solid rgba(255,255,255,.10);
+        }
+
+        body.shipquiz-page .shipquiz-info-card strong {
+            display: block;
+
+            margin-bottom: 3px;
+
+            color: white;
+
+            font-size: 11px;
+        }
+
+        body.shipquiz-page .shipquiz-info-card span {
+            color: #dbeafe;
+
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+
+        /* =====================================================
+           QUIZ CARD
+        ===================================================== */
+
+        body.shipquiz-page .shipquiz-card {
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 18px;
+
+            border-radius: 20px;
+
+            background: white;
+
+            box-shadow:
+                0 12px 28px rgba(0,0,0,.20);
+        }
+
+        body.shipquiz-page .shipquiz-card-title {
+            padding-bottom: 13px;
+            margin-bottom: 14px;
+
+            border-bottom:
+                1px solid #e2e8f0;
+        }
+
+        body.shipquiz-page .shipquiz-card-title h2 {
+            color: #0f172a;
+
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        body.shipquiz-page .shipquiz-card-title p {
+            margin-top: 4px;
+
+            color: #64748b;
+
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           PROPROFS - CENTER
+        ===================================================== */
+
+        body.shipquiz-page .shipquiz-frame-area {
+            width: 100%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: flex-start;
+
+            overflow: hidden;
+        }
+
+        body.shipquiz-page #proprofs {
+            display: block;
+
+            width: 430px !important;
+            max-width: 100% !important;
+
+            height: 900px;
+
+            margin: 0 auto !important;
+
+            border: none;
+
+            background: white;
+        }
+
+
+        /* =====================================================
+           CERTIFICATE NOTICE
+        ===================================================== */
+
+        body.shipquiz-page .shipquiz-notice {
+            margin-top: 14px;
+
+            padding: 12px 14px;
+
+            border-radius: 11px;
+
+            background: #ecfeff;
+
+            color: #155e75;
+
+            font-size: 11px;
+            line-height: 1.55;
+        }
+
+
+        /* =====================================================
+           BACK BUTTON - BOTTOM LEFT
+        ===================================================== */
+
+        body.shipquiz-page .shipquiz-back-area {
+            width: 100%;
+
+            margin-top: 17px;
+
+            display: flex;
+
+            justify-content: flex-start;
+        }
+
+        body.shipquiz-page .shipquiz-back {
             display: inline-flex;
 
             align-items: center;
 
             justify-content: center;
 
-            min-height: 44px;
+            min-height: 43px;
 
             padding: 10px 18px;
 
-            border-radius: 12px;
+            border-radius: 11px;
 
             background: #0f172a;
 
@@ -121,440 +308,71 @@
 
             text-decoration: none;
 
-            font-size: 14px;
-
+            font-size: 13px;
             font-weight: 700;
 
-            transition: .2s ease;
+            transition: .2s;
         }
 
-
-        .quiz-back-btn:hover {
-
+        body.shipquiz-page .shipquiz-back:hover {
             background: #0284c7;
 
             transform: translateY(-2px);
         }
 
 
-
-        /* =====================================================
-           HEADER
-        ===================================================== */
-
-        .quiz-header {
-
-            width: 100%;
-
-            padding: 35px;
-
-            border-radius: 25px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(2,132,199,.97),
-                    rgba(15,23,42,.97)
-                );
-
-            color: white;
-
-            box-shadow:
-                0 15px 35px rgba(0,0,0,.22);
-        }
-
-
-        .quiz-header-label {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            margin-bottom: 12px;
-
-            padding: 8px 13px;
-
-            border-radius: 999px;
-
-            background: rgba(255,255,255,.12);
-
-            color: #e0f2fe;
-
-            font-size: 13px;
-
-            font-weight: 700;
-        }
-
-
-        .quiz-header h1 {
-
-            font-size: clamp(30px, 4vw, 46px);
-
-            font-weight: 900;
-
-            line-height: 1.2;
-        }
-
-
-        .quiz-header p {
-
-            max-width: 760px;
-
-            margin-top: 13px;
-
-            color: #dbeafe;
-
-            font-size: 16px;
-
-            line-height: 1.7;
-        }
-
-
-
-        /* =====================================================
-           QUIZ INFORMATION
-        ===================================================== */
-
-        .quiz-info-grid {
-
-            width: 100%;
-
-            margin-top: 20px;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, minmax(0,1fr));
-
-            gap: 14px;
-        }
-
-
-        .quiz-info-card {
-
-            min-width: 0;
-
-            padding: 17px;
-
-            border-radius: 16px;
-
-            background: rgba(255,255,255,.12);
-
-            border: 1px solid rgba(255,255,255,.10);
-        }
-
-
-        .quiz-info-card strong {
-
-            display: block;
-
-            margin-bottom: 5px;
-
-            color: white;
-
-            font-size: 14px;
-        }
-
-
-        .quiz-info-card span {
-
-            color: #dbeafe;
-
-            font-size: 13px;
-
-            line-height: 1.5;
-        }
-
-
-
-        /* =====================================================
-           EMBED CONTAINER
-        ===================================================== */
-
-        .quiz-embed-card {
-
-            width: 100%;
-
-            margin-top: 24px;
-
-            padding: 18px;
-
-            border-radius: 25px;
-
-            background: white;
-
-            box-shadow:
-                0 12px 32px rgba(0,0,0,.22);
-
-            overflow: hidden;
-        }
-
-
-        .quiz-embed-heading {
-
-            padding: 5px 5px 17px;
-
-            border-bottom: 1px solid #e2e8f0;
-
-            margin-bottom: 15px;
-        }
-
-
-        .quiz-embed-heading h2 {
-
-            color: #0f172a;
-
-            font-size: 23px;
-
-            font-weight: 800;
-        }
-
-
-        .quiz-embed-heading p {
-
-            margin-top: 5px;
-
-            color: #64748b;
-
-            font-size: 14px;
-
-            line-height: 1.5;
-        }
-
-
-
-        /* =====================================================
-           PROPROFS IFRAME
-        ===================================================== */
-
-        .proprofs-frame {
-
-            display: block;
-
-            width: 100% !important;
-
-            min-width: 100%;
-
-            height: 1000px;
-
-            border: 0;
-
-            margin: 0;
-
-            padding: 0;
-
-            background: white;
-        }
-
-
-
-        /* =====================================================
-           NOTICE
-        ===================================================== */
-
-        .quiz-notice {
-
-            margin-top: 18px;
-
-            padding: 15px 18px;
-
-            border-radius: 14px;
-
-            background: #ecfeff;
-
-            color: #155e75;
-
-            font-size: 13px;
-
-            line-height: 1.6;
-        }
-
-
-
         /* =====================================================
            MOBILE
         ===================================================== */
 
-        @media(max-width:768px) {
+        @media(max-width:600px) {
 
-            body.quiz-page {
-
-                padding: 0 0 25px;
-
+            body.shipquiz-page {
+                padding: 12px 8px 25px;
                 background-attachment: scroll;
             }
 
-
-            .quiz-wrapper {
-                max-width: none;
+            body.shipquiz-page .shipquiz-wrapper {
+                max-width: 100% !important;
             }
 
-
-            .quiz-topbar {
-
-                position: sticky;
-
-                top: 0;
-
-                z-index: 1000;
-
-                min-height: 68px;
-
-                margin-bottom: 0;
-
-                padding: 10px 14px;
-
-                background: #0f172a;
-            }
-
-
-            .quiz-brand {
-
+            body.shipquiz-page .shipquiz-brand {
                 font-size: 21px;
+                margin-bottom: 10px;
             }
 
-
-            .quiz-back-btn {
-
-                min-height: 42px;
-
-                padding: 9px 13px;
-
-                font-size: 12px;
+            body.shipquiz-page .shipquiz-header {
+                padding: 21px 17px;
+                border-radius: 17px;
             }
 
-
-            .quiz-header {
-
-                border-radius: 0;
-
-                padding: 25px 18px;
+            body.shipquiz-page .shipquiz-header h1 {
+                font-size: 25px;
             }
 
-
-            .quiz-header h1 {
-
-                font-size: 29px;
-            }
-
-
-            .quiz-header p {
-
-                font-size: 14px;
-            }
-
-
-            .quiz-info-grid {
-
+            body.shipquiz-page .shipquiz-info {
                 grid-template-columns: 1fr;
-
-                gap: 9px;
+                gap: 7px;
             }
 
-
-            .quiz-info-card {
-
-                padding: 14px;
+            body.shipquiz-page .shipquiz-card {
+                padding: 10px 6px;
+                border-radius: 16px;
             }
 
-
-            .quiz-embed-card {
-
-                margin-top: 12px;
-
-                padding: 7px;
-
-                border-radius: 0;
-
-                box-shadow: none;
+            body.shipquiz-page .shipquiz-card-title {
+                padding: 5px 8px 12px;
             }
 
-
-            .quiz-embed-heading {
-
-                padding: 12px 10px 15px;
-
-                margin-bottom: 8px;
-            }
-
-
-            .quiz-embed-heading h2 {
-
-                font-size: 20px;
-            }
-
-
-            .proprofs-frame {
-
+            body.shipquiz-page #proprofs {
                 width: 100% !important;
-
-                min-width: 100% !important;
-
-                height: 1100px;
+                max-width: 430px !important;
+                height: 1000px;
             }
 
-
-            .quiz-notice {
-
-                margin: 12px 8px 0;
-            }
-
-        }
-
-
-
-        /* =====================================================
-           SMALL PHONE
-        ===================================================== */
-
-        @media(max-width:430px) {
-
-            .quiz-brand {
-                font-size: 19px;
-            }
-
-
-            .quiz-back-btn {
-
-                padding: 9px 11px;
-
-                font-size: 11px;
-            }
-
-
-            .quiz-header {
-
-                padding: 22px 15px;
-            }
-
-
-            .quiz-header h1 {
-
-                font-size: 26px;
-            }
-
-
-            .quiz-embed-card {
-
-                padding-left: 0;
-
-                padding-right: 0;
-            }
-
-
-            .quiz-embed-heading {
-
-                padding-left: 14px;
-
-                padding-right: 14px;
-            }
-
-
-            .proprofs-frame {
-
-                height: 1200px;
+            body.shipquiz-page .shipquiz-notice {
+                margin-left: 5px;
+                margin-right: 5px;
             }
 
         }
@@ -564,48 +382,24 @@
 </head>
 
 
-<body class="quiz-page">
+<body class="shipquiz-page">
 
 
-<div class="quiz-wrapper">
+<div class="shipquiz-wrapper">
 
 
-    {{-- =====================================================
-         TOP BAR
-    ====================================================== --}}
+    <div class="shipquiz-brand">
 
-    <div class="quiz-topbar">
-
-
-        <div class="quiz-brand">
-
-            Ship<span>EquipAR</span>
-
-        </div>
-
-
-        <a
-            href="{{ route('dashboard') }}"
-            class="quiz-back-btn"
-        >
-
-            ← Dashboard
-
-        </a>
-
+        Ship<span>EquipAR</span>
 
     </div>
 
 
 
-    {{-- =====================================================
-         HEADER
-    ====================================================== --}}
-
-    <section class="quiz-header">
+    <section class="shipquiz-header">
 
 
-        <div class="quiz-header-label">
+        <div class="shipquiz-label">
 
             📝 Maritime Assessment
 
@@ -623,17 +417,15 @@
 
             Test your maritime knowledge by completing
             the assessment below. Answer all questions
-            carefully and submit your answers to view
-            your final result.
+            and submit your responses to view your result.
 
         </p>
 
 
+        <div class="shipquiz-info">
 
-        <div class="quiz-info-grid">
 
-
-            <div class="quiz-info-card">
+            <div class="shipquiz-info-card">
 
                 <strong>
                     🎯 Passing Score
@@ -646,8 +438,7 @@
             </div>
 
 
-
-            <div class="quiz-info-card">
+            <div class="shipquiz-info-card">
 
                 <strong>
                     📝 Assessment
@@ -660,15 +451,14 @@
             </div>
 
 
-
-            <div class="quiz-info-card">
+            <div class="shipquiz-info-card">
 
                 <strong>
                     🏆 Certificate
                 </strong>
 
                 <span>
-                    Available after successful completion
+                    Available after passing
                 </span>
 
             </div>
@@ -681,14 +471,10 @@
 
 
 
-    {{-- =====================================================
-         PROPROFS QUIZ
-    ====================================================== --}}
-
-    <section class="quiz-embed-card">
+    <section class="shipquiz-card">
 
 
-        <div class="quiz-embed-heading">
+        <div class="shipquiz-card-title">
 
 
             <h2>
@@ -701,8 +487,7 @@
             <p>
 
                 Complete all questions below.
-                Your score will be calculated automatically
-                after submission.
+                Your result will be calculated automatically.
 
             </p>
 
@@ -711,31 +496,55 @@
 
 
 
-        <iframe
-            name="proprofs"
-            id="proprofs"
-            class="proprofs-frame"
-            src="https://www.proprofs.com/quiz-school/ugc/story.php?title=shipequipar-maritime-knowledge-quiz-272&id=4794765&ew=430"
-            frameborder="0"
-            marginwidth="0"
-            marginheight="0"
-            scrolling="yes"
-            allow="camera *; microphone *; fullscreen;"
-            allowfullscreen
-            title="ShipEquipAR Maritime Knowledge Quiz">
-        </iframe>
+        <div class="shipquiz-frame-area">
 
 
-        <div class="quiz-notice">
+            <iframe
+                name="proprofs"
+                id="proprofs"
+                src="https://www.proprofs.com/quiz-school/ugc/story.php?title=shipequipar-maritime-knowledge-quiz-272&id=4794765&ew=430"
+                frameborder="0"
+                marginwidth="0"
+                marginheight="0"
+                scrolling="yes"
+                allow="camera *; microphone *; fullscreen;"
+                allowfullscreen
+                title="ShipEquipAR Maritime Knowledge Quiz">
+            </iframe>
 
-            🏆 Users who achieve the required passing score
-            can receive the completion certificate configured
-            for this assessment.
+
+        </div>
+
+
+
+        <div class="shipquiz-notice">
+
+            🏆 Complete the quiz and achieve the required
+            passing score to receive your completion certificate.
 
         </div>
 
 
     </section>
+
+
+
+    {{-- BACK BUTTON BAWAH KIRI --}}
+
+    <div class="shipquiz-back-area">
+
+
+        <a
+            href="{{ route('dashboard') }}"
+            class="shipquiz-back"
+        >
+
+            ← Back to Dashboard
+
+        </a>
+
+
+    </div>
 
 
 </div>
