@@ -2,14 +2,8 @@
    SHIPEQUIPAR RESPONSIVE SYSTEM
 ========================================================= */
 
-:root {
-    --sidebar-desktop: 280px;
-    --sidebar-tablet: 220px;
-
-    --page-max: 1440px;
-
-    --space-desktop: clamp(24px, 3vw, 48px);
-    --space-card: clamp(18px, 2vw, 32px);
+:root{
+    --sidebar-width: clamp(230px, 17vw, 270px);
 }
 
 
@@ -19,29 +13,21 @@
 
 *,
 *::before,
-*::after {
-    box-sizing: border-box;
+*::after{
+    box-sizing:border-box;
 }
 
-html {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-body {
-    width: 100%;
-    min-height: 100vh;
-    overflow-x: hidden;
+html,
+body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
 }
 
 img,
 video,
-iframe {
-    max-width: 100%;
-}
-
-img {
-    height: auto;
+iframe{
+    max-width:100%;
 }
 
 
@@ -49,78 +35,143 @@ img {
    CONTAINER
 ========================================================= */
 
-.container {
-    width: min(100% - 32px, 1200px);
-    margin-inline: auto;
+.container{
+    width:min(100% - 32px, 1200px) !important;
+    margin-inline:auto !important;
 }
 
 
 /* =========================================================
-   FLUID TYPOGRAPHY
+   FLUID TEXT
 ========================================================= */
 
-h1 {
-    font-size: clamp(1.7rem, 3vw, 2.8rem);
+h1{
+    font-size:clamp(1.7rem, 3vw, 2.8rem);
 }
 
-h2 {
-    font-size: clamp(1.3rem, 2vw, 2rem);
+h2{
+    font-size:clamp(1.25rem, 2vw, 2rem);
 }
 
-h3 {
-    font-size: clamp(1.05rem, 1.5vw, 1.35rem);
-}
-
-p {
-    font-size: clamp(.875rem, 1vw, 1rem);
+p{
+    font-size:clamp(.875rem, 1vw, 1rem);
 }
 
 
 /* =========================================================
-   FLEXIBLE GRID
+   SIDEBAR - DESKTOP
 ========================================================= */
 
-.equipment-grid,
-.ship-grid,
-.modules {
-    display: grid;
+body .sidebar{
+    width:var(--sidebar-width) !important;
+}
+
+body .content{
+    margin-left:var(--sidebar-width) !important;
+
+    width:calc(100% - var(--sidebar-width)) !important;
+
+    padding:clamp(24px, 3vw, 45px) !important;
+}
+
+
+/* =========================================================
+   WELCOME PANEL
+========================================================= */
+
+body .welcome{
+    width:100% !important;
+    gap:25px !important;
+
+    padding:clamp(28px, 4vw, 50px) !important;
+}
+
+body .welcome h1{
+    font-size:clamp(2rem, 3vw, 3rem) !important;
+}
+
+body .welcome p{
+    font-size:clamp(.9rem, 1.2vw, 1.15rem) !important;
+}
+
+body .ship{
+    font-size:clamp(60px, 7vw, 100px) !important;
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+body .stats{
+    display:grid !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0,1fr)) !important;
+
+    gap:clamp(15px, 2vw, 25px) !important;
+}
+
+body .stat-card{
+    min-width:0 !important;
+}
+
+
+/* =========================================================
+   MODULE / SHIP / EQUIPMENT GRIDS
+========================================================= */
+
+body .modules{
+    display:grid !important;
+
+    grid-template-columns:
+        repeat(3, minmax(0,1fr)) !important;
+
+    gap:clamp(18px, 2vw, 30px) !important;
+}
+
+
+body .equipment-grid,
+body .ship-grid{
+    display:grid !important;
 
     grid-template-columns:
         repeat(
             auto-fit,
-            minmax(min(260px, 100%), 1fr)
-        );
+            minmax(min(260px,100%),1fr)
+        ) !important;
 
-    gap: clamp(18px, 2vw, 30px);
+    gap:25px !important;
 
-    align-items: stretch;
+    align-items:stretch !important;
 }
 
 
 /* =========================================================
-   CARDS
+   CARD HEIGHT
 ========================================================= */
 
-.equipment-card,
-.ship-card,
-.modules .card {
-    min-width: 0;
+body .equipment-card,
+body .ship-card,
+body .modules .card{
+    display:flex !important;
 
-    display: flex;
-    flex-direction: column;
+    flex-direction:column !important;
 
-    height: 100%;
+    height:100% !important;
+
+    min-width:0 !important;
 }
 
 
 /* =========================================================
-   CARD DESCRIPTION
+   DESCRIPTION FILLS SPACE
 ========================================================= */
 
-.card-description,
-.ship-description,
-.equipment-description {
-    flex: 1;
+body .card-description,
+body .ship-description,
+body .equipment-description{
+    flex:1 !important;
 }
 
 
@@ -128,214 +179,145 @@ p {
    BUTTON ALWAYS BOTTOM + CENTER
 ========================================================= */
 
-.card-action {
-    margin-top: auto;
+body .card-action{
+    margin-top:auto !important;
 
-    padding-top: 20px;
+    padding-top:20px !important;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width:100% !important;
 
-    width: 100%;
-}
+    display:flex !important;
 
-.equipment-card .btn-ar,
-.ship-card .btn-ar,
-.modules .card .btn {
-    margin-top: auto;
-    margin-left: auto;
-    margin-right: auto;
+    align-items:center !important;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    min-width: 150px;
+    justify-content:center !important;
 }
 
 
-/* =========================================================
-   IMAGES INSIDE CARDS
-========================================================= */
+body .equipment-card > .btn-ar,
+body .ship-card > .btn-ar,
+body .equipment-card .card-action .btn-ar,
+body .ship-card .card-action .btn-ar,
+body .modules .card > .btn{
 
-.equipment-image,
-.ship-image {
-    width: 100%;
+    margin-top:auto !important;
 
-    height: clamp(180px, 18vw, 230px);
+    margin-left:auto !important;
 
-    object-fit: contain;
-}
+    margin-right:auto !important;
 
-.ship-image {
-    object-fit: cover;
+    display:inline-flex !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+
+    text-align:center !important;
+
+    min-width:150px;
 }
 
 
 /* =========================================================
-   FORMS
+   CARD IMAGE
 ========================================================= */
 
-input,
-textarea,
-select {
-    width: 100%;
-    max-width: 100%;
+body .equipment-image,
+body .ship-image{
+    width:100% !important;
+
+    height:clamp(180px, 18vw, 230px) !important;
+
+    object-fit:contain !important;
 }
 
-textarea {
-    resize: vertical;
+body .ship-image{
+    object-fit:cover !important;
 }
 
 
 /* =========================================================
-   TABLE
+   LOGIN / REGISTER
 ========================================================= */
 
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+body a[href="/login"],
+body a[href="/register"],
+body a[href$="/login"],
+body a[href$="/register"]{
+
+    position:static !important;
+
+    float:none !important;
+
+    transform:none !important;
+
+    display:inline-flex !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+
+    width:auto !important;
+
+    min-width:105px !important;
+
+    min-height:45px !important;
+
+    padding:10px 18px !important;
+
+    margin:4px !important;
+
+    border-radius:25px !important;
+
+    text-align:center !important;
+
+    white-space:nowrap !important;
+}
+
+
+/* Common possible auth containers */
+
+body .auth-buttons,
+body .auth-links,
+body .login-register,
+body .top-buttons{
+    display:flex !important;
+
+    flex-wrap:wrap !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+
+    gap:8px !important;
 }
 
 
 /* =========================================================
-   ADMIN / USER SIDEBAR - DESKTOP
+   TABLET / SMALL LAPTOP
 ========================================================= */
 
-.sidebar {
-    width: var(--sidebar-desktop);
-}
+@media(max-width:1100px){
 
-.content {
-    margin-left: var(--sidebar-desktop);
-
-    width: calc(100% - var(--sidebar-desktop));
-
-    padding:
-        clamp(24px, 3vw, 45px);
-}
-
-
-/* =========================================================
-   ADMIN WELCOME
-========================================================= */
-
-.welcome {
-    width: 100%;
-
-    gap: 30px;
-}
-
-.welcome h1 {
-    font-size:
-        clamp(2rem, 3vw, 3rem);
-}
-
-.ship {
-    font-size:
-        clamp(65px, 8vw, 110px);
-}
-
-
-/* =========================================================
-   ADMIN STATISTICS
-========================================================= */
-
-.stats {
-    display: grid;
-
-    grid-template-columns:
-        repeat(
-            4,
-            minmax(0, 1fr)
-        );
-
-    gap:
-        clamp(15px, 2vw, 25px);
-}
-
-.stat-card {
-    min-width: 0;
-}
-
-
-/* =========================================================
-   ADMIN SYSTEM CARDS
-========================================================= */
-
-.modules {
-    grid-template-columns:
-        repeat(
-            3,
-            minmax(0, 1fr)
-        );
-}
-
-
-/* =========================================================
-   LAPTOP
-   1200px
-========================================================= */
-
-@media (max-width: 1200px) {
-
-    :root {
-        --sidebar-desktop: 240px;
+    :root{
+        --sidebar-width:220px;
     }
 
-    .stats {
+
+    body .stats{
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+            repeat(2,minmax(0,1fr)) !important;
     }
 
-    .modules {
+
+    body .modules{
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+            repeat(2,minmax(0,1fr)) !important;
     }
 
-}
 
-
-/* =========================================================
-   TABLET
-   900px
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .sidebar {
-        width: var(--sidebar-tablet);
-    }
-
-    .content {
-        margin-left: var(--sidebar-tablet);
-
-        width:
-            calc(100% - var(--sidebar-tablet));
-
-        padding: 24px;
-    }
-
-    .logo-name {
-        font-size: 24px;
-    }
-
-    .menu a {
-        font-size: 14px;
-        padding: 12px;
-    }
-
-    .stats {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-
-    .modules {
-        grid-template-columns: 1fr;
+    body .menu a{
+        font-size:14px !important;
     }
 
 }
@@ -343,149 +325,268 @@ textarea {
 
 /* =========================================================
    MOBILE
-   700px
 ========================================================= */
 
-@media (max-width: 700px) {
+@media(max-width:700px){
+
+    /* ===============================
+       SIDEBAR BECOMES COMPACT TOP MENU
+    =============================== */
+
+    body .sidebar{
+
+        position:relative !important;
+
+        inset:auto !important;
+
+        width:100% !important;
+
+        height:auto !important;
+
+        min-height:0 !important;
+
+        max-height:none !important;
+
+        overflow:visible !important;
+
+        padding:16px !important;
+    }
+
+
+    /* LOGO */
+
+    body .sidebar .logo{
+
+        margin:0 0 16px 0 !important;
+
+        justify-content:center !important;
+    }
+
+
+    body .sidebar .logo-icon{
+        font-size:30px !important;
+    }
+
+
+    body .sidebar .logo-name{
+        font-size:24px !important;
+    }
+
 
     /*
-     * Sidebar no longer consumes desktop width.
-     * It becomes normal page content.
+     * Menu menjadi dua column.
+     * Jadi tak memenuhi seluruh skrin.
      */
 
-    .sidebar {
-        position: relative;
-        inset: auto;
+    body .sidebar .menu{
 
-        width: 100%;
-        height: auto;
+        display:grid !important;
 
-        padding: 18px;
+        grid-template-columns:
+            repeat(2,minmax(0,1fr)) !important;
 
-        overflow: visible;
-    }
-
-    .content {
-        margin-left: 0;
-
-        width: 100%;
-
-        padding: 16px;
+        gap:8px !important;
     }
 
 
-    /* Logo */
+    body .sidebar .menu > a{
 
-    .logo {
-        margin-bottom: 20px;
-    }
+        margin:0 !important;
 
-    .logo-icon {
-        font-size: 32px;
-    }
+        min-height:48px !important;
 
-    .logo-name {
-        font-size: 25px;
-    }
+        padding:10px 12px !important;
 
+        border-radius:10px !important;
 
-    /* Menu */
+        font-size:13px !important;
 
-    .menu a {
-        font-size: 14px;
+        justify-content:flex-start !important;
 
-        padding: 12px 14px;
-
-        margin-bottom: 7px;
+        transform:none !important;
     }
 
 
-    /* Welcome */
+    /*
+     * Learning Module gunakan full row
+     */
 
-    .welcome {
-        flex-direction: column;
+    body .sidebar .menu > div{
 
-        align-items: flex-start;
-
-        padding: 24px;
-
-        border-radius: 20px;
-    }
-
-    .welcome h1 {
-        font-size:
-            clamp(1.7rem, 8vw, 2.2rem);
-    }
-
-    .welcome p {
-        font-size: 14px;
-    }
-
-    .ship {
-        font-size: 55px;
+        grid-column:1 / -1 !important;
     }
 
 
-    /* Statistics */
+    body .module-title{
 
-    .stats {
-        grid-template-columns: 1fr;
+        padding:11px 13px !important;
 
-        gap: 15px;
-
-        margin-top: 22px;
+        min-height:48px !important;
     }
 
 
-    /* Module cards */
+    body .module-content{
 
-    .modules {
-        grid-template-columns: 1fr;
+        margin-left:0 !important;
 
-        gap: 18px;
-    }
-
-    .modules .card {
-        min-height: 0;
-
-        padding: 24px;
+        margin-top:8px !important;
     }
 
 
-    /* General cards */
+    body .module-list{
 
-    .module-card,
-    .card {
-        width: 100%;
-
-        padding:
-            clamp(16px, 5vw, 24px);
+        margin-left:8px !important;
     }
 
 
-    /* User module grids */
+    body .module-item{
 
-    .equipment-grid,
-    .ship-grid {
-        grid-template-columns: 1fr;
+        padding:10px !important;
+
+        margin-bottom:7px !important;
     }
 
 
-    /* Images */
+    /*
+     * Logout full width bawah menu
+     */
 
-    .equipment-image,
-    .ship-image {
-        height: 200px;
+    body .sidebar .menu > form{
+
+        grid-column:1 / -1 !important;
+
+        width:100% !important;
     }
 
 
-    /* Buttons */
+    body .logout-btn{
 
-    .btn,
-    .btn-ar,
-    .view-btn,
-    .add-btn {
-        max-width: 100%;
+        width:100% !important;
+
+        margin-top:8px !important;
+
+        padding:12px !important;
+
+        min-height:48px !important;
+    }
+
+
+    /* ===============================
+       CONTENT
+    =============================== */
+
+    body .content{
+
+        margin-left:0 !important;
+
+        width:100% !important;
+
+        padding:16px !important;
+    }
+
+
+    /* WELCOME */
+
+    body .welcome{
+
+        flex-direction:column !important;
+
+        align-items:flex-start !important;
+
+        padding:24px !important;
+
+        gap:18px !important;
+
+        border-radius:20px !important;
+    }
+
+
+    body .welcome h1{
+
+        font-size:clamp(
+            1.7rem,
+            8vw,
+            2.2rem
+        ) !important;
+    }
+
+
+    body .welcome h2{
+
+        font-size:1.25rem !important;
+    }
+
+
+    body .welcome p{
+
+        font-size:14px !important;
+    }
+
+
+    body .ship{
+
+        font-size:55px !important;
+    }
+
+
+    /* STATISTICS */
+
+    body .stats{
+
+        grid-template-columns:1fr !important;
+
+        gap:14px !important;
+    }
+
+
+    /* SYSTEM OVERVIEW */
+
+    body .modules{
+
+        grid-template-columns:1fr !important;
+
+        gap:18px !important;
+    }
+
+
+    body .modules .card{
+
+        min-height:0 !important;
+    }
+
+
+    /* USER CARDS */
+
+    body .equipment-grid,
+    body .ship-grid{
+
+        grid-template-columns:1fr !important;
+    }
+
+
+    body .equipment-image,
+    body .ship-image{
+
+        height:200px !important;
+    }
+
+
+    /* LOGIN / REGISTER */
+
+    body a[href="/login"],
+    body a[href="/register"],
+    body a[href$="/login"],
+    body a[href$="/register"]{
+
+        min-width:110px !important;
+
+        min-height:44px !important;
+
+        padding:10px 16px !important;
+
+        font-size:16px !important;
+
+        margin:4px !important;
     }
 
 }
@@ -495,32 +596,46 @@ textarea {
    SMALL PHONE
 ========================================================= */
 
-@media (max-width: 420px) {
+@media(max-width:420px){
 
-    .content {
-        padding: 10px;
+    body .sidebar{
+        padding:12px !important;
     }
 
-    .sidebar {
-        padding: 14px;
+
+    body .sidebar .menu{
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr)) !important;
+
+        gap:7px !important;
     }
 
-    .welcome {
-        padding: 18px;
+
+    body .sidebar .menu > a{
+
+        font-size:12px !important;
+
+        padding:9px !important;
     }
 
-    .stat-card {
-        padding: 18px;
+
+    body .content{
+
+        padding:10px !important;
     }
 
-    .module-card,
-    .card {
-        padding: 16px;
+
+    body .welcome{
+
+        padding:18px !important;
     }
 
-    .equipment-image,
-    .ship-image {
-        height: 175px;
+
+    body .equipment-image,
+    body .ship-image{
+
+        height:175px !important;
     }
 
 }
