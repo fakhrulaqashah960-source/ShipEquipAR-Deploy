@@ -142,9 +142,6 @@ Route::middleware([
     | Contoh:
     | /ship/1
     |
-    | Bila user klik Container Vessel / Bulk Carrier dalam sidebar,
-    | page ini akan tunjuk satu ship sahaja.
-    |
     */
 
     Route::get(
@@ -180,12 +177,22 @@ Route::middleware([
     ->name('learning.equipment');
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | EQUIPMENT AR QUICK LOOK
+    |--------------------------------------------------------------------------
+    |
+    | URL sengaja berakhir dengan .reality supaya
+    | Safari iPhone/iPad dapat mengenali AR model.
+    |
+    */
+
     Route::get(
-    '/equipment/{id}/ar',
-    [EquipmentController::class, 'openAr']
-)
-->middleware('signed')
-->name('equipment.ar');
+        '/equipment/{id}/ar/model.reality',
+        [EquipmentController::class, 'openAr']
+    )
+    ->middleware('signed')
+    ->name('equipment.ar');
 
 
     /*

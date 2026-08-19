@@ -18,7 +18,9 @@ class EquipmentController extends Controller
     // =========================
     public function index()
     {
-        $equipments = Equipment::with('module')->get();
+        $equipments =
+            Equipment::with('module')
+                ->get();
 
         return view(
             'admin.equipment.index',
@@ -47,6 +49,7 @@ class EquipmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+
             'module_id' => [
                 'required',
             ],
@@ -75,6 +78,7 @@ class EquipmentController extends Controller
                 'file',
                 'max:204800',
             ],
+
         ]);
 
 
@@ -85,45 +89,72 @@ class EquipmentController extends Controller
         // =========================
         // IMAGE -> GITHUB RELEASE
         // =========================
+
         if ($request->hasFile('image')) {
 
-            $imageAsset = $this->uploadToGitHubRelease(
-                $request->file('image'),
-                ['jpg', 'jpeg', 'png'],
-                'equipment-image'
-            );
+            $imageAsset =
+                $this->uploadToGitHubRelease(
+                    $request->file('image'),
+                    [
+                        'jpg',
+                        'jpeg',
+                        'png'
+                    ],
+                    'equipment-image'
+                );
 
-            $imageUrl = $imageAsset['url'];
+            $imageUrl =
+                $imageAsset['url'];
         }
 
 
         // =========================
         // AR MODEL -> GITHUB RELEASE
         // =========================
+
         if ($request->hasFile('model_file')) {
 
-            $modelAsset = $this->uploadToGitHubRelease(
-                $request->file('model_file'),
-                ['reality'],
-                'equipment-ar'
-            );
+            $modelAsset =
+                $this->uploadToGitHubRelease(
+                    $request->file('model_file'),
+                    [
+                        'reality'
+                    ],
+                    'equipment-ar'
+                );
 
-            $modelUrl = $modelAsset['url'];
+            $modelUrl =
+                $modelAsset['url'];
         }
 
 
         Equipment::create([
-            'module_id'   => $request->module_id,
-            'name'        => $request->name,
-            'image'       => $imageUrl,
-            'description' => $request->description,
-            'function'    => $request->function,
-            'model_file'  => $modelUrl,
+
+            'module_id' =>
+                $request->module_id,
+
+            'name' =>
+                $request->name,
+
+            'image' =>
+                $imageUrl,
+
+            'description' =>
+                $request->description,
+
+            'function' =>
+                $request->function,
+
+            'model_file' =>
+                $modelUrl,
+
         ]);
 
 
         return redirect()
-            ->route('admin.equipment.index')
+            ->route(
+                'admin.equipment.index'
+            )
             ->with(
                 'success',
                 'Equipment Added Successfully'
@@ -136,9 +167,12 @@ class EquipmentController extends Controller
     // =========================
     public function edit($id)
     {
-        $equipment = Equipment::findOrFail($id);
+        $equipment =
+            Equipment::findOrFail($id);
 
-        $modules = Module::all();
+        $modules =
+            Module::all();
+
 
         return view(
             'admin.equipment.edit',
@@ -153,12 +187,17 @@ class EquipmentController extends Controller
     // =========================
     // UPDATE EQUIPMENT
     // =========================
-    public function update(Request $request, $id)
-    {
-        $equipment = Equipment::findOrFail($id);
+    public function update(
+        Request $request,
+        $id
+    ) {
+
+        $equipment =
+            Equipment::findOrFail($id);
 
 
         $request->validate([
+
             'module_id' => [
                 'required',
             ],
@@ -187,52 +226,80 @@ class EquipmentController extends Controller
                 'file',
                 'max:204800',
             ],
+
         ]);
 
 
         $data = [
-            'module_id'   => $request->module_id,
-            'name'        => $request->name,
-            'description' => $request->description,
-            'function'    => $request->function,
+
+            'module_id' =>
+                $request->module_id,
+
+            'name' =>
+                $request->name,
+
+            'description' =>
+                $request->description,
+
+            'function' =>
+                $request->function,
+
         ];
 
 
         // =========================
         // UPDATE IMAGE
         // =========================
+
         if ($request->hasFile('image')) {
 
-            $imageAsset = $this->uploadToGitHubRelease(
-                $request->file('image'),
-                ['jpg', 'jpeg', 'png'],
-                'equipment-image'
-            );
+            $imageAsset =
+                $this->uploadToGitHubRelease(
+                    $request->file('image'),
+                    [
+                        'jpg',
+                        'jpeg',
+                        'png'
+                    ],
+                    'equipment-image'
+                );
 
-            $data['image'] = $imageAsset['url'];
+
+            $data['image'] =
+                $imageAsset['url'];
         }
 
 
         // =========================
         // UPDATE AR MODEL
         // =========================
+
         if ($request->hasFile('model_file')) {
 
-            $modelAsset = $this->uploadToGitHubRelease(
-                $request->file('model_file'),
-                ['reality'],
-                'equipment-ar'
-            );
+            $modelAsset =
+                $this->uploadToGitHubRelease(
+                    $request->file('model_file'),
+                    [
+                        'reality'
+                    ],
+                    'equipment-ar'
+                );
 
-            $data['model_file'] = $modelAsset['url'];
+
+            $data['model_file'] =
+                $modelAsset['url'];
         }
 
 
-        $equipment->update($data);
+        $equipment->update(
+            $data
+        );
 
 
         return redirect()
-            ->route('admin.equipment.index')
+            ->route(
+                'admin.equipment.index'
+            )
             ->with(
                 'success',
                 'Equipment Updated Successfully'
@@ -245,13 +312,16 @@ class EquipmentController extends Controller
     // =========================
     public function destroy($id)
     {
-        $equipment = Equipment::findOrFail($id);
+        $equipment =
+            Equipment::findOrFail($id);
 
         $equipment->delete();
 
 
         return redirect()
-            ->route('admin.equipment.index')
+            ->route(
+                'admin.equipment.index'
+            )
             ->with(
                 'success',
                 'Equipment Deleted Successfully'
@@ -264,8 +334,9 @@ class EquipmentController extends Controller
     // =========================
     public function userShow($id)
     {
-        $equipment = Equipment::with('module')
-            ->findOrFail($id);
+        $equipment =
+            Equipment::with('module')
+                ->findOrFail($id);
 
 
         return view(
@@ -274,139 +345,341 @@ class EquipmentController extends Controller
         );
     }
 
-    public function openAr($id)
-{
-    $equipment = Equipment::findOrFail($id);
 
-    if (!$equipment->model_file) {
-        abort(404, 'AR model not found.');
-    }
-
-    $modelUrl = $equipment->model_file;
-
-    // Support data lama yang hanya simpan nama fail
-    if (
-        !str_starts_with($modelUrl, 'http://') &&
-        !str_starts_with($modelUrl, 'https://')
+    // =========================================================
+    // OPEN AR MODEL FOR iOS QUICK LOOK
+    // =========================================================
+    public function openAr(
+        Request $request,
+        $id
     ) {
-        $owner = config('services.github_ar.owner');
-        $repo  = config('services.github_ar.repo');
+
+        $equipment =
+            Equipment::findOrFail($id);
+
+
+        if (!$equipment->model_file) {
+
+            abort(
+                404,
+                'AR model not found.'
+            );
+        }
+
 
         $modelUrl =
-            "https://github.com/{$owner}/{$repo}/releases/latest/download/" .
-            rawurlencode($modelUrl);
-    }
+            $equipment->model_file;
 
-    try {
 
-        $client = new \GuzzleHttp\Client([
-            'connect_timeout' => 30,
-            'timeout' => 900,
-            'http_errors' => false,
-            'allow_redirects' => true,
-        ]);
+        // =====================================================
+        // SUPPORT LEGACY DATA
+        // =====================================================
+        //
+        // Data baru:
+        // https://github.com/.../file.reality
+        //
+        // Data lama:
+        // file.reality
+        //
 
-        $remoteResponse = $client->request(
-            'GET',
-            $modelUrl,
-            [
-                'stream' => true,
-                'headers' => [
-                    'Accept' => '*/*',
-                ],
-            ]
-        );
+        if (
+            !str_starts_with(
+                $modelUrl,
+                'http://'
+            )
+            &&
+            !str_starts_with(
+                $modelUrl,
+                'https://'
+            )
+        ) {
 
-        if ($remoteResponse->getStatusCode() !== 200) {
+            $owner =
+                config(
+                    'services.github_ar.owner'
+                );
+
+            $repo =
+                config(
+                    'services.github_ar.repo'
+                );
+
+
+            if (!$owner || !$repo) {
+
+                abort(
+                    500,
+                    'GitHub configuration missing.'
+                );
+            }
+
+
+            $modelUrl =
+                "https://github.com/{$owner}/{$repo}/releases/latest/download/"
+                .
+                rawurlencode(
+                    $modelUrl
+                );
+        }
+
+
+        try {
+
+            // =================================================
+            // HEADERS FOR GITHUB REQUEST
+            // =================================================
+
+            $githubHeaders = [
+
+                'Accept' =>
+                    '*/*',
+
+            ];
+
+
+            // Safari / Quick Look boleh request
+            // sebahagian fail menggunakan Range.
+
+            if (
+                $request->headers->has(
+                    'Range'
+                )
+            ) {
+
+                $githubHeaders['Range'] =
+                    $request->header(
+                        'Range'
+                    );
+            }
+
+
+            // =================================================
+            // FETCH REALITY FILE FROM GITHUB
+            // =================================================
+
+            $client =
+                new \GuzzleHttp\Client([
+
+                    'connect_timeout' =>
+                        30,
+
+                    'timeout' =>
+                        900,
+
+                    'http_errors' =>
+                        false,
+
+                    'allow_redirects' =>
+                        true,
+
+                ]);
+
+
+            $remoteResponse =
+                $client->request(
+
+                    'GET',
+
+                    $modelUrl,
+
+                    [
+
+                        'stream' =>
+                            true,
+
+                        'headers' =>
+                            $githubHeaders,
+
+                    ]
+
+                );
+
+
+            $status =
+                $remoteResponse
+                    ->getStatusCode();
+
+
+            // 200 = full file
+            // 206 = partial content
+
+            if (
+                !in_array(
+                    $status,
+                    [
+                        200,
+                        206
+                    ],
+                    true
+                )
+            ) {
+
+                Log::error(
+                    'AR model fetch failed',
+                    [
+
+                        'equipment_id' =>
+                            $equipment->id,
+
+                        'status' =>
+                            $status,
+
+                        'url' =>
+                            $modelUrl,
+
+                    ]
+                );
+
+
+                abort(
+                    404,
+                    'AR model could not be loaded.'
+                );
+            }
+
+
+            $body =
+                $remoteResponse
+                    ->getBody();
+
+
+            // =================================================
+            // RESPONSE HEADERS FOR iOS AR QUICK LOOK
+            // =================================================
+
+            $responseHeaders = [
+
+                'Content-Type' =>
+                    'model/vnd.reality',
+
+                'Content-Disposition' =>
+                    'inline; filename="ShipEquipAR.reality"',
+
+                'Cache-Control' =>
+                    'public, max-age=3600',
+
+                'X-Content-Type-Options' =>
+                    'nosniff',
+
+                'Accept-Ranges' =>
+                    'bytes',
+
+            ];
+
+
+            // =================================================
+            // CONTENT LENGTH
+            // =================================================
+
+            $contentLength =
+                $remoteResponse
+                    ->getHeaderLine(
+                        'Content-Length'
+                    );
+
+
+            if ($contentLength !== '') {
+
+                $responseHeaders[
+                    'Content-Length'
+                ] =
+                    $contentLength;
+            }
+
+
+            // =================================================
+            // CONTENT RANGE
+            // =================================================
+
+            $contentRange =
+                $remoteResponse
+                    ->getHeaderLine(
+                        'Content-Range'
+                    );
+
+
+            if ($contentRange !== '') {
+
+                $responseHeaders[
+                    'Content-Range'
+                ] =
+                    $contentRange;
+            }
+
+
+            // =================================================
+            // STREAM .REALITY FILE TO SAFARI
+            // =================================================
+
+            return response()->stream(
+
+                function () use ($body) {
+
+                    while (
+                        !$body->eof()
+                    ) {
+
+                        echo $body->read(
+                            1024 * 1024
+                        );
+
+
+                        if (
+                            function_exists(
+                                'ob_flush'
+                            )
+                            &&
+                            ob_get_level() > 0
+                        ) {
+
+                            @ob_flush();
+                        }
+
+
+                        flush();
+                    }
+
+                },
+
+                $status,
+
+                $responseHeaders
+
+            );
+
+
+        } catch (
+            \Symfony\Component\HttpKernel\Exception\HttpException $e
+        ) {
+
+            throw $e;
+
+
+        } catch (Throwable $e) {
+
             Log::error(
-                'AR model fetch failed',
+                'AR Quick Look stream error',
                 [
-                    'equipment_id' => $equipment->id,
-                    'status' => $remoteResponse->getStatusCode(),
-                    'url' => $modelUrl,
+
+                    'equipment_id' =>
+                        $equipment->id,
+
+                    'model_url' =>
+                        $modelUrl,
+
+                    'message' =>
+                        $e->getMessage(),
+
                 ]
             );
 
-            abort(404, 'AR model could not be loaded.');
-        }
 
-        $body = $remoteResponse->getBody();
-
-        $fileName = basename(
-            parse_url($modelUrl, PHP_URL_PATH)
-        );
-
-        if (!str_ends_with(
-            strtolower($fileName),
-            '.reality'
-        )) {
-            $fileName = 'ShipEquipAR.reality';
-        }
-
-        $headers = [
-            'Content-Type' => 'model/vnd.reality',
-            'Content-Disposition' =>
-                'inline; filename="' . $fileName . '"',
-
-            'Cache-Control' =>
-                'public, max-age=3600',
-
-            'X-Content-Type-Options' =>
-                'nosniff',
-        ];
-
-        $contentLength =
-            $remoteResponse->getHeaderLine(
-                'Content-Length'
+            abort(
+                500,
+                'Unable to open AR model.'
             );
-
-        if ($contentLength !== '') {
-            $headers['Content-Length'] =
-                $contentLength;
         }
-
-        return response()->stream(
-            function () use ($body) {
-
-                while (!$body->eof()) {
-
-                    echo $body->read(
-                        1024 * 1024
-                    );
-
-                    if (
-                        function_exists('ob_flush') &&
-                        ob_get_level() > 0
-                    ) {
-                        @ob_flush();
-                    }
-
-                    flush();
-                }
-            },
-            200,
-            $headers
-        );
-
-    } catch (Throwable $e) {
-
-        Log::error(
-            'AR Quick Look stream error',
-            [
-                'equipment_id' =>
-                    $equipment->id,
-
-                'message' =>
-                    $e->getMessage(),
-            ]
-        );
-
-        abort(
-            500,
-            'Unable to open AR model.'
-        );
     }
-}
 
 
     // =========================================================
@@ -417,234 +690,448 @@ class EquipmentController extends Controller
         array $allowedExtensions,
         string $prefix
     ): array {
-        $field = $prefix === 'equipment-ar'
-            ? 'model_file'
-            : 'image';
+
+        $field =
+            $prefix === 'equipment-ar'
+                ? 'model_file'
+                : 'image';
+
 
         // =========================
         // VALIDATE EXTENSION
         // =========================
-        $extension = strtolower(
-            $file->getClientOriginalExtension()
-        );
 
-        if (!in_array($extension, $allowedExtensions, true)) {
+        $extension =
+            strtolower(
+                $file->getClientOriginalExtension()
+            );
+
+
+        if (
+            !in_array(
+                $extension,
+                $allowedExtensions,
+                true
+            )
+        ) {
+
             throw ValidationException::withMessages([
-                $field => 'Jenis fail tidak dibenarkan.',
+                $field =>
+                    'Jenis fail tidak dibenarkan.',
             ]);
         }
+
 
         // =========================
         // GITHUB CONFIG
         // =========================
-        $token = config('services.github_ar.token');
-        $owner = config('services.github_ar.owner');
-        $repo  = config('services.github_ar.repo');
 
-        if (!$token || !$owner || !$repo) {
+        $token =
+            config(
+                'services.github_ar.token'
+            );
+
+        $owner =
+            config(
+                'services.github_ar.owner'
+            );
+
+        $repo =
+            config(
+                'services.github_ar.repo'
+            );
+
+
+        if (
+            !$token ||
+            !$owner ||
+            !$repo
+        ) {
+
             throw ValidationException::withMessages([
-                $field => 'GitHub upload configuration belum lengkap.',
+                $field =>
+                    'GitHub upload configuration belum lengkap.',
             ]);
         }
+
 
         // =========================
         // SAFE FILE NAME
         // =========================
-        $originalName = basename(
-            $file->getClientOriginalName()
-        );
 
-        $safeName = preg_replace(
-            '/[^A-Za-z0-9._-]/',
-            '_',
-            $originalName
-        );
+        $originalName =
+            basename(
+                $file->getClientOriginalName()
+            );
+
+
+        $safeName =
+            preg_replace(
+                '/[^A-Za-z0-9._-]/',
+                '_',
+                $originalName
+            );
+
+
+        // =========================
+        // UNIQUE ASSET NAME
+        // =========================
 
         $assetName =
+
             $prefix .
+
             '_' .
-            now()->format('YmdHis') .
+
+            now()->format(
+                'YmdHis'
+            ) .
+
             '_' .
-            bin2hex(random_bytes(4)) .
+
+            bin2hex(
+                random_bytes(4)
+            ) .
+
             '_' .
+
             $safeName;
+
 
         // =========================
         // LOCAL FILE SIZE
         // =========================
-        $localSize = (int) $file->getSize();
+
+        $localSize =
+            (int) $file->getSize();
+
 
         if ($localSize <= 0) {
+
             throw ValidationException::withMessages([
-                $field => 'Fail kosong atau tidak dapat dibaca.',
+                $field =>
+                    'Fail kosong atau tidak dapat dibaca.',
             ]);
         }
 
+
         try {
+
             // =========================
             // GET LATEST RELEASE
             // =========================
-            $releaseResponse = Http::withToken($token)
+
+            $releaseResponse =
+                Http::withToken(
+                    $token
+                )
                 ->withHeaders([
-                    'Accept' => 'application/vnd.github+json',
-                    'X-GitHub-Api-Version' => '2026-03-10',
+
+                    'Accept' =>
+                        'application/vnd.github+json',
+
+                    'X-GitHub-Api-Version' =>
+                        '2026-03-10',
+
                 ])
-                ->connectTimeout(20)
-                ->timeout(60)
+                ->connectTimeout(
+                    20
+                )
+                ->timeout(
+                    60
+                )
                 ->get(
                     "https://api.github.com/repos/{$owner}/{$repo}/releases/latest"
                 );
 
-            if (!$releaseResponse->successful()) {
+
+            if (
+                !$releaseResponse->successful()
+            ) {
+
                 Log::error(
                     'GitHub release request failed',
                     [
-                        'field' => $field,
-                        'status' => $releaseResponse->status(),
-                        'response' => $releaseResponse->body(),
+
+                        'field' =>
+                            $field,
+
+                        'status' =>
+                            $releaseResponse->status(),
+
+                        'response' =>
+                            $releaseResponse->body(),
+
                     ]
                 );
 
+
                 throw ValidationException::withMessages([
-                    $field => 'Tidak dapat mendapatkan GitHub Release.',
+                    $field =>
+                        'Tidak dapat mendapatkan GitHub Release.',
                 ]);
             }
+
 
             // =========================
             // GET UPLOAD URL
             // =========================
-            $uploadUrl = $releaseResponse->json('upload_url');
+
+            $uploadUrl =
+                $releaseResponse->json(
+                    'upload_url'
+                );
+
 
             if (!$uploadUrl) {
+
                 throw ValidationException::withMessages([
-                    $field => 'GitHub Release upload URL tidak dijumpai.',
+                    $field =>
+                        'GitHub Release upload URL tidak dijumpai.',
                 ]);
             }
 
-            $uploadUrl = preg_replace(
-                '/\{\?name,label\}$/',
-                '',
-                $uploadUrl
-            );
+
+            // GitHub URL:
+            // .../assets{?name,label}
+
+            $uploadUrl =
+                preg_replace(
+                    '/\{\?name,label\}$/',
+                    '',
+                    $uploadUrl
+                );
+
 
             // =========================
             // CONTENT TYPE
             // =========================
-            if ($extension === 'reality') {
-                $contentType = 'application/octet-stream';
+
+            if (
+                $extension === 'reality'
+            ) {
+
+                $contentType =
+                    'application/octet-stream';
+
             } else {
+
                 $contentType =
                     $file->getMimeType()
                     ?: 'application/octet-stream';
             }
 
-            // =========================
-            // OPEN REAL FILE
-            // =========================
-            $realPath = $file->getRealPath();
 
-            if (!$realPath || !is_readable($realPath)) {
+            // =========================
+            // REAL FILE PATH
+            // =========================
+
+            $realPath =
+                $file->getRealPath();
+
+
+            if (
+                !$realPath ||
+                !is_readable($realPath)
+            ) {
+
                 throw ValidationException::withMessages([
-                    $field => 'Fail tidak dapat dibaca.',
+                    $field =>
+                        'Fail tidak dapat dibaca.',
                 ]);
             }
 
-            $handle = fopen($realPath, 'rb');
+
+            // =========================
+            // OPEN BINARY STREAM
+            // =========================
+
+            $handle =
+                fopen(
+                    $realPath,
+                    'rb'
+                );
+
 
             if ($handle === false) {
+
                 throw ValidationException::withMessages([
-                    $field => 'Fail tidak dapat dibuka.',
+                    $field =>
+                        'Fail tidak dapat dibuka.',
                 ]);
             }
 
+
             try {
+
                 // =============================================
                 // DIRECT GUZZLE RAW BINARY UPLOAD
                 // =============================================
-                $client = new \GuzzleHttp\Client([
-                    'connect_timeout' => 30,
-                    'timeout' => 900,
-                    'http_errors' => false,
-                ]);
 
-                $response = $client->request(
-                    'POST',
-                    $uploadUrl .
+                $client =
+                    new \GuzzleHttp\Client([
+
+                        'connect_timeout' =>
+                            30,
+
+                        'timeout' =>
+                            900,
+
+                        'http_errors' =>
+                            false,
+
+                    ]);
+
+
+                $response =
+                    $client->request(
+
+                        'POST',
+
+                        $uploadUrl .
                         '?name=' .
-                        rawurlencode($assetName),
-                    [
-                        'headers' => [
-                            'Authorization' =>
-                                'Bearer ' . $token,
+                        rawurlencode(
+                            $assetName
+                        ),
 
-                            'Accept' =>
-                                'application/vnd.github+json',
+                        [
 
-                            'X-GitHub-Api-Version' =>
-                                '2026-03-10',
+                            'headers' => [
 
-                            'Content-Type' =>
-                                $contentType,
+                                'Authorization' =>
+                                    'Bearer ' .
+                                    $token,
 
-                            'Content-Length' =>
-                                (string) $localSize,
-                        ],
+                                'Accept' =>
+                                    'application/vnd.github+json',
 
-                        'body' => $handle,
-                    ]
-                );
+                                'X-GitHub-Api-Version' =>
+                                    '2026-03-10',
+
+                                'Content-Type' =>
+                                    $contentType,
+
+                                'Content-Length' =>
+                                    (string) $localSize,
+
+                            ],
+
+                            'body' =>
+                                $handle,
+
+                        ]
+
+                    );
+
+
             } finally {
-                if (is_resource($handle)) {
-                    fclose($handle);
+
+                if (
+                    is_resource(
+                        $handle
+                    )
+                ) {
+
+                    fclose(
+                        $handle
+                    );
                 }
             }
+
 
             // =========================
             // READ GITHUB RESPONSE
             // =========================
-            $status = $response->getStatusCode();
-            $responseBody = (string) $response->getBody();
 
-            $responseData = json_decode(
-                $responseBody,
-                true
-            );
+            $status =
+                $response
+                    ->getStatusCode();
 
-            // GitHub upload success = 201
+
+            $responseBody =
+                (string)
+                $response
+                    ->getBody();
+
+
+            $responseData =
+                json_decode(
+                    $responseBody,
+                    true
+                );
+
+
+            // =========================
+            // SUCCESS MUST BE 201
+            // =========================
+
             if ($status !== 201) {
+
                 Log::error(
                     'GitHub asset upload failed',
                     [
-                        'field' => $field,
-                        'status' => $status,
-                        'response' => $responseBody,
-                        'local_size' => $localSize,
-                        'asset_name' => $assetName,
+
+                        'field' =>
+                            $field,
+
+                        'status' =>
+                            $status,
+
+                        'response' =>
+                            $responseBody,
+
+                        'local_size' =>
+                            $localSize,
+
+                        'asset_name' =>
+                            $assetName,
+
                     ]
                 );
 
+
                 throw ValidationException::withMessages([
-                    $field => 'Upload ke GitHub Release gagal.',
+                    $field =>
+                        'Upload ke GitHub Release gagal.',
                 ]);
             }
+
 
             // =========================
             // VERIFY GITHUB SIZE
             // =========================
-            $githubSize = (int) (
-                $responseData['size'] ?? 0
-            );
 
-            if ($githubSize !== $localSize) {
+            $githubSize =
+                (int) (
+                    $responseData['size']
+                    ?? 0
+                );
+
+
+            if (
+                $githubSize !==
+                $localSize
+            ) {
+
                 Log::error(
                     'GitHub asset size mismatch',
                     [
-                        'field' => $field,
-                        'asset_name' => $assetName,
-                        'local_size' => $localSize,
-                        'github_size' => $githubSize,
+
+                        'field' =>
+                            $field,
+
+                        'asset_name' =>
+                            $assetName,
+
+                        'local_size' =>
+                            $localSize,
+
+                        'github_size' =>
+                            $githubSize,
+
                     ]
                 );
+
 
                 throw ValidationException::withMessages([
                     $field =>
@@ -652,37 +1139,73 @@ class EquipmentController extends Controller
                 ]);
             }
 
+
             // =========================
             // DOWNLOAD URL
             // =========================
+
             $browserUrl =
-                $responseData['browser_download_url']
+                $responseData[
+                    'browser_download_url'
+                ]
                 ?? null;
 
+
             if (!$browserUrl) {
+
                 throw ValidationException::withMessages([
                     $field =>
                         'GitHub tidak memulangkan URL fail.',
                 ]);
             }
 
+
+            // =========================
+            // SUCCESS
+            // =========================
+
             return [
-                'name' => $assetName,
-                'url' => $browserUrl,
-                'size' => $githubSize,
+
+                'name' =>
+                    $assetName,
+
+                'url' =>
+                    $browserUrl,
+
+                'size' =>
+                    $githubSize,
+
             ];
-        } catch (ValidationException $e) {
+
+
+        } catch (
+            ValidationException $e
+        ) {
+
             throw $e;
+
+
         } catch (Throwable $e) {
+
             Log::error(
                 'GitHub file upload exception',
                 [
-                    'field' => $field,
-                    'asset_name' => $assetName,
-                    'local_size' => $localSize,
-                    'message' => $e->getMessage(),
+
+                    'field' =>
+                        $field,
+
+                    'asset_name' =>
+                        $assetName,
+
+                    'local_size' =>
+                        $localSize,
+
+                    'message' =>
+                        $e->getMessage(),
+
                 ]
             );
+
 
             throw ValidationException::withMessages([
                 $field =>
