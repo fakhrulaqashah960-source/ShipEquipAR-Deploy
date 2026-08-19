@@ -12,12 +12,12 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <script src="https://cdn.botpress.cloud/webchat/v3.7/inject.js"></script>
+   <script src="https://cdn.botpress.cloud/webchat/v3.7/inject.js"></script>
 
-    <script
-        src="https://files.bpcontent.cloud/2026/08/19/16/20260819164721-MXQ50NAU.js"
-        defer>
-    </script>
+<script
+    src="https://files.bpcontent.cloud/2026/08/19/16/20260819164721-MXQ50NAU.js"
+    defer>
+</script>
 
     <style>
 
@@ -1556,9 +1556,10 @@
 ========================================================= --}}
 
 <a
-    href="javascript:void(0)"
+    href="#"
     id="naviBotButton"
     class="user-menu-link"
+    onclick="closeUserSidebar()"
 >
     <span class="user-menu-icon">
         🤖
@@ -1992,41 +1993,6 @@
 
 
 </script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-
-    const naviBotButton =
-        document.getElementById('naviBotButton');
-
-    if (!naviBotButton) {
-        return;
-    }
-
-    naviBotButton.addEventListener('click', function (event) {
-
-        event.preventDefault();
-
-        if (
-            typeof closeUserSidebar === 'function'
-        ) {
-            closeUserSidebar();
-        }
-
-        if (
-            window.botpress &&
-            typeof window.botpress.open === 'function'
-        ) {
-            window.botpress.open();
-        } else {
-            console.log('NaviBot is still loading...');
-        }
-
-    });
-
-});
-</script>
-
 
 </body>
 
