@@ -12,6 +12,12 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <script src="https://cdn.botpress.cloud/webchat/v3.7/inject.js"></script>
+
+    <script
+        src="https://files.bpcontent.cloud/2026/08/19/16/20260819164721-MXQ50NAU.js"
+        defer>
+    </script>
 
     <style>
 
@@ -1545,28 +1551,23 @@
 
         </a>
 
+{{-- =========================================================
+     NAVIBOT
+========================================================= --}}
 
+<a
+    href="javascript:void(0)"
+    id="naviBotButton"
+    class="user-menu-link"
+>
+    <span class="user-menu-icon">
+        🤖
+    </span>
 
-        {{-- =================================================
-             SHIP BOT
-        ================================================== --}}
-
-        <a
-            href="#"
-            class="user-menu-link"
-        >
-
-            <span class="user-menu-icon">
-                🤖
-            </span>
-
-            <span class="user-menu-text">
-                Ship Bot
-            </span>
-
-        </a>
-
-
+    <span class="user-menu-text">
+        NaviBot
+    </span>
+</a>
 
         {{-- =================================================
              PROFILE
@@ -1990,6 +1991,32 @@
     );
 
 
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const naviBotButton =
+        document.getElementById('naviBotButton');
+
+    if (!naviBotButton) {
+        return;
+    }
+
+    naviBotButton.addEventListener('click', function (event) {
+
+        event.preventDefault();
+
+        if (
+            window.botpress &&
+            typeof window.botpress.toggle === 'function'
+        ) {
+            window.botpress.toggle();
+        }
+
+    });
+
+});
 </script>
 
 

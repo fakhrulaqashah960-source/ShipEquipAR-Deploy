@@ -234,30 +234,16 @@
         </a>
 
 
-
-
-
-
-
-
         <!-- AI CHAT -->
 
-
-        <a href="#">
-
-
-            🤖 Ship Bot
-
-
-        </a>
-
-
-
-
-
-
-
-
+        <a
+    href="javascript:void(0)"
+    id="naviBotButton"
+    class="nav-item"
+>
+    <span>🤖</span>
+    <span>NaviBot</span>
+</a>
         <!-- PROFILE -->
 
 

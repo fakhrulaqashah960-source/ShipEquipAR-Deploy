@@ -36,9 +36,8 @@ rel="stylesheet">
 'resources/js/app.js'
 ])
 
-
-
-
+<script src="https://cdn.botpress.cloud/webchat/v3.7/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/08/19/16/20260819164721-MXQ50NAU.js" defer></script>
 
 <style>
 
