@@ -40,15 +40,20 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 /*
 |--------------------------------------------------------------------------
-| LEGACY AR MODEL
+| AR MODEL
 |--------------------------------------------------------------------------
 |
-| Digunakan untuk data lama yang hanya simpan nama fail.
+| Reality model disync dari GitHub Release ke:
+|
+| public/uploads/reality/
+|
+| Safari akan menerima .reality secara direct daripada Laravel,
+| sama seperti implementation lama ShipEquipAR.
 |
 */
 
@@ -58,16 +63,88 @@ Route::middleware([
 ])
 ->get('/ar-model/{file}', function ($file) {
 
-    $url =
-        'https://github.com/' .
-        'fakhrulaqashah960-source/' .
-        'ShipEquipAR/' .
-        'releases/latest/download/' .
-        rawurlencode($file);
+    /*
+    |--------------------------------------------------------------------------
+    | SAFE FILE NAME
+    |--------------------------------------------------------------------------
+    */
 
-    return redirect()->away($url);
+    $file = basename(
+        rawurldecode($file)
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | ONLY ALLOW .REALITY
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        !str_ends_with(
+            strtolower($file),
+            '.reality'
+        )
+    ) {
+
+        abort(404);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | LOCAL REALITY FILE
+    |--------------------------------------------------------------------------
+    */
+
+    $path = public_path(
+        'uploads/reality/' . $file
+    );
+
+
+    if (!file_exists($path)) {
+
+        abort(404);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | RETURN FILE TO SAFARI
+    |--------------------------------------------------------------------------
+    |
+    | model/vnd.reality membolehkan Safari/iOS mengenali
+    | Reality file sebagai AR Quick Look content.
+    |
+    */
+
+    return response()->file(
+        $path,
+        [
+            'Content-Type' =>
+                'model/vnd.reality',
+
+            'Content-Disposition' =>
+                'inline; filename="' .
+                $file .
+                '"',
+
+            'Cache-Control' =>
+                'public, max-age=86400',
+
+            'Accept-Ranges' =>
+                'bytes',
+
+            'X-Content-Type-Options' =>
+                'nosniff',
+        ]
+    );
 
 })
+->where(
+    'file',
+    '.*\.reality'
+)
 ->name('ar.model');
 
 
@@ -99,12 +176,14 @@ Route::middleware([
             )
             ->get();
 
+
         $ships =
             \App\Models\Ship::orderBy(
                 'id',
                 'asc'
             )
             ->get();
+
 
         return view(
             'user.dashboard',
@@ -122,9 +201,6 @@ Route::middleware([
     |--------------------------------------------------------------------------
     | ALL SHIP MODELS
     |--------------------------------------------------------------------------
-    |
-    | Page yang paparkan semua ship.
-    |
     */
 
     Route::get(
@@ -138,10 +214,6 @@ Route::middleware([
     |--------------------------------------------------------------------------
     | INDIVIDUAL SHIP DETAIL
     |--------------------------------------------------------------------------
-    |
-    | Contoh:
-    | /ship/1
-    |
     */
 
     Route::get(
@@ -175,24 +247,6 @@ Route::middleware([
         [ModuleController::class, 'userShow']
     )
     ->name('learning.equipment');
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | EQUIPMENT AR QUICK LOOK
-    |--------------------------------------------------------------------------
-    |
-    | URL sengaja berakhir dengan .reality supaya
-    | Safari iPhone/iPad dapat mengenali AR model.
-    |
-    */
-
-    Route::get(
-        '/equipment/{id}/ar/model.reality',
-        [EquipmentController::class, 'openAr']
-    )
-    ->middleware('signed')
-    ->name('equipment.ar');
 
 
     /*

@@ -420,41 +420,42 @@
         </div>
 
 
-        {{-- =========================
-             iOS AR QUICK LOOK
-        ========================== --}}
+@if($equipment->model_file)
 
-        @if($equipment->model_file)
+    @php
+        $modelValue = $equipment->model_file;
 
-            @php
+        if (
+            str_starts_with($modelValue, 'http://') ||
+            str_starts_with($modelValue, 'https://')
+        ) {
+            $modelPath = parse_url(
+                $modelValue,
+                PHP_URL_PATH
+            );
 
-                $arUrl =
-                    \Illuminate\Support\Facades\URL::temporarySignedRoute(
-                        'equipment.ar',
-                        now()->addMinutes(30),
-                        [
-                            'id' => $equipment->id,
-                        ]
-                    );
+            $modelName = rawurldecode(
+                basename($modelPath)
+            );
+        } else {
+            $modelName = basename(
+                $modelValue
+            );
+        }
+    @endphp
 
-            @endphp
+    <a
+        href="{{ route('ar.model', ['file' => $modelName]) }}"
+        rel="ar"
+        class="ar-btn ar-quicklook"
+    >
+        <img
+            src="{{ $equipmentImage ?? asset('favicon.ico') }}"
+            alt="Open {{ $equipment->name }} in AR"
+        >
+    </a>
 
-
-            <a
-                href="{{ $arUrl }}"
-                rel="ar"
-                class="ar-btn ar-quicklook"
-                aria-label="Open AR Model"
-            >
-
-                <img
-                    src="{{ $equipmentImage ?? asset('favicon.ico') }}"
-                    alt="Open {{ $equipment->name }} in AR"
-                >
-
-            </a>
-
-        @endif
+@endif
 
 
         {{-- =========================

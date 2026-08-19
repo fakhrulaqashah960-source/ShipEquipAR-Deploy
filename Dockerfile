@@ -42,9 +42,7 @@ ENV COMPOSER_MAX_PARALLEL_HTTP=2
 ENV COMPOSER_PROCESS_TIMEOUT=900
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# Install PHP dependencies with retry
-# Install PHP dependencies using Git source
-# Avoid GitHub codeload ZIP HTTP 429
+# Install PHP dependencies
 RUN composer install \
     --no-dev \
     --optimize-autoloader \
@@ -63,20 +61,28 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/apache2.conf \
     /etc/apache2/conf-available/*.conf
 
-# Laravel directories + permissions
+# Laravel directories + local Reality model directory
 RUN mkdir -p \
     /var/www/html/storage/framework/cache \
     /var/www/html/storage/framework/sessions \
     /var/www/html/storage/framework/views \
     /var/www/html/storage/logs \
     /var/www/html/bootstrap/cache \
+    /var/www/html/public/uploads/reality \
     && chown -R www-data:www-data \
         /var/www/html/storage \
         /var/www/html/bootstrap/cache \
+        /var/www/html/public/uploads/reality \
     && chmod -R 775 \
         /var/www/html/storage \
-        /var/www/html/bootstrap/cache
+        /var/www/html/bootstrap/cache \
+        /var/www/html/public/uploads/reality
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+# Sync AR models from GitHub Release into local Render storage
+# before Apache starts.
+#
+# "|| true" ensures one failed/old model does not stop
+# the whole ShipEquipAR service from starting.
+CMD ["sh", "-c", "php artisan ar:sync || true; exec apache2-foreground"]
