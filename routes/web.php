@@ -45,107 +45,171 @@ require __DIR__ . '/auth.php';
 
 /*
 |--------------------------------------------------------------------------
-| AR MODEL
+| AR QUICK LOOK MODEL
 |--------------------------------------------------------------------------
 |
-| Reality model disync dari GitHub Release ke:
+| IMPORTANT:
 |
-| public/uploads/reality/
+| This route is deliberately outside:
 |
-| Safari akan menerima .reality secara direct daripada Laravel,
-| sama seperti implementation lama ShipEquipAR.
+| auth
+| prevent.back
+|
+| The equipment page itself is still protected.
+|
+| Quick Look must be able to request the model directly.
 |
 */
 
-Route::middleware([
-    'auth',
-    'prevent.back',
-])
-->get('/ar-model/{file}', function ($file) {
-
-    /*
-    |--------------------------------------------------------------------------
-    | SAFE FILE NAME
-    |--------------------------------------------------------------------------
-    */
-
-    $file = basename(
-        rawurldecode($file)
-    );
+Route::get(
+    '/ar-model/{file}',
+    function ($file) {
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | ONLY ALLOW .REALITY
-    |--------------------------------------------------------------------------
-    */
+        /*
+        |--------------------------------------------------------------------------
+        | DECODE FILE NAME
+        |--------------------------------------------------------------------------
+        */
 
-    if (
-        !str_ends_with(
-            strtolower($file),
-            '.reality'
-        )
-    ) {
+        $file =
+            rawurldecode(
+                $file
+            );
 
-        abort(404);
+
+        /*
+        |--------------------------------------------------------------------------
+        | SECURITY
+        |--------------------------------------------------------------------------
+        */
+
+        $file =
+            basename(
+                $file
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ONLY REALITY
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+
+            !str_ends_with(
+                strtolower($file),
+                '.reality'
+            )
+
+        ) {
+
+            abort(404);
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | LOCAL SYNCED MODEL
+        |--------------------------------------------------------------------------
+        |
+        | SyncArModels downloads the GitHub Release assets to:
+        |
+        | public/uploads/reality/
+        |
+        */
+
+        $path =
+            public_path(
+                'uploads/reality/' .
+                $file
+            );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | VERIFY MODEL
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+
+            !is_file($path)
+
+            ||
+
+            !is_readable($path)
+
+        ) {
+
+            abort(
+                404,
+                'AR model not found.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SEND DIRECTLY TO SAFARI
+        |--------------------------------------------------------------------------
+        */
+
+        return response()->file(
+            $path,
+            [
+
+                /*
+                |--------------------------------------------------------------------------
+                | APPLE REALITY MIME
+                |--------------------------------------------------------------------------
+                */
+
+                'Content-Type' =>
+                    'model/vnd.reality',
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | INLINE - NOT DOWNLOAD
+                |--------------------------------------------------------------------------
+                */
+
+                'Content-Disposition' =>
+                    'inline; filename="' .
+                    $file .
+                    '"',
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | CACHE
+                |--------------------------------------------------------------------------
+                |
+                | Model is cached by Safari/CDN/browser for faster
+                | subsequent opening.
+                |
+                */
+
+                'Cache-Control' =>
+                    'public, max-age=86400',
+
+            ]
+        );
+
+
     }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | LOCAL REALITY FILE
-    |--------------------------------------------------------------------------
-    */
-
-    $path = public_path(
-        'uploads/reality/' . $file
-    );
-
-
-    if (!file_exists($path)) {
-
-        abort(404);
-    }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | RETURN FILE TO SAFARI
-    |--------------------------------------------------------------------------
-    |
-    | model/vnd.reality membolehkan Safari/iOS mengenali
-    | Reality file sebagai AR Quick Look content.
-    |
-    */
-
-    return response()->file(
-        $path,
-        [
-            'Content-Type' =>
-                'model/vnd.reality',
-
-            'Content-Disposition' =>
-                'inline; filename="' .
-                $file .
-                '"',
-
-            'Cache-Control' =>
-                'public, max-age=86400',
-
-            'Accept-Ranges' =>
-                'bytes',
-
-            'X-Content-Type-Options' =>
-                'nosniff',
-        ]
-    );
-
-})
+)
 ->where(
     'file',
-    '.*\.reality'
+    '[^/]+\.reality'
 )
-->name('ar.model');
+->name(
+    'ar.model'
+);
 
 
 /*
@@ -164,63 +228,80 @@ Route::middleware([
 
     /*
     |--------------------------------------------------------------------------
-    | USER DASHBOARD
+    | DASHBOARD
     |--------------------------------------------------------------------------
     */
 
-    Route::get('/dashboard', function () {
-
-        $modules =
-            \App\Models\Module::with(
-                'equipments'
-            )
-            ->get();
+    Route::get(
+        '/dashboard',
+        function () {
 
 
-        $ships =
-            \App\Models\Ship::orderBy(
-                'id',
-                'asc'
-            )
-            ->get();
+            $modules =
+                \App\Models\Module::with(
+                    'equipments'
+                )
+                ->get();
 
 
-        return view(
-            'user.dashboard',
-            compact(
-                'modules',
-                'ships'
-            )
-        );
+            $ships =
+                \App\Models\Ship::orderBy(
+                    'id',
+                    'asc'
+                )
+                ->get();
 
-    })
-    ->name('dashboard');
+
+            return view(
+                'user.dashboard',
+                compact(
+                    'modules',
+                    'ships'
+                )
+            );
+
+
+        }
+    )
+    ->name(
+        'dashboard'
+    );
 
 
     /*
     |--------------------------------------------------------------------------
-    | ALL SHIP MODELS
+    | SHIP MODELS
     |--------------------------------------------------------------------------
     */
 
     Route::get(
         '/ship-models',
-        [ShipController::class, 'userIndex']
+        [
+            ShipController::class,
+            'userIndex'
+        ]
     )
-    ->name('user.ship-models');
+    ->name(
+        'user.ship-models'
+    );
 
 
     /*
     |--------------------------------------------------------------------------
-    | INDIVIDUAL SHIP DETAIL
+    | SHIP DETAIL
     |--------------------------------------------------------------------------
     */
 
     Route::get(
         '/ship/{id}',
-        [ShipController::class, 'userShow']
+        [
+            ShipController::class,
+            'userShow'
+        ]
     )
-    ->name('ship.show');
+    ->name(
+        'ship.show'
+    );
 
 
     /*
@@ -231,9 +312,14 @@ Route::middleware([
 
     Route::get(
         '/learning-module/{id}',
-        [ModuleController::class, 'userShow']
+        [
+            ModuleController::class,
+            'userShow'
+        ]
     )
-    ->name('learning.show');
+    ->name(
+        'learning.show'
+    );
 
 
     /*
@@ -244,9 +330,14 @@ Route::middleware([
 
     Route::get(
         '/learning-module/{id}/equipment',
-        [ModuleController::class, 'userShow']
+        [
+            ModuleController::class,
+            'userShow'
+        ]
     )
-    ->name('learning.equipment');
+    ->name(
+        'learning.equipment'
+    );
 
 
     /*
@@ -257,29 +348,44 @@ Route::middleware([
 
     Route::get(
         '/equipment/{id}',
-        [EquipmentController::class, 'userShow']
+        [
+            EquipmentController::class,
+            'userShow'
+        ]
     )
-    ->name('equipment.show');
+    ->name(
+        'equipment.show'
+    );
 
 
     /*
     |--------------------------------------------------------------------------
-    | MODULE NOTES
+    | NOTES
     |--------------------------------------------------------------------------
     */
 
     Route::get(
         '/module-notes',
-        [NoteController::class, 'index']
+        [
+            NoteController::class,
+            'index'
+        ]
     )
-    ->name('user.notes');
+    ->name(
+        'user.notes'
+    );
 
 
     Route::get(
         '/module-notes/{id}',
-        [NoteController::class, 'show']
+        [
+            NoteController::class,
+            'show'
+        ]
     )
-    ->name('user.notes.show');
+    ->name(
+        'user.notes.show'
+    );
 
 
     /*
@@ -290,9 +396,14 @@ Route::middleware([
 
     Route::get(
         '/course/{id}',
-        [CourseController::class, 'userShow']
+        [
+            CourseController::class,
+            'userShow'
+        ]
     )
-    ->name('course.show');
+    ->name(
+        'course.show'
+    );
 
 
     /*
@@ -303,36 +414,57 @@ Route::middleware([
 
     Route::get(
         '/lesson/{id}',
-        [LessonController::class, 'userShow']
+        [
+            LessonController::class,
+            'userShow'
+        ]
     )
-    ->name('lesson.show');
+    ->name(
+        'lesson.show'
+    );
 
 
     /*
     |--------------------------------------------------------------------------
-    | QUIZ USER
+    | QUIZ
     |--------------------------------------------------------------------------
     */
 
     Route::get(
         '/quiz',
-        [QuizController::class, 'index']
+        [
+            QuizController::class,
+            'index'
+        ]
     )
-    ->name('quiz.index');
+    ->name(
+        'quiz.index'
+    );
 
 
     Route::get(
         '/quiz/start/{id}',
-        [QuizController::class, 'show']
+        [
+            QuizController::class,
+            'show'
+        ]
     )
-    ->name('quiz.show');
+    ->name(
+        'quiz.show'
+    );
 
 
     Route::post(
         '/quiz/{id}/submit',
-        [QuizController::class, 'submit']
+        [
+            QuizController::class,
+            'submit'
+        ]
     )
-    ->name('quiz.submit');
+    ->name(
+        'quiz.submit'
+    );
+
 
 });
 
@@ -348,7 +480,9 @@ Route::middleware([
     'admin',
     'prevent.back'
 ])
-->prefix('admin')
+->prefix(
+    'admin'
+)
 ->group(function () {
 
 
@@ -360,9 +494,14 @@ Route::middleware([
 
     Route::get(
         '/',
-        [AdminDashboardController::class, 'index']
+        [
+            AdminDashboardController::class,
+            'index'
+        ]
     )
-    ->name('admin.dashboard');
+    ->name(
+        'admin.dashboard'
+    );
 
 
     /*
@@ -383,7 +522,9 @@ Route::middleware([
         'update',
         'destroy'
     ])
-    ->names('admin.users');
+    ->names(
+        'admin.users'
+    );
 
 
     /*
@@ -400,14 +541,19 @@ Route::middleware([
 
     Route::get(
         'modules/{id}/equipment',
-        [ModuleController::class, 'equipment']
+        [
+            ModuleController::class,
+            'equipment'
+        ]
     )
-    ->name('admin.module.equipment');
+    ->name(
+        'admin.module.equipment'
+    );
 
 
     /*
     |--------------------------------------------------------------------------
-    | EQUIPMENT MANAGEMENT
+    | EQUIPMENT
     |--------------------------------------------------------------------------
     */
 
@@ -415,12 +561,14 @@ Route::middleware([
         'equipment',
         EquipmentController::class
     )
-    ->names('admin.equipment');
+    ->names(
+        'admin.equipment'
+    );
 
 
     /*
     |--------------------------------------------------------------------------
-    | SHIP MANAGEMENT
+    | SHIPS
     |--------------------------------------------------------------------------
     */
 
@@ -428,12 +576,14 @@ Route::middleware([
         'ships',
         ShipController::class
     )
-    ->names('admin.ships');
+    ->names(
+        'admin.ships'
+    );
 
 
     /*
     |--------------------------------------------------------------------------
-    | NOTES MANAGEMENT
+    | NOTES
     |--------------------------------------------------------------------------
     */
 
@@ -441,12 +591,14 @@ Route::middleware([
         'notes',
         AdminNoteController::class
     )
-    ->names('admin.notes');
+    ->names(
+        'admin.notes'
+    );
 
 
     /*
     |--------------------------------------------------------------------------
-    | QUIZ MANAGEMENT
+    | QUIZ
     |--------------------------------------------------------------------------
     */
 
@@ -454,12 +606,14 @@ Route::middleware([
         'quiz',
         AdminQuizController::class
     )
-    ->names('admin.quiz');
+    ->names(
+        'admin.quiz'
+    );
 
 
     /*
     |--------------------------------------------------------------------------
-    | COURSE MANAGEMENT
+    | COURSE
     |--------------------------------------------------------------------------
     */
 
@@ -471,7 +625,7 @@ Route::middleware([
 
     /*
     |--------------------------------------------------------------------------
-    | LESSON MANAGEMENT
+    | LESSON
     |--------------------------------------------------------------------------
     */
 
@@ -479,6 +633,7 @@ Route::middleware([
         'lesson',
         LessonController::class
     );
+
 
 });
 
@@ -498,22 +653,38 @@ Route::middleware([
 
     Route::get(
         '/profile',
-        [ProfileController::class, 'edit']
+        [
+            ProfileController::class,
+            'edit'
+        ]
     )
-    ->name('profile.edit');
+    ->name(
+        'profile.edit'
+    );
 
 
     Route::patch(
         '/profile',
-        [ProfileController::class, 'update']
+        [
+            ProfileController::class,
+            'update'
+        ]
     )
-    ->name('profile.update');
+    ->name(
+        'profile.update'
+    );
 
 
     Route::delete(
         '/profile',
-        [ProfileController::class, 'destroy']
+        [
+            ProfileController::class,
+            'destroy'
+        ]
     )
-    ->name('profile.destroy');
+    ->name(
+        'profile.destroy'
+    );
+
 
 });
