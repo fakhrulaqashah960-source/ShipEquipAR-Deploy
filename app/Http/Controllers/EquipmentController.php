@@ -47,10 +47,21 @@ class EquipmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'module_id'   => 'required',
-            'name'        => 'required',
-            'description' => 'required',
-            'function'    => 'required',
+            'module_id' => [
+                'required',
+            ],
+
+            'name' => [
+                'required',
+            ],
+
+            'description' => [
+                'required',
+            ],
+
+            'function' => [
+                'required',
+            ],
 
             'image' => [
                 'nullable',
@@ -72,7 +83,7 @@ class EquipmentController extends Controller
 
 
         // =========================
-        // IMAGE → GITHUB RELEASE
+        // IMAGE -> GITHUB RELEASE
         // =========================
         if ($request->hasFile('image')) {
 
@@ -82,13 +93,12 @@ class EquipmentController extends Controller
                 'equipment-image'
             );
 
-            // Simpan URL penuh dalam database
             $imageUrl = $imageAsset['url'];
         }
 
 
         // =========================
-        // AR MODEL → GITHUB RELEASE
+        // AR MODEL -> GITHUB RELEASE
         // =========================
         if ($request->hasFile('model_file')) {
 
@@ -98,7 +108,6 @@ class EquipmentController extends Controller
                 'equipment-ar'
             );
 
-            // Simpan URL penuh dalam database
             $modelUrl = $modelAsset['url'];
         }
 
@@ -148,11 +157,23 @@ class EquipmentController extends Controller
     {
         $equipment = Equipment::findOrFail($id);
 
+
         $request->validate([
-            'module_id'   => 'required',
-            'name'        => 'required',
-            'description' => 'required',
-            'function'    => 'required',
+            'module_id' => [
+                'required',
+            ],
+
+            'name' => [
+                'required',
+            ],
+
+            'description' => [
+                'required',
+            ],
+
+            'function' => [
+                'required',
+            ],
 
             'image' => [
                 'nullable',
@@ -228,6 +249,7 @@ class EquipmentController extends Controller
 
         $equipment->delete();
 
+
         return redirect()
             ->route('admin.equipment.index')
             ->with(
@@ -245,6 +267,7 @@ class EquipmentController extends Controller
         $equipment = Equipment::with('module')
             ->findOrFail($id);
 
+
         return view(
             'user.equipment.show',
             compact('equipment')
@@ -261,21 +284,29 @@ class EquipmentController extends Controller
         string $prefix
     ): array {
 
-        $extension = strtolower(
-            $file->getClientOriginalExtension()
-        );
+        // Tentukan field untuk validation message
+        $field = $prefix === 'equipment-ar'
+            ? 'model_file'
+            : 'image';
 
 
         // =========================
         // VALIDATE EXTENSION
         // =========================
-        if (!in_array($extension, $allowedExtensions, true)) {
+        $extension = strtolower(
+            $file->getClientOriginalExtension()
+        );
+
+
+        if (!in_array(
+            $extension,
+            $allowedExtensions,
+            true
+        )) {
 
             throw ValidationException::withMessages([
-                $prefix === 'equipment-ar'
-                    ? 'model_file'
-                    : 'image'
-                    => 'Jenis fail tidak dibenarkan.',
+                $field =>
+                    'Jenis fail tidak dibenarkan.',
             ]);
         }
 
@@ -283,26 +314,35 @@ class EquipmentController extends Controller
         // =========================
         // GITHUB CONFIG
         // =========================
-        $token = config('services.github_ar.token');
-        $owner = config('services.github_ar.owner');
-        $repo  = config('services.github_ar.repo');
+        $token = config(
+            'services.github_ar.token'
+        );
+
+        $owner = config(
+            'services.github_ar.owner'
+        );
+
+        $repo = config(
+            'services.github_ar.repo'
+        );
 
 
         if (!$token || !$owner || !$repo) {
 
             throw ValidationException::withMessages([
-                'model_file' =>
+                $field =>
                     'GitHub upload configuration belum lengkap.',
             ]);
         }
 
 
         // =========================
-        // SAFE UNIQUE FILE NAME
+        // ORIGINAL FILE NAME
         // =========================
         $originalName = basename(
             $file->getClientOriginalName()
         );
+
 
         $safeName = preg_replace(
             '/[^A-Za-z0-9._-]/',
@@ -310,6 +350,10 @@ class EquipmentController extends Controller
             $originalName
         );
 
+
+        // =========================
+        // UNIQUE ASSET NAME
+        // =========================
         $assetName =
             $prefix .
             '_' .
@@ -318,6 +362,21 @@ class EquipmentController extends Controller
             bin2hex(random_bytes(4)) .
             '_' .
             $safeName;
+
+
+        // =========================
+        // GET ORIGINAL FILE SIZE
+        // =========================
+        $localSize = (int) $file->getSize();
+
+
+        if ($localSize <= 0) {
+
+            throw ValidationException::withMessages([
+                $field =>
+                    'Fail kosong atau tidak dapat dibaca.',
+            ]);
+        }
 
 
         try {
@@ -345,6 +404,9 @@ class EquipmentController extends Controller
                 Log::error(
                     'GitHub release request failed',
                     [
+                        'field' =>
+                            $field,
+
                         'status' =>
                             $releaseResponse->status(),
 
@@ -353,29 +415,35 @@ class EquipmentController extends Controller
                     ]
                 );
 
+
                 throw ValidationException::withMessages([
-                    'model_file' =>
+                    $field =>
                         'Tidak dapat mendapatkan GitHub Release.',
                 ]);
             }
 
 
-            $uploadUrl = $releaseResponse->json('upload_url');
+            // =========================
+            // GET RELEASE UPLOAD URL
+            // =========================
+            $uploadUrl = $releaseResponse->json(
+                'upload_url'
+            );
 
 
             if (!$uploadUrl) {
 
                 throw ValidationException::withMessages([
-                    'model_file' =>
+                    $field =>
                         'GitHub Release upload URL tidak dijumpai.',
                 ]);
             }
 
 
-            // GitHub beri:
+            // GitHub upload_url berbentuk:
             // https://uploads.github.com/.../assets{?name,label}
-            // Buang template akhir tersebut.
-
+            //
+            // Buang {?name,label}
             $uploadUrl = preg_replace(
                 '/\{\?name,label\}$/',
                 '',
@@ -384,11 +452,12 @@ class EquipmentController extends Controller
 
 
             // =========================
-            // MIME TYPE
+            // CONTENT TYPE
             // =========================
             if ($extension === 'reality') {
 
-                $contentType = 'application/octet-stream';
+                $contentType =
+                    'application/octet-stream';
 
             } else {
 
@@ -401,8 +470,20 @@ class EquipmentController extends Controller
             // =========================
             // OPEN FILE AS STREAM
             // =========================
+            $realPath = $file->getRealPath();
+
+
+            if (!$realPath) {
+
+                throw ValidationException::withMessages([
+                    $field =>
+                        'Lokasi fail tidak dapat dibaca.',
+                ]);
+            }
+
+
             $handle = fopen(
-                $file->getRealPath(),
+                $realPath,
                 'rb'
             );
 
@@ -410,7 +491,7 @@ class EquipmentController extends Controller
             if ($handle === false) {
 
                 throw ValidationException::withMessages([
-                    'model_file' =>
+                    $field =>
                         'Fail tidak dapat dibaca.',
                 ]);
             }
@@ -418,9 +499,14 @@ class EquipmentController extends Controller
 
             try {
 
-                // =========================
+                // =================================================
                 // UPLOAD RAW BINARY
-                // =========================
+                //
+                // IMPORTANT:
+                // guna send() + body stream.
+                // Jangan guna ->post() bersama withOptions(['body'])
+                // kerana body boleh bertukar menjadi JSON [].
+                // =================================================
                 $uploadResponse = Http::withToken($token)
                     ->withHeaders([
                         'Accept' =>
@@ -431,16 +517,20 @@ class EquipmentController extends Controller
 
                         'Content-Type' =>
                             $contentType,
-                    ])
-                    ->withOptions([
-                        'body' => $handle,
+
+                        'Content-Length' =>
+                            (string) $localSize,
                     ])
                     ->connectTimeout(30)
                     ->timeout(900)
-                    ->post(
+                    ->send(
+                        'POST',
                         $uploadUrl .
-                        '?name=' .
-                        rawurlencode($assetName)
+                            '?name=' .
+                            rawurlencode($assetName),
+                        [
+                            'body' => $handle,
+                        ]
                     );
 
             } finally {
@@ -451,12 +541,23 @@ class EquipmentController extends Controller
             }
 
 
-            // GitHub upload success = 201
+            // =========================
+            // GITHUB SUCCESS = 201
+            // =========================
             if ($uploadResponse->status() !== 201) {
 
                 Log::error(
                     'GitHub asset upload failed',
                     [
+                        'field' =>
+                            $field,
+
+                        'asset_name' =>
+                            $assetName,
+
+                        'local_size' =>
+                            $localSize,
+
                         'status' =>
                             $uploadResponse->status(),
 
@@ -465,33 +566,78 @@ class EquipmentController extends Controller
                     ]
                 );
 
+
                 throw ValidationException::withMessages([
-                    $extension === 'reality'
-                        ? 'model_file'
-                        : 'image'
-                        => 'Upload ke GitHub Release gagal.',
+                    $field =>
+                        'Upload ke GitHub Release gagal.',
                 ]);
             }
 
 
-            $browserUrl =
-                $uploadResponse->json(
-                    'browser_download_url'
+            // =========================
+            // VERIFY UPLOADED SIZE
+            // =========================
+            $githubSize = (int) $uploadResponse->json(
+                'size'
+            );
+
+
+            if ($githubSize !== $localSize) {
+
+                Log::error(
+                    'GitHub asset size mismatch',
+                    [
+                        'field' =>
+                            $field,
+
+                        'asset_name' =>
+                            $assetName,
+
+                        'local_size' =>
+                            $localSize,
+
+                        'github_size' =>
+                            $githubSize,
+                    ]
                 );
+
+
+                throw ValidationException::withMessages([
+                    $field =>
+                        'Saiz fail yang dimuat naik tidak sepadan dengan fail asal. Sila upload semula.',
+                ]);
+            }
+
+
+            // =========================
+            // GET DOWNLOAD URL
+            // =========================
+            $browserUrl = $uploadResponse->json(
+                'browser_download_url'
+            );
 
 
             if (!$browserUrl) {
 
                 throw ValidationException::withMessages([
-                    'model_file' =>
+                    $field =>
                         'GitHub tidak memulangkan URL fail.',
                 ]);
             }
 
 
+            // =========================
+            // SUCCESS
+            // =========================
             return [
-                'name' => $assetName,
-                'url'  => $browserUrl,
+                'name' =>
+                    $assetName,
+
+                'url' =>
+                    $browserUrl,
+
+                'size' =>
+                    $githubSize,
             ];
 
         } catch (ValidationException $e) {
@@ -503,16 +649,24 @@ class EquipmentController extends Controller
             Log::error(
                 'GitHub file upload exception',
                 [
-                    'message' => $e->getMessage(),
+                    'field' =>
+                        $field,
+
+                    'asset_name' =>
+                        $assetName,
+
+                    'local_size' =>
+                        $localSize,
+
+                    'message' =>
+                        $e->getMessage(),
                 ]
             );
 
 
             throw ValidationException::withMessages([
-                $extension === 'reality'
-                    ? 'model_file'
-                    : 'image'
-                    => 'Ralat semasa upload. Sila cuba lagi.',
+                $field =>
+                    'Ralat semasa upload. Sila cuba lagi.',
             ]);
         }
     }
