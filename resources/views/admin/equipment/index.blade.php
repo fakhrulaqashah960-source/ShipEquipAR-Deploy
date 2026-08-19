@@ -259,8 +259,9 @@ background:#b91c1c;
 @if($equipment->image)
 
 <img class="image"
-src="{{ asset('uploads/equipment/'.$equipment->image) }}">
-
+src="{{ (str_starts_with($equipment->image, 'http://') || str_starts_with($equipment->image, 'https://'))
+    ? $equipment->image
+    : asset('uploads/equipment/' . $equipment->image) }}"
 @endif
 
 

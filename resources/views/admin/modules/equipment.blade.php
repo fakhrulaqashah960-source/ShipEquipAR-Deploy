@@ -158,7 +158,9 @@ h1{
 
 @if($equipment->image)
 
-<img src="{{asset('uploads/equipment/'.$equipment->image)}}">
+src="{{ (str_starts_with($equipment->image, 'http://') || str_starts_with($equipment->image, 'https://'))
+    ? $equipment->image
+    : asset('uploads/equipment/' . $equipment->image) }}"
 
 @endif
 

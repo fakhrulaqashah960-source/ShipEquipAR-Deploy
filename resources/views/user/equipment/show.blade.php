@@ -390,7 +390,9 @@ Marine Personal Protective Equipment (PPE) provides essential protection for mar
 
 
 <img 
-src="{{asset('uploads/equipment/'.$equipment->image)}}"
+src="{{ (str_starts_with($equipment->image, 'http://') || str_starts_with($equipment->image, 'https://'))
+    ? $equipment->image
+    : asset('uploads/equipment/' . $equipment->image) }}"
 class="equipment-image">
 
 
@@ -441,22 +443,25 @@ class="equipment-image">
 </div>
 
 
-
-
-
-
 @if($equipment->model_file)
 
+    @php
+        $modelFile = $equipment->model_file;
 
-<a href="/ar-model/{{$equipment->model_file}}"
-class="ar-btn">
+        $modelUrl = str_starts_with($modelFile, 'http://') ||
+                    str_starts_with($modelFile, 'https://')
+                    ? $modelFile
+                    : url('/ar-model/' . $modelFile);
+    @endphp
 
+    <a href="{{ $modelUrl }}"
+       class="ar-btn"
+       target="_blank"
+       rel="noopener noreferrer">
 
-📱 Open AR Model
+        📱 Open AR Model
 
-
-</a>
-
+    </a>
 
 @endif
 
