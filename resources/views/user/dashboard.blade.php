@@ -2008,10 +2008,18 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
 
         if (
-            window.botpress &&
-            typeof window.botpress.toggle === 'function'
+            typeof closeUserSidebar === 'function'
         ) {
-            window.botpress.toggle();
+            closeUserSidebar();
+        }
+
+        if (
+            window.botpress &&
+            typeof window.botpress.open === 'function'
+        ) {
+            window.botpress.open();
+        } else {
+            console.log('NaviBot is still loading...');
         }
 
     });
