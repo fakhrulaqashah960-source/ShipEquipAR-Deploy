@@ -283,12 +283,9 @@ class EquipmentController extends Controller
         array $allowedExtensions,
         string $prefix
     ): array {
-
-        // Tentukan field untuk validation message
         $field = $prefix === 'equipment-ar'
             ? 'model_file'
             : 'image';
-
 
         // =========================
         // VALIDATE EXTENSION
@@ -297,52 +294,31 @@ class EquipmentController extends Controller
             $file->getClientOriginalExtension()
         );
 
-
-        if (!in_array(
-            $extension,
-            $allowedExtensions,
-            true
-        )) {
-
+        if (!in_array($extension, $allowedExtensions, true)) {
             throw ValidationException::withMessages([
-                $field =>
-                    'Jenis fail tidak dibenarkan.',
+                $field => 'Jenis fail tidak dibenarkan.',
             ]);
         }
-
 
         // =========================
         // GITHUB CONFIG
         // =========================
-        $token = config(
-            'services.github_ar.token'
-        );
-
-        $owner = config(
-            'services.github_ar.owner'
-        );
-
-        $repo = config(
-            'services.github_ar.repo'
-        );
-
+        $token = config('services.github_ar.token');
+        $owner = config('services.github_ar.owner');
+        $repo  = config('services.github_ar.repo');
 
         if (!$token || !$owner || !$repo) {
-
             throw ValidationException::withMessages([
-                $field =>
-                    'GitHub upload configuration belum lengkap.',
+                $field => 'GitHub upload configuration belum lengkap.',
             ]);
         }
 
-
         // =========================
-        // ORIGINAL FILE NAME
+        // SAFE FILE NAME
         // =========================
         $originalName = basename(
             $file->getClientOriginalName()
         );
-
 
         $safeName = preg_replace(
             '/[^A-Za-z0-9._-]/',
@@ -350,10 +326,6 @@ class EquipmentController extends Controller
             $originalName
         );
 
-
-        // =========================
-        // UNIQUE ASSET NAME
-        // =========================
         $assetName =
             $prefix .
             '_' .
@@ -363,34 +335,25 @@ class EquipmentController extends Controller
             '_' .
             $safeName;
 
-
         // =========================
-        // GET ORIGINAL FILE SIZE
+        // LOCAL FILE SIZE
         // =========================
         $localSize = (int) $file->getSize();
 
-
         if ($localSize <= 0) {
-
             throw ValidationException::withMessages([
-                $field =>
-                    'Fail kosong atau tidak dapat dibaca.',
+                $field => 'Fail kosong atau tidak dapat dibaca.',
             ]);
         }
 
-
         try {
-
             // =========================
             // GET LATEST RELEASE
             // =========================
             $releaseResponse = Http::withToken($token)
                 ->withHeaders([
-                    'Accept' =>
-                        'application/vnd.github+json',
-
-                    'X-GitHub-Api-Version' =>
-                        '2026-03-10',
+                    'Accept' => 'application/vnd.github+json',
+                    'X-GitHub-Api-Version' => '2026-03-10',
                 ])
                 ->connectTimeout(20)
                 ->timeout(60)
@@ -398,271 +361,194 @@ class EquipmentController extends Controller
                     "https://api.github.com/repos/{$owner}/{$repo}/releases/latest"
                 );
 
-
             if (!$releaseResponse->successful()) {
-
                 Log::error(
                     'GitHub release request failed',
                     [
-                        'field' =>
-                            $field,
-
-                        'status' =>
-                            $releaseResponse->status(),
-
-                        'response' =>
-                            $releaseResponse->body(),
+                        'field' => $field,
+                        'status' => $releaseResponse->status(),
+                        'response' => $releaseResponse->body(),
                     ]
                 );
 
-
                 throw ValidationException::withMessages([
-                    $field =>
-                        'Tidak dapat mendapatkan GitHub Release.',
+                    $field => 'Tidak dapat mendapatkan GitHub Release.',
                 ]);
             }
 
-
             // =========================
-            // GET RELEASE UPLOAD URL
+            // GET UPLOAD URL
             // =========================
-            $uploadUrl = $releaseResponse->json(
-                'upload_url'
-            );
-
+            $uploadUrl = $releaseResponse->json('upload_url');
 
             if (!$uploadUrl) {
-
                 throw ValidationException::withMessages([
-                    $field =>
-                        'GitHub Release upload URL tidak dijumpai.',
+                    $field => 'GitHub Release upload URL tidak dijumpai.',
                 ]);
             }
 
-
-            // GitHub upload_url berbentuk:
-            // https://uploads.github.com/.../assets{?name,label}
-            //
-            // Buang {?name,label}
             $uploadUrl = preg_replace(
                 '/\{\?name,label\}$/',
                 '',
                 $uploadUrl
             );
 
-
             // =========================
             // CONTENT TYPE
             // =========================
             if ($extension === 'reality') {
-
-                $contentType =
-                    'application/octet-stream';
-
+                $contentType = 'application/octet-stream';
             } else {
-
                 $contentType =
                     $file->getMimeType()
                     ?: 'application/octet-stream';
             }
 
-
             // =========================
-            // OPEN FILE AS STREAM
+            // OPEN REAL FILE
             // =========================
             $realPath = $file->getRealPath();
 
-
-            if (!$realPath) {
-
+            if (!$realPath || !is_readable($realPath)) {
                 throw ValidationException::withMessages([
-                    $field =>
-                        'Lokasi fail tidak dapat dibaca.',
+                    $field => 'Fail tidak dapat dibaca.',
                 ]);
             }
 
-
-            $handle = fopen(
-                $realPath,
-                'rb'
-            );
-
+            $handle = fopen($realPath, 'rb');
 
             if ($handle === false) {
-
                 throw ValidationException::withMessages([
-                    $field =>
-                        'Fail tidak dapat dibaca.',
+                    $field => 'Fail tidak dapat dibuka.',
                 ]);
             }
 
-
             try {
+                // =============================================
+                // DIRECT GUZZLE RAW BINARY UPLOAD
+                // =============================================
+                $client = new \GuzzleHttp\Client([
+                    'connect_timeout' => 30,
+                    'timeout' => 900,
+                    'http_errors' => false,
+                ]);
 
-                // =================================================
-                // UPLOAD RAW BINARY
-                //
-                // IMPORTANT:
-                // guna send() + body stream.
-                // Jangan guna ->post() bersama withOptions(['body'])
-                // kerana body boleh bertukar menjadi JSON [].
-                // =================================================
-                $uploadResponse = Http::withToken($token)
-                    ->withHeaders([
-                        'Accept' =>
-                            'application/vnd.github+json',
+                $response = $client->request(
+                    'POST',
+                    $uploadUrl .
+                        '?name=' .
+                        rawurlencode($assetName),
+                    [
+                        'headers' => [
+                            'Authorization' =>
+                                'Bearer ' . $token,
 
-                        'X-GitHub-Api-Version' =>
-                            '2026-03-10',
+                            'Accept' =>
+                                'application/vnd.github+json',
 
-                        'Content-Type' =>
-                            $contentType,
+                            'X-GitHub-Api-Version' =>
+                                '2026-03-10',
 
-                        'Content-Length' =>
-                            (string) $localSize,
-                    ])
-                    ->connectTimeout(30)
-                    ->timeout(900)
-                    ->send(
-                        'POST',
-                        $uploadUrl .
-                            '?name=' .
-                            rawurlencode($assetName),
-                        [
-                            'body' => $handle,
-                        ]
-                    );
+                            'Content-Type' =>
+                                $contentType,
 
+                            'Content-Length' =>
+                                (string) $localSize,
+                        ],
+
+                        'body' => $handle,
+                    ]
+                );
             } finally {
-
                 if (is_resource($handle)) {
                     fclose($handle);
                 }
             }
 
-
             // =========================
-            // GITHUB SUCCESS = 201
+            // READ GITHUB RESPONSE
             // =========================
-            if ($uploadResponse->status() !== 201) {
+            $status = $response->getStatusCode();
+            $responseBody = (string) $response->getBody();
 
+            $responseData = json_decode(
+                $responseBody,
+                true
+            );
+
+            // GitHub upload success = 201
+            if ($status !== 201) {
                 Log::error(
                     'GitHub asset upload failed',
                     [
-                        'field' =>
-                            $field,
-
-                        'asset_name' =>
-                            $assetName,
-
-                        'local_size' =>
-                            $localSize,
-
-                        'status' =>
-                            $uploadResponse->status(),
-
-                        'response' =>
-                            $uploadResponse->body(),
+                        'field' => $field,
+                        'status' => $status,
+                        'response' => $responseBody,
+                        'local_size' => $localSize,
+                        'asset_name' => $assetName,
                     ]
                 );
 
-
                 throw ValidationException::withMessages([
-                    $field =>
-                        'Upload ke GitHub Release gagal.',
+                    $field => 'Upload ke GitHub Release gagal.',
                 ]);
             }
 
-
             // =========================
-            // VERIFY UPLOADED SIZE
+            // VERIFY GITHUB SIZE
             // =========================
-            $githubSize = (int) $uploadResponse->json(
-                'size'
+            $githubSize = (int) (
+                $responseData['size'] ?? 0
             );
 
-
             if ($githubSize !== $localSize) {
-
                 Log::error(
                     'GitHub asset size mismatch',
                     [
-                        'field' =>
-                            $field,
-
-                        'asset_name' =>
-                            $assetName,
-
-                        'local_size' =>
-                            $localSize,
-
-                        'github_size' =>
-                            $githubSize,
+                        'field' => $field,
+                        'asset_name' => $assetName,
+                        'local_size' => $localSize,
+                        'github_size' => $githubSize,
                     ]
                 );
 
-
                 throw ValidationException::withMessages([
                     $field =>
-                        'Saiz fail yang dimuat naik tidak sepadan dengan fail asal. Sila upload semula.',
+                        'Saiz fail GitHub tidak sepadan dengan fail asal.',
                 ]);
             }
 
-
             // =========================
-            // GET DOWNLOAD URL
+            // DOWNLOAD URL
             // =========================
-            $browserUrl = $uploadResponse->json(
-                'browser_download_url'
-            );
-
+            $browserUrl =
+                $responseData['browser_download_url']
+                ?? null;
 
             if (!$browserUrl) {
-
                 throw ValidationException::withMessages([
                     $field =>
                         'GitHub tidak memulangkan URL fail.',
                 ]);
             }
 
-
-            // =========================
-            // SUCCESS
-            // =========================
             return [
-                'name' =>
-                    $assetName,
-
-                'url' =>
-                    $browserUrl,
-
-                'size' =>
-                    $githubSize,
+                'name' => $assetName,
+                'url' => $browserUrl,
+                'size' => $githubSize,
             ];
-
         } catch (ValidationException $e) {
-
             throw $e;
-
         } catch (Throwable $e) {
-
             Log::error(
                 'GitHub file upload exception',
                 [
-                    'field' =>
-                        $field,
-
-                    'asset_name' =>
-                        $assetName,
-
-                    'local_size' =>
-                        $localSize,
-
-                    'message' =>
-                        $e->getMessage(),
+                    'field' => $field,
+                    'asset_name' => $assetName,
+                    'local_size' => $localSize,
+                    'message' => $e->getMessage(),
                 ]
             );
-
 
             throw ValidationException::withMessages([
                 $field =>
