@@ -10,9 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>
-        {{ $equipment->name }}
-    </title>
+    <title>{{ $equipment->name }}</title>
 
     @vite([
         'resources/css/app.css',
@@ -51,8 +49,11 @@
             );
 
             color: white;
+
             padding: 30px;
+
             border-radius: 25px;
+
             margin-bottom: 25px;
         }
 
@@ -71,7 +72,9 @@
 
         .card {
             background: white;
+
             border-radius: 25px;
+
             padding: 35px;
 
             box-shadow:
@@ -81,8 +84,11 @@
 
         .title {
             text-align: center;
+
             font-size: 32px;
+
             color: #075985;
+
             margin-bottom: 20px;
         }
 
@@ -92,14 +98,18 @@
 
         .equipment-image {
             display: block;
+
             width: 100%;
+
             height: 300px;
+
             object-fit: contain;
+
             margin-bottom: 25px;
         }
 
         /* =========================
-           SECTION
+           CONTENT
         ========================= */
 
         .section {
@@ -108,29 +118,49 @@
 
         .section h2 {
             color: #0284c7;
+
             font-size: 20px;
+
             margin-bottom: 10px;
         }
 
         .section p {
             color: #475569;
+
             line-height: 1.8;
+
             font-size: 16px;
         }
 
         /* =========================
-           AR CONTAINER
+           AR
         ========================= */
 
         .ar-container {
             width: 100%;
+
             text-align: center;
+
             margin-top: 35px;
         }
 
-        /* =========================
-           AR QUICK LOOK BUTTON
-        ========================= */
+        /*
+        |--------------------------------------------------------------------------
+        | AR QUICK LOOK
+        |--------------------------------------------------------------------------
+        |
+        | IMPORTANT:
+        |
+        | Apple/WebKit expects:
+        |
+        | <a rel="ar">
+        |     <img>
+        | </a>
+        |
+        | No JavaScript redirect.
+        | No download attribute.
+        |
+        */
 
         .ar-btn {
             position: relative;
@@ -152,40 +182,22 @@
 
             cursor: pointer;
 
-            transition:
-                transform .25s ease,
-                background .25s ease,
-                box-shadow .25s ease;
-
             box-shadow:
                 0 8px 20px
                 rgba(2, 132, 199, .25);
         }
 
-        .ar-btn:hover {
-            background: #0369a1;
-
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 10px 25px
-                rgba(2, 132, 199, .35);
+        .ar-btn:active {
+            transform: scale(.98);
         }
 
         /*
         |--------------------------------------------------------------------------
-        | IMPORTANT FOR IOS QUICK LOOK
+        | REAL CHILD IMAGE
         |--------------------------------------------------------------------------
-        |
-        | Safari AR Quick Look uses:
-        |
-        | <a rel="ar">
-        |     <img>
-        | </a>
-        |
         */
 
-        .ar-quicklook img {
+        .ar-btn img {
             position: absolute;
 
             inset: 0;
@@ -195,13 +207,18 @@
 
             object-fit: cover;
 
-            opacity: 0.01;
+            opacity: 0.001;
 
             pointer-events: none;
         }
 
-        .ar-quicklook::after {
+        /*
+        |--------------------------------------------------------------------------
+        | BUTTON LABEL
+        |--------------------------------------------------------------------------
+        */
 
+        .ar-btn::after {
             content: "📱 Open AR Model";
 
             position: absolute;
@@ -209,12 +226,15 @@
             inset: 0;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
             color: white;
 
             font-size: 16px;
+
             font-weight: 700;
 
             z-index: 2;
@@ -222,21 +242,8 @@
             pointer-events: none;
         }
 
-        .ar-message {
-
-            max-width: 420px;
-
-            margin: 12px auto 0;
-
-            color: #64748b;
-
-            font-size: 13px;
-
-            line-height: 1.5;
-        }
-
         /* =========================
-           BACK BUTTON
+           BACK
         ========================= */
 
         .back-btn {
@@ -245,6 +252,7 @@
             margin-top: 30px;
 
             background: #0284c7;
+
             color: white;
 
             padding: 12px 25px;
@@ -254,14 +262,8 @@
             text-decoration: none;
 
             font-size: 16px;
+
             font-weight: 600;
-
-            transition: .3s;
-        }
-
-        .back-btn:hover {
-            background: #0369a1;
-            transform: translateY(-2px);
         }
 
         /* =========================
@@ -309,6 +311,7 @@
     </style>
 
 </head>
+
 
 <body>
 
@@ -421,7 +424,7 @@
 
 
         {{-- =========================
-             ABOUT EQUIPMENT
+             ABOUT
         ========================== --}}
 
         <div class="section">
@@ -438,7 +441,7 @@
 
 
         {{-- =========================
-             MAIN FUNCTION
+             FUNCTION
         ========================== --}}
 
         <div class="section">
@@ -464,14 +467,8 @@
 
                 /*
                 |--------------------------------------------------------------------------
-                | MODEL VALUE FROM DATABASE
+                | GET MODEL FILE NAME
                 |--------------------------------------------------------------------------
-                |
-                | Example:
-                |
-                | https://github.com/.../
-                | equipment-ar_xxx.reality
-                |
                 */
 
                 $modelValue =
@@ -480,26 +477,16 @@
                     );
 
 
-                /*
-                |--------------------------------------------------------------------------
-                | GET FILE NAME
-                |--------------------------------------------------------------------------
-                */
-
                 if (
-
                     str_starts_with(
                         $modelValue,
                         'http://'
                     )
-
                     ||
-
                     str_starts_with(
                         $modelValue,
                         'https://'
                     )
-
                 ) {
 
                     $modelPath =
@@ -532,34 +519,20 @@
 
                 /*
                 |--------------------------------------------------------------------------
-                | PREVIEW IMAGE
+                | PREVIEW
                 |--------------------------------------------------------------------------
                 */
 
                 $arPreviewImage =
-
                     $equipmentImage
-
                     ??
-
-                    asset(
-                        'favicon.ico'
-                    );
+                    asset('favicon.ico');
 
 
                 /*
                 |--------------------------------------------------------------------------
-                | LOCAL RENDER AR ROUTE
+                | LOCAL RENDER URL
                 |--------------------------------------------------------------------------
-                |
-                | GitHub:
-                |
-                | equipment-ar_xxx.reality
-                |
-                | is synchronized to:
-                |
-                | public/uploads/reality/
-                |
                 */
 
                 $arUrl =
@@ -575,35 +548,18 @@
 
 
             @if(
-
                 str_ends_with(
                     strtolower($modelName),
                     '.reality'
                 )
-
             )
 
                 <div class="ar-container">
 
-
-                    <!--
-                    |--------------------------------------------------------------------------
-                    | IMPORTANT
-                    |--------------------------------------------------------------------------
-                    |
-                    | Do not add download=""
-                    |
-                    | Do not use JavaScript redirect.
-                    |
-                    | Direct user tap on rel="ar".
-                    |
-                    -->
-
                     <a
-                        id="arQuickLookLink"
-                        class="ar-btn ar-quicklook"
                         rel="ar"
                         href="{{ $arUrl }}"
+                        class="ar-btn"
                     >
 
                         <img
@@ -612,21 +568,6 @@
                         >
 
                     </a>
-
-
-                    <p
-                        id="arCompatibilityMessage"
-                        class="ar-message"
-                        style="display:none;"
-                    >
-
-                        For the best AR experience,
-                        please open this page using
-                        Safari on a compatible iPhone
-                        or iPad.
-
-                    </p>
-
 
                 </div>
 
@@ -651,100 +592,6 @@
 
 
 </div>
-
-
-<script>
-
-document.addEventListener(
-    'DOMContentLoaded',
-    function () {
-
-
-        const arLink =
-            document.getElementById(
-                'arQuickLookLink'
-            );
-
-
-        const message =
-            document.getElementById(
-                'arCompatibilityMessage'
-            );
-
-
-        if (!arLink) {
-            return;
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | AR FEATURE DETECTION
-        |--------------------------------------------------------------------------
-        */
-
-        const testLink =
-            document.createElement(
-                'a'
-            );
-
-
-        let supportsAR = false;
-
-
-        try {
-
-            supportsAR =
-
-                testLink.relList
-
-                &&
-
-                typeof testLink.relList.supports
-                    === 'function'
-
-                &&
-
-                testLink.relList.supports(
-                    'ar'
-                );
-
-        }
-
-        catch (error) {
-
-            supportsAR = false;
-
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | IMPORTANT
-        |--------------------------------------------------------------------------
-        |
-        | We do NOT disable the button.
-        |
-        | Older Safari may still handle Quick Look.
-        |
-        */
-
-        if (
-            !supportsAR
-            &&
-            message
-        ) {
-
-            message.style.display =
-                'block';
-
-        }
-
-
-    }
-);
-
-</script>
 
 
 </body>

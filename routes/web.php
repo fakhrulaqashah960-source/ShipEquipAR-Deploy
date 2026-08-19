@@ -3,21 +3,16 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProfileController;
-
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ShipController;
-
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
-
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\AdminQuizController;
-
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminNoteController;
 use App\Http\Controllers\AdminDashboardController;
-
 use App\Http\Controllers\NoteController;
 
 
@@ -45,19 +40,12 @@ require __DIR__ . '/auth.php';
 
 /*
 |--------------------------------------------------------------------------
-| AR QUICK LOOK MODEL
+| AR QUICK LOOK
 |--------------------------------------------------------------------------
 |
-| IMPORTANT:
+| Keep this OUTSIDE auth middleware.
 |
-| This route is deliberately outside:
-|
-| auth
-| prevent.back
-|
-| The equipment page itself is still protected.
-|
-| Quick Look must be able to request the model directly.
+| Safari / Quick Look must be able to fetch the model directly.
 |
 */
 
@@ -68,7 +56,7 @@ Route::get(
 
         /*
         |--------------------------------------------------------------------------
-        | DECODE FILE NAME
+        | DECODE
         |--------------------------------------------------------------------------
         */
 
@@ -92,33 +80,26 @@ Route::get(
 
         /*
         |--------------------------------------------------------------------------
-        | ONLY REALITY
+        | ONLY .REALITY
         |--------------------------------------------------------------------------
         */
 
-        if (
+        abort_unless(
 
-            !str_ends_with(
+            str_ends_with(
                 strtolower($file),
                 '.reality'
-            )
+            ),
 
-        ) {
+            404
 
-            abort(404);
-
-        }
+        );
 
 
         /*
         |--------------------------------------------------------------------------
-        | LOCAL SYNCED MODEL
+        | LOCAL RENDER FILE
         |--------------------------------------------------------------------------
-        |
-        | SyncArModels downloads the GitHub Release assets to:
-        |
-        | public/uploads/reality/
-        |
         */
 
         $path =
@@ -130,72 +111,42 @@ Route::get(
 
         /*
         |--------------------------------------------------------------------------
-        | VERIFY MODEL
+        | VERIFY
         |--------------------------------------------------------------------------
         */
 
-        if (
+        abort_unless(
 
-            !is_file($path)
+            is_file($path)
+            &&
+            is_readable($path),
 
-            ||
+            404
 
-            !is_readable($path)
-
-        ) {
-
-            abort(
-                404,
-                'AR model not found.'
-            );
-
-        }
+        );
 
 
         /*
         |--------------------------------------------------------------------------
-        | SEND DIRECTLY TO SAFARI
+        | QUICK LOOK RESPONSE
         |--------------------------------------------------------------------------
+        |
+        | Keep headers minimal.
+        |
         */
 
         return response()->file(
             $path,
             [
 
-                /*
-                |--------------------------------------------------------------------------
-                | APPLE REALITY MIME
-                |--------------------------------------------------------------------------
-                */
-
                 'Content-Type' =>
                     'model/vnd.reality',
 
-
-                /*
-                |--------------------------------------------------------------------------
-                | INLINE - NOT DOWNLOAD
-                |--------------------------------------------------------------------------
-                */
-
                 'Content-Disposition' =>
-                    'inline; filename="' .
-                    $file .
-                    '"',
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | CACHE
-                |--------------------------------------------------------------------------
-                |
-                | Model is cached by Safari/CDN/browser for faster
-                | subsequent opening.
-                |
-                */
+                    'inline',
 
                 'Cache-Control' =>
-                    'public, max-age=86400',
+                    'public, max-age=31536000, immutable',
 
             ]
         );
@@ -226,16 +177,9 @@ Route::middleware([
 ->group(function () {
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | DASHBOARD
-    |--------------------------------------------------------------------------
-    */
-
     Route::get(
         '/dashboard',
         function () {
-
 
             $modules =
                 \App\Models\Module::with(
@@ -260,19 +204,10 @@ Route::middleware([
                 )
             );
 
-
         }
     )
-    ->name(
-        'dashboard'
-    );
+    ->name('dashboard');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | SHIP MODELS
-    |--------------------------------------------------------------------------
-    */
 
     Route::get(
         '/ship-models',
@@ -281,16 +216,8 @@ Route::middleware([
             'userIndex'
         ]
     )
-    ->name(
-        'user.ship-models'
-    );
+    ->name('user.ship-models');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | SHIP DETAIL
-    |--------------------------------------------------------------------------
-    */
 
     Route::get(
         '/ship/{id}',
@@ -299,16 +226,8 @@ Route::middleware([
             'userShow'
         ]
     )
-    ->name(
-        'ship.show'
-    );
+    ->name('ship.show');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | LEARNING MODULE
-    |--------------------------------------------------------------------------
-    */
 
     Route::get(
         '/learning-module/{id}',
@@ -317,16 +236,8 @@ Route::middleware([
             'userShow'
         ]
     )
-    ->name(
-        'learning.show'
-    );
+    ->name('learning.show');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | LEARNING MODULE EQUIPMENT
-    |--------------------------------------------------------------------------
-    */
 
     Route::get(
         '/learning-module/{id}/equipment',
@@ -335,16 +246,8 @@ Route::middleware([
             'userShow'
         ]
     )
-    ->name(
-        'learning.equipment'
-    );
+    ->name('learning.equipment');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | EQUIPMENT DETAIL
-    |--------------------------------------------------------------------------
-    */
 
     Route::get(
         '/equipment/{id}',
@@ -353,16 +256,8 @@ Route::middleware([
             'userShow'
         ]
     )
-    ->name(
-        'equipment.show'
-    );
+    ->name('equipment.show');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | NOTES
-    |--------------------------------------------------------------------------
-    */
 
     Route::get(
         '/module-notes',
@@ -371,9 +266,7 @@ Route::middleware([
             'index'
         ]
     )
-    ->name(
-        'user.notes'
-    );
+    ->name('user.notes');
 
 
     Route::get(
@@ -383,16 +276,8 @@ Route::middleware([
             'show'
         ]
     )
-    ->name(
-        'user.notes.show'
-    );
+    ->name('user.notes.show');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | COURSE
-    |--------------------------------------------------------------------------
-    */
 
     Route::get(
         '/course/{id}',
@@ -401,16 +286,8 @@ Route::middleware([
             'userShow'
         ]
     )
-    ->name(
-        'course.show'
-    );
+    ->name('course.show');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | LESSON
-    |--------------------------------------------------------------------------
-    */
 
     Route::get(
         '/lesson/{id}',
@@ -419,16 +296,8 @@ Route::middleware([
             'userShow'
         ]
     )
-    ->name(
-        'lesson.show'
-    );
+    ->name('lesson.show');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | QUIZ
-    |--------------------------------------------------------------------------
-    */
 
     Route::get(
         '/quiz',
@@ -437,9 +306,7 @@ Route::middleware([
             'index'
         ]
     )
-    ->name(
-        'quiz.index'
-    );
+    ->name('quiz.index');
 
 
     Route::get(
@@ -449,9 +316,7 @@ Route::middleware([
             'show'
         ]
     )
-    ->name(
-        'quiz.show'
-    );
+    ->name('quiz.show');
 
 
     Route::post(
@@ -461,17 +326,14 @@ Route::middleware([
             'submit'
         ]
     )
-    ->name(
-        'quiz.submit'
-    );
-
+    ->name('quiz.submit');
 
 });
 
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN AREA
+| ADMIN
 |--------------------------------------------------------------------------
 */
 
@@ -480,17 +342,9 @@ Route::middleware([
     'admin',
     'prevent.back'
 ])
-->prefix(
-    'admin'
-)
+->prefix('admin')
 ->group(function () {
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN DASHBOARD
-    |--------------------------------------------------------------------------
-    */
 
     Route::get(
         '/',
@@ -499,16 +353,8 @@ Route::middleware([
             'index'
         ]
     )
-    ->name(
-        'admin.dashboard'
-    );
+    ->name('admin.dashboard');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | USER MANAGEMENT
-    |--------------------------------------------------------------------------
-    */
 
     Route::resource(
         'users',
@@ -522,16 +368,8 @@ Route::middleware([
         'update',
         'destroy'
     ])
-    ->names(
-        'admin.users'
-    );
+    ->names('admin.users');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | MODULE MANAGEMENT
-    |--------------------------------------------------------------------------
-    */
 
     Route::resource(
         'modules',
@@ -546,76 +384,36 @@ Route::middleware([
             'equipment'
         ]
     )
-    ->name(
-        'admin.module.equipment'
-    );
+    ->name('admin.module.equipment');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | EQUIPMENT
-    |--------------------------------------------------------------------------
-    */
 
     Route::resource(
         'equipment',
         EquipmentController::class
     )
-    ->names(
-        'admin.equipment'
-    );
+    ->names('admin.equipment');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | SHIPS
-    |--------------------------------------------------------------------------
-    */
 
     Route::resource(
         'ships',
         ShipController::class
     )
-    ->names(
-        'admin.ships'
-    );
+    ->names('admin.ships');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | NOTES
-    |--------------------------------------------------------------------------
-    */
 
     Route::resource(
         'notes',
         AdminNoteController::class
     )
-    ->names(
-        'admin.notes'
-    );
+    ->names('admin.notes');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | QUIZ
-    |--------------------------------------------------------------------------
-    */
 
     Route::resource(
         'quiz',
         AdminQuizController::class
     )
-    ->names(
-        'admin.quiz'
-    );
+    ->names('admin.quiz');
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | COURSE
-    |--------------------------------------------------------------------------
-    */
 
     Route::resource(
         'course',
@@ -623,17 +421,10 @@ Route::middleware([
     );
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | LESSON
-    |--------------------------------------------------------------------------
-    */
-
     Route::resource(
         'lesson',
         LessonController::class
     );
-
 
 });
 
@@ -658,9 +449,7 @@ Route::middleware([
             'edit'
         ]
     )
-    ->name(
-        'profile.edit'
-    );
+    ->name('profile.edit');
 
 
     Route::patch(
@@ -670,9 +459,7 @@ Route::middleware([
             'update'
         ]
     )
-    ->name(
-        'profile.update'
-    );
+    ->name('profile.update');
 
 
     Route::delete(
@@ -682,9 +469,6 @@ Route::middleware([
             'destroy'
         ]
     )
-    ->name(
-        'profile.destroy'
-    );
-
+    ->name('profile.destroy');
 
 });
