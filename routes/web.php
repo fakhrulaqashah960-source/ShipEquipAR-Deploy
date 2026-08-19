@@ -180,6 +180,14 @@ Route::middleware([
     ->name('learning.equipment');
 
 
+    Route::get(
+    '/equipment/{id}/ar',
+    [EquipmentController::class, 'openAr']
+)
+->middleware('signed')
+->name('equipment.ar');
+
+
     /*
     |--------------------------------------------------------------------------
     | EQUIPMENT DETAIL

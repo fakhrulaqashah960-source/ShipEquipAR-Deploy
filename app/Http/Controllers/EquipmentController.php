@@ -274,6 +274,140 @@ class EquipmentController extends Controller
         );
     }
 
+    public function openAr($id)
+{
+    $equipment = Equipment::findOrFail($id);
+
+    if (!$equipment->model_file) {
+        abort(404, 'AR model not found.');
+    }
+
+    $modelUrl = $equipment->model_file;
+
+    // Support data lama yang hanya simpan nama fail
+    if (
+        !str_starts_with($modelUrl, 'http://') &&
+        !str_starts_with($modelUrl, 'https://')
+    ) {
+        $owner = config('services.github_ar.owner');
+        $repo  = config('services.github_ar.repo');
+
+        $modelUrl =
+            "https://github.com/{$owner}/{$repo}/releases/latest/download/" .
+            rawurlencode($modelUrl);
+    }
+
+    try {
+
+        $client = new \GuzzleHttp\Client([
+            'connect_timeout' => 30,
+            'timeout' => 900,
+            'http_errors' => false,
+            'allow_redirects' => true,
+        ]);
+
+        $remoteResponse = $client->request(
+            'GET',
+            $modelUrl,
+            [
+                'stream' => true,
+                'headers' => [
+                    'Accept' => '*/*',
+                ],
+            ]
+        );
+
+        if ($remoteResponse->getStatusCode() !== 200) {
+            Log::error(
+                'AR model fetch failed',
+                [
+                    'equipment_id' => $equipment->id,
+                    'status' => $remoteResponse->getStatusCode(),
+                    'url' => $modelUrl,
+                ]
+            );
+
+            abort(404, 'AR model could not be loaded.');
+        }
+
+        $body = $remoteResponse->getBody();
+
+        $fileName = basename(
+            parse_url($modelUrl, PHP_URL_PATH)
+        );
+
+        if (!str_ends_with(
+            strtolower($fileName),
+            '.reality'
+        )) {
+            $fileName = 'ShipEquipAR.reality';
+        }
+
+        $headers = [
+            'Content-Type' => 'model/vnd.reality',
+            'Content-Disposition' =>
+                'inline; filename="' . $fileName . '"',
+
+            'Cache-Control' =>
+                'public, max-age=3600',
+
+            'X-Content-Type-Options' =>
+                'nosniff',
+        ];
+
+        $contentLength =
+            $remoteResponse->getHeaderLine(
+                'Content-Length'
+            );
+
+        if ($contentLength !== '') {
+            $headers['Content-Length'] =
+                $contentLength;
+        }
+
+        return response()->stream(
+            function () use ($body) {
+
+                while (!$body->eof()) {
+
+                    echo $body->read(
+                        1024 * 1024
+                    );
+
+                    if (
+                        function_exists('ob_flush') &&
+                        ob_get_level() > 0
+                    ) {
+                        @ob_flush();
+                    }
+
+                    flush();
+                }
+            },
+            200,
+            $headers
+        );
+
+    } catch (Throwable $e) {
+
+        Log::error(
+            'AR Quick Look stream error',
+            [
+                'equipment_id' =>
+                    $equipment->id,
+
+                'message' =>
+                    $e->getMessage(),
+            ]
+        );
+
+        abort(
+            500,
+            'Unable to open AR model.'
+        );
+    }
+}
+
 
     // =========================================================
     // UPLOAD FILE TO GITHUB RELEASE

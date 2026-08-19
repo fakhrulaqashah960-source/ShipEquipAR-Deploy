@@ -239,6 +239,25 @@ background:#0369a1;
 
 }
 
+.ar-quicklook {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ar-quicklook img {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ar-quicklook::after {
+    content: "📱 Open AR Model";
+}
+
 
 .item{
 
@@ -446,20 +465,23 @@ class="equipment-image">
 @if($equipment->model_file)
 
     @php
-        $modelFile = $equipment->model_file;
-
-        $modelUrl = str_starts_with($modelFile, 'http://') ||
-                    str_starts_with($modelFile, 'https://')
-                    ? $modelFile
-                    : url('/ar-model/' . $modelFile);
+        $arUrl =
+            \Illuminate\Support\Facades\URL::temporarySignedRoute(
+                'equipment.ar',
+                now()->addMinutes(30),
+                [
+                    'id' => $equipment->id,
+                ]
+            );
     @endphp
 
-    <a href="{{ $modelUrl }}"
-       class="ar-btn"
-       target="_blank"
-       rel="noopener noreferrer">
+    <a href="{{ $arUrl }}"
+       rel="ar"
+       class="ar-btn ar-quicklook">
 
-        📱 Open AR Model
+        <img
+            src="{{ asset('favicon.ico') }}"
+            alt="Open AR Model">
 
     </a>
 
