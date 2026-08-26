@@ -56,16 +56,23 @@ Route::post(
 
 Route::get('/proprofs/diagnostic', function () {
 
-    $token =
-        trim(
-            (string) config(
-                'services.proprofs.notification_token'
-            )
-        );
+    $token = trim(
+        (string) config(
+            'services.proprofs.notification_token'
+        )
+    );
 
     return response()->json([
         'configured' => $token !== '',
         'length' => strlen($token),
+
+        // Hanya 12 aksara fingerprint.
+        // Token sebenar tidak didedahkan.
+        'fingerprint' => substr(
+            hash('sha256', $token),
+            0,
+            12
+        ),
     ]);
 
 });
