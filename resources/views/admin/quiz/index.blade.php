@@ -81,7 +81,7 @@
 
             align-items: center;
 
-            justify-content: space-between;
+            justify-content: flex-start;
 
             gap: 15px;
 
@@ -673,6 +673,23 @@
 
 
 
+
+        /* =====================================================
+           BOTTOM DASHBOARD BUTTON
+        ===================================================== */
+
+        .admin-quiz-bottom-back {
+
+            width: 100%;
+
+            display: flex;
+
+            justify-content: flex-start;
+
+            margin-top: 22px;
+        }
+
+
         /* =====================================================
            TABLET
         ===================================================== */
@@ -735,11 +752,19 @@
 
             .admin-back-btn {
 
-                min-height: 41px;
+                min-height: 44px;
 
-                padding: 9px 12px;
+                padding: 10px 16px;
 
-                font-size: 11px;
+                font-size: 13px;
+            }
+
+
+            .admin-quiz-bottom-back {
+
+                padding: 0 12px;
+
+                margin-top: 15px;
             }
 
 
@@ -1225,6 +1250,18 @@
 
 
     </section>
+
+
+    <div class="admin-quiz-bottom-back">
+
+        <a
+            href="{{ route('admin.dashboard') }}"
+            class="admin-back-btn"
+        >
+            ← Admin Dashboard
+        </a>
+
+    </div>
 
 
 </div>

@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Edit Equipment</title>
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
 <style>
 
@@ -13,14 +19,11 @@
     --navy:#0f172a;
     --blue:#0284c7;
     --blue-dark:#0369a1;
-    --cyan:#38bdf8;
     --text:#0f172a;
     --muted:#64748b;
-    --line:#dbe5ef;
-    --white:#ffffff;
-    --green:#16a34a;
-    --red:#dc2626;
+    --line:#cbd5e1;
 }
+
 
 *{
     margin:0;
@@ -29,15 +32,19 @@
     font-family:'Segoe UI',sans-serif;
 }
 
+
 html,
 body{
     width:100%;
     min-height:100%;
 }
 
+
 body{
     min-height:100vh;
+
     padding:34px 18px;
+
     color:var(--text);
 
     background:
@@ -50,222 +57,149 @@ body{
 
     background-size:cover;
     background-position:center;
-    background-attachment:fixed;
     background-repeat:no-repeat;
+    background-attachment:fixed;
 }
 
 
-/* =========================================================
-   MAIN CONTAINER
-========================================================= */
-
-.container{
+.page-wrapper{
     width:100%;
-    max-width:1180px;
+    max-width:1000px;
     margin:0 auto;
-    padding:28px;
+}
 
-    background:rgba(255,255,255,.97);
+
+.page-hero{
+    width:100%;
+    margin-bottom:20px;
+    padding:30px;
 
     border-radius:24px;
 
-    box-shadow:
-        0 18px 42px rgba(0,0,0,.20);
-
-    overflow:hidden;
-}
-
-
-/* =========================================================
-   PAGE TITLE / HEADER
-========================================================= */
-
-h1{
-    color:var(--text);
-
-    font-size:clamp(28px,4vw,40px);
-    line-height:1.2;
-    font-weight:900;
-
-    margin-bottom:10px;
-}
-
-h1::first-letter{
-    color:var(--blue);
-}
-
-.subtitle,
-.description,
-.page-description{
-    color:var(--muted);
-    font-size:14px;
-    line-height:1.7;
-}
-
-
-/* =========================================================
-   ADD BUTTON
-========================================================= */
-
-.add-btn,
-.btn-add{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-
-    min-height:46px;
-
-    margin:18px 0 24px;
-
-    padding:11px 20px;
-
-    border:none;
-    border-radius:12px;
-
-    background:var(--blue);
     color:white;
 
-    text-decoration:none;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(2,132,199,.96),
+            rgba(15,23,42,.98)
+        );
 
-    font-size:14px;
-    font-weight:800;
-
-    cursor:pointer;
-
-    transition:.2s ease;
-}
-
-.add-btn:hover,
-.btn-add:hover{
-    background:var(--blue-dark);
-    transform:translateY(-2px);
+    box-shadow:0 18px 40px rgba(0,0,0,.22);
 }
 
 
-/* =========================================================
-   EQUIPMENT LIST / CARDS
-========================================================= */
-
-.grid,
-.equipment-grid{
-    width:100%;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
-    gap:20px;
-}
-
-.card,
-.equipment-card{
-    min-width:0;
-
-    padding:20px;
-
-    background:#f8fafc;
-
-    border:1px solid #e2e8f0;
-
-    border-radius:18px;
-
-    box-shadow:
-        0 8px 22px rgba(15,23,42,.08);
-}
-
-.card img,
-.equipment-card img{
-    display:block;
-
-    width:180px;
-    height:120px;
-
-    max-width:100%;
-
-    margin:0 auto 16px;
-
-    object-fit:contain;
-
-    padding:6px;
-
-    background:white;
-
-    border:1px solid #e2e8f0;
-
-    border-radius:14px;
-}
-
-.card h2,
-.equipment-card h2{
-    color:var(--blue-dark);
-
-    font-size:20px;
-    font-weight:900;
-    line-height:1.35;
+.page-hero-label{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
 
     margin-bottom:10px;
+    padding:7px 12px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.13);
+
+    color:#e0f2fe;
+
+    font-size:12px;
+    font-weight:800;
 }
 
-.card p,
-.equipment-card p{
-    color:#475569;
+
+.page-hero h1{
+    font-size:clamp(30px,4vw,42px);
+    line-height:1.2;
+    font-weight:900;
+}
+
+
+.page-hero p{
+    max-width:700px;
+    margin-top:10px;
+
+    color:#dbeafe;
+
+    font-size:14px;
+    line-height:1.7;
+}
+
+
+.container{
+    width:100%;
+    padding:30px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,.97);
+
+    box-shadow:0 16px 38px rgba(0,0,0,.18);
+}
+
+
+.error-box{
+    margin-bottom:20px;
+    padding:14px 16px;
+
+    border-radius:12px;
+
+    background:#fee2e2;
+    border:1px solid #fecaca;
+
+    color:#991b1b;
 
     font-size:13px;
-    line-height:1.7;
-
-    overflow-wrap:anywhere;
-}
-
-.card strong,
-.equipment-card strong{
-    color:#334155;
 }
 
 
-/* =========================================================
-   FORMS
-========================================================= */
-
-form{
-    width:100%;
+.error-box ul{
+    padding-left:18px;
 }
+
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+}
+
 
 .form-group{
-    width:100%;
-    margin-bottom:18px;
+    min-width:0;
 }
+
+
+.form-group.full{
+    grid-column:1 / -1;
+}
+
 
 label{
     display:block;
 
     margin-bottom:8px;
 
-    color:var(--text);
+    color:#0f172a;
 
     font-size:14px;
     font-weight:800;
 }
 
-input[type="text"],
-input[type="url"],
-input[type="file"],
-input[type="number"],
+
+input,
 select,
 textarea{
     width:100%;
-
-    min-height:50px;
+    min-height:52px;
 
     padding:12px 14px;
 
-    border:1px solid #cbd5e1;
-
+    border:1px solid var(--line);
     border-radius:12px;
 
     background:white;
-
-    color:var(--text);
+    color:#0f172a;
 
     font-size:14px;
 
@@ -274,13 +208,20 @@ textarea{
     transition:.2s ease;
 }
 
+
+input[type="file"]{
+    padding:13px;
+}
+
+
 textarea{
-    min-height:150px;
+    min-height:165px;
 
     resize:vertical;
 
     line-height:1.65;
 }
+
 
 input:focus,
 select:focus,
@@ -292,83 +233,81 @@ textarea:focus{
 }
 
 
-/* =========================================================
-   CURRENT IMAGE / PREVIEW
-========================================================= */
-
-.current-image,
-.image-preview,
-.preview-box{
+.current-box{
     width:100%;
+    margin-top:4px;
+    padding:16px;
 
-    margin-top:10px;
-
-    padding:15px;
-
+    border:1px solid #e2e8f0;
     border-radius:16px;
 
     background:#f8fafc;
-
-    border:1px solid #e2e8f0;
 }
 
-.current-image img,
-.image-preview img,
-.preview-box img{
+
+.current-image{
     display:block;
 
-    width:180px;
-    height:120px;
-
+    width:190px;
+    height:125px;
     max-width:100%;
 
     object-fit:contain;
 
-    margin-top:10px;
-
     padding:6px;
-
-    border-radius:12px;
 
     background:white;
 
     border:1px solid #e2e8f0;
+    border-radius:13px;
 }
 
 
-/* =========================================================
-   ACTION BUTTONS
-========================================================= */
+.current-file{
+    color:#475569;
 
-.actions,
-.form-actions,
-.button-group{
+    font-size:13px;
+    line-height:1.6;
+
+    overflow-wrap:anywhere;
+}
+
+
+.help-text{
+    margin-top:7px;
+
+    color:var(--muted);
+
+    font-size:12px;
+    line-height:1.5;
+}
+
+
+.form-actions{
+    grid-column:1 / -1;
+
     display:flex;
-
     align-items:center;
 
     gap:10px;
 
     flex-wrap:wrap;
 
-    margin-top:20px;
+    padding-top:5px;
 }
 
-.btn,
-button,
-.back,
-.back-dashboard{
-    display:inline-flex;
 
+.update-btn,
+.back-btn{
+    min-height:45px;
+
+    display:inline-flex;
     align-items:center;
     justify-content:center;
 
-    min-height:44px;
-
-    padding:10px 17px;
+    padding:10px 18px;
 
     border:none;
-
     border-radius:11px;
 
     text-decoration:none;
@@ -381,151 +320,88 @@ button,
     transition:.2s ease;
 }
 
-.btn:hover,
-button:hover,
-.back:hover,
-.back-dashboard:hover{
-    transform:translateY(-2px);
-}
 
-.edit,
-.btn-edit{
-    background:#2563eb;
-    color:white;
-}
-
-.delete,
-.btn-delete{
-    background:var(--red);
-    color:white;
-}
-
-.save,
-.update,
-.btn-save,
-.btn-update,
-button[type="submit"]{
+.update-btn{
     background:var(--blue);
     color:white;
 }
 
-.back,
-.back-dashboard,
-.btn-back{
+
+.update-btn:hover{
+    background:var(--blue-dark);
+    transform:translateY(-2px);
+}
+
+
+.back-btn{
     background:var(--navy);
     color:white;
 }
 
-.back:hover,
-.back-dashboard:hover,
-.btn-back:hover{
+
+.back-btn:hover{
     background:var(--blue);
+    transform:translateY(-2px);
 }
 
 
-/* =========================================================
-   AR BADGE
-========================================================= */
+@media(max-width:800px){
 
-.ar-status,
-.ar-badge{
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    margin-top:12px;
-
-    padding:8px 12px;
-
-    border-radius:10px;
-
-    background:#dcfce7;
-
-    color:#166534;
-
-    font-size:12px;
-    font-weight:800;
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media(max-width:850px){
-
-    .grid,
-    .equipment-grid{
+    .form-grid{
         grid-template-columns:1fr;
+    }
+
+    .form-group.full,
+    .form-actions{
+        grid-column:1;
     }
 
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 @media(max-width:600px){
 
     body{
         padding:0;
-
         background-attachment:scroll;
     }
 
-    .container{
-        min-height:100vh;
 
-        padding:18px 12px 28px;
-
-        border-radius:0;
+    .page-wrapper{
+        max-width:none;
     }
 
-    h1{
+
+    .page-hero{
+        margin-bottom:10px;
+        padding:24px 17px;
+
+        border-radius:0 0 22px 22px;
+    }
+
+
+    .page-hero h1{
         font-size:28px;
     }
 
-    .card,
-    .equipment-card{
-        padding:16px;
 
-        border-radius:16px;
+    .container{
+        width:calc(100% - 16px);
+        margin:0 8px 12px;
+        padding:18px 15px 24px;
+
+        border-radius:18px;
     }
 
-    .card img,
-    .equipment-card img,
-    .current-image img,
-    .image-preview img,
-    .preview-box img{
-        width:160px;
-        height:105px;
-    }
 
-    .actions,
-    .form-actions,
-    .button-group{
+    .form-actions{
         display:grid;
-
         grid-template-columns:1fr;
     }
 
-    .actions .btn,
-    .actions button,
-    .form-actions .btn,
-    .form-actions button,
-    .button-group .btn,
-    .button-group button,
-    .back,
-    .back-dashboard,
-    .btn-back{
-        width:100%;
-    }
 
-    .add-btn,
-    .btn-add{
+    .update-btn,
+    .back-btn{
         width:100%;
     }
 
@@ -533,275 +409,259 @@ button[type="submit"]{
 
 </style>
 
-
-
 </head>
 
 
 <body>
 
 
-<div class="container">
+<div class="page-wrapper">
 
 
+    <section class="page-hero">
 
-<h1>
-⚓ Edit Equipment
-</h1>
+        <div class="page-hero-label">
+            ⚓ Equipment Administration
+        </div>
 
+        <h1>
+            Edit Equipment
+        </h1>
 
+        <p>
+            Update equipment information, image and AR Reality model.
+        </p>
 
-@if($errors->any())
+    </section>
 
-<div class="error-box">
 
-<ul>
+    <div class="container">
 
-@foreach($errors->all() as $error)
 
-<li>
-{{ $error }}
-</li>
+        @if($errors->any())
 
-@endforeach
+            <div class="error-box">
 
-</ul>
+                <ul>
 
-</div>
+                    @foreach($errors->all() as $error)
 
-@endif
+                        <li>
+                            {{ $error }}
+                        </li>
 
+                    @endforeach
 
+                </ul>
 
+            </div>
 
+        @endif
 
-<form 
 
-action="{{ route('admin.equipment.update',$equipment->id) }}"
+        <form
+            action="{{ route('admin.equipment.update',$equipment->id) }}"
+            method="POST"
+            enctype="multipart/form-data"
+        >
 
-method="POST"
+            @csrf
+            @method('PUT')
 
-enctype="multipart/form-data">
 
+            <div class="form-grid">
 
 
-@csrf
+                <div class="form-group">
 
-@method('PUT')
+                    <label for="module_id">
+                        Module
+                    </label>
 
+                    <select
+                        id="module_id"
+                        name="module_id"
+                        required
+                    >
 
+                        <option value="">
+                            -- Select Module --
+                        </option>
 
+                        @foreach($modules as $module)
 
+                            <option
+                                value="{{ $module->id }}"
+                                {{ $equipment->module_id == $module->id ? 'selected' : '' }}
+                            >
+                                {{ $module->title }}
+                            </option>
 
-<label>
-Module
-</label>
+                        @endforeach
 
+                    </select>
 
-<select name="module_id" required>
+                </div>
 
 
-<option value="">
--- Select Module --
-</option>
+                <div class="form-group">
 
+                    <label for="name">
+                        Equipment Name
+                    </label>
 
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="{{ old('name', $equipment->name) }}"
+                        required
+                    >
 
-@foreach($modules as $module)
+                </div>
 
 
-<option
+                <div class="form-group full">
 
-value="{{ $module->id }}"
+                    <label for="description">
+                        Description
+                    </label>
 
-{{ $equipment->module_id == $module->id ? 'selected' : '' }}
+                    <textarea
+                        id="description"
+                        name="description"
+                        required
+                    >{{ old('description', $equipment->description) }}</textarea>
 
->
+                </div>
 
-{{ $module->title }}
 
-</option>
+                <div class="form-group full">
 
+                    <label for="function">
+                        Function
+                    </label>
 
-@endforeach
+                    <textarea
+                        id="function"
+                        name="function"
+                        required
+                    >{{ old('function', $equipment->function) }}</textarea>
 
+                </div>
 
 
-</select>
+                <div class="form-group">
 
+                    <label>
+                        Current Image
+                    </label>
 
+                    <div class="current-box">
 
+                        @if($equipment->image)
 
+                            <img
+                                src="{{ (str_starts_with($equipment->image, 'http://') || str_starts_with($equipment->image, 'https://'))
+                                    ? $equipment->image
+                                    : asset('uploads/equipment/' . $equipment->image) }}"
+                                alt="{{ $equipment->name }}"
+                                class="current-image"
+                                onerror="this.style.display='none';"
+                            >
 
+                        @else
 
+                            <div class="current-file">
+                                No image uploaded.
+                            </div>
 
+                        @endif
 
-<label>
-Equipment Name
-</label>
+                    </div>
 
+                </div>
 
-<input
 
-type="text"
+                <div class="form-group">
 
-name="name"
+                    <label for="image">
+                        Change Equipment Image
+                    </label>
 
-value="{{ $equipment->name }}"
+                    <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        accept="image/*"
+                    >
 
-required>
+                    <div class="help-text">
+                        Leave empty to keep the current image.
+                    </div>
 
+                </div>
 
 
+                <div class="form-group full">
 
+                    <label for="model_file">
+                        AR Reality File
+                    </label>
 
+                    <input
+                        type="file"
+                        id="model_file"
+                        name="model_file"
+                        accept=".reality"
+                    >
 
+                    @if($equipment->model_file)
 
+                        <div class="current-box">
 
-<label>
-Description
-</label>
+                            <div class="current-file">
+                                <strong>Current AR File:</strong><br>
+                                {{ $equipment->model_file }}
+                            </div>
 
+                        </div>
 
-<textarea
+                    @endif
 
-name="description"
+                </div>
 
-required>{{ $equipment->description }}</textarea>
 
+                <div class="form-actions">
 
+                    <button
+                        type="submit"
+                        class="update-btn"
+                    >
+                        💾 Update Equipment
+                    </button>
 
 
+                    <a
+                        href="{{ route('admin.equipment.index') }}"
+                        class="back-btn"
+                    >
+                        ← Back
+                    </a>
 
+                </div>
 
 
+            </div>
 
-<label>
-Function
-</label>
 
+        </form>
 
-<textarea
 
-name="function"
-
-required>{{ $equipment->function }}</textarea>
-
-
-
-
-
-
-
-
-
-@if($equipment->image)
-
-
-<label>
-Current Image
-</label>
-
-
-<br><br>
-
-
-<img
-
-src="{{ (str_starts_with($equipment->image, 'http://') || str_starts_with($equipment->image, 'https://'))
-    ? $equipment->image
-    : asset('uploads/equipment/' . $equipment->image) }}"
-
-
-
-@endif
-
-
-
-
-
-
-
-<label>
-Change Equipment Image
-</label>
-
-
-<input
-
-type="file"
-
-name="image"
-
-accept="image/*">
-
-
-
-
-
-
-
-
-<label>
-AR Reality File
-</label>
-
-
-<input
-
-type="file"
-
-name="model_file">
-
-
-
-
-
-
-@if($equipment->model_file)
-
-
-<p>
-
-<b>Current AR File:</b>
-
-{{ $equipment->model_file }}
-
-</p>
-
-
-@endif
-
-
-
-
-
-
-<button type="submit">
-
-💾 Update Equipment
-
-</button>
-
-
-
-<a href="{{ route('admin.equipment.index') }}"
-
-class="back-btn">
-
-← Back
-
-</a>
-
-
-
-
-</form>
-
+    </div>
 
 
 </div>
-
 
 
 </body>
