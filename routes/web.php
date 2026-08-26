@@ -62,17 +62,61 @@ Route::get('/proprofs/diagnostic', function () {
         )
     );
 
-    return response()->json([
-        'configured' => $token !== '',
-        'length' => strlen($token),
+    $quizAttemptModelExists =
+        class_exists(
+            \App\Models\QuizAttempt::class
+        );
 
-        // Hanya 12 aksara fingerprint.
-        // Token sebenar tidak didedahkan.
-        'fingerprint' => substr(
-            hash('sha256', $token),
-            0,
-            12
-        ),
+    $quizAttemptsTableExists = false;
+    $quizAttemptCount = null;
+    $databaseError = null;
+
+    try {
+
+        $quizAttemptsTableExists =
+            \Illuminate\Support\Facades\Schema::hasTable(
+                'quiz_attempts'
+            );
+
+        if ($quizAttemptsTableExists) {
+
+            $quizAttemptCount =
+                \App\Models\QuizAttempt::count();
+
+        }
+
+    } catch (\Throwable $e) {
+
+        $databaseError =
+            get_class($e);
+
+    }
+
+    return response()->json([
+        'configured' =>
+            $token !== '',
+
+        'length' =>
+            strlen($token),
+
+        'fingerprint' =>
+            substr(
+                hash('sha256', $token),
+                0,
+                12
+            ),
+
+        'quiz_attempt_model' =>
+            $quizAttemptModelExists,
+
+        'quiz_attempts_table' =>
+            $quizAttemptsTableExists,
+
+        'quiz_attempt_count' =>
+            $quizAttemptCount,
+
+        'database_error' =>
+            $databaseError,
     ]);
 
 });
