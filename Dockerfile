@@ -115,9 +115,11 @@ RUN mkdir -p \
     /var/www/html/storage/framework/sessions \
     /var/www/html/storage/framework/views \
     /var/www/html/storage/logs \
+    /var/www/html/storage/app/public/notes \
     /var/www/html/bootstrap/cache \
     /var/www/html/public/uploads/reality \
-    /var/www/html/public/uploads/modules
+    /var/www/html/public/uploads/modules \
+    /var/www/html/public/uploads/equipment
 
 
 # =========================================================
@@ -129,11 +131,13 @@ RUN chown -R www-data:www-data \
         /var/www/html/bootstrap/cache \
         /var/www/html/public/uploads/reality \
         /var/www/html/public/uploads/modules \
+        /var/www/html/public/uploads/equipment \
     && chmod -R 775 \
         /var/www/html/storage \
         /var/www/html/bootstrap/cache \
         /var/www/html/public/uploads/reality \
-        /var/www/html/public/uploads/modules
+        /var/www/html/public/uploads/modules \
+        /var/www/html/public/uploads/equipment
 
 
 # =========================================================
@@ -162,13 +166,17 @@ EXPOSE 10000
 # 1. Read Render PORT
 # 2. Configure Apache port
 # 3. Clear Laravel caches
-# 4. Run Laravel production migrations
-# 5. Sync AR Reality models
-# 6. Start Apache
+# 4. Run production migrations
+# 5. Create Laravel public storage link
+# 6. Sync AR Reality models
+# 7. Start Apache
 #
 # IMPORTANT:
 #
 # Database migration MUST succeed before Apache starts.
+#
+# storage:link is allowed to fail if the symlink
+# already exists.
 #
 # AR sync is allowed to fail without taking down
 # the website.
@@ -196,7 +204,11 @@ echo \"Running database migrations...\"; \
 echo \"========================================\"; \
 php artisan migrate --force; \
 \
-php artisan storage:link || true;
+echo \"========================================\"; \
+echo \"Creating Laravel storage link...\"; \
+echo \"========================================\"; \
+php artisan storage:link || true; \
+\
 echo \"========================================\"; \
 echo \"Syncing AR Reality models...\"; \
 echo \"========================================\"; \
