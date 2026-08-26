@@ -954,6 +954,455 @@
 
         }
 
+    /* =========================================================
+   FINAL ADMIN RESPONSIVE FIX
+   SAME BEHAVIOUR AS USER DASHBOARD
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* ===============================
+       MOBILE TOPBAR
+    =============================== */
+
+    .mobile-topbar {
+        position: sticky !important;
+        top: 0 !important;
+
+        width: 100% !important;
+        min-height: 68px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        padding: 9px 14px !important;
+
+        background: #0f172a !important;
+
+        z-index: 1900 !important;
+    }
+
+
+    .mobile-menu-btn {
+        position: absolute !important;
+
+        left: 13px !important;
+        top: 50% !important;
+
+        transform: translateY(-50%) !important;
+
+        width: 46px !important;
+        height: 46px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        padding: 0 !important;
+        margin: 0 !important;
+
+        border: none !important;
+        border-radius: 13px !important;
+
+        background: #0284c7 !important;
+        color: white !important;
+
+        font-size: 24px !important;
+    }
+
+
+    .mobile-brand {
+        width: 100% !important;
+
+        padding: 0 58px !important;
+
+        text-align: center !important;
+
+        font-size: 25px !important;
+        line-height: 1.2 !important;
+    }
+
+
+    /* ===============================
+       SIDEBAR
+    =============================== */
+
+    .sidebar {
+        position: fixed !important;
+
+        top: 0 !important;
+        left: 0 !important;
+        right: auto !important;
+        bottom: auto !important;
+
+        width: min(86vw, 330px) !important;
+
+        max-width: 330px !important;
+
+        height: 100vh !important;
+        height: 100dvh !important;
+
+        min-height: 100vh !important;
+
+        display: block !important;
+
+        padding: 20px 16px 28px !important;
+        margin: 0 !important;
+
+        background: #0f172a !important;
+
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+
+        transform: translateX(-105%) !important;
+
+        transition:
+            transform .28s ease !important;
+
+        box-shadow:
+            10px 0 35px
+            rgba(0,0,0,.30) !important;
+
+        z-index: 2000 !important;
+    }
+
+
+    .sidebar.open {
+        transform: translateX(0) !important;
+    }
+
+
+    /* ===============================
+       SIDEBAR LOGO
+    =============================== */
+
+    .sidebar .logo {
+        display: block !important;
+
+        width: 100% !important;
+
+        padding: 7px 42px 0 !important;
+
+        margin: 0 0 24px !important;
+
+        text-align: center !important;
+
+        font-size: 25px !important;
+    }
+
+
+    /* ===============================
+       MENU
+    =============================== */
+
+    .sidebar .menu {
+        width: 100% !important;
+
+        display: flex !important;
+
+        flex-direction: column !important;
+
+        grid-template-columns: none !important;
+
+        gap: 9px !important;
+
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+
+    .sidebar .menu-link {
+        width: 100% !important;
+
+        min-height: 54px !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+
+        justify-content: flex-start !important;
+
+        gap: 10px !important;
+
+        padding: 13px 14px !important;
+        margin: 0 !important;
+
+        border-radius: 12px !important;
+
+        font-size: 14px !important;
+
+        text-align: left !important;
+    }
+
+
+    .sidebar .menu-icon {
+        width: 23px !important;
+
+        flex-shrink: 0 !important;
+
+        text-align: center !important;
+    }
+
+
+    .sidebar .menu-text {
+        flex: 1 !important;
+
+        min-width: 0 !important;
+
+        white-space: normal !important;
+    }
+
+
+    /* ===============================
+       LOGOUT
+    =============================== */
+
+    .sidebar .logout-form {
+        width: 100% !important;
+
+        display: block !important;
+
+        margin: 0 !important;
+    }
+
+
+    .sidebar .logout-btn {
+        width: 100% !important;
+
+        min-height: 54px !important;
+
+        margin: 10px 0 0 !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
+
+        border-radius: 12px !important;
+    }
+
+
+    /* ===============================
+       CLOSE BUTTON
+    =============================== */
+
+    .drawer-close {
+        position: absolute !important;
+
+        top: 14px !important;
+        right: 14px !important;
+
+        width: 38px !important;
+        height: 38px !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        border: none !important;
+        border-radius: 10px !important;
+
+        background: #1e293b !important;
+        color: white !important;
+
+        font-size: 22px !important;
+
+        z-index: 5 !important;
+    }
+
+
+    /* ===============================
+       OVERLAY
+    =============================== */
+
+    .sidebar-overlay {
+        position: fixed !important;
+
+        inset: 0 !important;
+
+        background:
+            rgba(2, 6, 23, .60) !important;
+
+        opacity: 0 !important;
+        visibility: hidden !important;
+
+        z-index: 1990 !important;
+    }
+
+
+    .sidebar-overlay.open {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+
+    /* ===============================
+       MAIN CONTENT
+    =============================== */
+
+    .content {
+        position: relative !important;
+
+        display: block !important;
+
+        width: 100% !important;
+
+        min-height:
+            calc(100vh - 68px) !important;
+
+        margin: 0 !important;
+        margin-left: 0 !important;
+
+        padding: 10px !important;
+
+        top: auto !important;
+        left: auto !important;
+
+        transform: none !important;
+    }
+
+
+    .content-inner {
+        position: relative !important;
+
+        display: block !important;
+
+        width: 100% !important;
+
+        max-width: none !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        top: auto !important;
+
+        transform: none !important;
+    }
+
+
+    /* ===============================
+       WELCOME - RAPAT KE ATAS
+    =============================== */
+
+    .welcome {
+        position: relative !important;
+
+        width: 100% !important;
+
+        margin: 0 !important;
+
+        padding: 22px 18px !important;
+
+        top: auto !important;
+
+        transform: none !important;
+
+        border-radius: 21px !important;
+
+        flex-direction: column !important;
+
+        align-items: flex-start !important;
+
+        gap: 12px !important;
+    }
+
+
+    .welcome h1 {
+        font-size:
+            clamp(28px, 8vw, 36px) !important;
+    }
+
+
+    .welcome p {
+        font-size: 14px !important;
+    }
+
+
+    .ship {
+        display: none !important;
+    }
+
+
+    /* ===============================
+       STATISTICS
+    =============================== */
+
+    .stats {
+        width: 100% !important;
+
+        margin-top: 18px !important;
+
+        grid-template-columns:
+            repeat(2, minmax(0,1fr)) !important;
+
+        gap: 12px !important;
+    }
+
+
+    /* ===============================
+       MANAGEMENT
+    =============================== */
+
+    .modules {
+        width: 100% !important;
+
+        grid-template-columns: 1fr !important;
+
+        gap: 16px !important;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .mobile-topbar {
+        min-height: 65px !important;
+    }
+
+
+    .mobile-menu-btn {
+        left: 10px !important;
+
+        width: 43px !important;
+        height: 43px !important;
+
+        font-size: 22px !important;
+    }
+
+
+    .mobile-brand {
+        padding: 0 50px !important;
+
+        font-size: 22px !important;
+    }
+
+
+    .sidebar {
+        width: 88vw !important;
+        max-width: 330px !important;
+    }
+
+
+    .content {
+        padding: 8px !important;
+    }
+
+
+    .welcome {
+        padding: 19px 16px !important;
+    }
+
+}
+
     </style>
 
 </head>
