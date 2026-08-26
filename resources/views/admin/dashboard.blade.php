@@ -15,7 +15,7 @@
     <style>
 
         :root{
-            --sidebar-width:260px;
+            --sidebar-width:250px;
             --nav-bg:#0f172a;
             --nav-item:#1e293b;
             --blue:#0284c7;
@@ -125,7 +125,7 @@
 
             background:rgba(15,23,42,.98);
 
-            padding:28px 20px;
+            padding:28px 18px;
 
             overflow-y:auto;
 
@@ -148,9 +148,9 @@
 
             text-align:center;
 
-            margin-bottom:32px;
+            margin-bottom:30px;
 
-            font-size:28px;
+            font-size:27px;
 
             font-weight:900;
 
@@ -175,7 +175,7 @@
 
             flex-direction:column;
 
-            gap:10px;
+            gap:9px;
         }
 
 
@@ -188,9 +188,9 @@
 
             align-items:center;
 
-            gap:11px;
+            gap:10px;
 
-            padding:13px 14px;
+            padding:12px 13px;
 
             background:var(--nav-item);
 
@@ -200,7 +200,7 @@
 
             text-decoration:none;
 
-            font-size:14px;
+            font-size:13px;
 
             font-weight:600;
 
@@ -296,14 +296,14 @@
 
             min-height:100vh;
 
-            padding:clamp(24px,3vw,42px);
+            padding:clamp(22px,3vw,40px);
         }
 
 
         .content-inner{
             width:100%;
 
-            max-width:1450px;
+            max-width:1400px;
 
             margin:0 auto;
         }
@@ -326,7 +326,7 @@
 
             border-radius:26px;
 
-            padding:clamp(30px,4vw,48px);
+            padding:clamp(28px,4vw,45px);
 
             color:white;
 
@@ -336,7 +336,7 @@
 
             justify-content:space-between;
 
-            gap:30px;
+            gap:28px;
 
             box-shadow:0 12px 30px rgba(0,0,0,.16);
         }
@@ -349,7 +349,7 @@
 
 
         .welcome h1{
-            font-size:clamp(30px,3vw,45px);
+            font-size:clamp(29px,3vw,43px);
 
             line-height:1.2;
 
@@ -369,7 +369,7 @@
         .ship{
             flex-shrink:0;
 
-            font-size:clamp(65px,7vw,100px);
+            font-size:clamp(65px,7vw,95px);
         }
 
 
@@ -579,10 +579,21 @@
            LAPTOP
         ===================================================== */
 
-        @media(max-width:1150px){
+        @media(max-width:1100px){
 
             :root{
-                --sidebar-width:230px;
+                --sidebar-width:220px;
+            }
+
+
+            .sidebar{
+                padding-left:14px;
+                padding-right:14px;
+            }
+
+
+            .menu-link{
+                font-size:12px;
             }
 
 
@@ -625,7 +636,7 @@
 
                 width:100%;
 
-                min-height:72px;
+                min-height:68px;
 
                 display:flex;
 
@@ -633,7 +644,7 @@
 
                 justify-content:center;
 
-                padding:10px 16px;
+                padding:9px 14px;
 
                 background:#0f172a;
 
@@ -644,13 +655,13 @@
             .mobile-menu-btn{
                 position:absolute;
 
-                left:14px;
+                left:13px;
                 top:50%;
 
                 transform:translateY(-50%);
 
-                width:48px;
-                height:48px;
+                width:46px;
+                height:46px;
 
                 border:none;
 
@@ -660,7 +671,7 @@
 
                 color:white;
 
-                font-size:25px;
+                font-size:24px;
 
                 cursor:pointer;
             }
@@ -669,7 +680,7 @@
             .mobile-brand{
                 width:100%;
 
-                padding:0 60px;
+                padding:0 58px;
 
                 text-align:center;
 
@@ -686,7 +697,7 @@
                 top:0 !important;
                 left:0 !important;
 
-                width:min(86vw,340px) !important;
+                width:min(86vw,330px) !important;
 
                 height:100vh !important;
                 height:100dvh !important;
@@ -766,12 +777,19 @@
 
                 width:100% !important;
 
-                padding:14px !important;
+                min-height:calc(100vh - 68px);
+
+                padding:10px !important;
+            }
+
+
+            .content-inner{
+                width:100%;
             }
 
 
             .welcome{
-                padding:25px 20px;
+                padding:22px 18px;
 
                 border-radius:21px;
 
@@ -779,7 +797,7 @@
 
                 align-items:flex-start;
 
-                gap:14px;
+                gap:12px;
             }
 
 
@@ -876,28 +894,35 @@
            SMALL PHONE
         ===================================================== */
 
-        @media(max-width:440px){
+        @media(max-width:430px){
 
             .content{
-                padding:10px !important;
+                padding:8px !important;
             }
 
 
             .mobile-topbar{
-                min-height:68px;
+                min-height:65px;
             }
 
 
             .mobile-menu-btn{
-                width:44px;
-                height:44px;
+                left:10px;
 
-                font-size:23px;
+                width:43px;
+                height:43px;
+
+                font-size:22px;
             }
 
 
             .mobile-brand{
-                font-size:23px;
+                font-size:22px;
+            }
+
+
+            .sidebar{
+                width:88vw !important;
             }
 
 
@@ -912,7 +937,7 @@
 
 
             .welcome{
-                padding:20px 17px;
+                padding:19px 16px;
             }
 
 
@@ -1130,25 +1155,6 @@
             </span>
 
         </a>
-
-
-
-        <a
-            href="#"
-            class="menu-link"
-        >
-
-            <span class="menu-icon">
-                🏆
-            </span>
-
-            <span class="menu-text">
-                Manage Certificate
-            </span>
-
-        </a>
-
-
 
         <form
             method="POST"
