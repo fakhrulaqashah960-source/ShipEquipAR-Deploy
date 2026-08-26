@@ -15,7 +15,7 @@
     <style>
 
         :root{
-            --sidebar-width:250px;
+            --admin-sidebar-width:250px;
             --nav-bg:#0f172a;
             --nav-item:#1e293b;
             --blue:#0284c7;
@@ -32,7 +32,7 @@
 
 
         html,
-        body{
+        body.admin-dashboard-page{
             width:100%;
             min-height:100%;
             overflow-x:hidden;
@@ -55,7 +55,7 @@
         }
 
 
-        body.sidebar-open{
+        body.admin-sidebar-open{
             overflow:hidden;
         }
 
@@ -65,18 +65,18 @@
            MOBILE TOPBAR
         ===================================================== */
 
-        .mobile-topbar{
+        .admin-mobile-topbar{
             display:none;
         }
 
 
-        .mobile-brand{
+        .admin-mobile-brand{
             font-weight:900;
             color:white;
         }
 
 
-        .mobile-brand span{
+        .admin-mobile-brand span{
             color:var(--cyan);
         }
 
@@ -86,7 +86,7 @@
            OVERLAY
         ===================================================== */
 
-        .sidebar-overlay{
+        .admin-sidebar-overlay{
             position:fixed;
             inset:0;
 
@@ -101,7 +101,7 @@
         }
 
 
-        .sidebar-overlay.open{
+        .admin-sidebar-overlay.open{
             opacity:1;
             visibility:visible;
         }
@@ -112,13 +112,13 @@
            SIDEBAR
         ===================================================== */
 
-        .sidebar{
+        .admin-sidebar{
             position:fixed;
 
             top:0;
             left:0;
 
-            width:var(--sidebar-width);
+            width:var(--admin-sidebar-width);
 
             height:100vh;
             height:100dvh;
@@ -133,7 +133,7 @@
         }
 
 
-        .drawer-close{
+        .admin-drawer-close{
             display:none;
         }
 
@@ -143,7 +143,7 @@
            LOGO
         ===================================================== */
 
-        .logo{
+        .admin-logo{
             width:100%;
 
             text-align:center;
@@ -158,7 +158,7 @@
         }
 
 
-        .logo span{
+        .admin-logo span{
             color:var(--cyan);
         }
 
@@ -168,7 +168,7 @@
            MENU
         ===================================================== */
 
-        .menu{
+        .admin-menu{
             width:100%;
 
             display:flex;
@@ -179,7 +179,7 @@
         }
 
 
-        .menu-link{
+        .admin-menu-link{
             width:100%;
 
             min-height:52px;
@@ -208,7 +208,7 @@
         }
 
 
-        .menu-link:hover{
+        .admin-menu-link:hover{
             background:#0369a1;
 
             color:white;
@@ -217,14 +217,14 @@
         }
 
 
-        .menu-link.active{
+        .admin-menu-link.active{
             background:var(--blue);
 
             color:white;
         }
 
 
-        .menu-icon{
+        .admin-menu-icon{
             width:24px;
 
             flex-shrink:0;
@@ -233,7 +233,7 @@
         }
 
 
-        .menu-text{
+        .admin-menu-text{
             flex:1;
 
             min-width:0;
@@ -247,12 +247,12 @@
            LOGOUT
         ===================================================== */
 
-        .logout-form{
+        .admin-logout-form{
             width:100%;
         }
 
 
-        .logout-btn{
+        .admin-logout-btn{
             width:100%;
 
             min-height:52px;
@@ -279,7 +279,7 @@
         }
 
 
-        .logout-btn:hover{
+        .admin-logout-btn:hover{
             background:#b91c1c;
         }
 
@@ -289,10 +289,10 @@
            CONTENT
         ===================================================== */
 
-        .content{
-            margin-left:var(--sidebar-width);
+        .admin-content{
+            margin-left:var(--admin-sidebar-width);
 
-            width:calc(100% - var(--sidebar-width));
+            width:calc(100% - var(--admin-sidebar-width));
 
             min-height:100vh;
 
@@ -300,7 +300,7 @@
         }
 
 
-        .content-inner{
+        .admin-content-inner{
             width:100%;
 
             max-width:1400px;
@@ -314,7 +314,7 @@
            WELCOME
         ===================================================== */
 
-        .welcome{
+        .admin-welcome{
             width:100%;
 
             background:
@@ -342,13 +342,13 @@
         }
 
 
-        .welcome-copy{
+        .admin-welcome-copy{
             flex:1;
             min-width:0;
         }
 
 
-        .welcome h1{
+        .admin-welcome h1{
             font-size:clamp(29px,3vw,43px);
 
             line-height:1.2;
@@ -357,7 +357,7 @@
         }
 
 
-        .welcome p{
+        .admin-welcome p{
             margin-top:12px;
 
             font-size:clamp(14px,1.2vw,18px);
@@ -366,7 +366,7 @@
         }
 
 
-        .ship{
+        .admin-ship{
             flex-shrink:0;
 
             font-size:clamp(65px,7vw,95px);
@@ -378,7 +378,7 @@
            STATISTICS
         ===================================================== */
 
-        .stats{
+        .admin-stats{
             margin-top:28px;
 
             display:grid;
@@ -390,7 +390,7 @@
         }
 
 
-        .stat-card{
+        .admin-stat-card{
             min-width:0;
 
             background:white;
@@ -409,19 +409,19 @@
         }
 
 
-        .stat-icon{
+        .admin-stat-icon{
             flex-shrink:0;
 
             font-size:42px;
         }
 
 
-        .stat-info{
+        .admin-stat-info{
             min-width:0;
         }
 
 
-        .stat-card h2{
+        .admin-stat-card h2{
             color:#0f172a;
 
             font-size:30px;
@@ -430,7 +430,7 @@
         }
 
 
-        .stat-card p{
+        .admin-stat-card p{
             margin-top:4px;
 
             color:#64748b;
@@ -444,7 +444,7 @@
            SECTION TITLE
         ===================================================== */
 
-        .title{
+        .admin-title{
             margin:35px 0 22px;
 
             color:white;
@@ -460,7 +460,7 @@
            MANAGEMENT CARDS
         ===================================================== */
 
-        .modules{
+        .admin-modules{
             display:grid;
 
             grid-template-columns:
@@ -472,7 +472,7 @@
         }
 
 
-        .card{
+        .admin-card{
             min-width:0;
 
             min-height:330px;
@@ -491,12 +491,12 @@
         }
 
 
-        .icon{
+        .admin-icon{
             font-size:50px;
         }
 
 
-        .card h2{
+        .admin-card h2{
             margin-top:20px;
 
             color:#0284c7;
@@ -509,7 +509,7 @@
         }
 
 
-        .card p{
+        .admin-card p{
             margin-top:15px;
 
             color:#64748b;
@@ -528,7 +528,7 @@
         |--------------------------------------------------------------------------
         */
 
-        .btn{
+        .admin-btn{
             display:flex;
 
             align-items:center;
@@ -567,7 +567,7 @@
         }
 
 
-        .btn:hover{
+        .admin-btn:hover{
             background:#0369a1;
 
             transform:translateY(-2px);
@@ -582,28 +582,28 @@
         @media(max-width:1100px){
 
             :root{
-                --sidebar-width:220px;
+                --admin-sidebar-width:220px;
             }
 
 
-            .sidebar{
+            .admin-sidebar{
                 padding-left:14px;
                 padding-right:14px;
             }
 
 
-            .menu-link{
+            .admin-menu-link{
                 font-size:12px;
             }
 
 
-            .stats{
+            .admin-stats{
                 grid-template-columns:
                 repeat(2,minmax(0,1fr));
             }
 
 
-            .modules{
+            .admin-modules{
                 grid-template-columns:
                 repeat(2,minmax(0,1fr));
             }
@@ -627,7 +627,7 @@
 
             /* TOPBAR */
 
-            .mobile-topbar{
+            .admin-mobile-topbar{
                 position:sticky;
 
                 top:0;
@@ -652,7 +652,7 @@
             }
 
 
-            .mobile-menu-btn{
+            .admin-mobile-menu-btn{
                 position:absolute;
 
                 left:13px;
@@ -677,7 +677,7 @@
             }
 
 
-            .mobile-brand{
+            .admin-mobile-brand{
                 width:100%;
 
                 padding:0 58px;
@@ -691,7 +691,7 @@
 
             /* SIDEBAR DRAWER */
 
-            .sidebar{
+            .admin-sidebar{
                 position:fixed !important;
 
                 top:0 !important;
@@ -712,12 +712,12 @@
             }
 
 
-            .sidebar.open{
+            .admin-sidebar.open{
                 transform:translateX(0);
             }
 
 
-            .drawer-close{
+            .admin-drawer-close{
                 position:absolute;
 
                 top:14px;
@@ -746,7 +746,7 @@
             }
 
 
-            .logo{
+            .admin-logo{
                 padding:7px 42px 0;
 
                 margin-bottom:24px;
@@ -755,7 +755,7 @@
             }
 
 
-            .menu-link{
+            .admin-menu-link{
                 min-height:54px;
 
                 font-size:14px;
@@ -764,7 +764,7 @@
             }
 
 
-            .menu-text{
+            .admin-menu-text{
                 white-space:normal;
             }
 
@@ -772,7 +772,7 @@
 
             /* CONTENT */
 
-            .content{
+            .admin-content{
                 margin-left:0 !important;
 
                 width:100% !important;
@@ -783,12 +783,12 @@
             }
 
 
-            .content-inner{
+            .admin-content-inner{
                 width:100%;
             }
 
 
-            .welcome{
+            .admin-welcome{
                 padding:22px 18px;
 
                 border-radius:21px;
@@ -801,17 +801,17 @@
             }
 
 
-            .welcome h1{
+            .admin-welcome h1{
                 font-size:clamp(28px,8vw,36px);
             }
 
 
-            .welcome p{
+            .admin-welcome p{
                 font-size:15px;
             }
 
 
-            .ship{
+            .admin-ship{
                 display:none;
             }
 
@@ -819,7 +819,7 @@
 
             /* STATISTICS */
 
-            .stats{
+            .admin-stats{
                 margin-top:18px;
 
                 grid-template-columns:
@@ -829,7 +829,7 @@
             }
 
 
-            .stat-card{
+            .admin-stat-card{
                 padding:18px;
 
                 border-radius:17px;
@@ -838,17 +838,17 @@
             }
 
 
-            .stat-icon{
+            .admin-stat-icon{
                 font-size:34px;
             }
 
 
-            .stat-card h2{
+            .admin-stat-card h2{
                 font-size:25px;
             }
 
 
-            .stat-card p{
+            .admin-stat-card p{
                 font-size:12px;
             }
 
@@ -856,33 +856,33 @@
 
             /* MANAGEMENT */
 
-            .title{
+            .admin-title{
                 margin:27px 0 18px;
 
                 font-size:27px;
             }
 
 
-            .modules{
+            .admin-modules{
                 grid-template-columns:1fr;
 
                 gap:16px;
             }
 
 
-            .card{
+            .admin-card{
                 min-height:0;
 
                 padding:24px;
             }
 
 
-            .card p{
+            .admin-card p{
                 flex:1;
             }
 
 
-            .btn{
+            .admin-btn{
                 max-width:220px;
             }
 
@@ -896,17 +896,17 @@
 
         @media(max-width:430px){
 
-            .content{
+            .admin-content{
                 padding:8px !important;
             }
 
 
-            .mobile-topbar{
+            .admin-mobile-topbar{
                 min-height:65px;
             }
 
 
-            .mobile-menu-btn{
+            .admin-mobile-menu-btn{
                 left:10px;
 
                 width:43px;
@@ -916,37 +916,37 @@
             }
 
 
-            .mobile-brand{
+            .admin-mobile-brand{
                 font-size:22px;
             }
 
 
-            .sidebar{
+            .admin-sidebar{
                 width:88vw !important;
             }
 
 
-            .stats{
+            .admin-stats{
                 grid-template-columns:1fr;
             }
 
 
-            .stat-card{
+            .admin-stat-card{
                 min-height:90px;
             }
 
 
-            .welcome{
+            .admin-welcome{
                 padding:19px 16px;
             }
 
 
-            .card{
+            .admin-card{
                 padding:21px;
             }
 
 
-            .btn{
+            .admin-btn{
                 width:100%;
 
                 max-width:none;
@@ -954,472 +954,24 @@
 
         }
 
-    /* =========================================================
-   FINAL ADMIN RESPONSIVE FIX
-   SAME BEHAVIOUR AS USER DASHBOARD
-========================================================= */
-
-@media (max-width: 768px) {
-
-    /* ===============================
-       MOBILE TOPBAR
-    =============================== */
-
-    .mobile-topbar {
-        position: sticky !important;
-        top: 0 !important;
-
-        width: 100% !important;
-        min-height: 68px !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        padding: 9px 14px !important;
-
-        background: #0f172a !important;
-
-        z-index: 1900 !important;
-    }
-
-
-    .mobile-menu-btn {
-        position: absolute !important;
-
-        left: 13px !important;
-        top: 50% !important;
-
-        transform: translateY(-50%) !important;
-
-        width: 46px !important;
-        height: 46px !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        padding: 0 !important;
-        margin: 0 !important;
-
-        border: none !important;
-        border-radius: 13px !important;
-
-        background: #0284c7 !important;
-        color: white !important;
-
-        font-size: 24px !important;
-    }
-
-
-    .mobile-brand {
-        width: 100% !important;
-
-        padding: 0 58px !important;
-
-        text-align: center !important;
-
-        font-size: 25px !important;
-        line-height: 1.2 !important;
-    }
-
-
-    /* ===============================
-       SIDEBAR
-    =============================== */
-
-    .sidebar {
-        position: fixed !important;
-
-        top: 0 !important;
-        left: 0 !important;
-        right: auto !important;
-        bottom: auto !important;
-
-        width: min(86vw, 330px) !important;
-
-        max-width: 330px !important;
-
-        height: 100vh !important;
-        height: 100dvh !important;
-
-        min-height: 100vh !important;
-
-        display: block !important;
-
-        padding: 20px 16px 28px !important;
-        margin: 0 !important;
-
-        background: #0f172a !important;
-
-        overflow-y: auto !important;
-        overflow-x: hidden !important;
-
-        transform: translateX(-105%) !important;
-
-        transition:
-            transform .28s ease !important;
-
-        box-shadow:
-            10px 0 35px
-            rgba(0,0,0,.30) !important;
-
-        z-index: 2000 !important;
-    }
-
-
-    .sidebar.open {
-        transform: translateX(0) !important;
-    }
-
-
-    /* ===============================
-       SIDEBAR LOGO
-    =============================== */
-
-    .sidebar .logo {
-        display: block !important;
-
-        width: 100% !important;
-
-        padding: 7px 42px 0 !important;
-
-        margin: 0 0 24px !important;
-
-        text-align: center !important;
-
-        font-size: 25px !important;
-    }
-
-
-    /* ===============================
-       MENU
-    =============================== */
-
-    .sidebar .menu {
-        width: 100% !important;
-
-        display: flex !important;
-
-        flex-direction: column !important;
-
-        grid-template-columns: none !important;
-
-        gap: 9px !important;
-
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-
-
-    .sidebar .menu-link {
-        width: 100% !important;
-
-        min-height: 54px !important;
-
-        display: flex !important;
-
-        align-items: center !important;
-
-        justify-content: flex-start !important;
-
-        gap: 10px !important;
-
-        padding: 13px 14px !important;
-        margin: 0 !important;
-
-        border-radius: 12px !important;
-
-        font-size: 14px !important;
-
-        text-align: left !important;
-    }
-
-
-    .sidebar .menu-icon {
-        width: 23px !important;
-
-        flex-shrink: 0 !important;
-
-        text-align: center !important;
-    }
-
-
-    .sidebar .menu-text {
-        flex: 1 !important;
-
-        min-width: 0 !important;
-
-        white-space: normal !important;
-    }
-
-
-    /* ===============================
-       LOGOUT
-    =============================== */
-
-    .sidebar .logout-form {
-        width: 100% !important;
-
-        display: block !important;
-
-        margin: 0 !important;
-    }
-
-
-    .sidebar .logout-btn {
-        width: 100% !important;
-
-        min-height: 54px !important;
-
-        margin: 10px 0 0 !important;
-
-        display: flex !important;
-
-        align-items: center !important;
-
-        justify-content: center !important;
-
-        border-radius: 12px !important;
-    }
-
-
-    /* ===============================
-       CLOSE BUTTON
-    =============================== */
-
-    .drawer-close {
-        position: absolute !important;
-
-        top: 14px !important;
-        right: 14px !important;
-
-        width: 38px !important;
-        height: 38px !important;
-
-        display: flex !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        border: none !important;
-        border-radius: 10px !important;
-
-        background: #1e293b !important;
-        color: white !important;
-
-        font-size: 22px !important;
-
-        z-index: 5 !important;
-    }
-
-
-    /* ===============================
-       OVERLAY
-    =============================== */
-
-    .sidebar-overlay {
-        position: fixed !important;
-
-        inset: 0 !important;
-
-        background:
-            rgba(2, 6, 23, .60) !important;
-
-        opacity: 0 !important;
-        visibility: hidden !important;
-
-        z-index: 1990 !important;
-    }
-
-
-    .sidebar-overlay.open {
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-
-
-    /* ===============================
-       MAIN CONTENT
-    =============================== */
-
-    .content {
-        position: relative !important;
-
-        display: block !important;
-
-        width: 100% !important;
-
-        min-height:
-            calc(100vh - 68px) !important;
-
-        margin: 0 !important;
-        margin-left: 0 !important;
-
-        padding: 10px !important;
-
-        top: auto !important;
-        left: auto !important;
-
-        transform: none !important;
-    }
-
-
-    .content-inner {
-        position: relative !important;
-
-        display: block !important;
-
-        width: 100% !important;
-
-        max-width: none !important;
-
-        margin: 0 !important;
-
-        padding: 0 !important;
-
-        top: auto !important;
-
-        transform: none !important;
-    }
-
-
-    /* ===============================
-       WELCOME - RAPAT KE ATAS
-    =============================== */
-
-    .welcome {
-        position: relative !important;
-
-        width: 100% !important;
-
-        margin: 0 !important;
-
-        padding: 22px 18px !important;
-
-        top: auto !important;
-
-        transform: none !important;
-
-        border-radius: 21px !important;
-
-        flex-direction: column !important;
-
-        align-items: flex-start !important;
-
-        gap: 12px !important;
-    }
-
-
-    .welcome h1 {
-        font-size:
-            clamp(28px, 8vw, 36px) !important;
-    }
-
-
-    .welcome p {
-        font-size: 14px !important;
-    }
-
-
-    .ship {
-        display: none !important;
-    }
-
-
-    /* ===============================
-       STATISTICS
-    =============================== */
-
-    .stats {
-        width: 100% !important;
-
-        margin-top: 18px !important;
-
-        grid-template-columns:
-            repeat(2, minmax(0,1fr)) !important;
-
-        gap: 12px !important;
-    }
-
-
-    /* ===============================
-       MANAGEMENT
-    =============================== */
-
-    .modules {
-        width: 100% !important;
-
-        grid-template-columns: 1fr !important;
-
-        gap: 16px !important;
-    }
-
-}
-
-
-/* =========================================================
-   SMALL PHONE
-========================================================= */
-
-@media (max-width: 430px) {
-
-    .mobile-topbar {
-        min-height: 65px !important;
-    }
-
-
-    .mobile-menu-btn {
-        left: 10px !important;
-
-        width: 43px !important;
-        height: 43px !important;
-
-        font-size: 22px !important;
-    }
-
-
-    .mobile-brand {
-        padding: 0 50px !important;
-
-        font-size: 22px !important;
-    }
-
-
-    .sidebar {
-        width: 88vw !important;
-        max-width: 330px !important;
-    }
-
-
-    .content {
-        padding: 8px !important;
-    }
-
-
-    .welcome {
-        padding: 19px 16px !important;
-    }
-
-}
-
+    
     </style>
 
 </head>
 
 
-<body>
+<body class="admin-dashboard-page">
 
 
 {{-- =========================================================
      MOBILE TOPBAR
 ========================================================= --}}
 
-<div class="mobile-topbar">
+<div class="admin-mobile-topbar">
 
     <button
         type="button"
-        class="mobile-menu-btn"
+        class="admin-mobile-menu-btn"
         onclick="toggleSidebar()"
         aria-label="Open admin menu"
     >
@@ -1427,7 +979,7 @@
     </button>
 
 
-    <div class="mobile-brand">
+    <div class="admin-mobile-brand">
 
         Ship<span>EquipAR</span>
 
@@ -1443,7 +995,7 @@
 
 <div
     id="sidebarOverlay"
-    class="sidebar-overlay"
+    class="admin-sidebar-overlay"
     onclick="closeSidebar()"
 ></div>
 
@@ -1455,13 +1007,13 @@
 
 <aside
     id="adminSidebar"
-    class="sidebar"
+    class="admin-sidebar"
 >
 
 
     <button
         type="button"
-        class="drawer-close"
+        class="admin-drawer-close"
         onclick="closeSidebar()"
         aria-label="Close menu"
     >
@@ -1470,7 +1022,7 @@
 
 
 
-    <div class="logo">
+    <div class="admin-logo">
 
         Ship<span>EquipAR</span>
 
@@ -1478,20 +1030,20 @@
 
 
 
-    <nav class="menu">
+    <nav class="admin-menu">
 
 
         <a
             href="{{ route('admin.dashboard') }}"
-            class="menu-link active"
+            class="admin-menu-link active"
             onclick="closeSidebar()"
         >
 
-            <span class="menu-icon">
+            <span class="admin-menu-icon">
                 🏠
             </span>
 
-            <span class="menu-text">
+            <span class="admin-menu-text">
                 Admin Dashboard
             </span>
 
@@ -1501,15 +1053,15 @@
 
         <a
             href="/admin/users"
-            class="menu-link"
+            class="admin-menu-link"
             onclick="closeSidebar()"
         >
 
-            <span class="menu-icon">
+            <span class="admin-menu-icon">
                 👥
             </span>
 
-            <span class="menu-text">
+            <span class="admin-menu-text">
                 Manage Users
             </span>
 
@@ -1519,15 +1071,15 @@
 
         <a
             href="/admin/modules"
-            class="menu-link"
+            class="admin-menu-link"
             onclick="closeSidebar()"
         >
 
-            <span class="menu-icon">
+            <span class="admin-menu-icon">
                 📚
             </span>
 
-            <span class="menu-text">
+            <span class="admin-menu-text">
                 Manage Module
             </span>
 
@@ -1537,15 +1089,15 @@
 
         <a
             href="/admin/notes"
-            class="menu-link"
+            class="admin-menu-link"
             onclick="closeSidebar()"
         >
 
-            <span class="menu-icon">
+            <span class="admin-menu-icon">
                 📘
             </span>
 
-            <span class="menu-text">
+            <span class="admin-menu-text">
                 Manage Notes
             </span>
 
@@ -1555,15 +1107,15 @@
 
         <a
             href="/admin/equipment"
-            class="menu-link"
+            class="admin-menu-link"
             onclick="closeSidebar()"
         >
 
-            <span class="menu-icon">
+            <span class="admin-menu-icon">
                 🦺
             </span>
 
-            <span class="menu-text">
+            <span class="admin-menu-text">
                 Manage Equipments
             </span>
 
@@ -1572,16 +1124,16 @@
 
 
         <a
-            href="{{ route('admin.ships.index') }}"
-            class="menu-link"
+            href="{{ route('admin.admin-ships.index') }}"
+            class="admin-menu-link"
             onclick="closeSidebar()"
         >
 
-            <span class="menu-icon">
+            <span class="admin-menu-icon">
                 🚢
             </span>
 
-            <span class="menu-text">
+            <span class="admin-menu-text">
                 Manage Ships
             </span>
 
@@ -1591,15 +1143,15 @@
 
         <a
             href="{{ route('admin.quiz.index') }}"
-            class="menu-link"
+            class="admin-menu-link"
             onclick="closeSidebar()"
         >
 
-            <span class="menu-icon">
+            <span class="admin-menu-icon">
                 📝
             </span>
 
-            <span class="menu-text">
+            <span class="admin-menu-text">
                 Manage Quiz
             </span>
 
@@ -1608,7 +1160,7 @@
         <form
             method="POST"
             action="{{ route('logout') }}"
-            class="logout-form"
+            class="admin-logout-form"
         >
 
             @csrf
@@ -1616,7 +1168,7 @@
 
             <button
                 type="submit"
-                class="logout-btn"
+                class="admin-logout-btn"
             >
                 Logout
             </button>
@@ -1635,20 +1187,20 @@
      CONTENT
 ========================================================= --}}
 
-<main class="content">
+<main class="admin-content">
 
 
-    <div class="content-inner">
+    <div class="admin-content-inner">
 
 
         {{-- =====================================================
              WELCOME
         ====================================================== --}}
 
-        <section class="welcome">
+        <section class="admin-welcome">
 
 
-            <div class="welcome-copy">
+            <div class="admin-welcome-copy">
 
 
                 <h1>
@@ -1671,7 +1223,7 @@
 
 
 
-            <div class="ship">
+            <div class="admin-ship">
                 🚢
             </div>
 
@@ -1684,16 +1236,16 @@
              STATISTICS
         ====================================================== --}}
 
-        <section class="stats">
+        <section class="admin-stats">
 
 
-            <div class="stat-card">
+            <div class="admin-stat-card">
 
-                <div class="stat-icon">
+                <div class="admin-stat-icon">
                     👥
                 </div>
 
-                <div class="stat-info">
+                <div class="admin-stat-info">
 
                     <h2>
                         {{ \App\Models\User::count() }}
@@ -1709,13 +1261,13 @@
 
 
 
-            <div class="stat-card">
+            <div class="admin-stat-card">
 
-                <div class="stat-icon">
+                <div class="admin-stat-icon">
                     📚
                 </div>
 
-                <div class="stat-info">
+                <div class="admin-stat-info">
 
                     <h2>
                         {{ \App\Models\Module::count() }}
@@ -1731,13 +1283,13 @@
 
 
 
-            <div class="stat-card">
+            <div class="admin-stat-card">
 
-                <div class="stat-icon">
+                <div class="admin-stat-icon">
                     🦺
                 </div>
 
-                <div class="stat-info">
+                <div class="admin-stat-info">
 
                     <h2>
                         {{ \App\Models\Equipment::count() }}
@@ -1753,13 +1305,13 @@
 
 
 
-            <div class="stat-card">
+            <div class="admin-stat-card">
 
-                <div class="stat-icon">
+                <div class="admin-stat-icon">
                     🚢
                 </div>
 
-                <div class="stat-info">
+                <div class="admin-stat-info">
 
                     <h2>
                         {{ \App\Models\Ship::count() }}
@@ -1782,21 +1334,21 @@
              SYSTEM OVERVIEW
         ====================================================== --}}
 
-        <div class="title">
+        <div class="admin-title">
             📊 System Overview
         </div>
 
 
 
-        <section class="modules">
+        <section class="admin-modules">
 
 
             {{-- LEARNING MODULE --}}
 
-            <article class="card">
+            <article class="admin-card">
 
 
-                <div class="icon">
+                <div class="admin-icon">
                     📚
                 </div>
 
@@ -1815,7 +1367,7 @@
 
                 <a
                     href="/admin/modules"
-                    class="btn"
+                    class="admin-btn"
                 >
                     Manage Module
                 </a>
@@ -1827,10 +1379,10 @@
 
             {{-- SHIP --}}
 
-            <article class="card">
+            <article class="admin-card">
 
 
-                <div class="icon">
+                <div class="admin-icon">
                     🚢
                 </div>
 
@@ -1848,8 +1400,8 @@
 
 
                 <a
-                    href="{{ route('admin.ships.index') }}"
-                    class="btn"
+                    href="{{ route('admin.admin-ships.index') }}"
+                    class="admin-btn"
                 >
                     Manage Ship
                 </a>
@@ -1861,10 +1413,10 @@
 
             {{-- EQUIPMENT --}}
 
-            <article class="card">
+            <article class="admin-card">
 
 
-                <div class="icon">
+                <div class="admin-icon">
                     🦺
                 </div>
 
@@ -1882,7 +1434,7 @@
 
                 <a
                     href="/admin/equipment"
-                    class="btn"
+                    class="admin-btn"
                 >
                     Manage Equipment
                 </a>
@@ -1933,7 +1485,7 @@
 
 
         document.body.classList.toggle(
-            'sidebar-open',
+            'admin-sidebar-open',
             isOpen
         );
     }
@@ -1962,7 +1514,7 @@
         );
 
         document.body.classList.remove(
-            'sidebar-open'
+            'admin-sidebar-open'
         );
     }
 
