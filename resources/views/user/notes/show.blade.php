@@ -408,12 +408,63 @@ body{
                             );
 
 
+                        /*
+                        |--------------------------------------------------------------------------
+                        | NORMALIZE SAVED PDF PATH
+                        |--------------------------------------------------------------------------
+                        |
+                        | Support the same path formats used by the admin page:
+                        | - public/uploads/...
+                        | - uploads/...
+                        | - storage/...
+                        | - notes/...
+                        | - filename only
+                        |
+                        */
+
+                        if (
+                            str_starts_with(
+                                $normalizedPdf,
+                                'public/'
+                            )
+                        ) {
+
+                            $normalizedPdf =
+                                substr(
+                                    $normalizedPdf,
+                                    7
+                                );
+
+                        }
+
+
                         if (
                             str_starts_with(
                                 $normalizedPdf,
                                 'storage/'
                             )
                         ) {
+
+                            $pdfUrl =
+                                asset(
+                                    $normalizedPdf
+                                );
+
+                        }
+
+                        elseif (
+                            str_starts_with(
+                                $normalizedPdf,
+                                'uploads/'
+                            )
+                        ) {
+
+                            /*
+                             * IMPORTANT:
+                             * Some existing notes are stored directly
+                             * under public/uploads/... .
+                             * Do NOT convert these to /storage/notes/...
+                             */
 
                             $pdfUrl =
                                 asset(
