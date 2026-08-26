@@ -1,5 +1,6 @@
 FROM php:8.2-apache
 
+
 # =========================================================
 # PHP UPLOAD CONFIG
 # =========================================================
@@ -135,12 +136,6 @@ RUN chown -R www-data:www-data \
 # =========================================================
 # APACHE SERVER NAME
 # =========================================================
-#
-# Removes:
-#
-# AH00558: Could not reliably determine the server's
-# fully qualified domain name
-#
 
 RUN echo "ServerName localhost" \
     >> /etc/apache2/apache2.conf
@@ -149,14 +144,6 @@ RUN echo "ServerName localhost" \
 # =========================================================
 # RENDER PORT
 # =========================================================
-#
-# Render recommends binding the web server to $PORT.
-#
-# Default Render PORT = 10000.
-#
-# We set a default here, but the startup command below
-# still respects Render's actual $PORT environment variable.
-#
 
 ENV PORT=10000
 
@@ -167,33 +154,50 @@ EXPOSE 10000
 # START APPLICATION
 # =========================================================
 #
+# Startup order:
+#
 # 1. Read Render PORT
-# 2. Configure Apache Listen port
-# 3. Configure VirtualHost port
-# 4. Clear Laravel cached configuration
-# 5. Sync .reality files from GitHub Release
+# 2. Configure Apache port
+# 3. Clear Laravel caches
+# 4. Run Laravel production migrations
+# 5. Sync AR Reality models
 # 6. Start Apache
 #
 # IMPORTANT:
 #
-# php artisan ar:sync || true
+# Database migration MUST succeed before Apache starts.
 #
-# keeps the website alive even if one sync attempt fails.
+# AR sync is allowed to fail without taking down
+# the website.
 #
+# =========================================================
 
 CMD ["sh", "-c", "\
 PORT=${PORT:-10000}; \
+\
 echo \"========================================\"; \
 echo \"ShipEquipAR starting\"; \
 echo \"Apache port: ${PORT}\"; \
 echo \"========================================\"; \
+\
 sed -ri \"s/^Listen [0-9]+/Listen ${PORT}/\" /etc/apache2/ports.conf; \
 sed -ri \"s/<VirtualHost \\*:[0-9]+>/<VirtualHost *:${PORT}>/\" /etc/apache2/sites-available/000-default.conf; \
+\
+echo \"========================================\"; \
+echo \"Clearing Laravel cache...\"; \
+echo \"========================================\"; \
 php artisan optimize:clear || true; \
+\
+echo \"========================================\"; \
+echo \"Running database migrations...\"; \
+echo \"========================================\"; \
+php artisan migrate --force; \
+\
 echo \"========================================\"; \
 echo \"Syncing AR Reality models...\"; \
 echo \"========================================\"; \
 php artisan ar:sync || true; \
+\
 echo \"========================================\"; \
 echo \"Starting Apache on port ${PORT}\"; \
 echo \"========================================\"; \
