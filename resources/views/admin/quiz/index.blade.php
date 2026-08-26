@@ -864,14 +864,6 @@
         </div>
 
 
-        <a
-            href="{{ route('admin.dashboard') }}"
-            class="admin-back-btn"
-        >
-            ← Admin Dashboard
-        </a>
-
-
     </div>
 
 

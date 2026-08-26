@@ -531,6 +531,175 @@ button[type="submit"]{
 
 }
 
+/* =========================================================
+   BUTTON FIX - EQUIPMENT INDEX + CREATE
+   Paste this at the VERY END of the existing <style> block.
+========================================================= */
+
+/* EDIT BUTTON - Equipment Management */
+.edit,
+.edit-btn,
+.btn-edit,
+a.edit,
+a.edit-btn,
+a.btn-edit{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    min-height:44px !important;
+
+    padding:10px 17px !important;
+
+    border:none !important;
+    border-radius:11px !important;
+
+    background:#2563eb !important;
+    color:#ffffff !important;
+
+    text-decoration:none !important;
+
+    font-size:13px !important;
+    font-weight:800 !important;
+
+    line-height:1 !important;
+
+    cursor:pointer !important;
+
+    transition:.2s ease !important;
+}
+
+.edit:hover,
+.edit-btn:hover,
+.btn-edit:hover,
+a.edit:hover,
+a.edit-btn:hover,
+a.btn-edit:hover{
+    background:#1d4ed8 !important;
+    color:#ffffff !important;
+    transform:translateY(-2px);
+}
+
+
+/* BACK BUTTON - Add/Edit Equipment */
+.back,
+.back-btn,
+.btn-back,
+a.back,
+a.back-btn,
+a.btn-back{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    min-height:44px !important;
+
+    padding:10px 17px !important;
+
+    border:none !important;
+    border-radius:11px !important;
+
+    background:#0f172a !important;
+    color:#ffffff !important;
+
+    text-decoration:none !important;
+
+    font-size:13px !important;
+    font-weight:800 !important;
+
+    line-height:1 !important;
+
+    cursor:pointer !important;
+
+    transition:.2s ease !important;
+}
+
+.back:hover,
+.back-btn:hover,
+.btn-back:hover,
+a.back:hover,
+a.back-btn:hover,
+a.btn-back:hover{
+    background:#0284c7 !important;
+    color:#ffffff !important;
+    transform:translateY(-2px);
+}
+
+
+/* DELETE BUTTON */
+.delete,
+.delete-btn,
+.btn-delete,
+button.delete,
+button.delete-btn,
+button.btn-delete{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    min-height:44px !important;
+
+    padding:10px 17px !important;
+
+    border:none !important;
+    border-radius:11px !important;
+
+    background:#dc2626 !important;
+    color:#ffffff !important;
+
+    font-size:13px !important;
+    font-weight:800 !important;
+
+    line-height:1 !important;
+
+    cursor:pointer !important;
+
+    transition:.2s ease !important;
+}
+
+.delete:hover,
+.delete-btn:hover,
+.btn-delete:hover{
+    background:#b91c1c !important;
+    transform:translateY(-2px);
+}
+
+
+/* ACTION BUTTON ALIGNMENT */
+.actions,
+.button-group,
+.form-actions{
+    display:flex !important;
+    align-items:center !important;
+    gap:10px !important;
+    flex-wrap:wrap !important;
+}
+
+
+/* MOBILE */
+@media(max-width:600px){
+
+    .actions,
+    .button-group,
+    .form-actions{
+        display:grid !important;
+        grid-template-columns:1fr !important;
+    }
+
+    .edit,
+    .edit-btn,
+    .btn-edit,
+    .delete,
+    .delete-btn,
+    .btn-delete,
+    .back,
+    .back-btn,
+    .btn-back{
+        width:100% !important;
+    }
+}
+
+
 </style>
 
 
