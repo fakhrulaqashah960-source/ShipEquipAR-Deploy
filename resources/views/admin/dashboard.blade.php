@@ -439,6 +439,21 @@
         }
 
 
+        .admin-stat-breakdown{
+            display:block;
+
+            margin-top:6px;
+
+            color:#64748b;
+
+            font-size:12px;
+
+            font-weight:600;
+
+            line-height:1.4;
+        }
+
+
 
         /* =====================================================
            SECTION TITLE
@@ -1124,18 +1139,20 @@
 
 
         <a
-    href="{{ route('admin.ships.index') }}"
-    class="admin-menu-link"
-    onclick="closeSidebar()"
->
-    <span class="admin-menu-icon">
-        🚢
-    </span>
+            href="{{ route('admin.ships.index') }}"
+            class="admin-menu-link"
+            onclick="closeSidebar()"
+        >
 
-    <span class="admin-menu-text">
-        Manage Ships
-    </span>
-</a>
+            <span class="admin-menu-icon">
+                🚢
+            </span>
+
+            <span class="admin-menu-text">
+                Manage Ships
+            </span>
+
+        </a>
 
 
 
@@ -1234,97 +1251,132 @@
              STATISTICS
         ====================================================== --}}
 
-        <section class="admin-stats">
+        @php
+            $totalUsers = \App\Models\User::count();
+
+            // ProProfs belum disambungkan ke Laravel.
+            // Nilai ini akan mula berubah selepas callback/API
+            // ProProfs disimpan ke database ShipEquipAR.
+            $quizParticipants = $quizParticipants ?? 0;
+
+            $totalModules = \App\Models\Module::count();
+
+            $totalEquipment = \App\Models\Equipment::count();
+
+            $totalShips = \App\Models\Ship::count();
+
+            $totalMarineContent =
+                $totalEquipment + $totalShips;
+        @endphp
 
 
-            <div class="admin-stat-card">
-
-                <div class="admin-stat-icon">
-                    👥
-                </div>
-
-                <div class="admin-stat-info">
-
-                    <h2>
-                        {{ \App\Models\User::count() }}
-                    </h2>
-
-                    <p>
-                        Total Users
-                    </p>
-
-                </div>
-
-            </div>
+<section class="admin-stats">
 
 
+    {{-- TOTAL USERS --}}
 
-            <div class="admin-stat-card">
+    <div class="admin-stat-card">
 
-                <div class="admin-stat-icon">
-                    📚
-                </div>
+        <div class="admin-stat-icon">
+            👥
+        </div>
 
-                <div class="admin-stat-info">
+        <div class="admin-stat-info">
 
-                    <h2>
-                        {{ \App\Models\Module::count() }}
-                    </h2>
+            <h2>
+                {{ $totalUsers }}
+            </h2>
 
-                    <p>
-                        Learning Modules
-                    </p>
+            <p>
+                Total Users
+            </p>
 
-                </div>
+        </div>
 
-            </div>
-
-
-
-            <div class="admin-stat-card">
-
-                <div class="admin-stat-icon">
-                    🦺
-                </div>
-
-                <div class="admin-stat-info">
-
-                    <h2>
-                        {{ \App\Models\Equipment::count() }}
-                    </h2>
-
-                    <p>
-                        Equipment
-                    </p>
-
-                </div>
-
-            </div>
+    </div>
 
 
 
-            <div class="admin-stat-card">
+    {{-- QUIZ PARTICIPANTS --}}
 
-                <div class="admin-stat-icon">
-                    🚢
-                </div>
+    <div class="admin-stat-card">
 
-                <div class="admin-stat-info">
+        <div class="admin-stat-icon">
+            📝
+        </div>
 
-                    <h2>
-                        {{ \App\Models\Ship::count() }}
-                    </h2>
+        <div class="admin-stat-info">
 
-                    <p>
-                        Ships
-                    </p>
+            <h2>
+                {{ $quizParticipants }}
+            </h2>
 
-                </div>
+            <p>
+                Quiz Participants
+            </p>
 
-            </div>
+        </div>
+
+    </div>
 
 
-        </section>
+
+    {{-- LEARNING MODULES --}}
+
+    <div class="admin-stat-card">
+
+        <div class="admin-stat-icon">
+            📚
+        </div>
+
+        <div class="admin-stat-info">
+
+            <h2>
+                {{ $totalModules }}
+            </h2>
+
+            <p>
+                Learning Modules
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    {{-- EQUIPMENT + SHIPS --}}
+
+    <div class="admin-stat-card admin-stat-combined">
+
+        <div class="admin-stat-icon">
+            ⚓
+        </div>
+
+        <div class="admin-stat-info">
+
+            <h2>
+                {{ $totalMarineContent }}
+            </h2>
+
+            <p>
+                Equipment & Ships
+            </p>
+
+            <small class="admin-stat-breakdown">
+
+                {{ $totalEquipment }} Equipment
+                &nbsp;•&nbsp;
+                {{ $totalShips }} Ships
+
+            </small>
+
+        </div>
+
+    </div>
+
+
+</section>
 
 
 
