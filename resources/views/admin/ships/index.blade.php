@@ -235,23 +235,37 @@
            BACK BUTTON
         ========================= */
 
-        .back {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 25px;
-            background: #0f172a;
-            color: white;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-        }
+.back-dashboard{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
 
+    margin-top:25px;
 
-        .back:hover {
-            background: #1e293b;
-        }
+    padding:10px 18px;
 
+    min-height:44px;
 
+    background:#0f172a;
+    color:white;
+
+    border-radius:11px;
+
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:800;
+
+    box-shadow:0 6px 15px rgba(15,23,42,.18);
+
+    transition:.2s ease;
+}
+
+.back-dashboard:hover{
+    background:#0284c7;
+    color:white;
+    transform:translateY(-2px);
+}
 
         /* =========================
            RESPONSIVE
