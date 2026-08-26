@@ -545,9 +545,18 @@ textarea.content-box{
                         $normalizedPdf = substr($normalizedPdf, 7);
                     }
 
-                    $currentPdfUrl = str_contains($normalizedPdf, '/')
-                        ? asset($normalizedPdf)
-                        : asset('uploads/notes/' . $normalizedPdf);
+                    if (str_starts_with($normalizedPdf, 'storage/')) {
+                        $currentPdfUrl = asset($normalizedPdf);
+                    }
+                    elseif (str_starts_with($normalizedPdf, 'uploads/')) {
+                        $currentPdfUrl = asset($normalizedPdf);
+                    }
+                    elseif (str_starts_with($normalizedPdf, 'notes/')) {
+                        $currentPdfUrl = asset('storage/' . $normalizedPdf);
+                    }
+                    else {
+                        $currentPdfUrl = asset('storage/notes/' . basename($normalizedPdf));
+                    }
                 }
             }
         @endphp

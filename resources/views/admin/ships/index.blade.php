@@ -16,19 +16,40 @@
 
     <style>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
+       /* Replace the current body CSS in resources/views/admin/ships/index.blade.php */
 
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
 
-        body {
-            background: #eef6fb;
-            padding: 40px;
-            color: #0f172a;
-        }
+body{
+    min-height:100vh;
+    margin:0;
+    padding:40px 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(3,37,65,.88),
+            rgba(2,132,199,.70)
+        ),
+        url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    background-repeat:no-repeat;
+}
+
+@media(max-width:600px){
+    body{
+        padding:18px 10px 28px;
+        background-attachment:scroll;
+    }
+}
+
 
 
         /* =========================

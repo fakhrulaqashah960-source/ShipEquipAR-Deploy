@@ -196,6 +196,7 @@ echo \"Running database migrations...\"; \
 echo \"========================================\"; \
 php artisan migrate --force; \
 \
+php artisan storage:link || true;
 echo \"========================================\"; \
 echo \"Syncing AR Reality models...\"; \
 echo \"========================================\"; \
