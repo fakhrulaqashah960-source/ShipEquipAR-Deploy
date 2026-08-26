@@ -1124,20 +1124,18 @@
 
 
         <a
-            href="{{ route('admin.admin-ships.index') }}"
-            class="admin-menu-link"
-            onclick="closeSidebar()"
-        >
+    href="{{ route('admin.ships.index') }}"
+    class="admin-menu-link"
+    onclick="closeSidebar()"
+>
+    <span class="admin-menu-icon">
+        🚢
+    </span>
 
-            <span class="admin-menu-icon">
-                🚢
-            </span>
-
-            <span class="admin-menu-text">
-                Manage Ships
-            </span>
-
-        </a>
+    <span class="admin-menu-text">
+        Manage Ships
+    </span>
+</a>
 
 
 
@@ -1400,7 +1398,7 @@
 
 
                 <a
-                    href="{{ route('admin.admin-ships.index') }}"
+                    href="{{ route('admin.ships.index') }}"
                     class="admin-btn"
                 >
                     Manage Ship
