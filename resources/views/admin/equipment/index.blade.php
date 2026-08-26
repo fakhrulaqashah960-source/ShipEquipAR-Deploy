@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Equipment Management</title>
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
 <style>
 
@@ -18,9 +24,9 @@
     --muted:#64748b;
     --line:#dbe5ef;
     --white:#ffffff;
-    --green:#16a34a;
     --red:#dc2626;
 }
+
 
 *{
     margin:0;
@@ -29,15 +35,19 @@
     font-family:'Segoe UI',sans-serif;
 }
 
+
 html,
 body{
     width:100%;
     min-height:100%;
 }
 
+
 body{
     min-height:100vh;
+
     padding:34px 18px;
+
     color:var(--text);
 
     background:
@@ -50,322 +60,201 @@ body{
 
     background-size:cover;
     background-position:center;
-    background-attachment:fixed;
     background-repeat:no-repeat;
+    background-attachment:fixed;
 }
 
 
 /* =========================================================
-   MAIN CONTAINER
+   PAGE WRAPPER
+========================================================= */
+
+.page-wrapper{
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.page-hero{
+    width:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:22px;
+
+    margin-bottom:20px;
+
+    padding:30px;
+
+    border-radius:24px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(2,132,199,.96),
+            rgba(15,23,42,.98)
+        );
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.22);
+}
+
+
+.page-hero-copy{
+    min-width:0;
+}
+
+
+.page-hero-label{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    margin-bottom:10px;
+
+    padding:7px 12px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.13);
+
+    color:#e0f2fe;
+
+    font-size:12px;
+    font-weight:800;
+}
+
+
+.page-hero h1{
+    margin:0;
+
+    font-size:clamp(30px,4vw,42px);
+
+    line-height:1.2;
+
+    font-weight:900;
+}
+
+
+.page-hero p{
+    max-width:730px;
+
+    margin-top:10px;
+
+    color:#dbeafe;
+
+    font-size:14px;
+
+    line-height:1.7;
+}
+
+
+.page-hero-icon{
+    width:86px;
+    height:86px;
+
+    flex:0 0 auto;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.12);
+
+    font-size:42px;
+}
+
+
+/* =========================================================
+   MAIN PANEL
 ========================================================= */
 
 .container{
     width:100%;
-    max-width:1180px;
-    margin:0 auto;
-    padding:28px;
+
+    padding:26px;
 
     background:rgba(255,255,255,.97);
 
     border-radius:24px;
 
     box-shadow:
-        0 18px 42px rgba(0,0,0,.20);
+        0 16px 38px rgba(0,0,0,.18);
 
     overflow:hidden;
 }
 
 
 /* =========================================================
-   PAGE TITLE / HEADER
+   TOOLBAR
 ========================================================= */
 
-h1{
-    color:var(--text);
+.toolbar{
+    width:100%;
 
-    font-size:clamp(28px,4vw,40px);
-    line-height:1.2;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:22px;
+
+    padding-bottom:20px;
+
+    border-bottom:1px solid #e2e8f0;
+}
+
+
+.toolbar-copy h2{
+    color:#0f172a;
+
+    font-size:22px;
+
     font-weight:900;
-
-    margin-bottom:10px;
-}
-
-h1::first-letter{
-    color:var(--blue);
-}
-
-.subtitle,
-.description,
-.page-description{
-    color:var(--muted);
-    font-size:14px;
-    line-height:1.7;
 }
 
 
-/* =========================================================
-   ADD BUTTON
-========================================================= */
+.toolbar-copy p{
+    margin-top:5px;
 
-.add-btn,
-.btn-add{
+    color:#64748b;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+.add-btn{
     display:inline-flex;
+
     align-items:center;
     justify-content:center;
 
     min-height:46px;
 
-    margin:18px 0 24px;
+    padding:11px 19px;
 
-    padding:11px 20px;
+    background:#0284c7;
 
-    border:none;
-    border-radius:12px;
-
-    background:var(--blue);
     color:white;
-
-    text-decoration:none;
-
-    font-size:14px;
-    font-weight:800;
-
-    cursor:pointer;
-
-    transition:.2s ease;
-}
-
-.add-btn:hover,
-.btn-add:hover{
-    background:var(--blue-dark);
-    transform:translateY(-2px);
-}
-
-
-/* =========================================================
-   EQUIPMENT LIST / CARDS
-========================================================= */
-
-.grid,
-.equipment-grid{
-    width:100%;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
-    gap:20px;
-}
-
-.card,
-.equipment-card{
-    min-width:0;
-
-    padding:20px;
-
-    background:#f8fafc;
-
-    border:1px solid #e2e8f0;
-
-    border-radius:18px;
-
-    box-shadow:
-        0 8px 22px rgba(15,23,42,.08);
-}
-
-.card img,
-.equipment-card img{
-    display:block;
-
-    width:180px;
-    height:120px;
-
-    max-width:100%;
-
-    margin:0 auto 16px;
-
-    object-fit:contain;
-
-    padding:6px;
-
-    background:white;
-
-    border:1px solid #e2e8f0;
-
-    border-radius:14px;
-}
-
-.card h2,
-.equipment-card h2{
-    color:var(--blue-dark);
-
-    font-size:20px;
-    font-weight:900;
-    line-height:1.35;
-
-    margin-bottom:10px;
-}
-
-.card p,
-.equipment-card p{
-    color:#475569;
-
-    font-size:13px;
-    line-height:1.7;
-
-    overflow-wrap:anywhere;
-}
-
-.card strong,
-.equipment-card strong{
-    color:#334155;
-}
-
-
-/* =========================================================
-   FORMS
-========================================================= */
-
-form{
-    width:100%;
-}
-
-.form-group{
-    width:100%;
-    margin-bottom:18px;
-}
-
-label{
-    display:block;
-
-    margin-bottom:8px;
-
-    color:var(--text);
-
-    font-size:14px;
-    font-weight:800;
-}
-
-input[type="text"],
-input[type="url"],
-input[type="file"],
-input[type="number"],
-select,
-textarea{
-    width:100%;
-
-    min-height:50px;
-
-    padding:12px 14px;
-
-    border:1px solid #cbd5e1;
-
-    border-radius:12px;
-
-    background:white;
-
-    color:var(--text);
-
-    font-size:14px;
-
-    outline:none;
-
-    transition:.2s ease;
-}
-
-textarea{
-    min-height:150px;
-
-    resize:vertical;
-
-    line-height:1.65;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-    border-color:var(--blue);
-
-    box-shadow:
-        0 0 0 3px rgba(2,132,199,.12);
-}
-
-
-/* =========================================================
-   CURRENT IMAGE / PREVIEW
-========================================================= */
-
-.current-image,
-.image-preview,
-.preview-box{
-    width:100%;
-
-    margin-top:10px;
-
-    padding:15px;
-
-    border-radius:16px;
-
-    background:#f8fafc;
-
-    border:1px solid #e2e8f0;
-}
-
-.current-image img,
-.image-preview img,
-.preview-box img{
-    display:block;
-
-    width:180px;
-    height:120px;
-
-    max-width:100%;
-
-    object-fit:contain;
-
-    margin-top:10px;
-
-    padding:6px;
-
-    border-radius:12px;
-
-    background:white;
-
-    border:1px solid #e2e8f0;
-}
-
-
-/* =========================================================
-   ACTION BUTTONS
-========================================================= */
-
-.actions,
-.form-actions,
-.button-group{
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    flex-wrap:wrap;
-
-    margin-top:20px;
-}
-
-.btn,
-button,
-.back,
-.back-dashboard{
-    display:inline-flex;
-
-    align-items:center;
-    justify-content:center;
-
-    min-height:44px;
-
-    padding:10px 17px;
 
     border:none;
 
@@ -374,79 +263,464 @@ button,
     text-decoration:none;
 
     font-size:13px;
+
     font-weight:800;
+
+    white-space:nowrap;
+
+    transition:.2s ease;
+}
+
+
+.add-btn:hover{
+    background:#0369a1;
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   EQUIPMENT LIST
+========================================================= */
+
+.equipment-list{
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:20px;
+}
+
+
+/* =========================================================
+   EQUIPMENT CARD
+========================================================= */
+
+.equipment-card{
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:210px minmax(0,1fr);
+
+    gap:26px;
+
+    align-items:start;
+
+    padding:24px;
+
+    background:#f8fafc;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 8px 22px rgba(15,23,42,.08);
+
+    transition:.2s ease;
+}
+
+
+.equipment-card:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 14px 30px rgba(15,23,42,.12);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.equipment-image-wrap{
+    width:210px;
+    height:150px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    background:white;
+
+    border:1px solid #dbe5ef;
+
+    border-radius:16px;
+}
+
+
+.equipment-image{
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:contain;
+
+    padding:10px;
+}
+
+
+.no-image{
+    width:100%;
+    height:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:7px;
+
+    color:#64748b;
+
+    text-align:center;
+}
+
+
+.no-image span{
+    font-size:35px;
+}
+
+
+.no-image strong{
+    color:#334155;
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.equipment-content{
+    min-width:0;
+}
+
+
+.equipment-title{
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    margin-bottom:9px;
+}
+
+
+.equipment-title-icon{
+    font-size:22px;
+
+    line-height:1;
+}
+
+
+.equipment-title h3{
+    min-width:0;
+
+    color:#0f172a;
+
+    font-size:23px;
+
+    line-height:1.3;
+
+    font-weight:900;
+
+    letter-spacing:-.02em;
+
+    overflow-wrap:anywhere;
+}
+
+
+.module-badge{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    margin-bottom:16px;
+
+    padding:6px 10px;
+
+    border-radius:999px;
+
+    background:#e0f2fe;
+
+    color:#0369a1;
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+
+.info-grid{
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:14px;
+}
+
+
+.info-block{
+    min-width:0;
+
+    padding-top:13px;
+
+    border-top:1px solid #e2e8f0;
+}
+
+
+.info-label{
+    display:block;
+
+    margin-bottom:5px;
+
+    color:#334155;
+
+    font-size:11px;
+
+    line-height:1.3;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+
+    letter-spacing:.065em;
+}
+
+
+.info-text{
+    color:#475569;
+
+    font-size:13.5px;
+
+    line-height:1.72;
+
+    overflow-wrap:anywhere;
+
+    word-break:break-word;
+}
+
+
+.ar-file{
+    display:inline-flex;
+
+    max-width:100%;
+
+    padding:7px 10px;
+
+    background:#eef2ff;
+
+    color:#4338ca;
+
+    border-radius:9px;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    overflow-wrap:anywhere;
+
+    word-break:break-word;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.actions{
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    flex-wrap:wrap;
+
+    margin-top:18px;
+
+    padding-top:16px;
+
+    border-top:1px solid #e2e8f0;
+}
+
+
+.actions form{
+    display:inline-flex;
+
+    width:auto;
+
+    margin:0;
+}
+
+
+.edit-btn,
+.delete-btn{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    min-height:43px;
+
+    padding:10px 16px;
+
+    border:none;
+
+    border-radius:10px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    line-height:1;
 
     cursor:pointer;
 
     transition:.2s ease;
 }
 
-.btn:hover,
-button:hover,
-.back:hover,
-.back-dashboard:hover{
+
+.edit-btn{
+    background:#2563eb;
+}
+
+
+.edit-btn:hover{
+    background:#1d4ed8;
+
     transform:translateY(-2px);
 }
 
-.edit,
-.btn-edit{
-    background:#2563eb;
-    color:white;
+
+.delete-btn{
+    background:#dc2626;
 }
 
-.delete,
-.btn-delete{
-    background:var(--red);
-    color:white;
-}
 
-.save,
-.update,
-.btn-save,
-.btn-update,
-button[type="submit"]{
-    background:var(--blue);
-    color:white;
-}
+.delete-btn:hover{
+    background:#b91c1c;
 
-.back,
-.back-dashboard,
-.btn-back{
-    background:var(--navy);
-    color:white;
-}
-
-.back:hover,
-.back-dashboard:hover,
-.btn-back:hover{
-    background:var(--blue);
+    transform:translateY(-2px);
 }
 
 
 /* =========================================================
-   AR BADGE
+   EMPTY STATE
 ========================================================= */
 
-.ar-status,
-.ar-badge{
-    display:inline-flex;
+.empty-state{
+    width:100%;
+
+    padding:42px 20px;
+
+    text-align:center;
+
+    background:#f8fafc;
+
+    border:1px dashed #cbd5e1;
+
+    border-radius:18px;
+}
+
+
+.empty-state div{
+    font-size:40px;
+}
+
+
+.empty-state h3{
+    margin-top:9px;
+
+    color:#0f172a;
+
+    font-size:20px;
+}
+
+
+.empty-state p{
+    margin-top:6px;
+
+    color:#64748b;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   BACK TO DASHBOARD
+========================================================= */
+
+.dashboard-back-area{
+    width:100%;
+
+    display:flex;
+
+    justify-content:flex-start;
 
     align-items:center;
 
-    gap:7px;
+    margin-top:22px;
 
-    margin-top:12px;
+    padding-top:20px;
 
-    padding:8px 12px;
+    border-top:1px solid #e2e8f0;
+}
 
-    border-radius:10px;
 
-    background:#dcfce7;
+.back-dashboard{
+    display:inline-flex;
 
-    color:#166534;
+    align-items:center;
+    justify-content:center;
 
-    font-size:12px;
+    min-height:46px;
+
+    padding:11px 19px;
+
+    background:#0f172a;
+
+    color:white;
+
+    border:none;
+
+    border-radius:11px;
+
+    text-decoration:none;
+
+    font-size:13px;
+
     font-weight:800;
+
+    box-shadow:
+        0 6px 16px rgba(15,23,42,.16);
+
+    transition:.2s ease;
+}
+
+
+.back-dashboard:hover{
+    background:#0284c7;
+
+    transform:translateY(-2px);
 }
 
 
@@ -454,11 +728,19 @@ button[type="submit"]{
    TABLET
 ========================================================= */
 
-@media(max-width:850px){
+@media(max-width:800px){
 
-    .grid,
-    .equipment-grid{
-        grid-template-columns:1fr;
+    .equipment-card{
+        grid-template-columns:175px minmax(0,1fr);
+
+        gap:20px;
+    }
+
+
+    .equipment-image-wrap{
+        width:175px;
+
+        height:125px;
     }
 
 }
@@ -476,232 +758,119 @@ button[type="submit"]{
         background-attachment:scroll;
     }
 
-    .container{
-        min-height:100vh;
 
-        padding:18px 12px 28px;
-
-        border-radius:0;
+    .page-wrapper{
+        max-width:none;
     }
 
-    h1{
+
+    .page-hero{
+        margin-bottom:10px;
+
+        padding:23px 17px;
+
+        border-radius:0 0 22px 22px;
+    }
+
+
+    .page-hero-icon{
+        display:none;
+    }
+
+
+    .page-hero h1{
         font-size:28px;
     }
 
-    .card,
-    .equipment-card{
+
+    .container{
+        width:calc(100% - 16px);
+
+        margin:0 8px 12px;
+
         padding:16px;
 
-        border-radius:16px;
+        border-radius:18px;
     }
 
-    .card img,
-    .equipment-card img,
-    .current-image img,
-    .image-preview img,
-    .preview-box img{
-        width:160px;
-        height:105px;
+
+    .toolbar{
+        flex-direction:column;
+
+        align-items:stretch;
     }
 
-    .actions,
-    .form-actions,
-    .button-group{
+
+    .add-btn{
+        width:100%;
+    }
+
+
+    .equipment-card{
+        display:block;
+
+        padding:17px;
+
+        border-radius:17px;
+    }
+
+
+    .equipment-image-wrap{
+        width:175px;
+
+        height:125px;
+
+        margin:0 auto 17px;
+    }
+
+
+    .equipment-title h3{
+        font-size:20px;
+    }
+
+
+    .info-text{
+        font-size:13px;
+    }
+
+
+    .actions{
         display:grid;
 
+        grid-template-columns:1fr 1fr;
+    }
+
+
+    .actions form,
+    .edit-btn,
+    .delete-btn{
+        width:100%;
+    }
+
+
+    .dashboard-back-area{
+        margin-top:17px;
+
+        padding-top:16px;
+    }
+
+
+    .back-dashboard{
+        width:100%;
+    }
+
+}
+
+
+@media(max-width:420px){
+
+    .actions{
         grid-template-columns:1fr;
     }
 
-    .actions .btn,
-    .actions button,
-    .form-actions .btn,
-    .form-actions button,
-    .button-group .btn,
-    .button-group button,
-    .back,
-    .back-dashboard,
-    .btn-back{
-        width:100%;
-    }
-
-    .add-btn,
-    .btn-add{
-        width:100%;
-    }
-
 }
-
-/* =========================================================
-   BUTTON FIX - EQUIPMENT INDEX + CREATE
-   Paste this at the VERY END of the existing <style> block.
-========================================================= */
-
-/* EDIT BUTTON - Equipment Management */
-.edit,
-.edit-btn,
-.btn-edit,
-a.edit,
-a.edit-btn,
-a.btn-edit{
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-
-    min-height:44px !important;
-
-    padding:10px 17px !important;
-
-    border:none !important;
-    border-radius:11px !important;
-
-    background:#2563eb !important;
-    color:#ffffff !important;
-
-    text-decoration:none !important;
-
-    font-size:13px !important;
-    font-weight:800 !important;
-
-    line-height:1 !important;
-
-    cursor:pointer !important;
-
-    transition:.2s ease !important;
-}
-
-.edit:hover,
-.edit-btn:hover,
-.btn-edit:hover,
-a.edit:hover,
-a.edit-btn:hover,
-a.btn-edit:hover{
-    background:#1d4ed8 !important;
-    color:#ffffff !important;
-    transform:translateY(-2px);
-}
-
-
-/* BACK BUTTON - Add/Edit Equipment */
-.back,
-.back-btn,
-.btn-back,
-a.back,
-a.back-btn,
-a.btn-back{
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-
-    min-height:44px !important;
-
-    padding:10px 17px !important;
-
-    border:none !important;
-    border-radius:11px !important;
-
-    background:#0f172a !important;
-    color:#ffffff !important;
-
-    text-decoration:none !important;
-
-    font-size:13px !important;
-    font-weight:800 !important;
-
-    line-height:1 !important;
-
-    cursor:pointer !important;
-
-    transition:.2s ease !important;
-}
-
-.back:hover,
-.back-btn:hover,
-.btn-back:hover,
-a.back:hover,
-a.back-btn:hover,
-a.btn-back:hover{
-    background:#0284c7 !important;
-    color:#ffffff !important;
-    transform:translateY(-2px);
-}
-
-
-/* DELETE BUTTON */
-.delete,
-.delete-btn,
-.btn-delete,
-button.delete,
-button.delete-btn,
-button.btn-delete{
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-
-    min-height:44px !important;
-
-    padding:10px 17px !important;
-
-    border:none !important;
-    border-radius:11px !important;
-
-    background:#dc2626 !important;
-    color:#ffffff !important;
-
-    font-size:13px !important;
-    font-weight:800 !important;
-
-    line-height:1 !important;
-
-    cursor:pointer !important;
-
-    transition:.2s ease !important;
-}
-
-.delete:hover,
-.delete-btn:hover,
-.btn-delete:hover{
-    background:#b91c1c !important;
-    transform:translateY(-2px);
-}
-
-
-/* ACTION BUTTON ALIGNMENT */
-.actions,
-.button-group,
-.form-actions{
-    display:flex !important;
-    align-items:center !important;
-    gap:10px !important;
-    flex-wrap:wrap !important;
-}
-
-
-/* MOBILE */
-@media(max-width:600px){
-
-    .actions,
-    .button-group,
-    .form-actions{
-        display:grid !important;
-        grid-template-columns:1fr !important;
-    }
-
-    .edit,
-    .edit-btn,
-    .btn-edit,
-    .delete,
-    .delete-btn,
-    .btn-delete,
-    .back,
-    .back-btn,
-    .btn-back{
-        width:100% !important;
-    }
-}
-
 
 </style>
-
 
 </head>
 
@@ -709,149 +878,424 @@ button.btn-delete{
 <body>
 
 
-<div class="container">
+<div class="page-wrapper">
 
 
-<h1>
-⚓ Equipment Management
-</h1>
+    {{-- =========================================================
+         HERO
+    ========================================================= --}}
 
+    <section class="page-hero">
 
+        <div class="page-hero-copy">
 
-<a class="add-btn" href="/admin/equipment/create">
+            <div class="page-hero-label">
+                ⚓ Equipment Administration
+            </div>
 
-+ Add Equipment
+            <h1>
+                Equipment Management
+            </h1>
 
-</a>
+            <p>
+                Manage maritime learning equipment, images,
+                descriptions, functions and AR Reality models.
+            </p>
 
+        </div>
 
 
-<hr>
+        <div class="page-hero-icon">
+            🦺
+        </div>
 
+    </section>
 
 
-@foreach($equipments as $equipment)
 
+    {{-- =========================================================
+         MAIN CONTENT
+    ========================================================= --}}
 
+    <main class="container">
 
-<div class="card">
 
+        <div class="toolbar">
 
+            <div class="toolbar-copy">
 
-@if($equipment->image)
+                <h2>
+                    Equipment List
+                </h2>
 
-<img class="image"
-src="{{ (str_starts_with($equipment->image, 'http://') || str_starts_with($equipment->image, 'https://'))
-    ? $equipment->image
-    : asset('uploads/equipment/' . $equipment->image) }}"
-@endif
+                <p>
+                    Review and maintain all ShipEquipAR equipment records.
+                </p>
 
+            </div>
 
 
+            <a
+                href="/admin/equipment/create"
+                class="add-btn"
+            >
+                ＋ Add Equipment
+            </a>
 
-<h2>
+        </div>
 
-🪖 {{ $equipment->name }}
 
-</h2>
 
+        {{-- =====================================================
+             EQUIPMENT LIST
+        ====================================================== --}}
 
+        @if($equipments->count())
 
 
-<p>
+            <section class="equipment-list">
 
-<b>Module:</b><br>
 
-{{ $equipment->module->title ?? 'No Module' }}
+                @foreach($equipments as $equipment)
 
-</p>
 
+                    @php
 
+                        $equipmentImageUrl = null;
 
+                        $rawImage =
+                            trim(
+                                (string) ($equipment->image ?? '')
+                            );
 
-<p>
 
-<b>Description:</b><br>
+                        if ($rawImage !== '') {
 
-{{ $equipment->description }}
+                            if (
+                                str_starts_with($rawImage, 'http://')
+                                ||
+                                str_starts_with($rawImage, 'https://')
+                            ) {
 
-</p>
+                                $equipmentImageUrl =
+                                    $rawImage;
 
+                            }
 
+                            else {
 
+                                $normalizedImage =
+                                    ltrim(
+                                        str_replace(
+                                            '\\',
+                                            '/',
+                                            $rawImage
+                                        ),
+                                        '/'
+                                    );
 
-<p>
 
-<b>Function:</b><br>
+                                if (
+                                    str_starts_with(
+                                        $normalizedImage,
+                                        'public/'
+                                    )
+                                ) {
 
-{{ $equipment->function }}
+                                    $normalizedImage =
+                                        substr(
+                                            $normalizedImage,
+                                            7
+                                        );
 
-</p>
+                                }
 
 
+                                if (
+                                    str_starts_with(
+                                        $normalizedImage,
+                                        'uploads/equipment/'
+                                    )
+                                ) {
 
+                                    $equipmentImageUrl =
+                                        asset(
+                                            $normalizedImage
+                                        );
 
-<p>
+                                }
 
-<b>AR Model:</b><br>
+                                else {
 
-{{ $equipment->model_file ?? 'No AR Model' }}
+                                    $equipmentImageUrl =
+                                        asset(
+                                            'uploads/equipment/' .
+                                            basename(
+                                                $normalizedImage
+                                            )
+                                        );
 
-</p>
+                                }
 
+                            }
 
+                        }
 
 
-<br>
+                        $arModel =
+                            trim(
+                                (string) ($equipment->model_file ?? '')
+                            );
 
+                    @endphp
 
 
-<a href="{{ route('admin.equipment.edit',$equipment->id) }}"
-class="edit-btn">
 
-✏️ Edit
+                    <article class="equipment-card">
 
-</a>
 
+                        {{-- =============================================
+                             IMAGE
+                        ============================================== --}}
 
-<form action="{{ route('admin.equipment.destroy',$equipment->id) }}"
-method="POST"
-style="display:inline;">
+                        <div class="equipment-image-wrap">
 
-@csrf
-@method('DELETE')
 
+                            @if($equipmentImageUrl)
 
-<button type="submit"
-class="delete-btn"
-onclick="return confirm('Delete this equipment?')">
+                                <img
+                                    src="{{ $equipmentImageUrl }}"
+                                    alt="{{ $equipment->name }}"
+                                    class="equipment-image"
+                                    loading="lazy"
 
-🗑 Delete
+                                    onerror="
+                                        this.style.display='none';
+                                        this.nextElementSibling.style.display='flex';
+                                    "
+                                >
 
-</button>
 
+                                <div
+                                    class="no-image"
+                                    style="display:none;"
+                                >
+                                    <span>⚓</span>
 
-</form>
+                                    <strong>
+                                        Image unavailable
+                                    </strong>
+                                </div>
 
 
+                            @else
+
+                                <div class="no-image">
+
+                                    <span>⚓</span>
+
+                                    <strong>
+                                        No Equipment Image
+                                    </strong>
+
+                                </div>
+
+                            @endif
+
+
+                        </div>
+
+
+
+                        {{-- =============================================
+                             CONTENT
+                        ============================================== --}}
+
+                        <div class="equipment-content">
+
+
+                            <div class="equipment-title">
+
+                                <span class="equipment-title-icon">
+                                    🪖
+                                </span>
+
+                                <h3>
+                                    {{ $equipment->name }}
+                                </h3>
+
+                            </div>
+
+
+
+                            <div class="module-badge">
+                                📚 {{ $equipment->module->title ?? 'No Module' }}
+                            </div>
+
+
+
+                            <div class="info-grid">
+
+
+                                <div class="info-block">
+
+                                    <span class="info-label">
+                                        Description
+                                    </span>
+
+                                    <div class="info-text">
+                                        {{ $equipment->description }}
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="info-block">
+
+                                    <span class="info-label">
+                                        Function
+                                    </span>
+
+                                    <div class="info-text">
+                                        {{ $equipment->function }}
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="info-block">
+
+                                    <span class="info-label">
+                                        AR Model
+                                    </span>
+
+
+                                    @if($arModel !== '')
+
+                                        <div class="ar-file">
+                                            {{ $arModel }}
+                                        </div>
+
+                                    @else
+
+                                        <div class="info-text">
+                                            No AR Model
+                                        </div>
+
+                                    @endif
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            {{-- =========================================
+                                 ACTIONS
+                            ========================================== --}}
+
+                            <div class="actions">
+
+
+                                <a
+                                    href="{{ route(
+                                        'admin.equipment.edit',
+                                        $equipment->id
+                                    ) }}"
+                                    class="edit-btn"
+                                >
+                                    ✏️ Edit
+                                </a>
+
+
+                                <form
+                                    action="{{ route(
+                                        'admin.equipment.destroy',
+                                        $equipment->id
+                                    ) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Delete this equipment?')"
+                                >
+
+                                    @csrf
+
+                                    @method('DELETE')
+
+
+                                    <button
+                                        type="submit"
+                                        class="delete-btn"
+                                    >
+                                        🗑 Delete
+                                    </button>
+
+                                </form>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </article>
+
+
+                @endforeach
+
+
+            </section>
+
+
+        @else
+
+
+            <div class="empty-state">
+
+                <div>
+                    ⚓
+                </div>
+
+                <h3>
+                    No Equipment Available
+                </h3>
+
+                <p>
+                    Add your first equipment record to begin.
+                </p>
+
+            </div>
+
+
+        @endif
+
+
+
+        {{-- =====================================================
+             BACK TO DASHBOARD
+        ====================================================== --}}
+
+        <div class="dashboard-back-area">
+
+            <a
+                href="{{ route('admin.dashboard') }}"
+                class="back-dashboard"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+
+    </main>
 
 
 </div>
-
-
-
-@endforeach
-
-<a href="{{ route('admin.dashboard') }}" class="back-dashboard">
-    ← Back to Dashboard
-</a>
-
-
-</div>
-
 
 
 </body>
-
 
 </html>
