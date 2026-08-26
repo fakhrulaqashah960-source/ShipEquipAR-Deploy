@@ -116,7 +116,8 @@ RUN mkdir -p \
     /var/www/html/storage/framework/views \
     /var/www/html/storage/logs \
     /var/www/html/bootstrap/cache \
-    /var/www/html/public/uploads/reality
+    /var/www/html/public/uploads/reality \
+    /var/www/html/public/uploads/modules
 
 
 # =========================================================
@@ -127,10 +128,12 @@ RUN chown -R www-data:www-data \
         /var/www/html/storage \
         /var/www/html/bootstrap/cache \
         /var/www/html/public/uploads/reality \
+        /var/www/html/public/uploads/modules \
     && chmod -R 775 \
         /var/www/html/storage \
         /var/www/html/bootstrap/cache \
-        /var/www/html/public/uploads/reality
+        /var/www/html/public/uploads/reality \
+        /var/www/html/public/uploads/modules
 
 
 # =========================================================
