@@ -497,7 +497,15 @@ textarea.content-box{
     .notes-bottom .notes-btn{
         width:100%;
     }
+    .notes-toolbar{
+    display:block;
 }
+
+.notes-add-btn{
+    margin-top:15px;
+}
+}
+
 </style>
 
 </head>
@@ -525,15 +533,25 @@ textarea.content-box{
         @endif
 
         <div class="notes-toolbar">
-            <div class="notes-toolbar-copy">
-                <h2>Learning Notes</h2>
-                <p>Create, review and maintain notes for each learning module.</p>
-            </div>
 
-            <a href="{{ route('admin.notes.create') }}" class="notes-btn notes-btn-blue">
-                ＋ Add Notes
-            </a>
-        </div>
+    <div class="notes-toolbar-copy">
+
+        <h2>
+            Learning Notes
+        </h2>
+
+        <p>
+            Create, review and maintain notes for each learning module.
+        </p>
+
+        <a href="{{ route('admin.notes.create') }}"
+           class="notes-btn notes-btn-blue notes-add-btn">
+            ＋ Add Notes
+        </a>
+
+    </div>
+
+</div>
 
         @if($notes->count())
 

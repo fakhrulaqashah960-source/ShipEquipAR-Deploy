@@ -1,840 +1,1678 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
 
-<title>
-Manage Users
-</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Manage Users</title>
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+
 <style>
+
+:root{
+    --navy:#0f172a;
+    --navy-soft:#1e293b;
+    --blue:#0284c7;
+    --blue-dark:#0369a1;
+    --cyan:#38bdf8;
+    --text:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --white:#ffffff;
+    --green:#16a34a;
+    --red:#dc2626;
+    --yellow:#f59e0b;
+}
 
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+
+html,
+body{
+    width:100%;
+    min-height:100%;
 }
 
 
 body{
+    min-height:100vh;
 
-min-height:100vh;
+    color:var(--text);
 
-background:
+    background:
+        linear-gradient(
+            135deg,
+            rgba(3,37,65,.88),
+            rgba(2,132,199,.70)
+        ),
+        url('/images/ship-bg.jpg');
 
-linear-gradient(
-rgba(3,37,65,.85),
-rgba(2,132,199,.65)
-),
-url('/images/ship-bg.jpg');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
 
-background-size:cover;
-
-background-position:center;
-
-color:white;
-
+    overflow-x:hidden;
 }
 
 
-/* SIDEBAR */
+/* =========================================================
+   MOBILE TOPBAR
+========================================================= */
 
-
-.sidebar{
-
-position:fixed;
-
-width:250px;
-
-height:100vh;
-
-background:#0f172a;
-
-padding:25px;
-
+.admin-mobile-topbar{
+    display:none;
 }
 
 
-.logo{
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
-font-size:26px;
+.admin-sidebar{
+    position:fixed;
 
-font-weight:800;
+    top:0;
+    left:0;
+    bottom:0;
 
-margin-bottom:35px;
+    width:280px;
 
+    padding:28px 20px;
+
+    background:#0f172a;
+
+    color:white;
+
+    z-index:1100;
+
+    overflow-y:auto;
 }
 
 
-.logo span{
+.admin-logo{
+    margin-bottom:30px;
 
-color:#38bdf8;
-
+    padding:6px 10px;
 }
 
 
+.admin-logo-icon{
+    margin-bottom:7px;
 
-.menu a{
-
-display:block;
-
-padding:12px;
-
-margin:8px 0;
-
-color:#cbd5e1;
-
-text-decoration:none;
-
-border-radius:10px;
-
+    font-size:28px;
 }
 
 
-.menu a:hover{
+.admin-logo-name{
+    color:white;
 
-background:#0284c7;
+    font-size:29px;
 
-color:white;
-
+    font-weight:900;
 }
 
 
-
-.logout-btn{
-
-margin-top:25px;
-
-width:100%;
-
-padding:12px;
-
-background:#dc2626;
-
-border:none;
-
-border-radius:10px;
-
-color:white;
-
-cursor:pointer;
-
+.admin-logo-name span{
+    color:var(--cyan);
 }
 
 
+.admin-menu{
+    display:flex;
 
+    flex-direction:column;
 
-/* CONTENT */
-
-
-.content{
-
-margin-left:250px;
-
-padding:35px;
-
+    gap:9px;
 }
 
 
+.admin-menu-link{
+    display:flex;
 
+    align-items:center;
 
-.header{
+    gap:11px;
 
-background:
+    min-height:54px;
 
-linear-gradient(
-135deg,
-#0e7490,
-#0f172a
-);
+    padding:12px 15px;
 
+    border-radius:12px;
 
-padding:35px 40px;
+    color:#e2e8f0;
 
-border-radius:25px;
+    text-decoration:none;
 
-margin-bottom:30px;
+    font-size:14px;
 
+    font-weight:700;
+
+    transition:.2s ease;
 }
 
 
-.header h1{
+.admin-menu-link:hover,
+.admin-menu-link.active{
+    background:#0284c7;
 
-font-size:38px;
-
-margin-bottom:8px;
-
+    color:white;
 }
 
 
-.header p{
-
-font-size:16px;
-
-}
-
-
-
-
-
-/* TABLE */
-
-
-.table-box{
-
-background:white;
-
-padding:30px;
-
-border-radius:22px;
-
-color:#0f172a;
-
-width:90%;
-
-margin:auto;
-
-box-shadow:
-
-0 10px 25px rgba(0,0,0,.15);
-
-}
-
-
-
-.table-box h2{
-
-margin-bottom:25px;
-
-font-size:25px;
-
-}
-
-
-
-
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-
-
-
-thead th{
-
-background:#0284c7;
-
-color:white;
-
-padding:16px;
-
-text-align:left;
-
-font-size:15px;
-
-}
-
-
-
-
-tbody td{
-
-padding:16px;
-
-border-bottom:1px solid #e2e8f0;
-
-color:#0f172a;
-
-font-size:15px;
-
-}
-
-
-
-
-tbody tr:hover{
-
-background:#f1f5f9;
-
-}
-
-
-
-
-/* COLUMN ALIGN */
-
-
-th:nth-child(1),
-td:nth-child(1){
-
-width:8%;
-
-}
-
-
-
-th:nth-child(2),
-td:nth-child(2){
-
-width:18%;
-
-}
-
-
-
-th:nth-child(3),
-td:nth-child(3){
-
-width:35%;
-
-}
-
-
-
-th:nth-child(4),
-td:nth-child(4){
-
-width:15%;
-
-}
-
-
-
-th:nth-child(5),
-td:nth-child(5){
-
-width:24%;
-
-}
-
-th:last-child,
-td:last-child{
+.admin-menu-icon{
+    width:24px;
 
     text-align:center;
 
+    flex:0 0 auto;
 }
 
 
-
-
-/* BADGE */
-
-
-.badge{
-
-background:#16a34a;
-
-color:white;
-
-padding:6px 15px;
-
-border-radius:20px;
-
-font-size:13px;
-
-font-weight:600;
-
-display:inline-block;
-
+.admin-logout-form{
+    margin-top:14px;
 }
 
 
-.badge.admin{
+.admin-logout-btn{
+    width:100%;
 
-background:#dc2626;
+    min-height:52px;
 
-}
+    padding:12px 15px;
 
-.table-header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:25px;
-
-}
-
-.edit-btn,
-.delete-btn{
-
-
-padding:7px 12px;
-
-border:none;
-
-border-radius:8px;
-
-text-decoration:none;
-
-cursor:pointer;
-
-font-size:14px;
-
-}
-
-
-
-.edit-btn{
-
-background:#facc15;
-
-}
-
-
-
-.delete-btn{
-
-background:#dc2626;
-
-color:white;
-
-}
-
-.add-btn{
-
-display:inline-block;
-background:#0284c7;
-color:white;
-padding:12px 22px;
-border-radius:10px;
-text-decoration:none;
-font-weight:600;
-margin-bottom:20px;
-
-}
-
-
-.add-btn:hover{
-
-background:#0369a1;
-
-}
-
-.action-cell{
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-
-}
-
-
-.btn-edit,
-.btn-delete{
-
-    padding:8px 14px;
-    border-radius:8px;
-    color:white;
-    text-decoration:none;
-    font-size:13px;
-    font-weight:600;
     border:none;
-    cursor:pointer;
-    display:inline-flex;
-    align-items:center;
-    gap:5px;
 
-}
-
-
-.btn-edit{
-
-    background:#facc15;
-
-}
-
-
-.btn-edit:hover{
-
-    background:#eab308;
-
-}
-
-
-
-.btn-delete{
-
-    background:#ef4444;
-
-}
-
-
-.btn-delete:hover{
+    border-radius:12px;
 
     background:#dc2626;
 
+    color:white;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s ease;
 }
 
 
+.admin-logout-btn:hover{
+    background:#b91c1c;
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.admin-sidebar-overlay{
+    display:none;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.admin-content{
+    min-height:100vh;
+
+    margin-left:280px;
+
+    padding:34px;
+}
+
+
+.admin-content-inner{
+    width:100%;
+
+    max-width:1350px;
+
+    margin:0 auto;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.admin-users-hero{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:22px;
+
+    padding:32px;
+
+    margin-bottom:22px;
+
+    border-radius:26px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(14,116,144,.96),
+            rgba(15,23,42,.98)
+        );
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.22);
+}
+
+
+.admin-users-hero-copy{
+    min-width:0;
+}
+
+
+.admin-users-label{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    margin-bottom:10px;
+
+    padding:7px 12px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.12);
+
+    color:#e0f2fe;
+
+    font-size:12px;
+
+    font-weight:800;
+}
+
+
+.admin-users-hero h1{
+    font-size:clamp(31px,4vw,44px);
+
+    line-height:1.15;
+
+    font-weight:900;
+}
+
+
+.admin-users-hero p{
+    max-width:750px;
+
+    margin-top:10px;
+
+    color:#dbeafe;
+
+    font-size:15px;
+
+    line-height:1.7;
+}
+
+
+.admin-users-hero-icon{
+    width:90px;
+    height:90px;
+
+    flex:0 0 auto;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:23px;
+
+    background:rgba(255,255,255,.12);
+
+    font-size:44px;
+}
+
+
+/* =========================================================
+   PANEL
+========================================================= */
+
+.admin-users-panel{
+    width:100%;
+
+    padding:25px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,.98);
+
+    box-shadow:
+        0 16px 38px rgba(0,0,0,.18);
+}
+
+
+.admin-users-toolbar{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:16px;
+
+    margin-bottom:20px;
+
+    padding-bottom:18px;
+
+    border-bottom:1px solid var(--line);
+}
+
+
+.admin-users-toolbar-copy h2{
+    color:#0f172a;
+
+    font-size:24px;
+
+    font-weight:900;
+}
+
+
+.admin-users-toolbar-copy p{
+    margin-top:5px;
+
+    color:#64748b;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+.admin-add-user-btn{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    min-height:46px;
+
+    padding:11px 19px;
+
+    border-radius:11px;
+
+    background:#0284c7;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+    transition:.2s ease;
+}
+
+
+.admin-add-user-btn:hover{
+    background:#0369a1;
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   DESKTOP TABLE
+========================================================= */
+
+.admin-users-table-wrap{
+    width:100%;
+
+    overflow-x:auto;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:16px;
+}
+
+
+.admin-users-table{
+    width:100%;
+
+    min-width:900px;
+
+    border-collapse:collapse;
+
+    table-layout:auto;
+
+    background:white;
+}
+
+
+.admin-users-table thead th{
+    padding:15px 16px;
+
+    background:#0284c7;
+
+    color:white;
+
+    text-align:left;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+.admin-users-table tbody td{
+    padding:15px 16px;
+
+    border-bottom:1px solid #e2e8f0;
+
+    color:#334155;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    vertical-align:middle;
+}
+
+
+.admin-users-table tbody tr:last-child td{
+    border-bottom:none;
+}
+
+
+.admin-users-table tbody tr:hover{
+    background:#f8fafc;
+}
+
+
+.admin-users-table td.email-cell{
+    max-width:300px;
+
+    overflow-wrap:anywhere;
+
+    word-break:break-word;
+}
+
+
+.admin-users-table th:last-child,
+.admin-users-table td:last-child{
+    text-align:center;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.admin-role-badge{
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:68px;
+
+    padding:7px 12px;
+
+    border-radius:999px;
+
+    color:white;
+
+    background:#16a34a;
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+
+.admin-role-badge.admin{
+    background:#dc2626;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.admin-action-cell{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+}
+
+
+.admin-action-cell form{
+    display:inline-flex;
+
+    margin:0;
+}
+
+
+.admin-user-edit,
+.admin-user-delete{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    min-height:40px;
+
+    padding:9px 13px;
+
+    border:none;
+
+    border-radius:9px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+
+.admin-user-edit{
+    background:#2563eb;
+}
+
+
+.admin-user-edit:hover{
+    background:#1d4ed8;
+
+    transform:translateY(-2px);
+}
+
+
+.admin-user-delete{
+    background:#dc2626;
+}
+
+
+.admin-user-delete:hover{
+    background:#b91c1c;
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   MOBILE USER CARDS
+========================================================= */
+
+.admin-user-cards{
+    display:none;
+}
+
+
+.admin-user-card{
+    padding:17px;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:17px;
+
+    background:#f8fafc;
+
+    box-shadow:
+        0 7px 18px rgba(15,23,42,.07);
+}
+
+
+.admin-user-card-head{
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-bottom:14px;
+}
+
+
+.admin-user-card-name{
+    min-width:0;
+}
+
+
+.admin-user-card-name h3{
+    color:#0f172a;
+
+    font-size:18px;
+
+    line-height:1.35;
+
+    font-weight:900;
+
+    overflow-wrap:anywhere;
+}
+
+
+.admin-user-id{
+    margin-top:3px;
+
+    color:#64748b;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+
+.admin-user-details{
+    display:grid;
+
+    gap:11px;
+
+    padding-top:13px;
+
+    border-top:1px solid #e2e8f0;
+}
+
+
+.admin-user-detail{
+    min-width:0;
+}
+
+
+.admin-user-detail-label{
+    display:block;
+
+    margin-bottom:3px;
+
+    color:#64748b;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:.06em;
+
+    text-transform:uppercase;
+}
+
+
+.admin-user-detail-value{
+    color:#334155;
+
+    font-size:13px;
+
+    line-height:1.55;
+
+    overflow-wrap:anywhere;
+
+    word-break:break-word;
+}
+
+
+.admin-user-card-actions{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:8px;
+
+    margin-top:15px;
+}
+
+
+.admin-user-card-actions form,
+.admin-user-card-actions a,
+.admin-user-card-actions button{
+    width:100%;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.admin-empty-users{
+    padding:42px 20px;
+
+    border:1px dashed #cbd5e1;
+
+    border-radius:17px;
+
+    background:#f8fafc;
+
+    text-align:center;
+}
+
+
+.admin-empty-users div{
+    font-size:40px;
+}
+
+
+.admin-empty-users h3{
+    margin-top:9px;
+
+    color:#0f172a;
+
+    font-size:20px;
+}
+
+
+.admin-empty-users p{
+    margin-top:6px;
+
+    color:#64748b;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:1050px){
+
+    .admin-content{
+        padding:24px;
+    }
+
+
+    .admin-users-hero{
+        padding:27px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:768px){
+
+    body{
+        background-attachment:scroll;
+    }
+
+
+    .admin-mobile-topbar{
+        position:sticky;
+
+        top:0;
+
+        z-index:1200;
+
+        height:68px;
+
+        display:grid;
+
+        grid-template-columns:52px 1fr 52px;
+
+        align-items:center;
+
+        padding:8px 10px;
+
+        background:#0f172a;
+
+        color:white;
+    }
+
+
+    .admin-mobile-menu-btn{
+        width:48px;
+        height:48px;
+
+        display:flex;
+
+        align-items:center;
+        justify-content:center;
+
+        border:none;
+
+        border-radius:12px;
+
+        background:#0284c7;
+
+        color:white;
+
+        font-size:25px;
+
+        cursor:pointer;
+    }
+
+
+    .admin-mobile-brand{
+        text-align:center;
+
+        font-size:22px;
+
+        font-weight:900;
+    }
+
+
+    .admin-mobile-brand span{
+        color:#38bdf8;
+    }
+
+
+    .admin-mobile-topbar-spacer{
+        width:48px;
+        height:48px;
+    }
+
+
+    .admin-sidebar{
+        width:min(82vw,300px);
+
+        transform:translateX(-105%);
+
+        transition:transform .25s ease;
+
+        box-shadow:
+            8px 0 25px rgba(0,0,0,.28);
+    }
+
+
+    .admin-sidebar.open{
+        transform:translateX(0);
+    }
+
+
+    .admin-sidebar-overlay{
+        position:fixed;
+
+        inset:0;
+
+        z-index:1050;
+
+        display:block;
+
+        background:rgba(2,6,23,.58);
+
+        opacity:0;
+
+        visibility:hidden;
+
+        transition:.2s ease;
+    }
+
+
+    .admin-sidebar-overlay.open{
+        opacity:1;
+
+        visibility:visible;
+    }
+
+
+    body.admin-drawer-open{
+        overflow:hidden;
+    }
+
+
+    .admin-content{
+        margin-left:0;
+
+        padding:12px 10px 26px;
+    }
+
+
+    .admin-users-hero{
+        padding:23px 18px;
+
+        border-radius:20px;
+
+        margin-bottom:12px;
+    }
+
+
+    .admin-users-hero-icon{
+        display:none;
+    }
+
+
+    .admin-users-hero h1{
+        font-size:29px;
+    }
+
+
+    .admin-users-panel{
+        padding:15px;
+
+        border-radius:18px;
+    }
+
+
+    .admin-users-toolbar{
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+
+    .admin-add-user-btn{
+        width:100%;
+    }
+
+
+    .admin-users-table-wrap{
+        display:none;
+    }
+
+
+    .admin-user-cards{
+        display:grid;
+
+        grid-template-columns:1fr;
+
+        gap:12px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:430px){
+
+    .admin-user-card-actions{
+        grid-template-columns:1fr;
+    }
+
+}
+
 </style>
 
-
 </head>
-
 
 
 <body>
 
 
+{{-- =========================================================
+     MOBILE TOPBAR
+========================================================= --}}
 
-<div class="sidebar">
+<header class="admin-mobile-topbar">
 
+    <button
+        type="button"
+        class="admin-mobile-menu-btn"
+        onclick="toggleAdminSidebar()"
+        aria-label="Open menu"
+    >
+        ☰
+    </button>
 
 
-<div class="logo">
+    <div class="admin-mobile-brand">
+        Ship<span>EquipAR</span>
+    </div>
 
 
-<div class="logo-icon">
+    <div class="admin-mobile-topbar-spacer"></div>
 
-⚓
+</header>
 
-</div>
 
 
-<div class="logo-name">
+{{-- =========================================================
+     SIDEBAR OVERLAY
+========================================================= --}}
 
-Ship<span>EquipAR</span>
+<div
+    id="adminSidebarOverlay"
+    class="admin-sidebar-overlay"
+    onclick="closeAdminSidebar()"
+></div>
 
-</div>
 
 
-</div>
+{{-- =========================================================
+     SIDEBAR
+========================================================= --}}
 
+<aside
+    id="adminSidebar"
+    class="admin-sidebar"
+>
 
 
-<div class="menu">
+    <div class="admin-logo">
 
+        <div class="admin-logo-icon">
+            ⚓
+        </div>
 
-<a href="/admin">
+        <div class="admin-logo-name">
+            Ship<span>EquipAR</span>
+        </div>
 
-🏠 Admin Dashboard
+    </div>
 
-</a>
 
 
+    <nav class="admin-menu">
 
 
-<a href="/admin/users">
+        <a
+            href="{{ route('admin.dashboard') }}"
+            class="admin-menu-link"
+            onclick="closeAdminSidebar()"
+        >
+            <span class="admin-menu-icon">🏠</span>
+            <span>Admin Dashboard</span>
+        </a>
 
-👥 Manage Users
-</a>
 
+        <a
+            href="{{ route('admin.users.index') }}"
+            class="admin-menu-link active"
+            onclick="closeAdminSidebar()"
+        >
+            <span class="admin-menu-icon">👥</span>
+            <span>Manage Users</span>
+        </a>
 
 
+        <a
+            href="/admin/modules"
+            class="admin-menu-link"
+            onclick="closeAdminSidebar()"
+        >
+            <span class="admin-menu-icon">📚</span>
+            <span>Manage Module</span>
+        </a>
 
 
-<a href="/admin/modules">
+        <a
+            href="{{ route('admin.notes.index') }}"
+            class="admin-menu-link"
+            onclick="closeAdminSidebar()"
+        >
+            <span class="admin-menu-icon">📘</span>
+            <span>Manage Notes</span>
+        </a>
 
-📚 Manage Module
 
-</a>
+        <a
+            href="{{ route('admin.equipment.index') }}"
+            class="admin-menu-link"
+            onclick="closeAdminSidebar()"
+        >
+            <span class="admin-menu-icon">🦺</span>
+            <span>Manage Equipments</span>
+        </a>
 
 
+        <a
+            href="{{ route('admin.ships.index') }}"
+            class="admin-menu-link"
+            onclick="closeAdminSidebar()"
+        >
+            <span class="admin-menu-icon">🚢</span>
+            <span>Manage Ships</span>
+        </a>
 
 
+        <a
+            href="{{ route('admin.quiz.index') }}"
+            class="admin-menu-link"
+            onclick="closeAdminSidebar()"
+        >
+            <span class="admin-menu-icon">📝</span>
+            <span>Manage Quiz</span>
+        </a>
 
-<a href="/admin/notes">
 
-📘 Manage Notes
+        <form
+            method="POST"
+            action="{{ route('logout') }}"
+            class="admin-logout-form"
+        >
 
-</a>
+            @csrf
 
+            <button
+                type="submit"
+                class="admin-logout-btn"
+            >
+                🚪 Logout
+            </button>
 
+        </form>
 
 
+    </nav>
 
-<a href="/admin/equipment">
 
-🦺 Manage Equipments
+</aside>
 
-</a>
 
 
+{{-- =========================================================
+     CONTENT
+========================================================= --}}
 
+<main class="admin-content">
 
 
-<a href="{{ route('admin.ships.index') }}">
+    <div class="admin-content-inner">
 
-🚢 Manage Ships
 
-</a>
+        {{-- =====================================================
+             HERO
+        ====================================================== --}}
 
+        <section class="admin-users-hero">
 
 
+            <div class="admin-users-hero-copy">
 
+                <div class="admin-users-label">
+                    👥 User Administration
+                </div>
 
-<a href="/admin/course">
+                <h1>
+                    Manage Users
+                </h1>
 
-📝 Manage Quiz
+                <p>
+                    Manage registered ShipEquipAR users,
+                    account roles and user access.
+                </p>
 
-</a>
+            </div>
 
 
+            <div class="admin-users-hero-icon">
+                👥
+            </div>
 
 
+        </section>
 
-<a href="#">
 
-🏆 Manage Certificate
 
-</a>
+        {{-- =====================================================
+             USERS PANEL
+        ====================================================== --}}
 
+        <section class="admin-users-panel">
 
 
-<form method="POST" action="{{route('logout')}}">
+            <div class="admin-users-toolbar">
 
-@csrf
 
-<button class="logout-btn">
+                <div class="admin-users-toolbar-copy">
 
-🚪 Logout
+                    <h2>
+                        User List
+                    </h2>
 
-</button>
+                    <p>
+                        View, edit or remove registered accounts.
+                    </p>
 
-</form>
+                </div>
 
 
-</div>
+                <a
+                    href="{{ route('admin.users.create') }}"
+                    class="admin-add-user-btn"
+                >
+                    ＋ Add User
+                </a>
 
 
-</div>
+            </div>
 
 
 
+            @if($users->count())
 
 
+                {{-- =================================================
+                     DESKTOP / TABLET TABLE
+                ================================================== --}}
 
+                <div class="admin-users-table-wrap">
 
-<div class="content">
 
+                    <table class="admin-users-table">
 
 
-<div class="header">
+                        <thead>
 
+                            <tr>
 
-<h1>
+                                <th>ID</th>
 
-👥 Manage Users
+                                <th>Name</th>
 
-</h1>
+                                <th>Email</th>
 
+                                <th>Role</th>
 
-<p>
+                                <th>Created</th>
 
-Manage registered users in ShipEquipAR system.
+                                <th>Action</th>
 
-</p>
+                            </tr>
 
+                        </thead>
 
-</div>
 
-<a href="{{ route('admin.users.create') }}"
-class="add-btn">
 
-➕ Add User
+                        <tbody>
 
-</a>
 
+                            @foreach($users as $user)
 
-<div class="table-box">
 
+                                <tr>
 
-<div class="table-header">
+                                    <td>
+                                        {{ $user->id }}
+                                    </td>
 
 
-<h2>
-User List
-</h2>
+                                    <td>
+                                        {{ $user->name }}
+                                    </td>
 
 
-</div>
+                                    <td class="email-cell">
+                                        {{ $user->email }}
+                                    </td>
 
 
+                                    <td>
 
+                                        @if($user->role == 'admin')
 
+                                            <span class="admin-role-badge admin">
+                                                Admin
+                                            </span>
 
-<table>
+                                        @else
 
+                                            <span class="admin-role-badge">
+                                                User
+                                            </span>
 
-<thead>
+                                        @endif
 
-<tr>
+                                    </td>
 
-<th>
-ID
-</th>
 
+                                    <td>
+                                        {{ date(
+                                            'd M Y',
+                                            strtotime($user->created_at)
+                                        ) }}
+                                    </td>
 
-<th>
-Name
-</th>
 
+                                    <td>
 
-<th>
-Email
-</th>
+                                        <div class="admin-action-cell">
 
 
-<th>
-Role
-</th>
+                                            <a
+                                                href="{{ route(
+                                                    'admin.users.edit',
+                                                    $user->id
+                                                ) }}"
+                                                class="admin-user-edit"
+                                            >
+                                                ✏️ Edit
+                                            </a>
 
 
-<th>
-Created
-</th>
+                                            <form
+                                                action="{{ route(
+                                                    'admin.users.destroy',
+                                                    $user->id
+                                                ) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Delete this user?');"
+                                            >
 
-<th>
-Action
-</th>
+                                                @csrf
 
+                                                @method('DELETE')
 
-</tr>
 
-</thead>
+                                                <button
+                                                    type="submit"
+                                                    class="admin-user-delete"
+                                                >
+                                                    🗑 Delete
+                                                </button>
 
 
+                                            </form>
 
 
+                                        </div>
 
-<tbody>
+                                    </td>
 
 
-@foreach($users as $user)
+                                </tr>
 
 
-<tr>
+                            @endforeach
 
 
-<td>
+                        </tbody>
 
-{{$user->id}}
 
-</td>
+                    </table>
 
 
-<td>
+                </div>
 
-{{$user->name}}
 
-</td>
 
+                {{-- =================================================
+                     MOBILE CARDS
+                ================================================== --}}
 
-<td>
+                <div class="admin-user-cards">
 
-{{$user->email}}
 
-</td>
+                    @foreach($users as $user)
 
 
+                        <article class="admin-user-card">
 
-<td>
 
+                            <div class="admin-user-card-head">
 
-@if($user->role == 'admin')
 
+                                <div class="admin-user-card-name">
 
-<span class="badge admin">
+                                    <h3>
+                                        {{ $user->name }}
+                                    </h3>
 
-Admin
+                                    <div class="admin-user-id">
+                                        User ID: {{ $user->id }}
+                                    </div>
 
-</span>
+                                </div>
 
 
-@else
 
+                                @if($user->role == 'admin')
 
-<span class="badge">
+                                    <span class="admin-role-badge admin">
+                                        Admin
+                                    </span>
 
-User
+                                @else
 
-</span>
+                                    <span class="admin-role-badge">
+                                        User
+                                    </span>
 
+                                @endif
 
-@endif
 
+                            </div>
 
-</td>
 
 
+                            <div class="admin-user-details">
 
 
-<td>
+                                <div class="admin-user-detail">
 
-{{date('d M Y',strtotime($user->created_at))}}
+                                    <span class="admin-user-detail-label">
+                                        Email
+                                    </span>
 
-</td>
+                                    <div class="admin-user-detail-value">
+                                        {{ $user->email }}
+                                    </div>
 
-<td class="action-cell">
+                                </div>
 
-    <a href="{{ route('admin.users.edit',$user->id) }}"
-       class="btn-edit">
 
-        ✏️ Edit
+                                <div class="admin-user-detail">
 
-    </a>
+                                    <span class="admin-user-detail-label">
+                                        Created
+                                    </span>
 
+                                    <div class="admin-user-detail-value">
 
-    <form action="{{ route('admin.users.destroy',$user->id) }}"
-          method="POST"
-          onsubmit="return confirm('Delete this user?');">
+                                        {{ date(
+                                            'd M Y',
+                                            strtotime($user->created_at)
+                                        ) }}
 
-        @csrf
-        @method('DELETE')
+                                    </div>
 
+                                </div>
 
-        <button type="submit"
-                class="btn-delete">
 
-            🗑 Delete
+                            </div>
 
-        </button>
 
 
-    </form>
+                            <div class="admin-user-card-actions">
 
-</td>
 
+                                <a
+                                    href="{{ route(
+                                        'admin.users.edit',
+                                        $user->id
+                                    ) }}"
+                                    class="admin-user-edit"
+                                >
+                                    ✏️ Edit
+                                </a>
 
 
-</tr>
+                                <form
+                                    action="{{ route(
+                                        'admin.users.destroy',
+                                        $user->id
+                                    ) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Delete this user?');"
+                                >
 
+                                    @csrf
 
+                                    @method('DELETE')
 
-@endforeach
 
+                                    <button
+                                        type="submit"
+                                        class="admin-user-delete"
+                                    >
+                                        🗑 Delete
+                                    </button>
 
-</tbody>
 
+                                </form>
 
-</table>
 
+                            </div>
 
 
+                        </article>
 
-</div>
 
+                    @endforeach
 
 
+                </div>
 
 
-</div>
+            @else
 
 
+                <div class="admin-empty-users">
+
+                    <div>
+                        👥
+                    </div>
+
+                    <h3>
+                        No Users Available
+                    </h3>
+
+                    <p>
+                        Add a user account to begin.
+                    </p>
+
+                </div>
+
+
+            @endif
+
+
+        </section>
+
+
+    </div>
+
+
+</main>
+
+
+
+{{-- =========================================================
+     JAVASCRIPT
+========================================================= --}}
+
+<script>
+
+function toggleAdminSidebar()
+{
+    const sidebar =
+        document.getElementById(
+            'adminSidebar'
+        );
+
+    const overlay =
+        document.getElementById(
+            'adminSidebarOverlay'
+        );
+
+
+    const isOpen =
+        sidebar.classList.toggle(
+            'open'
+        );
+
+
+    overlay.classList.toggle(
+        'open',
+        isOpen
+    );
+
+
+    document.body.classList.toggle(
+        'admin-drawer-open',
+        isOpen
+    );
+}
+
+
+function closeAdminSidebar()
+{
+    const sidebar =
+        document.getElementById(
+            'adminSidebar'
+        );
+
+    const overlay =
+        document.getElementById(
+            'adminSidebarOverlay'
+        );
+
+
+    sidebar.classList.remove(
+        'open'
+    );
+
+
+    overlay.classList.remove(
+        'open'
+    );
+
+
+    document.body.classList.remove(
+        'admin-drawer-open'
+    );
+}
+
+
+document.addEventListener(
+    'keydown',
+    function(event)
+    {
+        if(event.key === 'Escape'){
+            closeAdminSidebar();
+        }
+    }
+);
+
+
+window.addEventListener(
+    'resize',
+    function()
+    {
+        if(window.innerWidth > 768){
+            closeAdminSidebar();
+        }
+    }
+);
+
+</script>
 
 
 </body>
