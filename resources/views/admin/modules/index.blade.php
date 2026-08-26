@@ -79,7 +79,7 @@ body.admin-modules-page{
 
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:flex-start;
 
     gap:15px;
 
@@ -611,6 +611,27 @@ body.admin-modules-page{
 }
 
 
+
+/* =========================================================
+   BOTTOM BACK BUTTON
+========================================================= */
+
+.bottom-back-area{
+    width:100%;
+
+    display:flex;
+
+    justify-content:flex-start;
+
+    margin-top:24px;
+}
+
+
+.bottom-back-area .back-dashboard{
+    margin:0;
+}
+
+
 /* =========================================================
    TABLET
 ========================================================= */
@@ -763,13 +784,6 @@ body.admin-modules-page{
         <div class="admin-modules-brand">
             Ship<span>EquipAR</span>
         </div>
-
-        <a
-            href="{{ route('admin.dashboard') }}"
-            class="back-dashboard"
-        >
-            ← Admin Dashboard
-        </a>
 
     </div>
 
@@ -1383,6 +1397,22 @@ body.admin-modules-page{
 
 
     @endif
+
+
+    {{-- =========================================================
+         BACK TO DASHBOARD - BOTTOM LEFT
+    ========================================================= --}}
+
+    <div class="bottom-back-area">
+
+        <a
+            href="{{ route('admin.dashboard') }}"
+            class="back-dashboard"
+        >
+            ← Back to Dashboard
+        </a>
+
+    </div>
 
 
 </div>
