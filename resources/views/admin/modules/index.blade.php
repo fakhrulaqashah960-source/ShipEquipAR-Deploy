@@ -333,7 +333,11 @@ body.admin-modules-page{
     width:100%;
     height:100%;
 
-    object-fit:cover;
+    object-fit:contain;
+
+    padding:8px;
+
+    background:white;
 
     display:block;
 }
@@ -1049,6 +1053,117 @@ body.admin-modules-page{
 
                 }
 
+
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | FALLBACK TO FIRST EQUIPMENT IMAGE
+                |--------------------------------------------------------------------------
+                |
+                | Useful when a module image was uploaded to Render's local filesystem
+                | and disappears after a redeploy. If the module has no usable image,
+                | use the first equipment image as the module thumbnail.
+                |
+                */
+
+                if (! $moduleImageUrl) {
+
+                    $firstEquipment =
+                        $module->equipments()
+                            ->whereNotNull('image')
+                            ->where('image', '!=', '')
+                            ->first();
+
+
+                    if ($firstEquipment) {
+
+                        $equipmentImage =
+                            trim(
+                                (string) $firstEquipment->image
+                            );
+
+
+                        if (
+                            str_starts_with(
+                                $equipmentImage,
+                                'http://'
+                            )
+                            ||
+                            str_starts_with(
+                                $equipmentImage,
+                                'https://'
+                            )
+                        ) {
+
+                            $moduleImageUrl =
+                                $equipmentImage;
+
+                        }
+
+                        else {
+
+                            $equipmentImage =
+                                str_replace(
+                                    '\\',
+                                    '/',
+                                    $equipmentImage
+                                );
+
+                            $equipmentImage =
+                                ltrim(
+                                    $equipmentImage,
+                                    '/'
+                                );
+
+
+                            if (
+                                str_starts_with(
+                                    $equipmentImage,
+                                    'public/'
+                                )
+                            ) {
+
+                                $equipmentImage =
+                                    substr(
+                                        $equipmentImage,
+                                        7
+                                    );
+
+                            }
+
+
+                            if (
+                                str_starts_with(
+                                    $equipmentImage,
+                                    'uploads/equipment/'
+                                )
+                            ) {
+
+                                $moduleImageUrl =
+                                    asset(
+                                        $equipmentImage
+                                    );
+
+                            }
+
+                            else {
+
+                                $moduleImageUrl =
+                                    asset(
+                                        'uploads/equipment/' .
+                                        basename(
+                                            $equipmentImage
+                                        )
+                                    );
+
+                            }
+
+                        }
+
+                    }
+
+                }
 
 
                 /*

@@ -167,15 +167,17 @@ body{
 
 
 .image-wrapper{
-    width:100%;
+    width:180px;
 
-    height:230px;
+    height:120px;
+
+    margin:0 auto 16px;
 
     border-radius:14px;
 
     overflow:hidden;
 
-    background:#e2e8f0;
+    background:white;
 
     display:flex;
 
@@ -183,7 +185,7 @@ body{
 
     justify-content:center;
 
-    margin-bottom:16px;
+    border:1px solid #e2e8f0;
 }
 
 
@@ -194,7 +196,9 @@ body{
 
     display:block;
 
-    object-fit:cover;
+    object-fit:contain;
+
+    padding:6px;
 }
 
 
@@ -395,7 +399,8 @@ body{
 
 
     .image-wrapper{
-        height:210px;
+        width:160px;
+        height:105px;
     }
 
 

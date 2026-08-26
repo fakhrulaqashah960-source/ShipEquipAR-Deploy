@@ -553,12 +553,13 @@
          BACK
     ========================== --}}
 
-    <a
-        href="{{ route('admin.dashboard') }}"
-        class="back"
-    >
-        ← Back Dashboard
-    </a>
+<a
+    href="{{ route('modules.index') }}"
+    class="back-dashboard"
+>
+    ← Back
+</a>
+
 
 
 </body>
