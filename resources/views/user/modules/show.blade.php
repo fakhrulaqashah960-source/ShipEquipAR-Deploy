@@ -14,6 +14,18 @@
 
 <style>
 
+:root{
+    --navy:#0f172a;
+    --navy-soft:#1e293b;
+    --blue:#0284c7;
+    --blue-dark:#0369a1;
+    --cyan:#38bdf8;
+    --text:#0f172a;
+    --muted:#64748b;
+    --line:#dbe5ef;
+    --card:rgba(255,255,255,.97);
+}
+
 *{
     margin:0;
     padding:0;
@@ -21,95 +33,129 @@
     font-family:'Segoe UI',sans-serif;
 }
 
-
-/* =========================================================
-   BODY
-========================================================= */
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
 
 body{
-    background:#eef6fb;
-    padding:40px;
-    color:#0f172a;
-}
+    min-height:100vh;
+    padding:34px 18px;
+    color:var(--text);
 
+    background:
+        linear-gradient(
+            135deg,
+            rgba(15,23,42,.92),
+            rgba(2,132,199,.70)
+        ),
+        url('/images/ship-bg.jpg');
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+}
 
 .container{
-    max-width:1200px;
-    margin:auto;
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
 }
 
-
 /* =========================================================
-   MAIN CARD
+   GENERAL MODULE CARD
 ========================================================= */
 
 .module-card{
-    background:white;
-    padding:40px;
-    border-radius:25px;
-    margin-bottom:30px;
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-    border:1px solid #e2e8f0;
+    width:100%;
+    margin-bottom:20px;
+    padding:28px;
+
+    background:var(--card);
+
+    border:1px solid rgba(226,232,240,.95);
+    border-radius:22px;
+
+    box-shadow:
+        0 14px 34px rgba(0,0,0,.15);
 }
 
-
 /* =========================================================
-   HEADER
+   MODULE HERO
 ========================================================= */
+
+.container > .module-card:first-of-type{
+    padding:31px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(14,116,144,.97),
+            rgba(15,23,42,.98)
+        );
+
+    border:none;
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.23);
+}
 
 .module-header{
     display:flex;
     align-items:center;
-    gap:20px;
+    gap:18px;
 }
 
-
 .module-icon{
-    width:65px;
-    height:65px;
+    width:68px;
+    height:68px;
+    flex:0 0 auto;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:linear-gradient(
-        135deg,
-        #38bdf8,
-        #0284c7
-    );
+    background:rgba(255,255,255,.13);
 
+    border:1px solid rgba(255,255,255,.12);
     border-radius:18px;
 
-    font-size:30px;
-
+    font-size:31px;
     line-height:1;
-
-    flex-shrink:0;
 }
-
 
 .module-header h1{
-    font-size:40px;
-    font-weight:800;
     margin:0;
+
+    color:white;
+
+    font-size:clamp(30px,4vw,42px);
+    line-height:1.2;
+    font-weight:900;
+
+    overflow-wrap:anywhere;
 }
 
-
 /* =========================================================
-   SECTION TITLE
+   SECTION HEADER
 ========================================================= */
 
 .section-title{
     display:flex;
     align-items:center;
-    gap:15px;
-    margin-bottom:25px;
+    gap:13px;
+
+    margin-bottom:20px;
 }
 
-
 .section-icon{
-    width:42px;
-    height:42px;
+    width:46px;
+    height:46px;
+    flex:0 0 auto;
 
     display:flex;
     align-items:center;
@@ -117,20 +163,22 @@ body{
 
     background:#e0f2fe;
 
-    border-radius:12px;
+    border-radius:13px;
 
-    font-size:25px;
-
-    flex-shrink:0;
+    font-size:23px;
 }
-
 
 .section-title h2{
     margin:0;
-    font-size:28px;
-    font-weight:800;
-}
 
+    color:#0f172a;
+
+    font-size:clamp(22px,2.5vw,29px);
+    line-height:1.3;
+    font-weight:900;
+
+    overflow-wrap:anywhere;
+}
 
 /* =========================================================
    TEXT
@@ -138,14 +186,19 @@ body{
 
 p{
     color:#475569;
-    font-size:16px;
-    line-height:1.8;
-    margin-bottom:15px;
+
+    font-size:14.5px;
+    line-height:1.82;
+
+    margin-bottom:13px;
 }
 
+.module-card > p:last-child{
+    margin-bottom:0;
+}
 
 /* =========================================================
-   GRID
+   SHIP / EQUIPMENT GRID
 ========================================================= */
 
 .equipment-grid,
@@ -153,164 +206,173 @@ p{
     display:grid;
 
     grid-template-columns:
-        repeat(auto-fit,minmax(300px,1fr));
+        repeat(2,minmax(0,1fr));
 
-    gap:30px;
+    gap:18px;
 
-    align-items:stretch;
+    margin-top:20px;
 }
-
-
-/* =========================================================
-   EQUIPMENT / SHIP CARD
-========================================================= */
 
 .equipment-card,
 .ship-card{
-    background:#f8fafc;
-
-    padding:25px;
-
-    border-radius:25px;
-
-    border:1px solid #dbeafe;
+    min-width:0;
+    height:100%;
 
     display:flex;
-
     flex-direction:column;
 
-    height:100%;
+    padding:18px;
+
+    background:#f8fafc;
+
+    border:1px solid #e2e8f0;
+    border-radius:18px;
+
+    box-shadow:
+        0 7px 18px rgba(15,23,42,.07);
+
+    transition:.2s ease;
 }
 
+.equipment-card:hover,
+.ship-card:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 13px 27px rgba(15,23,42,.11);
+}
 
 /* =========================================================
-   IMAGE
+   IMAGES
 ========================================================= */
 
 .equipment-image,
 .ship-image{
-    width:100%;
-    height:210px;
+    display:block;
 
-    object-fit:contain;
+    width:100%;
+    height:190px;
+
+    margin-bottom:16px;
 
     background:white;
 
-    padding:15px;
+    border:1px solid #e2e8f0;
+    border-radius:15px;
 
-    border-radius:20px;
-
-    margin-bottom:20px;
+    object-fit:contain;
 }
 
+.equipment-image{
+    padding:10px;
+}
 
 .ship-image{
-    object-fit:cover;
     padding:0;
+    object-fit:cover;
 }
-
 
 .no-image{
     width:100%;
-    height:210px;
-
-    background:white;
-
-    border-radius:20px;
-
-    margin-bottom:20px;
+    height:190px;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
+    margin-bottom:16px;
+
+    padding:15px;
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+    border-radius:15px;
+
     color:#64748b;
 
-    font-weight:600;
-
     text-align:center;
+    font-size:13px;
+    font-weight:700;
 }
 
-
 /* =========================================================
-   CARD TITLE
+   CARD CONTENT
 ========================================================= */
 
 .equipment-card h2,
 .ship-card h2{
-    font-size:22px;
-
-    margin-top:0;
-
-    margin-bottom:12px;
+    margin:0 0 9px;
 
     color:#0f172a;
+
+    font-size:19px;
+    line-height:1.35;
+    font-weight:900;
+
+    overflow-wrap:anywhere;
 }
-
-
-/* =========================================================
-   CARD DESCRIPTION
-========================================================= */
 
 .card-description{
     flex:1;
-    margin-bottom:20px;
-}
 
+    margin-bottom:12px;
+}
 
 .card-description p{
-    margin-bottom:0;
+    margin:0;
+
+    display:-webkit-box;
+    -webkit-line-clamp:5;
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
+
+    color:#64748b;
+
+    font-size:13px;
+    line-height:1.65;
 }
 
-
 /* =========================================================
-   BUTTON AREA
-
-   Ini memastikan button sentiasa paling bawah + center.
+   BUTTONS
 ========================================================= */
 
 .card-action{
     margin-top:auto;
 
     display:flex;
-
     align-items:center;
+    justify-content:flex-start;
 
-    justify-content:center;
+    padding-top:13px;
 
-    padding-top:15px;
+    border-top:1px solid #e2e8f0;
 }
-
 
 .btn-ar{
     display:inline-flex;
-
     align-items:center;
-
     justify-content:center;
-
     gap:7px;
 
-    min-width:155px;
+    min-height:43px;
 
-    padding:13px 25px;
+    padding:10px 16px;
 
     background:#0284c7;
 
     color:white;
 
-    border-radius:30px;
+    border-radius:10px;
 
     text-decoration:none;
 
-    font-weight:700;
+    font-size:13px;
+    font-weight:800;
 
-    text-align:center;
-
-    transition:.3s;
+    transition:.2s ease;
 }
-
 
 .btn-ar:hover{
     background:#0369a1;
@@ -318,113 +380,182 @@ p{
     transform:translateY(-2px);
 }
 
+.back-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    min-height:45px;
+
+    margin-top:2px;
+    padding:10px 18px;
+
+    background:#0f172a;
+
+    color:white;
+
+    border-radius:11px;
+
+    text-decoration:none;
+
+    font-size:13px;
+    font-weight:800;
+
+    box-shadow:
+        0 6px 16px rgba(15,23,42,.20);
+
+    transition:.2s ease;
+}
+
+.back-btn:hover{
+    background:#0284c7;
+
+    transform:translateY(-2px);
+}
 
 /* =========================================================
    EMPTY
 ========================================================= */
 
 .empty-equipment{
-    text-align:center;
+    width:100%;
 
-    padding:35px;
+    padding:35px 20px;
 
     background:#f8fafc;
 
-    border-radius:18px;
-
     border:1px dashed #cbd5e1;
+    border-radius:16px;
 
     color:#64748b;
-}
 
-
-/* =========================================================
-   BACK BUTTON
-========================================================= */
-
-.back-btn{
-    display:inline-flex;
-
-    margin-top:20px;
-
-    padding:14px 30px;
-
-    background:#0284c7;
-
-    color:white;
-
-    border-radius:12px;
-
-    text-decoration:none;
-
+    text-align:center;
+    font-size:13px;
     font-weight:700;
-
-    transition:.3s;
 }
-
-
-.back-btn:hover{
-    background:#0369a1;
-
-    transform:translateX(-5px);
-}
-
 
 /* =========================================================
    VIDEO
 ========================================================= */
 
 .video-frame{
+    display:block;
+
     width:100%;
-    height:400px;
+    height:420px;
 
     border:none;
+    border-radius:16px;
 
-    border-radius:18px;
+    background:#0f172a;
 }
 
-
 /* =========================================================
-   RESPONSIVE
+   TABLET
 ========================================================= */
 
-@media(max-width:700px){
-
-    body{
-        padding:20px;
-    }
-
-
-    .module-card{
-        padding:25px;
-    }
-
-
-    .module-header h1{
-        font-size:30px;
-    }
-
-
-    .module-icon{
-        width:55px;
-        height:55px;
-        font-size:25px;
-    }
-
-
-    .section-title h2{
-        font-size:23px;
-    }
-
+@media(max-width:850px){
 
     .equipment-grid,
     .ship-grid{
         grid-template-columns:1fr;
     }
 
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    body{
+        padding:0;
+        background-attachment:scroll;
+    }
+
+    .container{
+        max-width:none;
+    }
+
+    .module-card{
+        width:calc(100% - 16px);
+
+        margin:0 8px 10px;
+        padding:18px;
+
+        border-radius:18px;
+    }
+
+    .container > .module-card:first-of-type{
+        width:100%;
+
+        margin:0 0 10px;
+        padding:22px 17px;
+
+        border-radius:0 0 22px 22px;
+    }
+
+    .module-header{
+        gap:13px;
+    }
+
+    .module-icon{
+        width:54px;
+        height:54px;
+
+        border-radius:15px;
+
+        font-size:25px;
+    }
+
+    .module-header h1{
+        font-size:27px;
+    }
+
+    .section-icon{
+        width:42px;
+        height:42px;
+
+        font-size:21px;
+    }
+
+    .section-title h2{
+        font-size:21px;
+    }
+
+    p{
+        font-size:14px;
+        line-height:1.75;
+    }
+
+    .equipment-card,
+    .ship-card{
+        padding:15px;
+    }
+
+    .equipment-image,
+    .ship-image,
+    .no-image{
+        height:170px;
+    }
+
+    .card-description p{
+        -webkit-line-clamp:6;
+    }
+
+    .btn-ar{
+        width:100%;
+    }
 
     .video-frame{
-        height:250px;
+        height:235px;
+    }
+
+    .back-btn{
+        width:calc(100% - 16px);
+
+        margin:4px 8px 12px;
     }
 
 }
@@ -544,6 +675,27 @@ p{
             'safety'
         );
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | ENGINE MODEL
+    |--------------------------------------------------------------------------
+    */
+
+    $isEngineModule =
+
+        str_contains(
+            $moduleTitle,
+            'engine'
+        )
+
+        ||
+
+        str_contains(
+            $moduleCategory,
+            'engine'
+        );
+
 @endphp
 
 
@@ -576,6 +728,11 @@ p{
             @elseif($isSafetyModule)
 
                 🦺
+
+
+            @elseif($isEngineModule)
+
+                ⚙️
 
 
             @else
@@ -897,6 +1054,14 @@ p{
 
                     🛡️
 
+                @elseif($isSafetyModule)
+
+                    🦺
+
+                @elseif($isEngineModule)
+
+                    ⚙️
+
                 @else
 
                     ⚓
@@ -911,6 +1076,14 @@ p{
                 @if($isSecurityModule)
 
                     Ship Security System
+
+                @elseif($isSafetyModule)
+
+                    Safety Equipment
+
+                @elseif($isEngineModule)
+
+                    Engine Equipment
 
                 @else
 

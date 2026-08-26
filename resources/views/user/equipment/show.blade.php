@@ -19,291 +19,388 @@
 
     <style>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+        :root{
+            --navy:#0f172a;
+            --blue:#0284c7;
+            --blue-dark:#0369a1;
+            --green:#16a34a;
+            --text:#0f172a;
+            --muted:#64748b;
+            --line:#e2e8f0;
         }
 
-        body {
-            background: #f1f5f9;
-            padding: 40px;
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
         }
 
-        .container {
-            width: 90%;
-            max-width: 900px;
-            margin: auto;
+        html,
+        body{
+            width:100%;
+            min-height:100%;
         }
 
-        /* =========================
-           HEADER
-        ========================= */
+        body{
+            min-height:100vh;
 
-        .header {
-            background: linear-gradient(
-                135deg,
-                #0284c7,
-                #0f172a
-            );
+            padding:34px 18px;
 
-            color: white;
+            color:var(--text);
 
-            padding: 30px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(15,23,42,.92),
+                    rgba(2,132,199,.70)
+                ),
+                url('/images/ship-bg.jpg');
 
-            border-radius: 25px;
-
-            margin-bottom: 25px;
+            background-size:cover;
+            background-position:center;
+            background-repeat:no-repeat;
+            background-attachment:fixed;
         }
 
-        .header h1 {
-            font-size: 35px;
+        .container{
+            width:100%;
+            max-width:1000px;
+            margin:0 auto;
         }
 
-        .header p {
-            margin-top: 10px;
-            line-height: 1.6;
-        }
+        /* =====================================================
+           HERO
+        ===================================================== */
 
-        /* =========================
-           CARD
-        ========================= */
+        .header{
+            margin-bottom:20px;
 
-        .card {
-            background: white;
+            padding:30px;
 
-            border-radius: 25px;
+            border-radius:24px;
 
-            padding: 35px;
+            color:white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(14,116,144,.97),
+                    rgba(15,23,42,.98)
+                );
 
             box-shadow:
-                0 15px 35px
-                rgba(0, 0, 0, .15);
+                0 18px 40px rgba(0,0,0,.23);
         }
 
-        .title {
-            text-align: center;
+        .header h1{
+            color:white;
 
-            font-size: 32px;
-
-            color: #075985;
-
-            margin-bottom: 20px;
+            font-size:clamp(28px,4vw,40px);
+            line-height:1.2;
+            font-weight:900;
         }
 
-        /* =========================
+        .header p{
+            max-width:720px;
+
+            margin-top:10px;
+
+            color:#e0f2fe;
+
+            font-size:14px;
+            line-height:1.7;
+        }
+
+        /* =====================================================
+           MAIN CARD
+        ===================================================== */
+
+        .card{
+            width:100%;
+
+            padding:28px;
+
+            background:rgba(255,255,255,.98);
+
+            border:1px solid rgba(226,232,240,.95);
+            border-radius:24px;
+
+            box-shadow:
+                0 16px 38px rgba(0,0,0,.18);
+        }
+
+        .title{
+            margin-bottom:20px;
+
+            color:#0f172a;
+
+            text-align:center;
+
+            font-size:clamp(27px,3.5vw,36px);
+            line-height:1.3;
+            font-weight:900;
+
+            overflow-wrap:anywhere;
+        }
+
+        /* =====================================================
            IMAGE
-        ========================= */
+        ===================================================== */
 
-        .equipment-image {
-            display: block;
+        .equipment-image{
+            display:block;
 
-            width: 100%;
+            width:100%;
+            max-width:520px;
+            height:285px;
 
-            height: 300px;
+            margin:0 auto 25px;
+            padding:10px;
 
-            object-fit: contain;
+            object-fit:contain;
 
-            margin-bottom: 25px;
+            background:#f8fafc;
+
+            border:1px solid #e2e8f0;
+            border-radius:18px;
         }
 
-        /* =========================
+        /* =====================================================
            CONTENT
-        ========================= */
+        ===================================================== */
 
-        .section {
-            margin-top: 25px;
+        .section{
+            margin-top:18px;
+            padding:20px;
+
+            background:#f8fafc;
+
+            border:1px solid #e2e8f0;
+            border-radius:16px;
         }
 
-        .section h2 {
-            color: #0284c7;
+        .section h2{
+            margin-bottom:9px;
 
-            font-size: 20px;
+            color:#0284c7;
 
-            margin-bottom: 10px;
+            font-size:19px;
+            line-height:1.4;
+            font-weight:900;
+
+            overflow-wrap:anywhere;
         }
 
-        .section p {
-            color: #475569;
+        .section p{
+            color:#475569;
 
-            line-height: 1.8;
+            font-size:14.5px;
+            line-height:1.82;
 
-            font-size: 16px;
+            overflow-wrap:anywhere;
         }
 
-        /* =========================
-           AR
-        ========================= */
+        /* =====================================================
+           AR QUICK LOOK
+        ===================================================== */
 
-        .ar-container {
-            width: 100%;
+        .ar-container{
+            width:100%;
 
-            text-align: center;
+            display:flex;
+            justify-content:flex-start;
 
-            margin-top: 35px;
+            margin-top:22px;
+            padding-top:20px;
+
+            border-top:1px solid #e2e8f0;
         }
 
         /*
         |--------------------------------------------------------------------------
-        | AR QUICK LOOK
+        | Keep a real child <img> inside <a rel="ar"> for Apple Quick Look.
         |--------------------------------------------------------------------------
-        |
-        | IMPORTANT:
-        |
-        | Apple/WebKit expects:
-        |
-        | <a rel="ar">
-        |     <img>
-        | </a>
-        |
-        | No JavaScript redirect.
-        | No download attribute.
-        |
         */
 
-        .ar-btn {
-            position: relative;
+        .ar-btn{
+            position:relative;
 
-            display: block;
+            display:block;
 
-            width: 220px;
-            height: 54px;
+            width:210px;
+            height:46px;
 
-            margin: 0 auto;
+            margin:0;
 
-            background: #0284c7;
+            overflow:hidden;
 
-            border-radius: 30px;
+            background:#0284c7;
 
-            overflow: hidden;
+            border-radius:11px;
 
-            text-decoration: none;
+            text-decoration:none;
 
-            cursor: pointer;
+            cursor:pointer;
 
             box-shadow:
-                0 8px 20px
-                rgba(2, 132, 199, .25);
+                0 7px 18px rgba(2,132,199,.22);
+
+            transition:.2s ease;
         }
 
-        .ar-btn:active {
-            transform: scale(.98);
+        .ar-btn:hover{
+            background:#0369a1;
+
+            transform:translateY(-2px);
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | REAL CHILD IMAGE
-        |--------------------------------------------------------------------------
-        */
-
-        .ar-btn img {
-            position: absolute;
-
-            inset: 0;
-
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            opacity: 0.001;
-
-            pointer-events: none;
+        .ar-btn:active{
+            transform:scale(.98);
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | BUTTON LABEL
-        |--------------------------------------------------------------------------
-        */
+        .ar-btn img{
+            position:absolute;
 
-        .ar-btn::after {
-            content: "📱 Open AR Model";
+            inset:0;
 
-            position: absolute;
+            width:100%;
+            height:100%;
 
-            inset: 0;
+            object-fit:cover;
 
-            display: flex;
+            opacity:.001;
 
-            align-items: center;
-
-            justify-content: center;
-
-            color: white;
-
-            font-size: 16px;
-
-            font-weight: 700;
-
-            z-index: 2;
-
-            pointer-events: none;
+            pointer-events:none;
         }
 
-        /* =========================
+        .ar-btn::after{
+            content:"📱 Open AR Model";
+
+            position:absolute;
+
+            inset:0;
+
+            z-index:2;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            color:white;
+
+            font-size:13px;
+            font-weight:800;
+
+            pointer-events:none;
+        }
+
+        /* =====================================================
            BACK
-        ========================= */
+        ===================================================== */
 
-        .back-btn {
-            display: inline-block;
+        .back-btn{
+            display:inline-flex;
 
-            margin-top: 30px;
+            align-items:center;
+            justify-content:center;
 
-            background: #0284c7;
+            min-height:45px;
 
-            color: white;
+            margin-top:12px;
 
-            padding: 12px 25px;
+            padding:10px 18px;
 
-            border-radius: 12px;
+            background:#0f172a;
 
-            text-decoration: none;
+            color:white;
 
-            font-size: 16px;
+            border-radius:11px;
 
-            font-weight: 600;
+            text-decoration:none;
+
+            font-size:13px;
+            font-weight:800;
+
+            transition:.2s ease;
         }
 
-        /* =========================
+        .back-btn:hover{
+            background:#0284c7;
+
+            transform:translateY(-2px);
+        }
+
+        /* =====================================================
            MOBILE
-        ========================= */
+        ===================================================== */
 
-        @media (max-width: 768px) {
+        @media(max-width:600px){
 
-            body {
-                padding: 18px;
+            body{
+                padding:0;
+                background-attachment:scroll;
             }
 
-            .container {
-                width: 100%;
+            .container{
+                max-width:none;
             }
 
-            .header {
-                padding: 22px;
-                border-radius: 20px;
+            .header{
+                margin-bottom:10px;
+
+                padding:23px 17px;
+
+                border-radius:0 0 22px 22px;
             }
 
-            .header h1 {
-                font-size: 27px;
+            .header h1{
+                font-size:27px;
             }
 
-            .card {
-                padding: 22px;
-                border-radius: 20px;
+            .card{
+                width:calc(100% - 16px);
+
+                margin:0 8px 12px;
+                padding:17px;
+
+                border-radius:18px;
             }
 
-            .title {
-                font-size: 26px;
+            .title{
+                font-size:25px;
             }
 
-            .equipment-image {
-                height: 230px;
+            .equipment-image{
+                height:210px;
+
+                margin-bottom:17px;
             }
 
-            .ar-btn {
-                width: 210px;
+            .section{
+                padding:16px;
+            }
+
+            .section h2{
+                font-size:18px;
+            }
+
+            .section p{
+                font-size:14px;
+                line-height:1.76;
+            }
+
+            .ar-container{
+                display:block;
+            }
+
+            .ar-btn,
+            .back-btn{
+                width:100%;
+            }
+
+            .back-btn{
+                margin-top:10px;
             }
 
         }
@@ -430,7 +527,7 @@
         <div class="section">
 
             <h2>
-                📌 About Equipment
+                📌 About {{ $equipment->name }}
             </h2>
 
             <p>

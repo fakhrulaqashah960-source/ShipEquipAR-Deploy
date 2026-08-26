@@ -12,7 +12,18 @@
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+
 <style>
+
+:root{
+    --navy:#0f172a;
+    --blue:#0284c7;
+    --blue-dark:#0369a1;
+    --text:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+}
+
 
 *{
     margin:0;
@@ -22,174 +33,395 @@
 }
 
 
+html,
 body{
-    background:#eef6fb;
-    padding:40px;
-    color:#0f172a;
+    width:100%;
+    min-height:100%;
+}
+
+
+body{
+    min-height:100vh;
+
+    padding:34px 18px;
+
+    color:var(--text);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(15,23,42,.92),
+            rgba(2,132,199,.70)
+        ),
+        url('/images/ship-bg.jpg');
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
 }
 
 
 .container{
+    width:100%;
     max-width:1000px;
-    margin:auto;
+    margin:0 auto;
 }
 
 
-.ship-card{
-    background:white;
+/* =========================================================
+   HERO
+========================================================= */
 
-    padding:40px;
+.ship-hero{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-    border-radius:25px;
+    gap:22px;
+
+    margin-bottom:20px;
+
+    padding:30px;
+
+    border-radius:24px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(14,116,144,.97),
+            rgba(15,23,42,.98)
+        );
 
     box-shadow:
-        0 10px 25px rgba(0,0,0,.08);
-
-    border:1px solid #e2e8f0;
+        0 18px 40px rgba(0,0,0,.23);
 }
 
 
-.ship-title{
-    text-align:center;
-    color:#075985;
-
-    font-size:32px;
-
-    margin-bottom:35px;
+.ship-hero-copy{
+    min-width:0;
 }
 
 
-.ship-image{
-    display:block;
+.ship-label{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
 
-    width:100%;
-    max-width:500px;
+    margin-bottom:9px;
 
-    height:300px;
+    padding:7px 12px;
 
-    object-fit:contain;
+    border-radius:999px;
 
-    margin:0 auto 40px;
+    background:rgba(255,255,255,.12);
 
-    border-radius:20px;
+    color:#e0f2fe;
+
+    font-size:12px;
+    font-weight:800;
 }
 
 
-.no-image{
-    width:100%;
-    max-width:500px;
+.ship-hero h1{
+    color:white;
 
-    height:300px;
+    font-size:clamp(30px,4vw,41px);
+    line-height:1.2;
+    font-weight:900;
 
-    background:#f1f5f9;
+    overflow-wrap:anywhere;
+}
+
+
+.ship-hero-icon{
+    width:84px;
+    height:84px;
+
+    flex:0 0 auto;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    margin:0 auto 40px;
+    border-radius:21px;
 
-    border-radius:20px;
+    background:rgba(255,255,255,.12);
 
-    color:#64748b;
+    font-size:40px;
 }
 
 
+/* =========================================================
+   SHIP CARD
+========================================================= */
+
+.ship-card{
+    width:100%;
+
+    padding:28px;
+
+    background:rgba(255,255,255,.98);
+
+    border:1px solid rgba(226,232,240,.95);
+    border-radius:24px;
+
+    box-shadow:
+        0 16px 38px rgba(0,0,0,.18);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.ship-image{
+    display:block;
+
+    width:100%;
+    max-width:660px;
+    height:330px;
+
+    margin:0 auto 25px;
+
+    object-fit:cover;
+
+    background:#f8fafc;
+
+    border:1px solid #e2e8f0;
+    border-radius:18px;
+}
+
+
+.no-image{
+    width:100%;
+    max-width:660px;
+    height:300px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin:0 auto 25px;
+
+    background:#f8fafc;
+
+    border:1px dashed #cbd5e1;
+    border-radius:18px;
+
+    color:#64748b;
+
+    font-size:14px;
+    font-weight:700;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
 .info-section{
-    margin-top:25px;
+    margin-top:8px;
+
+    padding:21px;
+
+    background:#f8fafc;
+
+    border:1px solid #e2e8f0;
+    border-radius:17px;
 }
 
 
 .info-section h3{
-    color:#0284c7;
     margin-bottom:10px;
+
+    color:#0284c7;
+
     font-size:20px;
+    line-height:1.4;
+    font-weight:900;
+
+    overflow-wrap:anywhere;
 }
 
 
 .info-section p{
     color:#475569;
-    line-height:1.8;
-    font-size:16px;
+
+    font-size:14.5px;
+    line-height:1.85;
+
+    overflow-wrap:anywhere;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.ship-actions{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+    margin-top:22px;
+
+    padding-top:20px;
+
+    border-top:1px solid #e2e8f0;
+}
+
+
+.btn-ar,
+.back-btn,
+.no-ar{
+    min-height:45px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:10px 18px;
+
+    border-radius:11px;
+
+    font-size:13px;
+    font-weight:800;
 }
 
 
 .btn-ar{
-    display:block;
-
-    width:max-content;
-
-    margin:35px auto 0;
-
-    padding:14px 30px;
-
     background:#0284c7;
 
     color:white;
 
     text-decoration:none;
 
-    border-radius:30px;
-
-    font-weight:700;
+    transition:.2s ease;
 }
 
 
 .btn-ar:hover{
     background:#0369a1;
+
+    transform:translateY(-2px);
 }
 
 
 .no-ar{
-    display:block;
-
-    width:max-content;
-
-    margin:35px auto 0;
-
-    padding:13px 25px;
-
     background:#e2e8f0;
 
     color:#64748b;
-
-    border-radius:20px;
-
-    font-weight:600;
 }
 
 
 .back-btn{
-    display:inline-block;
-
-    margin-top:30px;
-
-    padding:13px 25px;
-
     background:#0f172a;
 
     color:white;
 
-    border-radius:10px;
-
     text-decoration:none;
 
-    font-weight:600;
+    transition:.2s ease;
 }
 
 
-@media(max-width:700px){
+.back-btn:hover{
+    background:#0284c7;
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
 
     body{
-        padding:20px;
+        padding:0;
+
+        background-attachment:scroll;
     }
+
+
+    .container{
+        max-width:none;
+    }
+
+
+    .ship-hero{
+        margin-bottom:10px;
+
+        padding:23px 17px;
+
+        border-radius:0 0 22px 22px;
+    }
+
+
+    .ship-hero-icon{
+        display:none;
+    }
+
+
+    .ship-hero h1{
+        font-size:27px;
+    }
+
 
     .ship-card{
-        padding:25px;
+        width:calc(100% - 16px);
+
+        margin:0 8px 12px;
+
+        padding:17px;
+
+        border-radius:18px;
     }
 
-    .ship-title{
-        font-size:27px;
+
+    .ship-image,
+    .no-image{
+        height:215px;
+
+        margin-bottom:17px;
+    }
+
+
+    .info-section{
+        padding:16px;
+    }
+
+
+    .info-section h3{
+        font-size:18px;
+    }
+
+
+    .info-section p{
+        font-size:14px;
+        line-height:1.78;
+    }
+
+
+    .ship-actions{
+        display:grid;
+
+        grid-template-columns:1fr;
+    }
+
+
+    .btn-ar,
+    .back-btn,
+    .no-ar{
+        width:100%;
     }
 
 }
@@ -212,6 +444,7 @@ body{
 
     $imageUrl = null;
 
+
     if ($ship->image) {
 
         if (
@@ -229,7 +462,9 @@ body{
             $imageUrl =
                 $ship->image;
 
-        } else {
+        }
+
+        else {
 
             $imageUrl =
                 asset(
@@ -250,6 +485,7 @@ body{
 
     $arUrl = null;
 
+
     if ($ship->ar_model) {
 
         if (
@@ -267,7 +503,9 @@ body{
             $arUrl =
                 $ship->ar_model;
 
-        } else {
+        }
+
+        else {
 
             $arUrl =
                 'https://github.com/' .
@@ -289,100 +527,123 @@ body{
 <div class="container">
 
 
-<div class="ship-card">
+    <section class="ship-hero">
 
 
-    {{-- NAME --}}
+        <div class="ship-hero-copy">
 
-    <h1 class="ship-title">
+            <div class="ship-label">
+                🚢 Ship Learning
+            </div>
 
-        🚢 {{ $ship->name }}
-
-    </h1>
-
-
-
-    {{-- IMAGE --}}
-
-    @if($imageUrl)
-
-        <img
-            src="{{ $imageUrl }}"
-            alt="{{ $ship->name }}"
-            class="ship-image"
-        >
-
-    @else
-
-        <div class="no-image">
-
-            🚢 No Ship Image
+            <h1>
+                {{ $ship->name }}
+            </h1>
 
         </div>
 
-    @endif
+
+        <div class="ship-hero-icon">
+            🚢
+        </div>
+
+
+    </section>
 
 
 
-    {{-- ABOUT --}}
+    <article class="ship-card">
 
-    <div class="info-section">
 
-        <h3>
-            📌 About Ship
-        </h3>
+        {{-- =====================================================
+             IMAGE
+        ====================================================== --}}
 
-        <p>
+        @if($imageUrl)
 
-            @if($ship->description)
+            <img
+                src="{{ $imageUrl }}"
+                alt="{{ $ship->name }}"
+                class="ship-image"
+            >
 
-                {{ $ship->description }}
+        @else
+
+            <div class="no-image">
+                🚢 No Ship Image
+            </div>
+
+        @endif
+
+
+
+        {{-- =====================================================
+             ABOUT
+        ====================================================== --}}
+
+        <section class="info-section">
+
+            <h3>
+                📌 About {{ $ship->name }}
+            </h3>
+
+            <p>
+
+                @if($ship->description)
+
+                    {{ $ship->description }}
+
+                @else
+
+                    No description available.
+
+                @endif
+
+            </p>
+
+        </section>
+
+
+
+        {{-- =====================================================
+             ACTIONS
+        ====================================================== --}}
+
+        <div class="ship-actions">
+
+
+            @if($arUrl)
+
+                <a
+                    href="{{ $arUrl }}"
+                    class="btn-ar"
+                    rel="ar"
+                >
+                    📱 Open AR Model
+                </a>
 
             @else
 
-                No description available.
+                <span class="no-ar">
+                    AR Model Not Available
+                </span>
 
             @endif
 
-        </p>
-
-    </div>
 
 
-
-    {{-- AR --}}
-
-    @if($arUrl)
-
-        <a
-            href="{{ $arUrl }}"
-            class="btn-ar"
-            rel="ar"
-        >
-            📱 Open AR Model
-        </a>
-
-    @else
-
-        <span class="no-ar">
-
-            AR Model Not Available
-
-        </span>
-
-    @endif
+            <a
+                href="{{ url()->previous() }}"
+                class="back-btn"
+            >
+                ← Back
+            </a>
 
 
-</div>
+        </div>
 
 
-
-<a
-    href="{{ url()->previous() }}"
-    class="back-btn"
->
-    ← Back
-</a>
+    </article>
 
 
 </div>
