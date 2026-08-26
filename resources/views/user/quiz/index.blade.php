@@ -496,13 +496,55 @@
 
 
 
+        @php
+            /*
+            |--------------------------------------------------------------------------
+            | PROPROFS SSO USER IDENTIFICATION
+            |--------------------------------------------------------------------------
+            |
+            | ProProfs supports user_name, user_email and user_id in the
+            | embedded quiz URL. Because this page is protected by the
+            | authenticated user middleware, these values come directly
+            | from the currently logged-in ShipEquipAR account.
+            |
+            */
+
+            $proProfsUrl =
+                'https://www.proprofs.com/quiz-school/ugc/story.php?' .
+                http_build_query(
+                    [
+                        'title' =>
+                            'shipequipar-maritime-knowledge-quiz-272',
+
+                        'id' =>
+                            '4794765',
+
+                        'ew' =>
+                            '430',
+
+                        'user_name' =>
+                            auth()->user()->name,
+
+                        'user_email' =>
+                            auth()->user()->email,
+
+                        'user_id' =>
+                            (string) auth()->id(),
+                    ],
+                    '',
+                    '&',
+                    PHP_QUERY_RFC3986
+                );
+        @endphp
+
+
         <div class="shipquiz-frame-area">
 
 
             <iframe
                 name="proprofs"
                 id="proprofs"
-                src="https://www.proprofs.com/quiz-school/ugc/story.php?title=shipequipar-maritime-knowledge-quiz-272&id=4794765&ew=430"
+                src="{{ $proProfsUrl }}"
                 frameborder="0"
                 marginwidth="0"
                 marginheight="0"

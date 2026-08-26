@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminNoteController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\ProProfsQuizCallbackController;
 
 
 /*
@@ -36,6 +37,34 @@ Route::get('/', function () {
 */
 
 require __DIR__ . '/auth.php';
+
+
+/*
+|--------------------------------------------------------------------------
+| PROPROFS QUIZ CALLBACK
+|--------------------------------------------------------------------------
+|
+| IMPORTANT:
+|
+| Route ini mesti berada DI LUAR:
+|
+| - auth middleware
+| - user middleware
+| - admin middleware
+|
+| Sebab ProProfs server sendiri akan menghantar POST request
+| ke ShipEquipAR selepas user selesai quiz.
+|
+*/
+
+Route::post(
+    '/proprofs/quiz-result',
+    [
+        ProProfsQuizCallbackController::class,
+        'store'
+    ]
+)
+->name('proprofs.quiz-result');
 
 
 /*
@@ -177,6 +206,12 @@ Route::middleware([
 ->group(function () {
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | USER DASHBOARD
+    |--------------------------------------------------------------------------
+    */
+
     Route::get(
         '/dashboard',
         function () {
@@ -209,6 +244,12 @@ Route::middleware([
     ->name('dashboard');
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | SHIPS
+    |--------------------------------------------------------------------------
+    */
+
     Route::get(
         '/ship-models',
         [
@@ -228,6 +269,12 @@ Route::middleware([
     )
     ->name('ship.show');
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | LEARNING MODULE
+    |--------------------------------------------------------------------------
+    */
 
     Route::get(
         '/learning-module/{id}',
@@ -249,6 +296,12 @@ Route::middleware([
     ->name('learning.equipment');
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | EQUIPMENT
+    |--------------------------------------------------------------------------
+    */
+
     Route::get(
         '/equipment/{id}',
         [
@@ -258,6 +311,12 @@ Route::middleware([
     )
     ->name('equipment.show');
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | MODULE NOTES
+    |--------------------------------------------------------------------------
+    */
 
     Route::get(
         '/module-notes',
@@ -279,6 +338,12 @@ Route::middleware([
     ->name('user.notes.show');
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | COURSE
+    |--------------------------------------------------------------------------
+    */
+
     Route::get(
         '/course/{id}',
         [
@@ -289,6 +354,12 @@ Route::middleware([
     ->name('course.show');
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | LESSON
+    |--------------------------------------------------------------------------
+    */
+
     Route::get(
         '/lesson/{id}',
         [
@@ -298,6 +369,18 @@ Route::middleware([
     )
     ->name('lesson.show');
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | QUIZ
+    |--------------------------------------------------------------------------
+    |
+    | quiz.index boleh digunakan untuk page ProProfs embedded quiz.
+    |
+    | Route show dan submit lama dikekalkan buat sementara supaya
+    | route lama tidak rosak jika masih dipanggil di mana-mana Blade.
+    |
+    */
 
     Route::get(
         '/quiz',
@@ -328,6 +411,7 @@ Route::middleware([
     )
     ->name('quiz.submit');
 
+
 });
 
 
@@ -346,6 +430,12 @@ Route::middleware([
 ->group(function () {
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN DASHBOARD
+    |--------------------------------------------------------------------------
+    */
+
     Route::get(
         '/',
         [
@@ -355,6 +445,12 @@ Route::middleware([
     )
     ->name('admin.dashboard');
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | USERS
+    |--------------------------------------------------------------------------
+    */
 
     Route::resource(
         'users',
@@ -370,6 +466,12 @@ Route::middleware([
     ])
     ->names('admin.users');
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | MODULES
+    |--------------------------------------------------------------------------
+    */
 
     Route::resource(
         'modules',
@@ -387,12 +489,24 @@ Route::middleware([
     ->name('admin.module.equipment');
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | EQUIPMENT
+    |--------------------------------------------------------------------------
+    */
+
     Route::resource(
         'equipment',
         EquipmentController::class
     )
     ->names('admin.equipment');
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | SHIPS
+    |--------------------------------------------------------------------------
+    */
 
     Route::resource(
         'ships',
@@ -401,12 +515,27 @@ Route::middleware([
     ->names('admin.ships');
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | NOTES
+    |--------------------------------------------------------------------------
+    */
+
     Route::resource(
         'notes',
         AdminNoteController::class
     )
     ->names('admin.notes');
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | QUIZ
+    |--------------------------------------------------------------------------
+    |
+    | Admin Quiz boleh terus digunakan untuk mengurus quiz / embed URL.
+    |
+    */
 
     Route::resource(
         'quiz',
@@ -415,16 +544,29 @@ Route::middleware([
     ->names('admin.quiz');
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | COURSE
+    |--------------------------------------------------------------------------
+    */
+
     Route::resource(
         'course',
         CourseController::class
     );
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | LESSON
+    |--------------------------------------------------------------------------
+    */
+
     Route::resource(
         'lesson',
         LessonController::class
     );
+
 
 });
 
@@ -470,5 +612,6 @@ Route::middleware([
         ]
     )
     ->name('profile.destroy');
+
 
 });

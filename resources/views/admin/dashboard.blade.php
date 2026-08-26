@@ -454,6 +454,137 @@
         }
 
 
+        /* =====================================================
+           EQUIPMENT + SHIPS COMBINED STAT
+        ===================================================== */
+
+        .admin-stat-combined{
+            padding:18px 20px;
+        }
+
+
+        .admin-stat-combined .admin-stat-icon{
+            width:50px;
+            height:50px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:16px;
+
+            background:#e0f2fe;
+
+            font-size:31px;
+        }
+
+
+        .admin-marine-info{
+            width:100%;
+        }
+
+
+        .admin-marine-heading{
+            display:flex;
+            align-items:flex-end;
+            gap:8px;
+        }
+
+
+        .admin-marine-heading h2{
+            line-height:1;
+        }
+
+
+        .admin-marine-heading span{
+            padding-bottom:2px;
+
+            color:#64748b;
+
+            font-size:11px;
+
+            font-weight:700;
+
+            text-transform:uppercase;
+
+            letter-spacing:.04em;
+        }
+
+
+        .admin-marine-label{
+            margin-top:5px !important;
+
+            color:#475569 !important;
+
+            font-weight:700;
+        }
+
+
+        .admin-marine-breakdown{
+            margin-top:10px;
+
+            display:grid;
+            grid-template-columns:repeat(2,minmax(0,1fr));
+
+            gap:7px;
+        }
+
+
+        .admin-marine-mini{
+            min-width:0;
+
+            display:flex;
+            align-items:center;
+
+            gap:7px;
+
+            padding:7px 8px;
+
+            border:1px solid #e2e8f0;
+
+            border-radius:10px;
+
+            background:#f8fafc;
+        }
+
+
+        .admin-marine-mini-icon{
+            flex-shrink:0;
+
+            font-size:19px;
+        }
+
+
+        .admin-marine-mini-copy{
+            min-width:0;
+
+            display:flex;
+            flex-direction:column;
+
+            line-height:1.15;
+        }
+
+
+        .admin-marine-mini-copy strong{
+            color:#0f172a;
+
+            font-size:14px;
+
+            font-weight:900;
+        }
+
+
+        .admin-marine-mini-copy small{
+            margin-top:2px;
+
+            color:#64748b;
+
+            font-size:9px;
+
+            font-weight:700;
+        }
+
+
 
         /* =====================================================
            SECTION TITLE
@@ -868,6 +999,21 @@
             }
 
 
+            .admin-stat-combined{
+                padding:16px;
+            }
+
+
+            .admin-marine-breakdown{
+                gap:6px;
+            }
+
+
+            .admin-marine-mini{
+                padding:6px 7px;
+            }
+
+
 
             /* MANAGEMENT */
 
@@ -1254,10 +1400,21 @@
         @php
             $totalUsers = \App\Models\User::count();
 
-            // ProProfs belum disambungkan ke Laravel.
-            // Nilai ini akan mula berubah selepas callback/API
-            // ProProfs disimpan ke database ShipEquipAR.
-            $quizParticipants = $quizParticipants ?? 0;
+            $quizParticipants = 0;
+
+            /*
+             * Safe during the first deployment:
+             * before the quiz_attempts migration exists,
+             * the dashboard will still open and show 0.
+             */
+            if (\Illuminate\Support\Facades\Schema::hasTable('quiz_attempts')) {
+
+                $quizParticipants =
+                    \App\Models\QuizAttempt::query()
+                        ->whereNotNull('user_id')
+                        ->distinct()
+                        ->count('user_id');
+            }
 
             $totalModules = \App\Models\Module::count();
 
@@ -1353,23 +1510,68 @@
             ⚓
         </div>
 
-        <div class="admin-stat-info">
+        <div class="admin-stat-info admin-marine-info">
 
-            <h2>
-                {{ $totalMarineContent }}
-            </h2>
+            <div class="admin-marine-heading">
 
-            <p>
+                <h2>
+                    {{ $totalMarineContent }}
+                </h2>
+
+                <span>
+                    Total Assets
+                </span>
+
+            </div>
+
+            <p class="admin-marine-label">
                 Equipment & Ships
             </p>
 
-            <small class="admin-stat-breakdown">
+            <div class="admin-marine-breakdown">
 
-                {{ $totalEquipment }} Equipment
-                &nbsp;•&nbsp;
-                {{ $totalShips }} Ships
+                <div class="admin-marine-mini">
 
-            </small>
+                    <span class="admin-marine-mini-icon">
+                        🦺
+                    </span>
+
+                    <span class="admin-marine-mini-copy">
+
+                        <strong>
+                            {{ $totalEquipment }}
+                        </strong>
+
+                        <small>
+                            Equipment
+                        </small>
+
+                    </span>
+
+                </div>
+
+
+                <div class="admin-marine-mini">
+
+                    <span class="admin-marine-mini-icon">
+                        🚢
+                    </span>
+
+                    <span class="admin-marine-mini-copy">
+
+                        <strong>
+                            {{ $totalShips }}
+                        </strong>
+
+                        <small>
+                            Ships
+                        </small>
+
+                    </span>
+
+                </div>
+
+            </div>
 
         </div>
 

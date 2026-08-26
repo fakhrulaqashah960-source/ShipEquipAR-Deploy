@@ -41,4 +41,8 @@ return [
     'repo'  => env('GITHUB_AR_REPO'),
 ],
 
+'proprofs' => [
+    'notification_token' => env('PROPROFS_NOTIFICATION_TOKEN'),
+],
+
 ];
