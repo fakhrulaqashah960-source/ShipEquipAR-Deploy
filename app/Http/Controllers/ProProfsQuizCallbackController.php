@@ -151,6 +151,17 @@ class ProProfsQuizCallbackController extends Controller
         );
 
 
+        \Illuminate\Support\Facades\Log::info(
+    'ProProfs quiz identity',
+    [
+        'result_id' => $resultId,
+        'received_user_id' => $proProfsUserId,
+        'received_email' => $email !== '',
+        'matched_user_id' => $user?->id,
+    ]
+);
+
+
         /*
         |--------------------------------------------------------------------------
         | STORE / UPDATE QUIZ ATTEMPT
