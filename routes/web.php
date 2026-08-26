@@ -58,7 +58,8 @@ Route::get('/proprofs/diagnostic', function () {
 
     $token = trim(
         (string) config(
-            'services.proprofs.notification_token'
+            'services.proprofs.notification_token',
+            ''
         )
     );
 
@@ -69,6 +70,7 @@ Route::get('/proprofs/diagnostic', function () {
 
     $quizAttemptsTableExists = false;
     $quizAttemptCount = null;
+    $uniqueParticipants = null;
     $databaseError = null;
 
     try {
@@ -82,6 +84,12 @@ Route::get('/proprofs/diagnostic', function () {
 
             $quizAttemptCount =
                 \App\Models\QuizAttempt::count();
+
+            $uniqueParticipants =
+                \App\Models\QuizAttempt::query()
+                    ->whereNotNull('user_id')
+                    ->distinct()
+                    ->count('user_id');
 
         }
 
@@ -114,6 +122,9 @@ Route::get('/proprofs/diagnostic', function () {
 
         'quiz_attempt_count' =>
             $quizAttemptCount,
+
+        'unique_participants' =>
+            $uniqueParticipants,
 
         'database_error' =>
             $databaseError,
