@@ -43,18 +43,6 @@ require __DIR__ . '/auth.php';
 |--------------------------------------------------------------------------
 | PROPROFS QUIZ CALLBACK
 |--------------------------------------------------------------------------
-|
-| IMPORTANT:
-|
-| Route ini mesti berada DI LUAR:
-|
-| - auth middleware
-| - user middleware
-| - admin middleware
-|
-| Sebab ProProfs server sendiri akan menghantar POST request
-| ke ShipEquipAR selepas user selesai quiz.
-|
 */
 
 Route::post(
@@ -65,6 +53,22 @@ Route::post(
     ]
 )
 ->name('proprofs.quiz-result');
+
+Route::get('/proprofs/diagnostic', function () {
+
+    $token =
+        trim(
+            (string) config(
+                'services.proprofs.notification_token'
+            )
+        );
+
+    return response()->json([
+        'configured' => $token !== '',
+        'length' => strlen($token),
+    ]);
+
+});
 
 
 /*

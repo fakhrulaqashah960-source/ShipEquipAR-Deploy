@@ -34,13 +34,17 @@ class ProProfsQuizCallbackController extends Controller
          * ProProfs notification token matches.
          */
         if (
-            $expectedToken === ''
-            ||
-            $receivedToken === ''
-            ||
-            ! hash_equals(
-                $expectedToken,
-                $receivedToken
+           $expectedToken =
+    trim(
+        (string) config(
+            'services.proprofs.notification_token'
+        )
+    );
+
+$receivedToken =
+    trim(
+        (string) ($payload['token'] ?? '')
+    );
             )
         ) {
             return response()->json(
