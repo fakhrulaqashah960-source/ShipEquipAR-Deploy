@@ -147,6 +147,8 @@ outline:none;
 
 
 
+/* ERROR MESSAGE */
+
 .error-box{
 
 
@@ -168,6 +170,59 @@ text-align:center;
 
 
 
+/* SUCCESS MESSAGE */
+
+.success-box{
+
+
+background:#16a34a;
+
+color:white;
+
+padding:12px;
+
+border-radius:10px;
+
+font-size:14px;
+
+margin-bottom:15px;
+
+text-align:center;
+
+font-weight:600;
+
+box-shadow:
+0 5px 15px rgba(22,163,74,.4);
+
+animation:fadeIn .4s ease;
+
+
+}
+
+
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(-10px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
 .error-text{
 
 
@@ -178,6 +233,7 @@ font-size:13px;
 margin-bottom:10px;
 
 }
+
 
 
 
@@ -253,6 +309,7 @@ font-weight:bold;
 }
 
 
+
 </style>
 
 
@@ -281,6 +338,22 @@ font-weight:bold;
 Welcome Back
 
 </div>
+
+
+
+{{-- SUCCESS MESSAGE --}}
+
+@if(session('success'))
+
+<div class="success-box">
+
+✅ {{ session('success') }}
+
+</div>
+
+@endif
+
+
 
 
 
@@ -322,6 +395,7 @@ required
 
 
 
+
 @error('email')
 
 <div class="error-text">
@@ -351,6 +425,7 @@ required
 
 
 
+
 @error('password')
 
 <div class="error-text">
@@ -374,6 +449,7 @@ LOGIN
 
 
 </form>
+
 
 
 
