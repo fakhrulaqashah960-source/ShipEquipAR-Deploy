@@ -136,6 +136,60 @@ border-radius:10px;
 
 
 
+/* SUCCESS MESSAGE */
+
+.success-box{
+
+
+background:#16a34a;
+
+color:white;
+
+padding:12px;
+
+border-radius:10px;
+
+margin-bottom:20px;
+
+font-size:14px;
+
+text-align:center;
+
+font-weight:600;
+
+box-shadow:
+0 5px 15px rgba(22,163,74,.4);
+
+
+animation:fadeIn .4s ease;
+
+
+}
+
+
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(-10px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
 /* ERROR MESSAGE */
 
 .error-box{
@@ -264,6 +318,40 @@ text-decoration:none;
 Create Account
 
 </h2>
+
+
+
+{{-- SUCCESS MESSAGE --}}
+
+@if(session('success'))
+
+<div class="success-box" id="successMessage">
+
+✅ {{ session('success') }}
+
+</div>
+
+
+<script>
+
+setTimeout(function(){
+
+let message = document.getElementById('successMessage');
+
+if(message){
+
+message.style.display='none';
+
+}
+
+},3000);
+
+
+</script>
+
+@endif
+
+
 
 
 

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 | GUEST ROUTES
 |--------------------------------------------------------------------------
 |
-| Only users who are NOT logged in can access these pages
+| User yang belum login sahaja boleh akses
 |
 */
 
@@ -36,16 +36,26 @@ Route::middleware('guest')->group(function () {
     */
 
 
-    Route::get('register',
-        [RegisteredUserController::class,'create']
+    Route::get(
+        'register',
+        [
+            RegisteredUserController::class,
+            'create'
+        ]
     )
     ->name('register');
 
 
 
-    Route::post('register',
-        [RegisteredUserController::class,'store']
-    );
+    Route::post(
+        'register',
+        [
+            RegisteredUserController::class,
+            'store'
+        ]
+    )
+    ->name('register.store');
+
 
 
 
@@ -59,16 +69,24 @@ Route::middleware('guest')->group(function () {
     */
 
 
-    Route::get('login',
-        [AuthenticatedSessionController::class,'create']
+    Route::get(
+        'login',
+        [
+            AuthenticatedSessionController::class,
+            'create'
+        ]
     )
     ->name('login');
 
 
 
 
-    Route::post('login',
-        [AuthenticatedSessionController::class,'store']
+    Route::post(
+        'login',
+        [
+            AuthenticatedSessionController::class,
+            'store'
+        ]
     );
 
 
@@ -85,18 +103,29 @@ Route::middleware('guest')->group(function () {
     */
 
 
+    // Papar page Forgot Password
+
     Route::get(
         'forgot-password',
-        [PasswordResetLinkController::class,'create']
+        [
+            PasswordResetLinkController::class,
+            'create'
+        ]
     )
     ->name('password.request');
 
 
 
 
+
+    // Hantar email reset password
+
     Route::post(
         'forgot-password',
-        [PasswordResetLinkController::class,'store']
+        [
+            PasswordResetLinkController::class,
+            'store'
+        ]
     )
     ->name('password.email');
 
@@ -104,9 +133,16 @@ Route::middleware('guest')->group(function () {
 
 
 
+
+
+    // Papar page reset password
+
     Route::get(
         'reset-password/{token}',
-        [NewPasswordController::class,'create']
+        [
+            NewPasswordController::class,
+            'create'
+        ]
     )
     ->name('password.reset');
 
@@ -114,9 +150,16 @@ Route::middleware('guest')->group(function () {
 
 
 
+
+
+    // Simpan password baru
+
     Route::post(
         'reset-password',
-        [NewPasswordController::class,'store']
+        [
+            NewPasswordController::class,
+            'store'
+        ]
     )
     ->name('password.store');
 
@@ -137,7 +180,7 @@ Route::middleware('guest')->group(function () {
 | AUTHENTICATED USER ROUTES
 |--------------------------------------------------------------------------
 |
-| Only logged in users can access
+| User yang sudah login sahaja
 |
 */
 
@@ -163,6 +206,7 @@ Route::middleware('auth')->group(function () {
 
 
 
+
     Route::get(
         'verify-email/{id}/{hash}',
         VerifyEmailController::class
@@ -172,6 +216,7 @@ Route::middleware('auth')->group(function () {
         'throttle:6,1'
     ])
     ->name('verification.verify');
+
 
 
 
@@ -222,6 +267,7 @@ Route::middleware('auth')->group(function () {
             'store'
         ]
     );
+
 
 
 

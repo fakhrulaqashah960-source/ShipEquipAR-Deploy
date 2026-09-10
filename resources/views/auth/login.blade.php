@@ -9,14 +9,18 @@
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+
 }
 
 
+
 body{
+
 
 height:100vh;
 
@@ -28,10 +32,12 @@ align-items:center;
 
 
 background:
+
 linear-gradient(
 rgba(2,15,35,.75),
 rgba(2,15,35,.75)
 ),
+
 url('/images/ship-bg.jpg');
 
 
@@ -39,7 +45,10 @@ background-size:cover;
 
 background-position:center;
 
+
 }
+
+
 
 
 
@@ -72,6 +81,8 @@ border:1px solid rgba(255,255,255,.2);
 
 
 
+
+
 .logo{
 
 
@@ -94,6 +105,8 @@ margin-bottom:25px;
 
 
 
+
+
 .subtitle{
 
 
@@ -113,15 +126,20 @@ font-size:20px;
 
 
 
+
+
 label{
 
 
 color:white;
 
+
 font-size:14px;
 
 
 }
+
+
 
 
 
@@ -130,15 +148,21 @@ input{
 
 width:100%;
 
+
 padding:12px;
+
 
 margin-top:8px;
 
+
 margin-bottom:8px;
+
 
 border-radius:10px;
 
+
 border:none;
+
 
 outline:none;
 
@@ -147,79 +171,40 @@ outline:none;
 
 
 
-/* ERROR MESSAGE */
+
+
+
+/* LOGIN ERROR */
+
 
 .error-box{
 
 
 background:#fee2e2;
 
+
 color:#991b1b;
+
 
 padding:10px;
 
-border-radius:10px;
-
-font-size:14px;
-
-margin-bottom:15px;
-
-text-align:center;
-
-}
-
-
-
-/* SUCCESS MESSAGE */
-
-.success-box{
-
-
-background:#16a34a;
-
-color:white;
-
-padding:12px;
 
 border-radius:10px;
 
+
 font-size:14px;
+
 
 margin-bottom:15px;
 
+
 text-align:center;
 
-font-weight:600;
-
-box-shadow:
-0 5px 15px rgba(22,163,74,.4);
-
-animation:fadeIn .4s ease;
-
 
 }
 
 
 
-@keyframes fadeIn{
-
-from{
-
-opacity:0;
-
-transform:translateY(-10px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
-}
-
-}
 
 
 
@@ -228,11 +213,63 @@ transform:translateY(0);
 
 color:#fecaca;
 
+
 font-size:13px;
+
 
 margin-bottom:10px;
 
+
 }
+
+
+
+
+
+/* FORGOT PASSWORD */
+
+
+.forgot-password{
+
+
+text-align:right;
+
+
+margin-bottom:20px;
+
+
+}
+
+
+
+.forgot-password a{
+
+
+color:#38bdf8;
+
+
+font-size:13px;
+
+
+text-decoration:none;
+
+
+font-weight:600;
+
+
+}
+
+
+
+.forgot-password a:hover{
+
+
+color:#7dd3fc;
+
+
+}
+
+
 
 
 
@@ -268,6 +305,8 @@ cursor:pointer;
 
 
 
+
+
 button:hover{
 
 
@@ -275,6 +314,9 @@ background:#0ea5e9;
 
 
 }
+
+
+
 
 
 
@@ -291,6 +333,8 @@ color:white;
 
 
 }
+
+
 
 
 
@@ -333,6 +377,7 @@ font-weight:bold;
 
 
 
+
 <div class="subtitle">
 
 Welcome Back
@@ -341,33 +386,27 @@ Welcome Back
 
 
 
-{{-- SUCCESS MESSAGE --}}
-
-@if(session('success'))
-
-<div class="success-box">
-
-✅ {{ session('success') }}
-
-</div>
-
-@endif
-
-
 
 
 
 {{-- LOGIN ERROR --}}
 
+
 @if($errors->any())
+
 
 <div class="error-box">
 
+
 {{ $errors->first() }}
+
 
 </div>
 
+
 @endif
+
+
 
 
 
@@ -375,7 +414,11 @@ Welcome Back
 
 <form method="POST" action="{{ route('login') }}">
 
+
 @csrf
+
+
+
 
 
 
@@ -386,25 +429,41 @@ Email
 </label>
 
 
+
+
+
 <input 
+
 type="email"
+
 name="email"
+
 value="{{ old('email') }}"
+
 required
+
 >
+
+
 
 
 
 
 @error('email')
 
+
 <div class="error-text">
+
 
 {{ $message }}
 
+
 </div>
 
+
 @enderror
+
+
 
 
 
@@ -417,22 +476,36 @@ Password
 </label>
 
 
+
+
+
+
 <input
+
 type="password"
+
 name="password"
+
 required
+
 >
+
+
 
 
 
 
 @error('password')
 
+
 <div class="error-text">
+
 
 {{ $message }}
 
+
 </div>
+
 
 @enderror
 
@@ -440,15 +513,42 @@ required
 
 
 
+
+<div class="forgot-password">
+
+
+<a href="{{ route('password.request') }}">
+
+Forgot Password?
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+
 <button>
 
+
 LOGIN
+
 
 </button>
 
 
 
+
+
+
 </form>
+
+
+
 
 
 
@@ -461,15 +561,25 @@ LOGIN
 Don't have an account?
 
 
+
+
+
 <a href="{{route('register')}}">
 
+
 Register
+
 
 </a>
 
 
 
+
+
 </div>
+
+
+
 
 
 
@@ -479,5 +589,6 @@ Register
 
 
 </body>
+
 
 </html>
