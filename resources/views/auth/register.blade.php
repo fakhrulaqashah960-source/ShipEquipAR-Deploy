@@ -289,7 +289,11 @@ text-decoration:none;
 
 }
 
+.success-box{
 
+transition:0.5s;
+
+}
 
 </style>
 
@@ -338,16 +342,26 @@ setTimeout(function(){
 
 let message = document.getElementById('successMessage');
 
+
 if(message){
 
-message.style.display='none';
+message.style.opacity = "0";
+
+
+setTimeout(function(){
+
+message.style.display = "none";
+
+},500);
 
 }
+
 
 },3000);
 
 
 </script>
+
 
 @endif
 

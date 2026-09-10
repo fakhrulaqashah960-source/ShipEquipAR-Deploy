@@ -19,6 +19,7 @@ use Illuminate\View\View;
 class RegisteredUserController extends Controller
 {
 
+
     public function create(): View
     {
         return view('auth.register');
@@ -26,16 +27,20 @@ class RegisteredUserController extends Controller
 
 
 
+
     public function store(Request $request): RedirectResponse
     {
 
+
         $request->validate([
+
 
             'name' => [
                 'required',
                 'string',
                 'max:255'
             ],
+
 
 
             'email' => [
@@ -46,6 +51,7 @@ class RegisteredUserController extends Controller
                 'max:255',
                 'unique:users'
             ],
+
 
 
             'password' => [
@@ -60,17 +66,26 @@ class RegisteredUserController extends Controller
 
 
 
+
+
         $user = User::create([
+
 
             'name' => $request->name,
 
+
             'email' => $request->email,
+
 
             'password' => Hash::make($request->password),
 
+
             'role' => 'user',
 
+
         ]);
+
+
 
 
 
@@ -82,13 +97,23 @@ class RegisteredUserController extends Controller
 
 
 
+
+
         return redirect()
-            ->route('login')
+
+            ->route('register')
+
             ->with(
+
                 'success',
+
                 'Registration successful. Please login.'
+
             );
 
+
+
     }
+
 
 }

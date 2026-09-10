@@ -20,13 +20,6 @@ class PasswordResetLinkController extends Controller
 {
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Show Forgot Password Page
-    |--------------------------------------------------------------------------
-    */
-
-
     public function create(): View
     {
 
@@ -38,14 +31,6 @@ class PasswordResetLinkController extends Controller
 
 
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Send Password Reset Link
-    |--------------------------------------------------------------------------
-    */
-
-
     public function store(Request $request): RedirectResponse
     {
 
@@ -55,7 +40,7 @@ class PasswordResetLinkController extends Controller
             'email' => [
                 'required',
                 'email'
-            ],
+            ]
 
         ]);
 
@@ -75,9 +60,9 @@ class PasswordResetLinkController extends Controller
 
 
 
+        if($status === Password::RESET_LINK_SENT)
 
-
-        if ($status === Password::RESET_LINK_SENT) {
+        {
 
 
             return back()->with(
@@ -97,7 +82,6 @@ class PasswordResetLinkController extends Controller
 
 
 
-
         return back()->withErrors([
 
             'email' => __($status)
@@ -107,7 +91,6 @@ class PasswordResetLinkController extends Controller
 
 
     }
-
 
 
 }
