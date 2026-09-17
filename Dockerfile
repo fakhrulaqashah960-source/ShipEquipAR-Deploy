@@ -8,6 +8,7 @@ FROM php:8.2-apache
 COPY docker/uploads.ini /usr/local/etc/php/conf.d/uploads.ini
 
 
+
 # =========================================================
 # SYSTEM DEPENDENCIES
 # =========================================================
@@ -33,6 +34,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 
+
+
 # =========================================================
 # NODE.JS 22
 # =========================================================
@@ -43,11 +46,15 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && rm -rf /var/lib/apt/lists/*
 
 
+
+
 # =========================================================
 # COMPOSER
 # =========================================================
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+
 
 
 # =========================================================
@@ -57,11 +64,15 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 
+
+
 # =========================================================
-# COPY LARAVEL PROJECT
+# COPY PROJECT
 # =========================================================
 
 COPY . .
+
+
 
 
 # =========================================================
@@ -71,6 +82,8 @@ COPY . .
 ENV COMPOSER_MAX_PARALLEL_HTTP=2
 ENV COMPOSER_PROCESS_TIMEOUT=900
 ENV COMPOSER_ALLOW_SUPERUSER=1
+
+
 
 
 # =========================================================
@@ -85,12 +98,16 @@ RUN composer install \
     --no-progress
 
 
+
+
 # =========================================================
-# INSTALL FRONTEND + BUILD VITE
+# VITE BUILD
 # =========================================================
 
 RUN npm ci \
     && npm run build
+
+
 
 
 # =========================================================
@@ -99,11 +116,15 @@ RUN npm ci \
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
+
 RUN sed -ri \
     -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/sites-available/*.conf \
     /etc/apache2/apache2.conf \
     /etc/apache2/conf-available/*.conf
+
+
+
 
 
 # =========================================================
@@ -119,7 +140,11 @@ RUN mkdir -p \
     /var/www/html/bootstrap/cache \
     /var/www/html/public/uploads/reality \
     /var/www/html/public/uploads/modules \
-    /var/www/html/public/uploads/equipment
+    /var/www/html/public/uploads/equipment \
+    /var/www/html/public/uploads/notes
+
+
+
 
 
 # =========================================================
@@ -132,12 +157,17 @@ RUN chown -R www-data:www-data \
         /var/www/html/public/uploads/reality \
         /var/www/html/public/uploads/modules \
         /var/www/html/public/uploads/equipment \
+        /var/www/html/public/uploads/notes \
     && chmod -R 775 \
         /var/www/html/storage \
         /var/www/html/bootstrap/cache \
         /var/www/html/public/uploads/reality \
         /var/www/html/public/uploads/modules \
-        /var/www/html/public/uploads/equipment
+        /var/www/html/public/uploads/equipment \
+        /var/www/html/public/uploads/notes
+
+
+
 
 
 # =========================================================
@@ -146,6 +176,9 @@ RUN chown -R www-data:www-data \
 
 RUN echo "ServerName localhost" \
     >> /etc/apache2/apache2.conf
+
+
+
 
 
 # =========================================================
@@ -157,30 +190,11 @@ ENV PORT=10000
 EXPOSE 10000
 
 
+
+
+
 # =========================================================
 # START APPLICATION
-# =========================================================
-#
-# Startup order:
-#
-# 1. Read Render PORT
-# 2. Configure Apache port
-# 3. Clear Laravel caches
-# 4. Run production migrations
-# 5. Create Laravel public storage link
-# 6. Sync AR Reality models
-# 7. Start Apache
-#
-# IMPORTANT:
-#
-# Database migration MUST succeed before Apache starts.
-#
-# storage:link is allowed to fail if the symlink
-# already exists.
-#
-# AR sync is allowed to fail without taking down
-# the website.
-#
 # =========================================================
 
 CMD ["sh", "-c", "\
