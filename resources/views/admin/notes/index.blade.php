@@ -520,6 +520,42 @@ body.notes-page{
 
 }
 
+.action-area{
+
+    margin-top:40px;
+
+    padding-top:25px;
+
+    border-top:1px solid #e2e8f0;
+
+}
+
+
+.back-button{
+
+    display:inline-flex;
+
+    padding:13px 30px;
+
+    border-radius:14px;
+
+    background:#0f172a;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:900;
+
+}
+
+
+.back-button:hover{
+
+    background:#0284c7;
+
+}
+
 
 </style>
 
@@ -862,7 +898,18 @@ Create your first learning note.
 </section>
 
 
+<div class="action-area">
 
+<a 
+href="{{ route('admin.dashboard') }}"
+class="back-button"
+>
+
+← Back to Dashboard
+
+</a>
+
+</div>
 
 
 </div>
