@@ -628,6 +628,49 @@ body{
 }
 
 
+
+.bottom-dashboard-btn{
+
+    width:fit-content;
+
+    min-height:45px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-top:5px;
+
+    padding:12px 28px;
+
+    border-radius:12px;
+
+    background:#0f172a;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    transition:.25s ease;
+
+}
+
+
+.bottom-dashboard-btn:hover{
+
+    background:#0284c7;
+
+    transform:translateY(-3px);
+
+}
+
+
 /* =========================================================
    TABLET
 ========================================================= */
@@ -841,12 +884,7 @@ body{
                 </div>
 
 
-                <a
-                    href="{{ route('dashboard') }}"
-                    class="dashboard-btn"
-                >
-                    ← Back to Dashboard
-                </a>
+
 
 
             </aside>
@@ -887,6 +925,14 @@ body{
                     )
 
                 </div>
+
+
+                <a
+                    href="{{ route('dashboard') }}"
+                    class="bottom-dashboard-btn"
+                >
+                    ← Back to Dashboard
+                </a>
 
 
             </main>
