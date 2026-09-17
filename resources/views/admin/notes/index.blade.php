@@ -583,10 +583,10 @@ textarea.content-box{
                                     $pdfUrl = asset($normalizedPdf);
                                 }
                                 elseif (str_starts_with($normalizedPdf, 'notes/')) {
-                                    $pdfUrl = asset('storage/' . $normalizedPdf);
+                                    $pdfUrl = asset($normalizedPdf);
                                 }
                                 else {
-                                    $pdfUrl = asset('storage/notes/' . basename($normalizedPdf));
+                                    $pdfUrl = asset('notes/' . basename($normalizedPdf));
                                 }
                             }
                         }
