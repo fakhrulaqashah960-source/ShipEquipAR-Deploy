@@ -20,11 +20,6 @@ content="width=device-width, initial-scale=1.0">
 ])
 
 
-@php
-use Illuminate\Support\Facades\Storage;
-@endphp
-
-
 <style>
 
 :root{
@@ -309,6 +304,9 @@ body{
 
 
 }
+
+
+
 /* BACK */
 
 
@@ -361,67 +359,6 @@ body{
 
 
 }
-
-
-
-
-
-
-@media(max-width:700px){
-
-
-body{
-
-    padding:0;
-
-}
-
-
-
-.learning-hero{
-
-
-    border-radius:0 0 25px 25px;
-
-
-    padding:25px;
-
-
-}
-
-
-
-.note-container{
-
-
-    margin:8px;
-
-
-    padding:20px;
-
-
-    border-radius:18px;
-
-
-}
-
-
-
-.pdf-button,
-.back-button{
-
-
-    width:100%;
-
-
-    justify-content:center;
-
-
-}
-
-
-}
-
 
 </style>
 
@@ -486,6 +423,7 @@ through ShipEquipAR digital learning resources.
 
 
 
+
 <article class="note-container">
 
 
@@ -510,23 +448,23 @@ through ShipEquipAR digital learning resources.
 
 
 
-
 @if($note->pdf)
-
 
 @php
 
-
 /*
 |--------------------------------------------------------------------------
-| PDF STORAGE FIX
+| PDF URL FIX
 |--------------------------------------------------------------------------
 |
 | Database:
-| notes/HNZdZEaVs....pdf
+| uploads/notes/file.pdf
 |
-| Storage:
-| storage/app/public/notes/HNZdZEaVs....pdf
+| Public:
+| public/uploads/notes/file.pdf
+|
+| URL:
+| /uploads/notes/file.pdf
 |
 */
 
@@ -538,7 +476,6 @@ $pdfPath = str_replace(
 );
 
 
-
 $pdfPath = ltrim(
     $pdfPath,
     '/'
@@ -546,8 +483,13 @@ $pdfPath = ltrim(
 
 
 
-if(str_starts_with($pdfPath,'storage/')){
+/*
+remove old format if exist
+storage/notes/file.pdf
+*/
 
+
+if(str_starts_with($pdfPath,'storage/')){
 
     $pdfPath = str_replace(
         'storage/',
@@ -555,19 +497,35 @@ if(str_starts_with($pdfPath,'storage/')){
         $pdfPath
     );
 
+}
+
+
+/*
+remove public/ if exist
+*/
+
+
+if(str_starts_with($pdfPath,'public/')){
+
+    $pdfPath = str_replace(
+        'public/',
+        '',
+        $pdfPath
+    );
 
 }
 
 
 
-$pdfUrl = Storage::url(
-    $pdfPath
-);
+/*
+final url
+*/
 
+
+$pdfUrl = asset($pdfPath);
 
 
 @endphp
-
 
 
 
@@ -590,10 +548,8 @@ font-size:14px;
 margin-bottom:15px;
 ">
 
-
 Open the PDF resource to explore
 additional learning materials.
-
 
 </p>
 
@@ -629,7 +585,6 @@ rel="noopener noreferrer"
 
 
 
-
 <div class="action-area">
 
 
@@ -653,6 +608,7 @@ href="{{ route('user.notes') }}"
 
 
 </article>
+
 
 
 
