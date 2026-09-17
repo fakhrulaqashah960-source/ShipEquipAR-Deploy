@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Note;
 use App\Models\Module;
+use Illuminate\Support\Facades\File;
+
 
 class AdminNoteController extends Controller
 {
@@ -21,9 +23,14 @@ class AdminNoteController extends Controller
 
         $notes = Note::with('module')->get();
 
-        return view('admin.notes.index', compact('notes'));
+        return view(
+            'admin.notes.index',
+            compact('notes')
+        );
 
     }
+
+
 
 
 
@@ -49,6 +56,7 @@ class AdminNoteController extends Controller
 
 
 
+
     /*
     |--------------------------------------------------------------------------
     | Store Notes
@@ -67,10 +75,9 @@ class AdminNoteController extends Controller
 
             'content' => 'required',
 
-            'pdf' => 'nullable|mimes:pdf|max:10000'
+            'pdf' => 'nullable|mimes:pdf|max:20000'
 
         ]);
-
 
 
 
@@ -82,35 +89,72 @@ class AdminNoteController extends Controller
         {
 
 
+            $folder = public_path('uploads/notes');
+
+
+            if(!File::exists($folder))
+            {
+
+                File::makeDirectory(
+                    $folder,
+                    0755,
+                    true
+                );
+
+            }
+
+
+
             $file = $request->file('pdf');
 
-$filename = time().'_'.$file->getClientOriginalName();
 
-$file->move(
-    public_path('uploads/notes'),
-    $filename
-);
+            $filename =
+                time()
+                .'_'
+                .preg_replace(
+                    '/[^A-Za-z0-9_\-\.]/',
+                    '_',
+                    $file->getClientOriginalName()
+                );
 
-$pdf = 'uploads/notes/'.$filename;
+
+
+            $file->move(
+                $folder,
+                $filename
+            );
+
+
+
+            $pdf =
+                'uploads/notes/'.$filename;
+
+
         }
+
+
+
+
 
         Note::create([
 
 
-            'title' => $request->title,
+            'title'=>$request->title,
 
 
-            'module_id' => $request->module_id,
+            'module_id'=>$request->module_id,
 
 
-            'content' => $request->content,
+            'content'=>$request->content,
 
 
-            'pdf' => $pdf
-
+            'pdf'=>$pdf
 
 
         ]);
+
+
+
 
 
         return redirect()
@@ -130,6 +174,7 @@ $pdf = 'uploads/notes/'.$filename;
 
 
 
+
     /*
     |--------------------------------------------------------------------------
     | Show Notes
@@ -140,7 +185,8 @@ $pdf = 'uploads/notes/'.$filename;
     {
 
 
-        $note = Note::with('module')
+        $note =
+            Note::with('module')
             ->findOrFail($id);
 
 
@@ -158,6 +204,8 @@ $pdf = 'uploads/notes/'.$filename;
 
 
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Edit Notes
@@ -168,10 +216,13 @@ $pdf = 'uploads/notes/'.$filename;
     {
 
 
-        $note = Note::findOrFail($id);
+        $note =
+            Note::findOrFail($id);
 
 
-        $modules = Module::all();
+
+        $modules =
+            Module::all();
 
 
 
@@ -192,6 +243,7 @@ $pdf = 'uploads/notes/'.$filename;
 
 
 
+
     /*
     |--------------------------------------------------------------------------
     | Update Notes
@@ -202,40 +254,93 @@ $pdf = 'uploads/notes/'.$filename;
     {
 
 
-        $note = Note::findOrFail($id);
+        $note =
+            Note::findOrFail($id);
+
 
 
 
         $request->validate([
 
+
             'title'=>'required',
+
 
             'module_id'=>'required',
 
+
             'content'=>'required',
 
-            'pdf'=>'nullable|mimes:pdf|max:10000'
+
+            'pdf'=>'nullable|mimes:pdf|max:20000'
+
 
         ]);
 
 
 
-        $pdf = $note->pdf;
+
+        $pdf =
+            $note->pdf;
+
+
+
 
 
 
         if($request->hasFile('pdf'))
         {
-$file = $request->file('pdf');
 
-$filename = time().'_'.$file->getClientOriginalName();
 
-$file->move(
-    public_path('uploads/notes'),
-    $filename
-);
+            $folder =
+                public_path('uploads/notes');
 
-$pdf = 'uploads/notes/'.$filename;
+
+
+            if(!File::exists($folder))
+            {
+
+                File::makeDirectory(
+                    $folder,
+                    0755,
+                    true
+                );
+
+            }
+
+
+
+
+            $file =
+                $request->file('pdf');
+
+
+
+            $filename =
+                time()
+                .'_'
+                .preg_replace(
+                    '/[^A-Za-z0-9_\-\.]/',
+                    '_',
+                    $file->getClientOriginalName()
+                );
+
+
+
+
+            $file->move(
+                $folder,
+                $filename
+            );
+
+
+
+
+            $pdf =
+                'uploads/notes/'.$filename;
+
+
+
         }
 
 
@@ -262,6 +367,9 @@ $pdf = 'uploads/notes/'.$filename;
 
 
 
+
+
+
         return redirect()
 
             ->route('admin.notes.index')
@@ -280,6 +388,7 @@ $pdf = 'uploads/notes/'.$filename;
 
 
 
+
     /*
     |--------------------------------------------------------------------------
     | Delete Notes
@@ -290,10 +399,37 @@ $pdf = 'uploads/notes/'.$filename;
     {
 
 
-        $note = Note::findOrFail($id);
+        $note =
+            Note::findOrFail($id);
+
+
+
+        if($note->pdf)
+        {
+
+
+            $file =
+                public_path($note->pdf);
+
+
+
+            if(File::exists($file))
+            {
+
+                File::delete($file);
+
+            }
+
+
+        }
+
+
+
 
 
         $note->delete();
+
+
 
 
 
