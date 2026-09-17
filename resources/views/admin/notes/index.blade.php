@@ -560,67 +560,69 @@ textarea.content-box{
                 @foreach($notes as $note)
 
                     @php
-                        $rawPdf = trim((string) ($note->pdf ?? ''));
-                        $pdfUrl = null;
 
-                        if ($rawPdf !== '') {
-                            if (
-                                str_starts_with($rawPdf, 'http://')
-                                || str_starts_with($rawPdf, 'https://')
-                            ) {
-                                $pdfUrl = $rawPdf;
-                            } else {
-                                $normalizedPdf = ltrim(str_replace('\\', '/', $rawPdf), '/');
+$pdfPath = trim(
+    str_replace(
+        '\\',
+        '/',
+        $note->pdf
+    )
+);
 
-                                if (str_starts_with($normalizedPdf, 'public/')) {
-                                    $normalizedPdf = substr($normalizedPdf, 7);
-                                }
 
-                                if (str_starts_with($normalizedPdf, 'storage/')) {
-                                    $pdfUrl = asset($normalizedPdf);
-                                }
-                                elseif (str_starts_with($normalizedPdf, 'uploads/')) {
-                                    $pdfUrl = asset($normalizedPdf);
-                                }
-                                elseif (str_starts_with($normalizedPdf, 'notes/')) {
-                                    $pdfUrl = asset($normalizedPdf);
-                                }
-                                else {
-                                    $pdfUrl = asset('notes/' . basename($normalizedPdf));
-                                }
-                            }
-                        }
-                    @endphp
+if(
+    str_starts_with(
+        $pdfPath,
+        'http://'
+    )
+    ||
+    str_starts_with(
+        $pdfPath,
+        'https://'
+    )
+){
 
-                    <article class="note-card">
+    $pdfUrl = $pdfPath;
 
-                        <div class="note-card-top">
-                            <div class="note-icon">📄</div>
+}
 
-                            <div class="note-main">
-                                <h3>{{ $note->title }}</h3>
+else{
 
-                                <span class="module-badge">
-                                    📚 {{ $note->module->title ?? 'No Module' }}
-                                </span>
-                            </div>
-                        </div>
 
-                        @if(!empty($note->description))
-                            <p class="note-desc">
-                                {{ \Illuminate\Support\Str::limit($note->description, 180) }}
-                            </p>
-                        @endif
+    // buang public/ kalau ada
+    $pdfPath = str_replace(
+        'public/',
+        '',
+        $pdfPath
+    );
 
-                        <div class="note-actions">
 
-                            @if($pdfUrl)
-                                <a href="{{ $pdfUrl }}"
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   class="notes-btn notes-btn-green">
-                                    📄 View PDF
-                                </a>
+    // buang storage/ kalau ada
+    $pdfPath = str_replace(
+        'storage/',
+        '',
+        $pdfPath
+    );
+
+
+    $pdfUrl = asset(
+        'storage/'.$pdfPath
+    );
+
+
+}
+
+@endphp
+
+
+<a
+    href="{{ $pdfUrl }}"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="pdf-btn"
+>
+    📄 View PDF
+</a>
                             @endif
 
                             <a href="{{ route('admin.notes.edit', $note->id) }}"
