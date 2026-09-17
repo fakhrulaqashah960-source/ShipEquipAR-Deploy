@@ -3,1600 +3,612 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>ShipEquipAR Admin Dashboard</title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+<title>
+{{ $note->title }} - ShipEquipAR Learning
+</title>
 
-    <style>
 
-        :root{
-            --admin-sidebar-width:250px;
-            --nav-bg:#0f172a;
-            --nav-item:#1e293b;
-            --blue:#0284c7;
-            --cyan:#38bdf8;
-        }
+@vite([
+    'resources/css/app.css',
+    'resources/js/app.js'
+])
 
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:'Segoe UI',sans-serif;
-        }
+<style>
 
+:root{
 
-        html,
-        body.admin-dashboard-page{
-            width:100%;
-            min-height:100%;
-            overflow-x:hidden;
-        }
+    --navy:#0f172a;
+    --blue:#0284c7;
+    --green:#16a34a;
+    --text:#1e293b;
+    --line:#e2e8f0;
 
+}
 
-        body{
-            min-height:100vh;
 
-            background:
-            linear-gradient(
-                rgba(3,37,65,.88),
-                rgba(2,132,199,.72)
-            ),
-            url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
+*{
 
-            background-size:cover;
-            background-position:center;
-            background-attachment:fixed;
-        }
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
 
+}
 
-        body.admin-sidebar-open{
-            overflow:hidden;
-        }
 
 
+body{
 
-        /* =====================================================
-           MOBILE TOPBAR
-        ===================================================== */
+    min-height:100vh;
 
-        .admin-mobile-topbar{
-            display:none;
-        }
+    padding:35px 18px;
 
 
-        .admin-mobile-brand{
-            font-weight:900;
-            color:white;
-        }
+    background:
 
+    linear-gradient(
+        135deg,
+        rgba(15,23,42,.92),
+        rgba(2,132,199,.75)
+    ),
 
-        .admin-mobile-brand span{
-            color:var(--cyan);
-        }
+    url('/images/ship-bg.jpg');
 
 
+    background-size:cover;
 
-        /* =====================================================
-           OVERLAY
-        ===================================================== */
+    background-position:center;
 
-        .admin-sidebar-overlay{
-            position:fixed;
-            inset:0;
+    background-attachment:fixed;
 
-            background:rgba(0,0,0,.55);
+}
 
-            opacity:0;
-            visibility:hidden;
 
-            transition:.25s;
 
-            z-index:1290;
-        }
 
+.page-wrapper{
 
-        .admin-sidebar-overlay.open{
-            opacity:1;
-            visibility:visible;
-        }
+    width:100%;
 
+    max-width:1050px;
 
+    margin:auto;
 
-        /* =====================================================
-           SIDEBAR
-        ===================================================== */
+}
 
-        .admin-sidebar{
-            position:fixed;
 
-            top:0;
-            left:0;
 
-            width:var(--admin-sidebar-width);
 
-            height:100vh;
-            height:100dvh;
 
-            background:rgba(15,23,42,.98);
+/* HERO */
 
-            padding:28px 18px;
+.learning-hero{
 
-            overflow-y:auto;
+    padding:35px;
 
-            z-index:1300;
-        }
+    border-radius:28px;
 
+    margin-bottom:25px;
 
-        .admin-drawer-close{
-            display:none;
-        }
 
+    color:white;
 
 
-        /* =====================================================
-           LOGO
-        ===================================================== */
+    background:
 
-        .admin-logo{
-            width:100%;
+    linear-gradient(
+        135deg,
+        #0369a1,
+        #0f172a
+    );
 
-            text-align:center;
 
-            margin-bottom:30px;
+    box-shadow:
+    0 18px 40px rgba(0,0,0,.25);
 
-            font-size:27px;
+}
 
-            font-weight:900;
 
-            color:white;
-        }
 
+.hero-badge{
 
-        .admin-logo span{
-            color:var(--cyan);
-        }
+    display:inline-flex;
 
+    padding:8px 15px;
 
+    border-radius:50px;
 
-        /* =====================================================
-           MENU
-        ===================================================== */
+    background:
+    rgba(255,255,255,.15);
 
-        .admin-menu{
-            width:100%;
 
-            display:flex;
+    color:#e0f2fe;
 
-            flex-direction:column;
+    font-weight:800;
 
-            gap:9px;
-        }
+    font-size:13px;
 
+}
 
-        .admin-menu-link{
-            width:100%;
 
-            min-height:52px;
 
-            display:flex;
+.learning-hero h1{
 
-            align-items:center;
+    margin-top:15px;
 
-            gap:10px;
+    font-size:clamp(30px,4vw,44px);
 
-            padding:12px 13px;
+    font-weight:900;
 
-            background:var(--nav-item);
+}
 
-            color:#e2e8f0;
 
-            border-radius:12px;
 
-            text-decoration:none;
+.hero-description{
 
-            font-size:13px;
+    margin-top:12px;
 
-            font-weight:600;
+    color:#dbeafe;
 
-            transition:.22s;
-        }
+    line-height:1.7;
 
+}
 
-        .admin-menu-link:hover{
-            background:#0369a1;
 
-            color:white;
 
-            transform:translateX(3px);
-        }
 
 
-        .admin-menu-link.active{
-            background:var(--blue);
+/* CONTENT */
 
-            color:white;
-        }
 
+.note-container{
 
-        .admin-menu-icon{
-            width:24px;
+    background:white;
 
-            flex-shrink:0;
+    border-radius:28px;
 
-            text-align:center;
-        }
+    padding:35px;
 
+    box-shadow:
 
-        .admin-menu-text{
-            flex:1;
+    0 18px 40px rgba(0,0,0,.18);
 
-            min-width:0;
+}
 
-            white-space:nowrap;
-        }
 
 
+.section-title{
 
-        /* =====================================================
-           LOGOUT
-        ===================================================== */
+    font-size:22px;
 
-        .admin-logout-form{
-            width:100%;
-        }
+    font-weight:900;
 
+    padding-bottom:15px;
 
-        .admin-logout-btn{
-            width:100%;
+    margin-bottom:20px;
 
-            min-height:52px;
+    border-bottom:1px solid var(--line);
 
-            margin-top:10px;
+}
 
-            padding:13px;
 
-            border:none;
 
-            border-radius:12px;
+.note-content{
 
-            background:#dc2626;
+    color:#334155;
 
-            color:white;
+    font-size:15px;
 
-            font-size:14px;
+    line-height:1.9;
 
-            font-weight:700;
+    white-space:pre-line;
 
-            cursor:pointer;
+}
 
-            transition:.2s;
-        }
 
 
-        .admin-logout-btn:hover{
-            background:#b91c1c;
-        }
 
 
+/* PDF */
 
-        /* =====================================================
-           CONTENT
-        ===================================================== */
 
-        .admin-content{
-            margin-left:var(--admin-sidebar-width);
+.resource-box{
 
-            width:calc(100% - var(--admin-sidebar-width));
+    margin-top:30px;
 
-            min-height:100vh;
+    padding:22px;
 
-            padding:clamp(22px,3vw,40px);
-        }
+    border-radius:20px;
 
+    background:#f8fafc;
 
-        .admin-content-inner{
-            width:100%;
+    border:1px solid var(--line);
 
-            max-width:1400px;
+}
 
-            margin:0 auto;
-        }
 
 
+.resource-title{
 
-        /* =====================================================
-           WELCOME
-        ===================================================== */
+    font-weight:900;
 
-        .admin-welcome{
-            width:100%;
+    margin-bottom:15px;
 
-            background:
-            linear-gradient(
-                135deg,
-                rgba(14,116,144,.96),
-                rgba(15,23,42,.96)
-            );
+}
 
-            border-radius:26px;
 
-            padding:clamp(28px,4vw,45px);
 
-            color:white;
+.pdf-button{
 
-            display:flex;
+    display:inline-flex;
 
-            align-items:center;
+    padding:13px 25px;
 
-            justify-content:space-between;
+    border-radius:14px;
 
-            gap:28px;
+    background:#16a34a;
 
-            box-shadow:0 12px 30px rgba(0,0,0,.16);
-        }
+    color:white;
 
+    text-decoration:none;
 
-        .admin-welcome-copy{
-            flex:1;
-            min-width:0;
-        }
+    font-weight:900;
 
+}
 
-        .admin-welcome h1{
-            font-size:clamp(29px,3vw,43px);
 
-            line-height:1.2;
 
-            font-weight:900;
-        }
+.pdf-button:hover{
 
+    background:#15803d;
 
-        .admin-welcome p{
-            margin-top:12px;
+}
 
-            font-size:clamp(14px,1.2vw,18px);
 
-            line-height:1.65;
-        }
 
 
-        .admin-ship{
-            flex-shrink:0;
+/* BACK */
 
-            font-size:clamp(65px,7vw,95px);
-        }
 
+.action-area{
 
+    margin-top:30px;
 
-        /* =====================================================
-           STATISTICS
-        ===================================================== */
+    padding-top:25px;
 
-        .admin-stats{
-            margin-top:28px;
+    border-top:1px solid var(--line);
 
-            display:grid;
+    text-align:center;
 
-            grid-template-columns:
-            repeat(4,minmax(0,1fr));
+}
 
-            gap:20px;
-        }
 
 
-        .admin-stat-card{
-            min-width:0;
+.back-button{
 
-            background:white;
+    display:inline-flex;
 
-            padding:25px;
+    padding:13px 30px;
 
-            border-radius:22px;
+    border-radius:14px;
 
-            display:flex;
+    background:#0f172a;
 
-            align-items:center;
+    color:white;
 
-            gap:18px;
+    text-decoration:none;
 
-            box-shadow:0 8px 22px rgba(0,0,0,.14);
-        }
+    font-weight:900;
 
+}
 
-        .admin-stat-icon{
-            flex-shrink:0;
 
-            font-size:42px;
-        }
 
+.back-button:hover{
 
-        .admin-stat-info{
-            min-width:0;
-        }
+    background:#0284c7;
 
+}
 
-        .admin-stat-card h2{
-            color:#0f172a;
 
-            font-size:30px;
 
-            font-weight:900;
-        }
 
 
-        .admin-stat-card p{
-            margin-top:4px;
+@media(max-width:700px){
 
-            color:#64748b;
 
-            font-size:14px;
-        }
+body{
 
+    padding:0;
 
-        .admin-stat-breakdown{
-            display:block;
+}
 
-            margin-top:6px;
 
-            color:#64748b;
+.learning-hero{
 
-            font-size:12px;
+    border-radius:0 0 25px 25px;
 
-            font-weight:600;
+    padding:25px;
 
-            line-height:1.4;
-        }
+}
 
 
-        /* =====================================================
-           SECTION TITLE
-        ===================================================== */
+.note-container{
 
-        .admin-title{
-            margin:35px 0 22px;
+    margin:8px;
 
-            color:white;
+    padding:20px;
 
-            font-size:clamp(27px,2.5vw,36px);
+    border-radius:18px;
 
-            font-weight:900;
-        }
+}
 
 
+.pdf-button,
+.back-button{
 
-        /* =====================================================
-           MANAGEMENT CARDS
-        ===================================================== */
+    width:100%;
 
-        .admin-modules{
-            display:grid;
+    justify-content:center;
 
-            grid-template-columns:
-            repeat(3,minmax(0,1fr));
+}
 
-            gap:24px;
 
-            align-items:stretch;
-        }
+}
 
+</style>
 
-        .admin-card{
-            min-width:0;
-
-            min-height:330px;
-
-            background:white;
-
-            padding:30px;
-
-            border-radius:24px;
-
-            box-shadow:0 10px 26px rgba(0,0,0,.16);
-
-            display:flex;
-
-            flex-direction:column;
-        }
-
-
-        .admin-icon{
-            font-size:50px;
-        }
-
-
-        .admin-card h2{
-            margin-top:20px;
-
-            color:#0284c7;
-
-            font-size:23px;
-
-            line-height:1.35;
-
-            font-weight:900;
-        }
-
-
-        .admin-card p{
-            margin-top:15px;
-
-            color:#64748b;
-
-            font-size:15px;
-
-            line-height:1.7;
-
-            flex:1;
-        }
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | BUTTON SENTIASA PALING BAWAH + CENTER
-        |--------------------------------------------------------------------------
-        */
-
-        .admin-btn{
-            display:flex;
-
-            align-items:center;
-
-            justify-content:center;
-
-            width:100%;
-
-            max-width:190px;
-
-            min-height:48px;
-
-            margin-top:25px;
-
-            margin-left:auto;
-
-            margin-right:auto;
-
-            padding:12px 18px;
-
-            background:#0284c7;
-
-            color:white;
-
-            border-radius:12px;
-
-            text-decoration:none;
-
-            text-align:center;
-
-            font-size:14px;
-
-            font-weight:800;
-
-            transition:.2s;
-        }
-
-
-        .admin-btn:hover{
-            background:#0369a1;
-
-            transform:translateY(-2px);
-        }
-
-
-
-        /* =====================================================
-           LAPTOP
-        ===================================================== */
-
-        @media(max-width:1100px){
-
-            :root{
-                --admin-sidebar-width:220px;
-            }
-
-
-            .admin-sidebar{
-                padding-left:14px;
-                padding-right:14px;
-            }
-
-
-            .admin-menu-link{
-                font-size:12px;
-            }
-
-
-            .admin-stats{
-                grid-template-columns:
-                repeat(2,minmax(0,1fr));
-            }
-
-
-            .admin-modules{
-                grid-template-columns:
-                repeat(2,minmax(0,1fr));
-            }
-
-        }
-
-
-
-        /* =====================================================
-           MOBILE / TABLET
-        ===================================================== */
-
-        @media(max-width:768px){
-
-
-            body{
-                background-attachment:scroll;
-            }
-
-
-
-            /* TOPBAR */
-
-            .admin-mobile-topbar{
-                position:sticky;
-
-                top:0;
-
-                z-index:1200;
-
-                width:100%;
-
-                min-height:68px;
-
-                display:flex;
-
-                align-items:center;
-
-                justify-content:center;
-
-                padding:9px 14px;
-
-                background:#0f172a;
-
-                box-shadow:0 3px 15px rgba(0,0,0,.2);
-            }
-
-
-            .admin-mobile-menu-btn{
-                position:absolute;
-
-                left:13px;
-                top:50%;
-
-                transform:translateY(-50%);
-
-                width:46px;
-                height:46px;
-
-                border:none;
-
-                border-radius:13px;
-
-                background:#0284c7;
-
-                color:white;
-
-                font-size:24px;
-
-                cursor:pointer;
-            }
-
-
-            .admin-mobile-brand{
-                width:100%;
-
-                padding:0 58px;
-
-                text-align:center;
-
-                font-size:25px;
-            }
-
-
-
-            /* SIDEBAR DRAWER */
-
-            .admin-sidebar{
-                position:fixed !important;
-
-                top:0 !important;
-                left:0 !important;
-
-                width:min(86vw,330px) !important;
-
-                height:100vh !important;
-                height:100dvh !important;
-
-                padding:20px 16px 28px !important;
-
-                transform:translateX(-105%);
-
-                transition:transform .28s ease;
-
-                box-shadow:10px 0 35px rgba(0,0,0,.3);
-            }
-
-
-            .admin-sidebar.open{
-                transform:translateX(0);
-            }
-
-
-            .admin-drawer-close{
-                position:absolute;
-
-                top:14px;
-                right:14px;
-
-                width:38px;
-                height:38px;
-
-                display:flex;
-
-                align-items:center;
-
-                justify-content:center;
-
-                border:none;
-
-                border-radius:10px;
-
-                background:#1e293b;
-
-                color:white;
-
-                font-size:22px;
-
-                cursor:pointer;
-            }
-
-
-            .admin-logo{
-                padding:7px 42px 0;
-
-                margin-bottom:24px;
-
-                font-size:25px;
-            }
-
-
-            .admin-menu-link{
-                min-height:54px;
-
-                font-size:14px;
-
-                white-space:normal;
-            }
-
-
-            .admin-menu-text{
-                white-space:normal;
-            }
-
-
-
-            /* CONTENT */
-
-            .admin-content{
-                margin-left:0 !important;
-
-                width:100% !important;
-
-                min-height:calc(100vh - 68px);
-
-                padding:10px !important;
-            }
-
-
-            .admin-content-inner{
-                width:100%;
-            }
-
-
-            .admin-welcome{
-                padding:22px 18px;
-
-                border-radius:21px;
-
-                flex-direction:column;
-
-                align-items:flex-start;
-
-                gap:12px;
-            }
-
-
-            .admin-welcome h1{
-                font-size:clamp(28px,8vw,36px);
-            }
-
-
-            .admin-welcome p{
-                font-size:15px;
-            }
-
-
-            .admin-ship{
-                display:none;
-            }
-
-
-
-            /* STATISTICS */
-
-            .admin-stats{
-                margin-top:18px;
-
-                grid-template-columns:
-                repeat(2,minmax(0,1fr));
-
-                gap:12px;
-            }
-
-
-            .admin-stat-card{
-                padding:18px;
-
-                border-radius:17px;
-
-                gap:12px;
-            }
-
-
-            .admin-stat-icon{
-                font-size:34px;
-            }
-
-
-            .admin-stat-card h2{
-                font-size:25px;
-            }
-
-
-            .admin-stat-card p{
-                font-size:12px;
-            }
-
-
-
-            /* MANAGEMENT */
-
-            .admin-title{
-                margin:27px 0 18px;
-
-                font-size:27px;
-            }
-
-
-            .admin-modules{
-                grid-template-columns:1fr;
-
-                gap:16px;
-            }
-
-
-            .admin-card{
-                min-height:0;
-
-                padding:24px;
-            }
-
-
-            .admin-card p{
-                flex:1;
-            }
-
-
-            .admin-btn{
-                max-width:220px;
-            }
-
-        }
-
-
-
-        /* =====================================================
-           SMALL PHONE
-        ===================================================== */
-
-        @media(max-width:430px){
-
-            .admin-content{
-                padding:8px !important;
-            }
-
-
-            .admin-mobile-topbar{
-                min-height:65px;
-            }
-
-
-            .admin-mobile-menu-btn{
-                left:10px;
-
-                width:43px;
-                height:43px;
-
-                font-size:22px;
-            }
-
-
-            .admin-mobile-brand{
-                font-size:22px;
-            }
-
-
-            .admin-sidebar{
-                width:88vw !important;
-            }
-
-
-            .admin-stats{
-                grid-template-columns:1fr;
-            }
-
-
-            .admin-stat-card{
-                min-height:90px;
-            }
-
-
-            .admin-welcome{
-                padding:19px 16px;
-            }
-
-
-            .admin-card{
-                padding:21px;
-            }
-
-
-            .admin-btn{
-                width:100%;
-
-                max-width:none;
-            }
-
-        }
-
-    
-    </style>
 
 </head>
 
 
-<body class="admin-dashboard-page">
+
+<body>
 
 
-{{-- =========================================================
-     MOBILE TOPBAR
-========================================================= --}}
-
-<div class="admin-mobile-topbar">
-
-    <button
-        type="button"
-        class="admin-mobile-menu-btn"
-        onclick="toggleSidebar()"
-        aria-label="Open admin menu"
-    >
-        ☰
-    </button>
+<div class="page-wrapper">
 
 
-    <div class="admin-mobile-brand">
 
-        Ship<span>EquipAR</span>
 
-    </div>
+
+<section class="learning-hero">
+
+
+<div class="hero-badge">
+
+📘 Interactive Learning Module
 
 </div>
 
 
 
-{{-- =========================================================
-     OVERLAY
-========================================================= --}}
+<h1>
 
-<div
-    id="sidebarOverlay"
-    class="admin-sidebar-overlay"
-    onclick="closeSidebar()"
-></div>
+{{ $note->title }}
 
+</h1>
 
 
-{{-- =========================================================
-     SIDEBAR
-========================================================= --}}
 
-<aside
-    id="adminSidebar"
-    class="admin-sidebar"
->
+<p class="hero-description">
 
+Explore marine engineering learning materials
+through ShipEquipAR digital learning resources.
 
-    <button
-        type="button"
-        class="admin-drawer-close"
-        onclick="closeSidebar()"
-        aria-label="Close menu"
-    >
-        ×
-    </button>
+</p>
 
 
 
-    <div class="admin-logo">
+<br>
 
-        Ship<span>EquipAR</span>
 
-    </div>
+<div class="hero-badge">
 
+📚
 
+{{ $note->module->title
+?? $note->module->name
+?? '-' }}
 
-    <nav class="admin-menu">
+</div>
 
-
-        <a
-            href="{{ route('admin.dashboard') }}"
-            class="admin-menu-link active"
-            onclick="closeSidebar()"
-        >
-
-            <span class="admin-menu-icon">
-                🏠
-            </span>
-
-            <span class="admin-menu-text">
-                Admin Dashboard
-            </span>
-
-        </a>
-
-
-
-        <a
-            href="/admin/users"
-            class="admin-menu-link"
-            onclick="closeSidebar()"
-        >
-
-            <span class="admin-menu-icon">
-                👥
-            </span>
-
-            <span class="admin-menu-text">
-                Users
-            </span>
-
-        </a>
-
-
-
-        <a
-            href="/admin/modules"
-            class="admin-menu-link"
-            onclick="closeSidebar()"
-        >
-
-            <span class="admin-menu-icon">
-                📚
-            </span>
-
-            <span class="admin-menu-text">
-                Modules
-            </span>
-
-        </a>
-
-
-
-        <a
-            href="/admin/notes"
-            class="admin-menu-link"
-            onclick="closeSidebar()"
-        >
-
-            <span class="admin-menu-icon">
-                📘
-            </span>
-
-            <span class="admin-menu-text">
-                Notes
-            </span>
-
-        </a>
-
-
-
-        <a
-            href="/admin/equipment"
-            class="admin-menu-link"
-            onclick="closeSidebar()"
-        >
-
-            <span class="admin-menu-icon">
-                🦺
-            </span>
-
-            <span class="admin-menu-text">
-                Equipments
-            </span>
-
-        </a>
-
-
-
-        <a
-            href="{{ route('admin.ships.index') }}"
-            class="admin-menu-link"
-            onclick="closeSidebar()"
-        >
-
-            <span class="admin-menu-icon">
-                🚢
-            </span>
-
-            <span class="admin-menu-text">
-                Ships
-            </span>
-
-        </a>
-
-
-
-        <a
-            href="{{ route('admin.quiz.index') }}"
-            class="admin-menu-link"
-            onclick="closeSidebar()"
-        >
-
-            <span class="admin-menu-icon">
-                📝
-            </span>
-
-            <span class="admin-menu-text">
-                Quiz
-            </span>
-
-        </a>
-
-        <form
-            method="POST"
-            action="{{ route('logout') }}"
-            class="admin-logout-form"
-        >
-
-            @csrf
-
-
-            <button
-                type="submit"
-                class="admin-logout-btn"
-            >
-                Logout
-            </button>
-
-        </form>
-
-
-    </nav>
-
-
-</aside>
-
-
-
-{{-- =========================================================
-     CONTENT
-========================================================= --}}
-
-<main class="admin-content">
-
-
-    <div class="admin-content-inner">
-
-
-        {{-- =====================================================
-             WELCOME
-        ====================================================== --}}
-
-        <section class="admin-welcome">
-
-
-            <div class="admin-welcome-copy">
-
-
-                <h1>
-                    Welcome Admin to ShipEquipAR
-                </h1>
-
-
-                <p>
-                    Admin Management Panel
-                </p>
-
-
-                <p>
-                    Manage maritime learning modules, ships,
-                    equipment and digital content.
-                </p>
-
-
-            </div>
-
-
-
-            <div class="admin-ship">
-                🚢
-            </div>
-
-
-        </section>
-
-
-
-        {{-- =====================================================
-             STATISTICS
-        ====================================================== --}}
-
-        @php
-            $totalUsers = \App\Models\User::count();
-
-            $quizParticipants = 0;
-
-            /*
-             * Safe during the first deployment:
-             * before the quiz_attempts migration exists,
-             * the dashboard will still open and show 0.
-             */
-            if (\Illuminate\Support\Facades\Schema::hasTable('quiz_attempts')) {
-
-                $quizParticipants =
-                    \App\Models\QuizAttempt::query()
-                        ->whereNotNull('user_id')
-                        ->distinct()
-                        ->count('user_id');
-            }
-
-            $totalModules = \App\Models\Module::count();
-
-            $totalEquipment = \App\Models\Equipment::count();
-
-            $totalShips = \App\Models\Ship::count();
-
-            $totalMarineContent =
-                $totalEquipment + $totalShips;
-        @endphp
-
-
-<section class="admin-stats">
-
-
-    {{-- TOTAL USERS --}}
-
-    <div class="admin-stat-card">
-
-        <div class="admin-stat-icon">
-            👥
-        </div>
-
-        <div class="admin-stat-info">
-
-            <h2>
-                {{ $totalUsers }}
-            </h2>
-
-            <p>
-                Total Users
-            </p>
-
-        </div>
-
-    </div>
-
-
-
-    {{-- QUIZ PARTICIPANTS --}}
-
-    <div class="admin-stat-card">
-
-        <div class="admin-stat-icon">
-            📝
-        </div>
-
-        <div class="admin-stat-info">
-
-            <h2>
-                {{ $quizParticipants }}
-            </h2>
-
-            <p>
-                Quiz Participants
-            </p>
-
-        </div>
-
-    </div>
-
-
-
-    {{-- LEARNING MODULES --}}
-
-    <div class="admin-stat-card">
-
-        <div class="admin-stat-icon">
-            📚
-        </div>
-
-        <div class="admin-stat-info">
-
-            <h2>
-                {{ $totalModules }}
-            </h2>
-
-            <p>
-                Learning Modules
-            </p>
-
-        </div>
-
-    </div>
-
-
-
-    {{-- TOTAL ASSETS --}}
-
-    <div class="admin-stat-card">
-
-        <div class="admin-stat-icon">
-            ⚓
-        </div>
-
-        <div class="admin-stat-info">
-
-            <h2>
-                {{ $totalMarineContent }}
-            </h2>
-
-            <p>
-                Total Assets
-            </p>
-
-        </div>
-
-    </div>
 
 
 </section>
 
 
 
-        {{-- =====================================================
-             SYSTEM OVERVIEW
-        ====================================================== --}}
 
-        <div class="admin-title">
-            📊 System Overview
-        </div>
 
 
 
-        <section class="admin-modules">
+<article class="note-container">
 
 
-            {{-- LEARNING MODULE --}}
 
-            <article class="admin-card">
+<div class="section-title">
 
+📖 Learning Notes
 
-                <div class="admin-icon">
-                    📚
-                </div>
+</div>
 
 
-                <h2>
-                    Learning Module Management
-                </h2>
 
 
-                <p>
-                    Manage maritime learning contents such as
-                    PPE Equipment, Safety System and Engine
-                    Knowledge.
-                </p>
+<div class="note-content">
 
+{{ $note->content }}
 
-                <a
-                    href="/admin/modules"
-                    class="admin-btn"
-                >
-                    Manage Module
-                </a>
+</div>
 
+@if($note->pdf)
 
-            </article>
+@php
 
-
-
-            {{-- SHIP --}}
-
-            <article class="admin-card">
-
-
-                <div class="admin-icon">
-                    🚢
-                </div>
-
-
-                <h2>
-                    Ship Management
-                </h2>
-
-
-                <p>
-                    Manage ship categories, upload Reality
-                    Composer AR files and provide ship
-                    information for users.
-                </p>
-
-
-                <a
-                    href="{{ route('admin.ships.index') }}"
-                    class="admin-btn"
-                >
-                    Manage Ship
-                </a>
-
-
-            </article>
-
-
-
-            {{-- EQUIPMENT --}}
-
-            <article class="admin-card">
-
-
-                <div class="admin-icon">
-                    🦺
-                </div>
-
-
-                <h2>
-                    Equipment Management
-                </h2>
-
-
-                <p>
-                    Maintain marine equipment database including
-                    safety equipment and specifications.
-                </p>
-
-
-                <a
-                    href="/admin/equipment"
-                    class="admin-btn"
-                >
-                    Manage Equipment
-                </a>
-
-
-            </article>
-
-
-        </section>
-
-
-    </div>
-
-
-</main>
-
-
-
-{{-- =========================================================
-     JAVASCRIPT
-========================================================= --}}
-
-<script>
-
-    function toggleSidebar()
-    {
-        const sidebar =
-            document.getElementById(
-                'adminSidebar'
-            );
-
-        const overlay =
-            document.getElementById(
-                'sidebarOverlay'
-            );
-
-
-        const isOpen =
-            sidebar.classList.toggle(
-                'open'
-            );
-
-
-        overlay.classList.toggle(
-            'open',
-            isOpen
-        );
-
-
-        document.body.classList.toggle(
-            'admin-sidebar-open',
-            isOpen
-        );
-    }
-
-
-
-    function closeSidebar()
-    {
-        const sidebar =
-            document.getElementById(
-                'adminSidebar'
-            );
-
-        const overlay =
-            document.getElementById(
-                'sidebarOverlay'
-            );
-
-
-        sidebar.classList.remove(
-            'open'
-        );
-
-        overlay.classList.remove(
-            'open'
-        );
-
-        document.body.classList.remove(
-            'admin-sidebar-open'
-        );
-    }
-
-
-
-    document.addEventListener(
-        'keydown',
-        function(event)
-        {
-            if(event.key === 'Escape'){
-                closeSidebar();
-            }
-        }
+    $pdfPath = trim(
+        str_replace(
+            '\\',
+            '/',
+            $note->pdf
+        )
     );
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | PDF PATH FIX
+    |--------------------------------------------------------------------------
+    |
+    | Database:
+    | notes/random-file.pdf
+    |
+    | Storage:
+    | storage/app/public/notes/random-file.pdf
+    |
+    | Public URL:
+    | /storage/notes/random-file.pdf
+    |
+    */
 
-    window.addEventListener(
-        'resize',
-        function()
-        {
-            if(window.innerWidth > 768){
-                closeSidebar();
-            }
-        }
-    );
 
-</script>
+    if(
+        str_starts_with(
+            $pdfPath,
+            'http://'
+        )
+        ||
+        str_starts_with(
+            $pdfPath,
+            'https://'
+        )
+    ){
+
+        $pdfUrl = $pdfPath;
+
+    }
+
+    else{
+
+
+        // remove public/ if exists
+        $pdfPath = str_replace(
+            'public/',
+            '',
+            $pdfPath
+        );
+
+
+        // remove storage/ if exists
+        $pdfPath = str_replace(
+            'storage/',
+            '',
+            $pdfPath
+        );
+
+
+        // final URL
+        $pdfUrl = asset(
+            'storage/'.$pdfPath
+        );
+
+
+    }
+
+
+@endphp
+
+
+
+<div class="resource-box">
+
+
+<div class="resource-title">
+
+📄 Additional Learning Resource
+
+</div>
+
+
+
+<p style="
+color:#64748b;
+font-size:14px;
+margin-bottom:15px;
+">
+
+Open the PDF resource to explore
+additional learning materials.
+
+</p>
+
+
+
+
+<a
+
+class="pdf-button"
+
+href="{{ $pdfUrl }}"
+
+target="_blank"
+
+rel="noopener noreferrer"
+
+>
+
+📄 Open PDF Resource
+
+</a>
+
+
+
+</div>
+
+
+@endif
+
+<div class="action-area">
+
+
+<a
+
+class="back-button"
+
+href="{{ route('user.notes') }}"
+
+>
+
+← Back to Module Notes
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+</article>
+
+
+
+
+
+
+</div>
 
 
 </body>
+
 
 </html>
