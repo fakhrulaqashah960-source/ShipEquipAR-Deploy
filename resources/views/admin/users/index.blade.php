@@ -1108,7 +1108,7 @@ body{
             onclick="closeAdminSidebar()"
         >
             <span class="admin-menu-icon">👥</span>
-            <span>Manage Users</span>
+            <span>Users</span>
         </a>
 
 
@@ -1118,7 +1118,7 @@ body{
             onclick="closeAdminSidebar()"
         >
             <span class="admin-menu-icon">📚</span>
-            <span>Manage Module</span>
+            <span>Module</span>
         </a>
 
 
@@ -1128,7 +1128,7 @@ body{
             onclick="closeAdminSidebar()"
         >
             <span class="admin-menu-icon">📘</span>
-            <span>Manage Notes</span>
+            <span>Notes</span>
         </a>
 
 
@@ -1138,7 +1138,7 @@ body{
             onclick="closeAdminSidebar()"
         >
             <span class="admin-menu-icon">🦺</span>
-            <span>Manage Equipments</span>
+            <span>Equipments</span>
         </a>
 
 
@@ -1148,7 +1148,7 @@ body{
             onclick="closeAdminSidebar()"
         >
             <span class="admin-menu-icon">🚢</span>
-            <span>Manage Ships</span>
+            <span>Ships</span>
         </a>
 
 
@@ -1158,7 +1158,7 @@ body{
             onclick="closeAdminSidebar()"
         >
             <span class="admin-menu-icon">📝</span>
-            <span>Manage Quiz</span>
+            <span>Quiz</span>
         </a>
 
 
