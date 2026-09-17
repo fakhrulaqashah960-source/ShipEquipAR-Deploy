@@ -645,16 +645,22 @@ textarea.content-box{
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit"
-                            class="notes-btn notes-btn-blue">
-                        💾 Update Notes
-                    </button>
 
-                    <a href="{{ route('admin.notes.index') }}"
-                       class="notes-btn notes-btn-dark">
-                        ← Back
-                    </a>
-                </div>
+
+    <a href="{{ route('admin.notes.index') }}"
+       class="notes-btn notes-btn-dark">
+        ← Back
+    </a>
+
+
+
+    <button type="submit"
+            class="notes-btn notes-btn-blue">
+        💾 Update Notes
+    </button>
+
+
+</div>
 
             </div>
 
