@@ -1076,7 +1076,7 @@
             </span>
 
             <span class="admin-menu-text">
-                Manage Users
+                Users
             </span>
 
         </a>
@@ -1094,7 +1094,7 @@
             </span>
 
             <span class="admin-menu-text">
-                Manage Module
+                Modules
             </span>
 
         </a>
@@ -1112,7 +1112,7 @@
             </span>
 
             <span class="admin-menu-text">
-                Manage Notes
+                Notes
             </span>
 
         </a>
@@ -1130,7 +1130,7 @@
             </span>
 
             <span class="admin-menu-text">
-                Manage Equipments
+                Equipments
             </span>
 
         </a>
@@ -1148,7 +1148,7 @@
             </span>
 
             <span class="admin-menu-text">
-                Manage Ships
+                Ships
             </span>
 
         </a>
@@ -1166,7 +1166,7 @@
             </span>
 
             <span class="admin-menu-text">
-                Manage Quiz
+                Quiz
             </span>
 
         </a>
