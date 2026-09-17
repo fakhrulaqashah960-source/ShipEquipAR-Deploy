@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 
 <title>
@@ -18,6 +18,11 @@
     'resources/css/app.css',
     'resources/js/app.js'
 ])
+
+
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
 
 
 <style>
@@ -85,9 +90,8 @@ body{
 
 
 
-
-
 /* HERO */
+
 
 .learning-hero{
 
@@ -111,6 +115,7 @@ body{
 
 
     box-shadow:
+
     0 18px 40px rgba(0,0,0,.25);
 
 }
@@ -126,6 +131,7 @@ body{
     border-radius:50px;
 
     background:
+
     rgba(255,255,255,.15);
 
 
@@ -164,21 +170,26 @@ body{
 
 
 
-
 /* CONTENT */
 
 
 .note-container{
 
+
     background:white;
+
 
     border-radius:28px;
 
+
     padding:35px;
+
 
     box-shadow:
 
+
     0 18px 40px rgba(0,0,0,.18);
+
 
 }
 
@@ -186,13 +197,18 @@ body{
 
 .section-title{
 
+
     font-size:22px;
+
 
     font-weight:900;
 
+
     padding-bottom:15px;
 
+
     margin-bottom:20px;
+
 
     border-bottom:1px solid var(--line);
 
@@ -202,16 +218,20 @@ body{
 
 .note-content{
 
+
     color:#334155;
+
 
     font-size:15px;
 
+
     line-height:1.9;
+
 
     white-space:pre-line;
 
-}
 
+}
 
 
 
@@ -221,15 +241,21 @@ body{
 
 .resource-box{
 
+
     margin-top:30px;
+
 
     padding:22px;
 
+
     border-radius:20px;
+
 
     background:#f8fafc;
 
+
     border:1px solid var(--line);
+
 
 }
 
@@ -237,9 +263,12 @@ body{
 
 .resource-title{
 
+
     font-weight:900;
 
+
     margin-bottom:15px;
+
 
 }
 
@@ -247,19 +276,27 @@ body{
 
 .pdf-button{
 
+
     display:inline-flex;
+
 
     padding:13px 25px;
 
+
     border-radius:14px;
+
 
     background:#16a34a;
 
+
     color:white;
+
 
     text-decoration:none;
 
+
     font-weight:900;
+
 
 }
 
@@ -267,13 +304,11 @@ body{
 
 .pdf-button:hover{
 
+
     background:#15803d;
 
+
 }
-
-
-
-
 /* BACK */
 
 
@@ -293,19 +328,27 @@ body{
 
 .back-button{
 
+
     display:inline-flex;
+
 
     padding:13px 30px;
 
+
     border-radius:14px;
+
 
     background:#0f172a;
 
+
     color:white;
+
 
     text-decoration:none;
 
+
     font-weight:900;
+
 
 }
 
@@ -313,9 +356,12 @@ body{
 
 .back-button:hover{
 
+
     background:#0284c7;
 
+
 }
+
 
 
 
@@ -331,37 +377,51 @@ body{
 }
 
 
+
 .learning-hero{
+
 
     border-radius:0 0 25px 25px;
 
+
     padding:25px;
 
+
 }
+
 
 
 .note-container{
 
+
     margin:8px;
+
 
     padding:20px;
 
+
     border-radius:18px;
 
+
 }
+
 
 
 .pdf-button,
 .back-button{
 
+
     width:100%;
+
 
     justify-content:center;
 
+
 }
 
 
 }
+
 
 </style>
 
@@ -369,13 +429,10 @@ body{
 </head>
 
 
-
 <body>
 
 
 <div class="page-wrapper">
-
-
 
 
 
@@ -429,7 +486,6 @@ through ShipEquipAR digital learning resources.
 
 
 
-
 <article class="note-container">
 
 
@@ -443,87 +499,77 @@ through ShipEquipAR digital learning resources.
 
 
 
+
 <div class="note-content">
 
 {{ $note->content }}
 
 </div>
 
+
+
+
+
+
 @if($note->pdf)
+
 
 @php
 
-    $pdfPath = trim(
-        str_replace(
-            '\\',
-            '/',
-            $note->pdf
-        )
+
+/*
+|--------------------------------------------------------------------------
+| PDF STORAGE FIX
+|--------------------------------------------------------------------------
+|
+| Database:
+| notes/HNZdZEaVs....pdf
+|
+| Storage:
+| storage/app/public/notes/HNZdZEaVs....pdf
+|
+*/
+
+
+$pdfPath = str_replace(
+    '\\',
+    '/',
+    $note->pdf
+);
+
+
+
+$pdfPath = ltrim(
+    $pdfPath,
+    '/'
+);
+
+
+
+if(str_starts_with($pdfPath,'storage/')){
+
+
+    $pdfPath = str_replace(
+        'storage/',
+        '',
+        $pdfPath
     );
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | PDF PATH FIX
-    |--------------------------------------------------------------------------
-    |
-    | Database:
-    | notes/random-file.pdf
-    |
-    | Storage:
-    | storage/app/public/notes/random-file.pdf
-    |
-    | Public URL:
-    | /storage/notes/random-file.pdf
-    |
-    */
+}
 
 
-    if(
-        str_starts_with(
-            $pdfPath,
-            'http://'
-        )
-        ||
-        str_starts_with(
-            $pdfPath,
-            'https://'
-        )
-    ){
 
-        $pdfUrl = $pdfPath;
+$pdfUrl = Storage::url(
+    $pdfPath
+);
 
-    }
-
-    else{
-
-
-        // remove public/ if exists
-        $pdfPath = str_replace(
-            'public/',
-            '',
-            $pdfPath
-        );
-
-
-        // remove storage/ if exists
-        $pdfPath = str_replace(
-            'storage/',
-            '',
-            $pdfPath
-        );
-
-
-        // final URL
-        $pdfUrl = asset(
-            'storage/'.$pdfPath
-        );
-
-
-    }
 
 
 @endphp
+
+
+
 
 
 
@@ -544,8 +590,10 @@ font-size:14px;
 margin-bottom:15px;
 ">
 
+
 Open the PDF resource to explore
 additional learning materials.
+
 
 </p>
 
@@ -573,7 +621,14 @@ rel="noopener noreferrer"
 </div>
 
 
+
 @endif
+
+
+
+
+
+
 
 <div class="action-area">
 
@@ -597,7 +652,6 @@ href="{{ route('user.notes') }}"
 
 
 
-
 </article>
 
 
@@ -606,6 +660,7 @@ href="{{ route('user.notes') }}"
 
 
 </div>
+
 
 
 </body>
