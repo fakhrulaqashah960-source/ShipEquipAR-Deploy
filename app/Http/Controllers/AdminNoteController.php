@@ -82,15 +82,17 @@ class AdminNoteController extends Controller
         {
 
 
-            $pdf = $request->file('pdf')
-                ->store('notes','public');
+            $file = $request->file('pdf');
 
+$filename = time().'_'.$file->getClientOriginalName();
 
+$file->move(
+    public_path('uploads/notes'),
+    $filename
+);
+
+$pdf = 'uploads/notes/'.$filename;
         }
-
-
-
-
 
         Note::create([
 
@@ -109,10 +111,6 @@ class AdminNoteController extends Controller
 
 
         ]);
-
-
-
-
 
 
         return redirect()
@@ -228,12 +226,16 @@ class AdminNoteController extends Controller
 
         if($request->hasFile('pdf'))
         {
+$file = $request->file('pdf');
 
+$filename = time().'_'.$file->getClientOriginalName();
 
-            $pdf = $request->file('pdf')
-                ->store('notes','public');
+$file->move(
+    public_path('uploads/notes'),
+    $filename
+);
 
-
+$pdf = 'uploads/notes/'.$filename;
         }
 
 

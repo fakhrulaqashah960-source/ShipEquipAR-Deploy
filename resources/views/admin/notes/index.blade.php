@@ -689,9 +689,7 @@ if($note->pdf){
     );
 
 
-    $pdfUrl = asset(
-        'storage/'.$pdfPath
-    );
+   $pdfUrl = asset($note->pdf);
 
 
 }
