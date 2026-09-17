@@ -25,43 +25,20 @@
 :root{
 
     --navy:#0f172a;
-
     --blue:#0284c7;
-
-    --cyan:#38bdf8;
-
     --green:#16a34a;
-
     --text:#1e293b;
-
-    --muted:#64748b;
-
     --line:#e2e8f0;
 
 }
 
 
-
 *{
 
     margin:0;
-
     padding:0;
-
     box-sizing:border-box;
-
     font-family:'Segoe UI',sans-serif;
-
-}
-
-
-
-html,
-body{
-
-    width:100%;
-
-    min-height:100%;
 
 }
 
@@ -95,10 +72,6 @@ body{
 
 
 
-/* ==============================
-   MAIN CONTAINER
-============================== */
-
 
 .page-wrapper{
 
@@ -112,26 +85,17 @@ body{
 
 
 
-/* ==============================
-   HERO
-============================== */
 
+
+/* HERO */
 
 .learning-hero{
 
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:25px;
-
-
     padding:35px;
 
-
     border-radius:28px;
+
+    margin-bottom:25px;
 
 
     color:white;
@@ -147,19 +111,7 @@ body{
 
 
     box-shadow:
-
     0 18px 40px rgba(0,0,0,.25);
-
-
-    margin-bottom:25px;
-
-}
-
-
-
-.hero-content{
-
-    flex:1;
 
 }
 
@@ -167,35 +119,21 @@ body{
 
 .hero-badge{
 
-
     display:inline-flex;
-
-    align-items:center;
-
-    gap:8px;
-
 
     padding:8px 15px;
 
-
     border-radius:50px;
 
-
     background:
-
     rgba(255,255,255,.15);
 
 
     color:#e0f2fe;
 
-
-    font-size:13px;
-
-
     font-weight:800;
 
-
-    margin-bottom:15px;
+    font-size:13px;
 
 }
 
@@ -203,9 +141,9 @@ body{
 
 .learning-hero h1{
 
-    font-size:clamp(30px,4vw,44px);
+    margin-top:15px;
 
-    line-height:1.2;
+    font-size:clamp(30px,4vw,44px);
 
     font-weight:900;
 
@@ -217,75 +155,30 @@ body{
 
     margin-top:12px;
 
-
-    max-width:700px;
-
-
     color:#dbeafe;
-
 
     line-height:1.7;
 
-
-    font-size:15px;
-
-}
-
-
-
-.hero-icon{
-
-
-    width:100px;
-
-    height:100px;
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-    border-radius:25px;
-
-
-    background:
-
-    rgba(255,255,255,.15);
-
-
-    font-size:55px;
-
 }
 
 
 
 
-/* ==============================
-   NOTE CONTENT CARD
-============================== */
+
+/* CONTENT */
 
 
 .note-container{
 
-
     background:white;
-
 
     border-radius:28px;
 
-
     padding:35px;
-
 
     box-shadow:
 
     0 18px 40px rgba(0,0,0,.18);
-
 
 }
 
@@ -293,23 +186,15 @@ body{
 
 .section-title{
 
-
     font-size:22px;
-
 
     font-weight:900;
 
-
-    color:var(--navy);
-
-
     padding-bottom:15px;
 
+    margin-bottom:20px;
 
     border-bottom:1px solid var(--line);
-
-
-    margin-bottom:20px;
 
 }
 
@@ -317,15 +202,11 @@ body{
 
 .note-content{
 
-
     color:#334155;
-
-
-    line-height:1.9;
-
 
     font-size:15px;
 
+    line-height:1.9;
 
     white-space:pre-line;
 
@@ -333,28 +214,22 @@ body{
 
 
 
-/* ==============================
-   RESOURCE AREA
-============================== */
+
+
+/* PDF */
 
 
 .resource-box{
 
-
     margin-top:30px;
-
 
     padding:22px;
 
-
     border-radius:20px;
-
 
     background:#f8fafc;
 
-
     border:1px solid var(--line);
-
 
 }
 
@@ -362,12 +237,7 @@ body{
 
 .resource-title{
 
-
     font-weight:900;
-
-
-    color:var(--navy);
-
 
     margin-bottom:15px;
 
@@ -375,114 +245,21 @@ body{
 
 
 
-/* ==============================
-   BUTTON AREA
-============================== */
-
-
-.action-area{
-
-
-    margin-top:35px;
-
-
-    padding-top:25px;
-
-
-    border-top:1px solid var(--line);
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-}
-
-
-
-.back-button{
-
-
-    display:inline-flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-    padding:13px 30px;
-
-
-    border-radius:14px;
-
-
-    background:var(--navy);
-
-
-    color:white;
-
-
-    text-decoration:none;
-
-
-    font-weight:800;
-
-
-    transition:.25s;
-
-
-}
-
-
-
-.back-button:hover{
-
-
-    background:var(--blue);
-
-
-    transform:translateY(-3px);
-
-}
-
-
-
 .pdf-button{
 
-
     display:inline-flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
 
     padding:13px 25px;
 
-
     border-radius:14px;
 
-
-    background:var(--green);
-
+    background:#16a34a;
 
     color:white;
 
-
     text-decoration:none;
 
-
-    font-weight:800;
-
-
-    transition:.25s;
-
+    font-weight:900;
 
 }
 
@@ -490,119 +267,108 @@ body{
 
 .pdf-button:hover{
 
-
     background:#15803d;
 
+}
 
-    transform:translateY(-3px);
+
+
+
+/* BACK */
+
+
+.action-area{
+
+    margin-top:30px;
+
+    padding-top:25px;
+
+    border-top:1px solid var(--line);
+
+    text-align:center;
 
 }
 
 
 
-.resource-actions{
+.back-button{
 
+    display:inline-flex;
 
-    display:flex;
+    padding:13px 30px;
 
+    border-radius:14px;
 
-    gap:15px;
+    background:#0f172a;
 
+    color:white;
 
-    flex-wrap:wrap;
+    text-decoration:none;
 
+    font-weight:900;
 
 }
 
 
 
-/* ==============================
-   MOBILE
-============================== */
+.back-button:hover{
+
+    background:#0284c7;
+
+}
+
+
+
 
 
 @media(max-width:700px){
 
 
-    body{
+body{
 
-        padding:0;
-
-    }
-
-
-
-    .learning-hero{
-
-
-        border-radius:0 0 25px 25px;
-
-
-        padding:25px;
-
-
-        flex-direction:column;
-
-
-        align-items:flex-start;
-
-    }
-
-
-
-    .hero-icon{
-
-        display:none;
-
-    }
-
-
-
-    .note-container{
-
-
-        width:calc(100% - 16px);
-
-
-        margin:8px;
-
-
-        padding:20px;
-
-
-        border-radius:20px;
-
-    }
-
-
-
-    .resource-actions{
-
-
-        flex-direction:column;
-
-    }
-
-
-
-    .pdf-button,
-    .back-button{
-
-
-        width:100%;
-
-    }
-
-
+    padding:0;
 
 }
 
 
+.learning-hero{
+
+    border-radius:0 0 25px 25px;
+
+    padding:25px;
+
+}
+
+
+.note-container{
+
+    margin:8px;
+
+    padding:20px;
+
+    border-radius:18px;
+
+}
+
+
+.pdf-button,
+.back-button{
+
+    width:100%;
+
+    justify-content:center;
+
+}
+
+
+}
 
 </style>
 
 
 </head>
+
+
 
 <body>
 
@@ -611,207 +377,217 @@ body{
 
 
 
-    {{-- =========================
-         HERO SECTION
-    ========================== --}}
 
 
-    <section class="learning-hero">
+<section class="learning-hero">
 
 
-        <div class="hero-content">
+<div class="hero-badge">
 
+📘 Interactive Learning Module
 
-            <div class="hero-badge">
+</div>
 
-                📘 Interactive Learning Module
 
-            </div>
 
+<h1>
 
+{{ $note->title }}
 
-            <h1>
+</h1>
 
-                {{ $note->title }}
 
-            </h1>
 
+<p class="hero-description">
 
+Explore marine engineering learning materials
+through ShipEquipAR digital learning resources.
 
-            <p class="hero-description">
+</p>
 
-                Explore marine engineering learning materials,
-                understand the concept and improve your knowledge
-                through ShipEquipAR digital learning resources.
 
-            </p>
 
+<br>
 
 
-            <br>
+<div class="hero-badge">
 
+📚
 
-            <div class="hero-badge">
+{{ $note->module->title
+?? $note->module->name
+?? '-' }}
 
+</div>
 
-                📚
 
-                {{ $note->module->title
-                    ?? $note->module->name
-                    ?? '-' }}
 
+</section>
 
-            </div>
 
 
 
-        </div>
 
 
 
+<article class="note-container">
 
-        <div class="hero-icon">
 
-            ⚓
 
-        </div>
+<div class="section-title">
 
+📖 Learning Notes
 
+</div>
 
-    </section>
 
 
 
+<div class="note-content">
 
+{{ $note->content }}
 
+</div>
 
-    {{-- =========================
-         CONTENT
-    ========================== --}}
 
 
 
-    <article class="note-container">
 
 
 
-        <div class="section-title">
+@if($note->pdf)
 
-            📖 Learning Notes
 
-        </div>
+@php
 
 
+$rawPdf = trim(
+    str_replace(
+        '\\',
+        '/',
+        $note->pdf
+    )
+);
 
 
+$pdfUrl = null;
 
-        <div class="note-content">
 
-            {{ $note->content }}
 
-        </div>
+if(
+    str_starts_with($rawPdf,'http://')
+    ||
+    str_starts_with($rawPdf,'https://')
+){
 
+    $pdfUrl = $rawPdf;
 
+}
 
 
+else{
 
 
-        {{-- =========================
-             PDF RESOURCE
-        ========================== --}}
+    $normalizedPdf =
+        ltrim($rawPdf,'/');
 
 
 
-        @if($note->pdf)
+    if(
+        str_starts_with(
+            $normalizedPdf,
+            'public/'
+        )
+    ){
 
+        $normalizedPdf =
+            substr(
+                $normalizedPdf,
+                7
+            );
 
-        <div class="resource-box">
+    }
 
 
-            <div class="resource-title">
 
-                📄 Additional Learning 
 
-            </div>
+    if(
+        str_starts_with(
+            $normalizedPdf,
+            'storage/'
+        )
+    ){
 
+        $pdfUrl =
+            asset(
+                $normalizedPdf
+            );
 
+    }
 
-            <p style="color:#64748b;font-size:14px;line-height:1.7;margin-bottom:18px;">
 
+    elseif(
+        str_starts_with(
+            $normalizedPdf,
+            'notes/'
+        )
+    ){
 
-                Download or open the PDF resource
-                to explore more detailed information
-                about this learning topic.
+        $pdfUrl =
+            asset(
+                'storage/'.$normalizedPdf
+            );
 
+    }
 
-            </p>
 
+    else{
 
+        $pdfUrl =
+            asset(
+                'storage/notes/'
+                .$normalizedPdf
+            );
 
+    }
 
-            <div class="resource-actions">
+
+}
+
+
+
+@endphp
+
+
+
+
+
+<div class="resource-box">
+
+
+<div class="resource-title">
+
+📄 Additional Learning Resource
+
+</div>
 
 
 
 <a
-    class="pdf-button"
-    href="{{ asset('storage/'.$note->pdf) }}"
-    target="_blank"
-    rel="noopener noreferrer"
+
+class="pdf-button"
+
+href="{{ $pdfUrl }}"
+
+target="_blank"
+
+rel="noopener noreferrer"
+
 >
-    📄 Open PDF Resource
+
+📄 Open PDF Resource
+
 </a>
-
-
-
-
-            </div>
-
-
-
-        </div>
-
-
-
-        @endif
-
-
-
-
-
-
-
-        {{-- =========================
-             BACK BUTTON
-        ========================== --}}
-
-
-
-        <div class="action-area">
-
-
-            <a
-
-                class="back-button"
-
-                href="{{ route('user.notes') }}"
-
-            >
-
-                ← Back to Module Notes
-
-            </a>
-
-
-        </div>
-
-
-
-
-
-    </article>
-
-
 
 
 
@@ -820,6 +596,48 @@ body{
 
 
 
+@endif
+
+
+
+
+
+
+
+<div class="action-area">
+
+
+<a
+
+class="back-button"
+
+href="{{ route('user.notes') }}"
+
+>
+
+← Back to Module Notes
+
+</a>
+
+
+</div>
+
+
+
+
+
+
+</article>
+
+
+
+
+
+
+</div>
+
+
 </body>
+
 
 </html>
