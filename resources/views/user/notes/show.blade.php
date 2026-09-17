@@ -753,21 +753,14 @@ body{
 
 
 
-                <a
-
-                    class="pdf-button"
-
-                    href="{{ asset('notes/'.$note->pdf) }}"
-
-                    target="_blank"
-
-                    rel="noopener noreferrer"
-
-                >
-
-                    📄 Open PDF 
-
-                </a>
+<a
+    class="pdf-button"
+    href="{{ asset('storage/'.$note->pdf) }}"
+    target="_blank"
+    rel="noopener noreferrer"
+>
+    📄 Open PDF Resource
+</a>
 
 
 
