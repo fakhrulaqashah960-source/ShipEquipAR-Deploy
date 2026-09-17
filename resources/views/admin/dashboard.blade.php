@@ -1331,30 +1331,6 @@
 
 
 
-    {{-- QUIZ PARTICIPANTS --}}
-
-    <div class="admin-stat-card">
-
-        <div class="admin-stat-icon">
-            📝
-        </div>
-
-        <div class="admin-stat-info">
-
-            <h2>
-                {{ $quizParticipants }}
-            </h2>
-
-            <p>
-                Quiz Participants
-            </p>
-
-        </div>
-
-    </div>
-
-
-
     {{-- TOTAL ASSETS --}}
 
     <div class="admin-stat-card">
@@ -1377,6 +1353,28 @@
 
     </div>
 
+
+{{-- QUIZ PARTICIPANTS --}}
+
+    <div class="admin-stat-card">
+
+        <div class="admin-stat-icon">
+            📝
+        </div>
+
+        <div class="admin-stat-info">
+
+            <h2>
+                {{ $quizParticipants }}
+            </h2>
+
+            <p>
+                Quiz Participants
+            </p>
+
+        </div>
+
+    </div>
 
 </section>
 
