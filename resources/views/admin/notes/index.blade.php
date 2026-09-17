@@ -765,19 +765,6 @@ class="pdf-btn"
 
 
 @endif
-<a
-
-href="{{ route('admin.notes.show',$note->id) }}"
-
-class="notes-btn notes-btn-dark"
-
->
-
-👁 View
-
-</a>
-
-
 
 
 <a
