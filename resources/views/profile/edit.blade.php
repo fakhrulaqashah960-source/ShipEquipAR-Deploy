@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -8,945 +9,1088 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>Profile - ShipEquipAR</title>
 
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+<title>
+    Profile - ShipEquipAR
+</title>
+
+
+@vite([
+    'resources/css/app.css',
+    'resources/js/app.js'
+])
 
 
 <style>
 
+
 :root{
+
     --navy:#0f172a;
-    --navy-soft:#1e293b;
     --blue:#0284c7;
     --blue-dark:#0369a1;
-    --cyan:#38bdf8;
+    --green:#16a34a;
+    --red:#dc2626;
+
     --text:#0f172a;
     --muted:#64748b;
-    --line:#e2e8f0;
-    --white:#ffffff;
-    --red:#dc2626;
+
 }
+
 
 
 *{
-    box-sizing:border-box;
-}
 
-
-html,
-body{
-    width:100%;
-    min-height:100%;
-}
-
-
-body{
     margin:0;
+    padding:0;
 
-    min-height:100vh;
-
-    color:var(--text);
+    box-sizing:border-box;
 
     font-family:'Segoe UI',sans-serif;
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(15,23,42,.92),
-            rgba(2,132,199,.70)
-        ),
-        url('/images/ship-bg.jpg');
-
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
 }
 
 
-/* =========================================================
-   PAGE
-========================================================= */
 
-.profile-page{
-    width:100%;
+body{
 
     min-height:100vh;
 
-    padding:34px 18px;
+    padding:35px 20px;
+
+    color:var(--text);
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        rgba(15,23,42,.92),
+        rgba(2,132,199,.70)
+    ),
+
+    url('/images/ship-bg.jpg');
+
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    background-attachment:fixed;
+
 }
 
 
-.profile-shell{
+
+
+/* =========================================================
+   WRAPPER
+========================================================= */
+
+
+.profile-wrapper{
+
     width:100%;
 
-    max-width:1180px;
+    max-width:1150px;
 
-    margin:0 auto;
+    margin:auto;
+
 }
+
 
 
 /* =========================================================
    HERO
 ========================================================= */
 
+
 .profile-hero{
-    display:flex;
 
-    align-items:center;
 
-    justify-content:space-between;
+    padding:35px;
 
-    gap:22px;
 
-    margin-bottom:20px;
+    margin-bottom:25px;
 
-    padding:30px;
 
-    border-radius:24px;
+    border-radius:26px;
+
+
+    background:
+
+
+    linear-gradient(
+        135deg,
+        rgba(14,116,144,.95),
+        rgba(15,23,42,.95)
+    );
+
 
     color:white;
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(14,116,144,.97),
-            rgba(15,23,42,.98)
-        );
 
     box-shadow:
-        0 18px 40px rgba(0,0,0,.22);
+
+    0 18px 40px rgba(0,0,0,.25);
+
+
 }
 
 
-.profile-hero-copy{
-    min-width:0;
-}
 
 
-.profile-eyebrow{
+.profile-tag{
+
+
     display:inline-flex;
+
 
     align-items:center;
 
-    gap:7px;
 
-    margin-bottom:10px;
+    padding:8px 14px;
 
-    padding:7px 12px;
 
     border-radius:999px;
 
-    background:rgba(255,255,255,.12);
+
+    background:
+
+    rgba(255,255,255,.15);
+
 
     color:#e0f2fe;
 
+
     font-size:12px;
 
-    font-weight:800;
+
+    font-weight:900;
+
+
 }
+
+
 
 
 .profile-hero h1{
-    margin:0;
 
-    color:white;
 
-    font-size:clamp(30px,4vw,42px);
+    margin-top:15px;
 
-    line-height:1.2;
 
-    font-weight:900;
+    font-size:42px;
+
+
+    font-weight:950;
+
+
 }
+
+
 
 
 .profile-hero p{
-    max-width:720px;
 
-    margin:9px 0 0;
+
+    margin-top:10px;
+
 
     color:#dbeafe;
 
+
     font-size:14px;
 
+
     line-height:1.7;
+
+
 }
 
 
-.profile-hero-icon{
-    width:86px;
 
-    height:86px;
 
-    flex:0 0 auto;
+
+
+/* =========================================================
+   STACK LAYOUT
+========================================================= */
+
+
+.profile-grid{
+
 
     display:flex;
 
-    align-items:center;
 
-    justify-content:center;
+    flex-direction:column;
 
-    border-radius:22px;
 
-    background:rgba(255,255,255,.12);
+    gap:22px;
 
-    font-size:41px;
+
 }
 
 
-/* =========================================================
-   MAIN GRID
-========================================================= */
 
-.profile-grid{
-    display:grid;
 
-    grid-template-columns:300px minmax(0,1fr);
-
-    gap:20px;
-
-    align-items:start;
-}
 
 
 /* =========================================================
-   ACCOUNT SUMMARY
+   PROFILE SUMMARY CARD
 ========================================================= */
+
 
 .profile-summary{
-    position:sticky;
 
-    top:20px;
 
-    padding:24px;
+    width:100%;
 
-    border-radius:22px;
 
-    background:rgba(255,255,255,.98);
+    padding:32px;
+
+
+    border-radius:25px;
+
+
+    background:white;
+
+
+    text-align:center;
+
 
     box-shadow:
-        0 16px 34px rgba(0,0,0,.17);
+
+
+    0 15px 35px rgba(0,0,0,.18);
+
+
 }
+
+
+
 
 
 .profile-avatar{
-    width:82px;
 
-    height:82px;
+
+    width:95px;
+
+
+    height:95px;
+
+
+    margin:0 auto 18px;
+
 
     display:flex;
 
+
     align-items:center;
+
 
     justify-content:center;
 
-    margin:0 auto 15px;
 
     border-radius:50%;
 
+
     background:
-        linear-gradient(
-            135deg,
-            #0284c7,
-            #0f172a
-        );
+
+
+    linear-gradient(
+        135deg,
+        #0284c7,
+        #0f172a
+    );
+
 
     color:white;
 
-    font-size:36px;
 
-    box-shadow:
-        0 10px 22px rgba(2,132,199,.22);
+    font-size:42px;
+
+
 }
+
+
+
 
 
 .profile-summary h2{
-    margin:0;
 
-    color:#0f172a;
 
-    text-align:center;
+    font-size:24px;
 
-    font-size:21px;
 
     font-weight:900;
 
-    overflow-wrap:anywhere;
+
 }
 
 
-.profile-summary-email{
-    margin-top:6px;
 
-    color:#64748b;
 
-    text-align:center;
 
-    font-size:12.5px;
+.profile-email{
 
-    line-height:1.5;
 
-    overflow-wrap:anywhere;
+    margin-top:7px;
 
-    word-break:break-word;
+
+    color:var(--muted);
+
+
+    font-size:14px;
+
+
 }
 
 
-.profile-summary-divider{
+
+
+
+.profile-divider{
+
+
     height:1px;
 
-    margin:20px 0;
+
+    max-width:450px;
+
+
+    margin:25px auto;
+
 
     background:#e2e8f0;
+
+
 }
+
+
+
 
 
 .profile-info-row{
+
+
+    max-width:450px;
+
+
+    margin:12px auto;
+
+
     display:flex;
 
-    align-items:center;
 
     justify-content:space-between;
 
-    gap:12px;
 
-    padding:10px 0;
+    align-items:center;
 
-    color:#475569;
 
-    font-size:12.5px;
+    font-size:14px;
+
+
 }
+
+
+
+
+.profile-info-row span:first-child{
+
+
+    color:#64748b;
+
+
+}
+
+
 
 
 .profile-info-row strong{
-    color:#0f172a;
 
-    font-weight:800;
+
+    font-weight:900;
+
+
 }
+
+
+
+
 
 
 .profile-status{
-    display:inline-flex;
 
-    align-items:center;
 
-    gap:6px;
+    padding:5px 10px;
 
-    padding:5px 9px;
 
     border-radius:999px;
 
+
     background:#dcfce7;
+
 
     color:#166534;
 
-    font-size:10px;
+
+    font-size:11px;
+
 
     font-weight:900;
+
+
 }
 
-
-.dashboard-btn{
-    width:100%;
-
-    min-height:45px;
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    margin-top:18px;
-
-    padding:10px 15px;
-
-    border-radius:11px;
-
-    background:#0f172a;
-
-    color:white;
-
-    text-decoration:none;
-
-    font-size:13px;
-
-    font-weight:800;
-
-    transition:.2s ease;
-}
-
-
-.dashboard-btn:hover{
-    background:#0284c7;
-
-    transform:translateY(-2px);
-}
 
 
 /* =========================================================
-   FORM STACK
+   FORM SECTION
 ========================================================= */
 
+
 .profile-forms{
-    min-width:0;
 
-    display:grid;
 
-    gap:18px;
+    width:100%;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    gap:22px;
+
+
 }
+
+
 
 
 .profile-form-card{
-    padding:26px;
 
-    border-radius:22px;
 
-    background:rgba(255,255,255,.98);
+    padding:30px;
+
+
+    border-radius:24px;
+
+
+    background:white;
+
 
     box-shadow:
-        0 14px 32px rgba(0,0,0,.15);
+
+
+    0 15px 35px rgba(0,0,0,.16);
+
+
 }
 
 
-.profile-form-card.danger{
-    border:1px solid #fecaca;
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,.99),
-            rgba(254,242,242,.99)
-        );
-}
-
-
-/* =========================================================
-   OVERRIDES FOR DEFAULT BREEZE PROFILE PARTIALS
-========================================================= */
 
 .profile-form-card section{
+
+
     max-width:none !important;
+
+
 }
 
 
-.profile-form-card header{
-    margin-bottom:20px;
-}
 
 
-.profile-form-card h2{
-    margin:0 !important;
+.profile-form-card header h2{
+
 
     color:#0f172a !important;
 
-    font-family:'Segoe UI',sans-serif !important;
 
-    font-size:21px !important;
+    font-size:22px !important;
 
-    line-height:1.35 !important;
 
     font-weight:900 !important;
+
+
 }
+
+
 
 
 .profile-form-card header p{
-    margin-top:6px !important;
+
 
     color:#64748b !important;
 
-    font-family:'Segoe UI',sans-serif !important;
 
-    font-size:13px !important;
-
-    line-height:1.65 !important;
 }
-
-
-.profile-form-card form{
-    width:100%;
-}
-
-
-.profile-form-card label{
-    color:#334155 !important;
-
-    font-family:'Segoe UI',sans-serif !important;
-
-    font-size:13px !important;
-
-    font-weight:800 !important;
-}
+/* =========================================================
+   INPUT STYLE
+========================================================= */
 
 
 .profile-form-card input[type="text"],
 .profile-form-card input[type="email"],
 .profile-form-card input[type="password"]{
-    width:100% !important;
 
-    min-height:48px !important;
 
-    margin-top:7px !important;
+    width:100%;
 
-    padding:11px 13px !important;
 
-    border:1px solid #cbd5e1 !important;
+    min-height:48px;
 
-    border-radius:11px !important;
 
-    background:white !important;
+    margin-top:8px;
 
-    color:#0f172a !important;
 
-    font-family:'Segoe UI',sans-serif !important;
+    padding:12px 15px;
 
-    font-size:14px !important;
 
-    box-shadow:none !important;
+    border-radius:12px;
 
-    outline:none !important;
 
-    transition:.2s ease !important;
+    border:1px solid #cbd5e1;
+
+
+    background:white;
+
+
+    color:#0f172a;
+
+
+    font-size:14px;
+
+
+    outline:none;
+
+
 }
+
 
 
 .profile-form-card input:focus{
-    border-color:#0284c7 !important;
+
+
+    border-color:#0284c7;
+
 
     box-shadow:
-        0 0 0 3px rgba(2,132,199,.12) !important;
 
-    --tw-ring-color:transparent !important;
+    0 0 0 3px rgba(2,132,199,.12);
+
+
 }
 
 
-.profile-form-card input[disabled]{
-    background:#f8fafc !important;
-
-    color:#475569 !important;
-}
 
 
-.profile-form-card form > div{
-    max-width:none !important;
-}
-
-
-.profile-form-card form > div + div{
-    margin-top:17px !important;
-}
-
-
-.profile-form-card p.text-sm,
-.profile-form-card p.mt-2{
-    font-family:'Segoe UI',sans-serif !important;
-}
+/* =========================================================
+   BUTTON
+========================================================= */
 
 
 .profile-form-card button{
-    min-height:43px;
 
-    display:inline-flex;
 
-    align-items:center;
+    min-height:44px;
 
-    justify-content:center;
+
+    padding:10px 22px;
+
 
     border:none;
 
-    border-radius:10px;
 
-    font-family:'Segoe UI',sans-serif;
+    border-radius:11px;
 
-    font-size:12px;
+
+    background:#0284c7;
+
+
+    color:white;
+
+
+    font-size:13px;
+
 
     font-weight:900;
 
+
     cursor:pointer;
 
-    transition:.2s ease;
+
+    transition:.2s;
+
+
 }
 
 
-/* Primary Breeze button */
-.profile-form-card button.bg-gray-800,
-.profile-form-card button[class*="bg-gray-800"],
-.profile-form-card button[class*="bg-slate"],
-.profile-form-card button[type="submit"]:not([class*="red"]):not([class*="danger"]){
-    padding:10px 18px !important;
 
-    background:#0284c7 !important;
+.profile-form-card button:hover{
 
-    color:white !important;
+
+    background:#0369a1;
+
+
+    transform:translateY(-2px);
+
+
 }
 
 
-.profile-form-card button.bg-gray-800:hover,
-.profile-form-card button[class*="bg-gray-800"]:hover,
-.profile-form-card button[type="submit"]:not([class*="red"]):not([class*="danger"]):hover{
-    background:#0369a1 !important;
 
-    transform:translateY(-1px);
+
+
+/* =========================================================
+   DELETE ACCOUNT
+========================================================= */
+
+
+.profile-form-card.danger{
+
+
+    border:1px solid #fecaca;
+
+
+    background:
+
+
+    linear-gradient(
+        180deg,
+        #ffffff,
+        #fff7f7
+    );
+
+
 }
 
 
-/* Delete account button */
+
 .profile-form-card.danger button{
-    padding:10px 18px !important;
+
+
+    background:#dc2626;
+
+
 }
 
 
-.profile-form-card.danger button[class*="red"],
-.profile-form-card.danger button[class*="danger"]{
-    background:#dc2626 !important;
 
-    color:white !important;
+.profile-form-card.danger button:hover{
+
+
+    background:#b91c1c;
+
+
 }
 
 
-.profile-form-card.danger button[class*="red"]:hover,
-.profile-form-card.danger button[class*="danger"]:hover{
-    background:#b91c1c !important;
-}
 
 
-/* Save confirmation text */
-.profile-form-card .text-gray-600,
-.profile-form-card .text-gray-800,
-.profile-form-card .dark\:text-gray-400{
-    color:#64748b !important;
-}
 
 
-/* Validation text */
-.profile-form-card .text-red-600,
-.profile-form-card .text-red-500{
-    color:#dc2626 !important;
-
-    font-size:12px !important;
-}
-
+/* =========================================================
+   BACK BUTTON
+========================================================= */
 
 
 .bottom-dashboard-btn{
 
+
     width:fit-content;
 
-    min-height:45px;
 
-    display:inline-flex;
+    margin:0 auto 30px;
+
+
+    padding:13px 30px;
+
+
+    display:flex;
+
 
     align-items:center;
 
+
     justify-content:center;
 
-    margin-top:5px;
 
-    padding:12px 28px;
+    border-radius:13px;
 
-    border-radius:12px;
 
     background:#0f172a;
 
+
     color:white;
+
 
     text-decoration:none;
 
-    font-size:13px;
+
+    font-size:14px;
+
 
     font-weight:900;
 
-    transition:.25s ease;
+
+    transition:.25s;
+
 
 }
+
 
 
 .bottom-dashboard-btn:hover{
 
+
     background:#0284c7;
+
 
     transform:translateY(-3px);
 
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media(max-width:900px){
-
-    .profile-grid{
-        grid-template-columns:250px minmax(0,1fr);
-    }
 
 }
+
+
+
+
+
 
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
+
 @media(max-width:700px){
 
+
     body{
+
+
+        padding:15px;
+
+
         background-attachment:scroll;
+
+
     }
 
-
-    .profile-page{
-        padding:0;
-    }
-
-
-    .profile-shell{
-        max-width:none;
-    }
 
 
     .profile-hero{
-        margin-bottom:10px;
 
-        padding:23px 17px;
 
-        border-radius:0 0 22px 22px;
+        padding:25px 20px;
+
+
+        border-radius:20px;
+
+
     }
 
-
-    .profile-hero-icon{
-        display:none;
-    }
 
 
     .profile-hero h1{
-        font-size:28px;
+
+
+        font-size:30px;
+
+
     }
 
 
-    .profile-grid{
-        display:block;
-    }
 
-
-    .profile-summary{
-        position:static;
-
-        width:calc(100% - 16px);
-
-        margin:0 8px 10px;
-
-        padding:20px;
-
-        border-radius:18px;
-    }
-
-
-    .profile-avatar{
-        width:70px;
-
-        height:70px;
-
-        font-size:31px;
-    }
-
-
-    .profile-forms{
-        width:calc(100% - 16px);
-
-        margin:0 8px 12px;
-
-        gap:10px;
-    }
+    .profile-summary,
 
 
     .profile-form-card{
-        padding:18px;
+
+
+        padding:20px;
+
 
         border-radius:18px;
+
+
     }
 
 
-    .profile-form-card h2{
-        font-size:19px !important;
+
+    .profile-info-row{
+
+
+        flex-direction:column;
+
+
+        gap:8px;
+
+
     }
 
 
-    .profile-form-card button{
+
+    .bottom-dashboard-btn{
+
+
         width:100%;
+
+
     }
+
 
 }
 
+
 </style>
 
+
 </head>
+
+
+
 
 
 <body>
 
 
-<div class="profile-page">
 
+<div class="profile-wrapper">
 
-    <div class="profile-shell">
 
 
-        {{-- =====================================================
-             HERO
-        ====================================================== --}}
 
-        <section class="profile-hero">
 
+<section class="profile-hero">
 
-            <div class="profile-hero-copy">
 
-                <div class="profile-eyebrow">
-                    👤 Account Settings
-                </div>
+    <div class="profile-tag">
 
-                <h1>
-                    My Profile
-                </h1>
+        👤 Account Settings
 
-                <p>
-                    Manage your ShipEquipAR account information,
-                    password and account settings.
-                </p>
+    </div>
 
-            </div>
 
 
-            <div class="profile-hero-icon">
-                👤
-            </div>
+    <h1>
 
+        My Profile
 
-        </section>
+    </h1>
 
 
 
-        {{-- =====================================================
-             PROFILE GRID
-        ====================================================== --}}
+    <p>
 
-        <div class="profile-grid">
+        Manage your ShipEquipAR account information,
+        password and account settings.
 
+    </p>
 
-            {{-- =================================================
-                 ACCOUNT SUMMARY
-            ================================================== --}}
 
-            <aside class="profile-summary">
 
+</section>
 
-                <div class="profile-avatar">
-                    👤
-                </div>
 
 
-                <h2>
-                    {{ auth()->user()->name }}
-                </h2>
 
 
-                <div class="profile-summary-email">
-                    {{ auth()->user()->email }}
-                </div>
 
+<div class="profile-grid">
 
-                <div class="profile-summary-divider"></div>
 
 
-                <div class="profile-info-row">
 
-                    <span>
-                        Account
-                    </span>
 
-                    <span class="profile-status">
-                        ● Active
-                    </span>
+<aside class="profile-summary">
 
-                </div>
 
 
-                <div class="profile-info-row">
+    <div class="profile-avatar">
 
-                    <span>
-                        Role
-                    </span>
+        👤
 
-                    <strong>
-                        {{ ucfirst(auth()->user()->role ?? 'User') }}
-                    </strong>
+    </div>
 
-                </div>
 
 
 
+    <h2>
 
+        {{ auth()->user()->name }}
 
-            </aside>
+    </h2>
 
 
 
-            {{-- =================================================
-                 PROFILE FORMS
-            ================================================== --}}
 
-            <main class="profile-forms">
+    <div class="profile-email">
 
+        {{ auth()->user()->email }}
 
-                <div class="profile-form-card">
+    </div>
 
-                    @include(
-                        'profile.partials.update-profile-information-form'
-                    )
 
-                </div>
 
 
+    <div class="profile-divider"></div>
 
-                <div class="profile-form-card">
 
-                    @include(
-                        'profile.partials.update-password-form'
-                    )
 
-                </div>
 
 
+    <div class="profile-info-row">
 
-                <div class="profile-form-card danger">
 
-                    @include(
-                        'profile.partials.delete-user-form'
-                    )
+        <span>
 
-                </div>
+            Account
 
+        </span>
 
-                <a
-                    href="{{ route('dashboard') }}"
-                    class="bottom-dashboard-btn"
-                >
-                    ← Back to Dashboard
-                </a>
 
+        <span class="profile-status">
 
-            </main>
+            ● Active
 
-
-        </div>
+        </span>
 
 
     </div>
 
 
+
+
+
+    <div class="profile-info-row">
+
+
+        <span>
+
+            Role
+
+        </span>
+
+
+        <strong>
+
+            {{ ucfirst(auth()->user()->role ?? 'User') }}
+
+        </strong>
+
+
+    </div>
+
+
+
+
+</aside>
+
+
+
+
+
+
+
+<main class="profile-forms">
+
+
+
+
+
+<div class="profile-form-card">
+
+
+    @include(
+        'profile.partials.update-profile-information-form'
+    )
+
+
 </div>
 
 
+
+
+
+
+
+<div class="profile-form-card">
+
+
+    @include(
+        'profile.partials.update-password-form'
+    )
+
+
+</div>
+
+
+
+
+
+
+
+<div class="profile-form-card danger">
+
+
+    @include(
+        'profile.partials.delete-user-form'
+    )
+
+
+</div>
+
+
+
+
+
+
+
+<a
+
+href="{{ route('dashboard') }}"
+
+class="bottom-dashboard-btn"
+
+>
+
+    ← Back to Dashboard
+
+
+</a>
+
+
+
+
+
+</main>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
 </body>
+
 
 </html>
