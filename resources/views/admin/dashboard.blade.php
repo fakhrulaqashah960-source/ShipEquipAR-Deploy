@@ -1307,30 +1307,6 @@
 
 
 
-    {{-- QUIZ PARTICIPANTS --}}
-
-    <div class="admin-stat-card">
-
-        <div class="admin-stat-icon">
-            📝
-        </div>
-
-        <div class="admin-stat-info">
-
-            <h2>
-                {{ $quizParticipants }}
-            </h2>
-
-            <p>
-                Quiz Participants
-            </p>
-
-        </div>
-
-    </div>
-
-
-
     {{-- LEARNING MODULES --}}
 
     <div class="admin-stat-card">
@@ -1347,6 +1323,30 @@
 
             <p>
                 Learning Modules
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    {{-- QUIZ PARTICIPANTS --}}
+
+    <div class="admin-stat-card">
+
+        <div class="admin-stat-icon">
+            📝
+        </div>
+
+        <div class="admin-stat-info">
+
+            <h2>
+                {{ $quizParticipants }}
+            </h2>
+
+            <p>
+                Quiz Participants
             </p>
 
         </div>
