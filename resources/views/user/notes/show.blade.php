@@ -8,325 +8,601 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>{{ $note->title }} - Module Notes</title>
 
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+<title>
+{{ $note->title }} - ShipEquipAR Learning
+</title>
+
+
+@vite([
+    'resources/css/app.css',
+    'resources/js/app.js'
+])
 
 
 <style>
 
 :root{
+
     --navy:#0f172a;
+
     --blue:#0284c7;
-    --blue-dark:#0369a1;
+
+    --cyan:#38bdf8;
+
     --green:#16a34a;
-    --text:#0f172a;
+
+    --text:#1e293b;
+
     --muted:#64748b;
+
+    --line:#e2e8f0;
+
 }
+
 
 
 *{
+
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
+
     font-family:'Segoe UI',sans-serif;
+
 }
+
 
 
 html,
 body{
+
     width:100%;
+
     min-height:100%;
+
 }
+
 
 
 body{
+
     min-height:100vh;
 
-    padding:34px 18px;
+    padding:35px 18px;
 
-    color:var(--text);
 
     background:
-        linear-gradient(
-            135deg,
-            rgba(15,23,42,.93),
-            rgba(2,132,199,.70)
-        ),
-        url('/images/ship-bg.jpg');
+
+    linear-gradient(
+        135deg,
+        rgba(15,23,42,.92),
+        rgba(2,132,199,.75)
+    ),
+
+    url('/images/ship-bg.jpg');
+
 
     background-size:cover;
+
     background-position:center;
-    background-repeat:no-repeat;
+
     background-attachment:fixed;
+
 }
+
+
+
+/* ==============================
+   MAIN CONTAINER
+============================== */
 
 
 .page-wrapper{
+
     width:100%;
+
     max-width:1050px;
-    margin:0 auto;
+
+    margin:auto;
+
 }
 
 
-/* =========================================================
-   HEADER
-========================================================= */
 
-.note-hero{
-    padding:30px;
+/* ==============================
+   HERO
+============================== */
 
-    margin-bottom:20px;
 
-    border-radius:24px;
+.learning-hero{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:25px;
+
+
+    padding:35px;
+
+
+    border-radius:28px;
+
 
     color:white;
 
+
     background:
-        linear-gradient(
-            135deg,
-            rgba(14,116,144,.96),
-            rgba(15,23,42,.97)
-        );
+
+    linear-gradient(
+        135deg,
+        #0369a1,
+        #0f172a
+    );
+
 
     box-shadow:
-        0 16px 36px rgba(0,0,0,.22);
+
+    0 18px 40px rgba(0,0,0,.25);
+
+
+    margin-bottom:25px;
+
 }
 
 
-.note-label{
+
+.hero-content{
+
+    flex:1;
+
+}
+
+
+
+.hero-badge{
+
+
     display:inline-flex;
 
     align-items:center;
 
-    gap:7px;
+    gap:8px;
 
-    margin-bottom:10px;
 
-    padding:7px 12px;
+    padding:8px 15px;
 
-    border-radius:999px;
 
-    background:rgba(255,255,255,.12);
+    border-radius:50px;
+
+
+    background:
+
+    rgba(255,255,255,.15);
+
 
     color:#e0f2fe;
 
-    font-size:12px;
+
+    font-size:13px;
+
+
     font-weight:800;
+
+
+    margin-bottom:15px;
+
 }
 
 
-.note-hero h1{
-    font-size:clamp(29px,4vw,40px);
+
+.learning-hero h1{
+
+    font-size:clamp(30px,4vw,44px);
 
     line-height:1.2;
 
     font-weight:900;
 
-    overflow-wrap:anywhere;
 }
 
 
-.note-module{
-    display:inline-flex;
 
-    align-items:center;
+.hero-description{
 
     margin-top:12px;
 
-    padding:7px 11px;
 
-    border-radius:999px;
+    max-width:700px;
 
-    background:rgba(56,189,248,.16);
 
-    color:#bae6fd;
+    color:#dbeafe;
 
-    font-size:12px;
-    font-weight:800;
+
+    line-height:1.7;
+
+
+    font-size:15px;
+
 }
 
 
-/* =========================================================
-   CONTENT CARD
-========================================================= */
 
-.note-card{
-    padding:28px;
+.hero-icon{
 
-    border-radius:24px;
 
-    background:rgba(255,255,255,.98);
+    width:100px;
+
+    height:100px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    border-radius:25px;
+
+
+    background:
+
+    rgba(255,255,255,.15);
+
+
+    font-size:55px;
+
+}
+
+
+
+
+/* ==============================
+   NOTE CONTENT CARD
+============================== */
+
+
+.note-container{
+
+
+    background:white;
+
+
+    border-radius:28px;
+
+
+    padding:35px;
+
 
     box-shadow:
-        0 16px 38px rgba(0,0,0,.18);
+
+    0 18px 40px rgba(0,0,0,.18);
+
+
 }
 
 
-.content-title{
+
+.section-title{
+
+
+    font-size:22px;
+
+
+    font-weight:900;
+
+
+    color:var(--navy);
+
+
     padding-bottom:15px;
 
-    margin-bottom:18px;
 
-    border-bottom:1px solid #e2e8f0;
+    border-bottom:1px solid var(--line);
 
-    color:#0f172a;
 
-    font-size:19px;
-    font-weight:900;
+    margin-bottom:20px;
+
 }
+
 
 
 .note-content{
-    white-space:pre-line;
+
 
     color:#334155;
 
-    font-size:14.5px;
 
-    line-height:1.85;
+    line-height:1.9;
 
-    overflow-wrap:anywhere;
+
+    font-size:15px;
+
+
+    white-space:pre-line;
+
 }
 
 
-/* =========================================================
-   BUTTONS
-========================================================= */
 
-.note-actions{
+/* ==============================
+   RESOURCE AREA
+============================== */
+
+
+.resource-box{
+
+
+    margin-top:30px;
+
+
+    padding:22px;
+
+
+    border-radius:20px;
+
+
+    background:#f8fafc;
+
+
+    border:1px solid var(--line);
+
+
+}
+
+
+
+.resource-title{
+
+
+    font-weight:900;
+
+
+    color:var(--navy);
+
+
+    margin-bottom:15px;
+
+}
+
+
+
+/* ==============================
+   BUTTON AREA
+============================== */
+
+
+.action-area{
+
+
+    margin-top:35px;
+
+
+    padding-top:25px;
+
+
+    border-top:1px solid var(--line);
+
+
     display:flex;
 
-    align-items:center;
 
-    gap:10px;
+    justify-content:center;
 
-    flex-wrap:wrap;
 
-    margin-top:25px;
-
-    padding-top:20px;
-
-    border-top:1px solid #e2e8f0;
 }
 
 
-.pdf-btn,
-.back{
-    min-height:44px;
+
+.back-button{
+
 
     display:inline-flex;
 
+
     align-items:center;
+
+
     justify-content:center;
 
-    padding:10px 18px;
 
-    border-radius:11px;
+    padding:13px 30px;
+
+
+    border-radius:14px;
+
+
+    background:var(--navy);
+
 
     color:white;
 
+
     text-decoration:none;
 
-    font-size:13px;
+
     font-weight:800;
 
-    transition:.2s ease;
+
+    transition:.25s;
+
+
 }
 
 
-.pdf-btn{
-    background:#16a34a;
+
+.back-button:hover{
+
+
+    background:var(--blue);
+
+
+    transform:translateY(-3px);
+
 }
 
 
-.pdf-btn:hover{
+
+.pdf-button{
+
+
+    display:inline-flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    padding:13px 25px;
+
+
+    border-radius:14px;
+
+
+    background:var(--green);
+
+
+    color:white;
+
+
+    text-decoration:none;
+
+
+    font-weight:800;
+
+
+    transition:.25s;
+
+
+}
+
+
+
+.pdf-button:hover{
+
+
     background:#15803d;
 
-    transform:translateY(-2px);
+
+    transform:translateY(-3px);
+
 }
 
 
-.back{
-    background:#0f172a;
+
+.resource-actions{
+
+
+    display:flex;
+
+
+    gap:15px;
+
+
+    flex-wrap:wrap;
+
+
 }
 
 
-.back:hover{
-    background:#0284c7;
 
-    transform:translateY(-2px);
-}
-
-
-/* =========================================================
+/* ==============================
    MOBILE
-========================================================= */
+============================== */
 
-@media(max-width:600px){
+
+@media(max-width:700px){
+
 
     body{
+
         padding:0;
 
-        background-attachment:scroll;
     }
 
 
-    .page-wrapper{
-        max-width:none;
+
+    .learning-hero{
+
+
+        border-radius:0 0 25px 25px;
+
+
+        padding:25px;
+
+
+        flex-direction:column;
+
+
+        align-items:flex-start;
+
     }
 
 
-    .note-hero{
-        margin-bottom:10px;
 
-        padding:23px 17px;
+    .hero-icon{
 
-        border-radius:0 0 22px 22px;
+        display:none;
+
     }
 
 
-    .note-hero h1{
-        font-size:27px;
-    }
+
+    .note-container{
 
 
-    .note-card{
         width:calc(100% - 16px);
 
-        margin:0 8px 12px;
 
-        padding:18px;
+        margin:8px;
 
-        border-radius:18px;
+
+        padding:20px;
+
+
+        border-radius:20px;
+
     }
 
 
-    .note-content{
-        font-size:14px;
 
-        line-height:1.78;
+    .resource-actions{
+
+
+        flex-direction:column;
+
     }
 
 
-    .note-actions{
-        display:grid;
 
-        grid-template-columns:1fr;
-    }
+    .pdf-button,
+    .back-button{
 
 
-    .pdf-btn,
-    .back{
         width:100%;
+
     }
+
+
 
 }
+
+
 
 </style>
 
-</head>
 
+</head>
 
 <body>
 
@@ -334,205 +610,221 @@ body{
 <div class="page-wrapper">
 
 
-    <section class="note-hero">
 
-        <div class="note-label">
-            📘 Module Note
+    {{-- =========================
+         HERO SECTION
+    ========================== --}}
+
+
+    <section class="learning-hero">
+
+
+        <div class="hero-content">
+
+
+            <div class="hero-badge">
+
+                📘 Interactive Learning Module
+
+            </div>
+
+
+
+            <h1>
+
+                {{ $note->title }}
+
+            </h1>
+
+
+
+            <p class="hero-description">
+
+                Explore marine engineering learning materials,
+                understand the concept and improve your knowledge
+                through ShipEquipAR digital learning resources.
+
+            </p>
+
+
+
+            <br>
+
+
+            <div class="hero-badge">
+
+
+                📚
+
+                {{ $note->module->title
+                    ?? $note->module->name
+                    ?? '-' }}
+
+
+            </div>
+
+
+
         </div>
 
 
-        <h1>
-            {{ $note->title }}
-        </h1>
 
 
-        <div class="note-module">
-            📚
-            {{ $note->module->title
-                ?? $note->module->name
-                ?? '-' }}
+        <div class="hero-icon">
+
+            ⚓
+
         </div>
+
+
 
     </section>
 
 
 
-    <article class="note-card">
 
 
-        <div class="content-title">
-            Learning Notes
+
+    {{-- =========================
+         CONTENT
+    ========================== --}}
+
+
+
+    <article class="note-container">
+
+
+
+        <div class="section-title">
+
+            📖 Learning Notes
+
         </div>
+
+
+
 
 
         <div class="note-content">
+
             {{ $note->content }}
+
         </div>
 
 
 
-        <div class="note-actions">
 
 
-            @if($note->pdf)
 
-                @php
-
-                    $rawPdf =
-                        trim(
-                            (string) $note->pdf
-                        );
+        {{-- =========================
+             PDF RESOURCE
+        ========================== --}}
 
 
-                    if (
-                        str_starts_with($rawPdf, 'http://')
-                        ||
-                        str_starts_with($rawPdf, 'https://')
-                    ) {
 
-                        $pdfUrl =
-                            $rawPdf;
-
-                    }
-
-                    else {
-
-                        $normalizedPdf =
-                            ltrim(
-                                str_replace(
-                                    '\\',
-                                    '/',
-                                    $rawPdf
-                                ),
-                                '/'
-                            );
+        @if($note->pdf)
 
 
-                        /*
-                        |--------------------------------------------------------------------------
-                        | NORMALIZE SAVED PDF PATH
-                        |--------------------------------------------------------------------------
-                        |
-                        | Support the same path formats used by the admin page:
-                        | - public/uploads/...
-                        | - uploads/...
-                        | - storage/...
-                        | - notes/...
-                        | - filename only
-                        |
-                        */
-
-                        if (
-                            str_starts_with(
-                                $normalizedPdf,
-                                'public/'
-                            )
-                        ) {
-
-                            $normalizedPdf =
-                                substr(
-                                    $normalizedPdf,
-                                    7
-                                );
-
-                        }
+        <div class="resource-box">
 
 
-                        if (
-                            str_starts_with(
-                                $normalizedPdf,
-                                'storage/'
-                            )
-                        ) {
+            <div class="resource-title">
 
-                            $pdfUrl =
-                                asset(
-                                    $normalizedPdf
-                                );
+                📄 Additional Learning 
 
-                        }
+            </div>
 
-                        elseif (
-                            str_starts_with(
-                                $normalizedPdf,
-                                'uploads/'
-                            )
-                        ) {
 
-                            /*
-                             * IMPORTANT:
-                             * Some existing notes are stored directly
-                             * under public/uploads/... .
-                             * Do NOT convert these to /storage/notes/...
-                             */
 
-                            $pdfUrl =
-                                asset(
-                                    $normalizedPdf
-                                );
+            <p style="color:#64748b;font-size:14px;line-height:1.7;margin-bottom:18px;">
 
-                        }
 
-                        elseif (
-                            str_starts_with(
-                                $normalizedPdf,
-                                'notes/'
-                            )
-                        ) {
+                Download or open the PDF resource
+                to explore more detailed information
+                about this learning topic.
 
-                            $pdfUrl =
-                                asset(
-                                    'storage/' .
-                                    $normalizedPdf
-                                );
 
-                        }
+            </p>
 
-                        else {
 
-                            $pdfUrl =
-                                asset(
-                                    'storage/notes/' .
-                                    basename(
-                                        $normalizedPdf
-                                    )
-                                );
 
-                        }
 
-                    }
+            <div class="resource-actions">
 
-                @endphp
 
 
                 <a
-                    class="pdf-btn"
-                    href="{{ $pdfUrl }}"
+
+                    class="pdf-button"
+
+                    href="{{ asset('notes/'.$note->pdf) }}"
+
                     target="_blank"
+
                     rel="noopener noreferrer"
+
                 >
-                    📄 View PDF
+
+                    📄 Open PDF 
+
                 </a>
 
-            @endif
 
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+        @endif
+
+
+
+
+
+
+
+        {{-- =========================
+             BACK BUTTON
+        ========================== --}}
+
+
+
+        <div class="action-area">
 
 
             <a
-                class="back"
+
+                class="back-button"
+
                 href="{{ route('user.notes') }}"
+
             >
-                ← Back
+
+                ← Back to Module Notes
+
             </a>
 
 
         </div>
 
 
+
+
+
     </article>
 
 
+
+
+
 </div>
+
+
 
 
 </body>
