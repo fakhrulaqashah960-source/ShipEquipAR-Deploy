@@ -26,3 +26,7 @@ public/uploads/reality/*.reality
 shipequipar_data.sql
 shipequipar_data_clean.sql
 .env
+# Allow notes PDF
+!/public/uploads/
+!/public/uploads/notes/
+!/public/uploads/notes/*
