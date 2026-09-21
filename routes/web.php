@@ -636,6 +636,42 @@ Route::middleware([
 
 });
 
+/*
+|--------------------------------------------------------------------------
+| PDF CHECK
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/check-pdf', function(){
+
+    $publicPath = public_path('uploads/notes');
+
+    $storagePath = storage_path('app/public/notes');
+
+
+    return response()->json([
+
+        'public_folder_exists' =>
+            is_dir($publicPath),
+
+        'public_files' =>
+            is_dir($publicPath)
+            ? scandir($publicPath)
+            : [],
+
+
+        'storage_folder_exists' =>
+            is_dir($storagePath),
+
+        'storage_files' =>
+            is_dir($storagePath)
+            ? scandir($storagePath)
+            : [],
+
+    ]);
+
+});
+
 
 /*
 |--------------------------------------------------------------------------
