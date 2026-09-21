@@ -776,9 +776,6 @@ Route::post('/forgot-password', function (Request $request) {
     $request->only('email')
 );
 
-dd($status);
-
-
     if ($status === Password::RESET_LINK_SENT) {
 
 
