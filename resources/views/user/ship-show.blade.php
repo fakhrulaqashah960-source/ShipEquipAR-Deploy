@@ -266,7 +266,7 @@ body{
 
     align-items:center;
 
-    gap:10px;
+    gap:15px;
 
     flex-wrap:wrap;
 
@@ -423,6 +423,19 @@ body{
     .no-ar{
         width:100%;
     }
+
+}
+
+@media(max-width:700px){
+
+.ship-actions{
+    flex-direction:column;
+}
+
+.ship-actions a{
+    width:100%;
+    text-align:center;
+}
 
 }
 
@@ -612,32 +625,32 @@ body{
         <div class="ship-actions">
 
 
-            @if($arUrl)
-
-                <a
-                    href="{{ $arUrl }}"
-                    class="btn-ar"
-                    rel="ar"
-                >
-                    📱 Open AR Model
-                </a>
-
-            @else
-
-                <span class="no-ar">
-                    AR Model Not Available
-                </span>
-
-            @endif
+           <a
+    href="{{ url()->previous() }}"
+    class="back-btn"
+>
+    ← Back
+</a>
 
 
 
-            <a
-                href="{{ url()->previous() }}"
-                class="back-btn"
-            >
-                ← Back
-            </a>
+@if($arUrl)
+
+<a
+    href="{{ $arUrl }}"
+    class="btn-ar"
+    rel="ar"
+>
+    📱 Open AR Model
+</a>
+
+@else
+
+<span class="no-ar">
+    AR Model Not Available
+</span>
+
+@endif
 
 
         </div>
