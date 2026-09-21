@@ -5,9 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>
 {{ $note->title }} - ShipEquipAR Learning
@@ -27,7 +25,6 @@ content="width=device-width, initial-scale=1.0">
     --navy:#0f172a;
     --blue:#0284c7;
     --green:#16a34a;
-    --text:#1e293b;
     --line:#e2e8f0;
 
 }
@@ -43,13 +40,10 @@ content="width=device-width, initial-scale=1.0">
 }
 
 
-
 body{
 
     min-height:100vh;
-
     padding:35px 18px;
-
 
     background:
 
@@ -61,44 +55,32 @@ body{
 
     url('/images/ship-bg.jpg');
 
-
     background-size:cover;
-
     background-position:center;
-
     background-attachment:fixed;
 
 }
 
 
 
-
 .page-wrapper{
 
     width:100%;
-
     max-width:1050px;
-
     margin:auto;
 
 }
 
 
 
-/* HERO */
-
 
 .learning-hero{
 
     padding:35px;
-
     border-radius:28px;
-
     margin-bottom:25px;
 
-
     color:white;
-
 
     background:
 
@@ -108,9 +90,7 @@ body{
         #0f172a
     );
 
-
     box-shadow:
-
     0 18px 40px rgba(0,0,0,.25);
 
 }
@@ -120,20 +100,15 @@ body{
 .hero-badge{
 
     display:inline-flex;
-
     padding:8px 15px;
-
     border-radius:50px;
 
     background:
-
     rgba(255,255,255,.15);
-
 
     color:#e0f2fe;
 
     font-weight:800;
-
     font-size:13px;
 
 }
@@ -143,9 +118,7 @@ body{
 .learning-hero h1{
 
     margin-top:15px;
-
     font-size:clamp(30px,4vw,44px);
-
     font-weight:900;
 
 }
@@ -155,9 +128,7 @@ body{
 .hero-description{
 
     margin-top:12px;
-
     color:#dbeafe;
-
     line-height:1.7;
 
 }
@@ -165,26 +136,16 @@ body{
 
 
 
-/* CONTENT */
-
-
 .note-container{
-
 
     background:white;
 
-
     border-radius:28px;
-
 
     padding:35px;
 
-
     box-shadow:
-
-
     0 18px 40px rgba(0,0,0,.18);
-
 
 }
 
@@ -192,18 +153,13 @@ body{
 
 .section-title{
 
-
     font-size:22px;
-
 
     font-weight:900;
 
-
     padding-bottom:15px;
 
-
     margin-bottom:20px;
-
 
     border-bottom:1px solid var(--line);
 
@@ -211,46 +167,34 @@ body{
 
 
 
-.note-content{
 
+.note-content{
 
     color:#334155;
 
-
     font-size:15px;
-
 
     line-height:1.9;
 
-
     white-space:pre-line;
-
 
 }
 
 
 
 
-/* PDF */
-
 
 .resource-box{
 
-
     margin-top:30px;
-
 
     padding:22px;
 
-
     border-radius:20px;
-
 
     background:#f8fafc;
 
-
     border:1px solid var(--line);
-
 
 }
 
@@ -258,12 +202,9 @@ body{
 
 .resource-title{
 
-
     font-weight:900;
 
-
     margin-bottom:15px;
-
 
 }
 
@@ -271,27 +212,19 @@ body{
 
 .pdf-button{
 
-
     display:inline-flex;
-
 
     padding:13px 25px;
 
-
     border-radius:14px;
-
 
     background:#16a34a;
 
-
     color:white;
-
 
     text-decoration:none;
 
-
     font-weight:900;
-
 
 }
 
@@ -299,15 +232,10 @@ body{
 
 .pdf-button:hover{
 
-
     background:#15803d;
-
 
 }
 
-
-
-/* BACK */
 
 
 .action-area{
@@ -326,27 +254,19 @@ body{
 
 .back-button{
 
-
     display:inline-flex;
-
 
     padding:13px 30px;
 
-
     border-radius:14px;
-
 
     background:#0f172a;
 
-
     color:white;
-
 
     text-decoration:none;
 
-
     font-weight:900;
-
 
 }
 
@@ -354,14 +274,12 @@ body{
 
 .back-button:hover{
 
-
     background:#0284c7;
-
 
 }
 
-</style>
 
+</style>
 
 </head>
 
@@ -437,7 +355,6 @@ through ShipEquipAR digital learning resources.
 
 
 
-
 <div class="note-content">
 
 {{ $note->content }}
@@ -450,23 +367,8 @@ through ShipEquipAR digital learning resources.
 
 @if($note->pdf)
 
-@php
 
-/*
-|--------------------------------------------------------------------------
-| PDF URL FIX
-|--------------------------------------------------------------------------
-|
-| Database:
-| uploads/notes/file.pdf
-|
-| Public:
-| public/uploads/notes/file.pdf
-|
-| URL:
-| /uploads/notes/file.pdf
-|
-*/
+@php
 
 
 $pdfPath = str_replace(
@@ -483,10 +385,16 @@ $pdfPath = ltrim(
 
 
 
-/*
-remove old format if exist
-storage/notes/file.pdf
-*/
+if(str_starts_with($pdfPath,'public/')){
+
+    $pdfPath = str_replace(
+        'public/',
+        '',
+        $pdfPath
+    );
+
+}
+
 
 
 if(str_starts_with($pdfPath,'storage/')){
@@ -500,32 +408,14 @@ if(str_starts_with($pdfPath,'storage/')){
 }
 
 
-/*
-remove public/ if exist
-*/
 
 
-if(str_starts_with($pdfPath,'public/')){
+$pdfUrl = url($pdfPath);
 
-    $pdfPath = str_replace(
-        'public/',
-        '',
-        $pdfPath
-    );
-
-}
-
-
-
-/*
-final url
-*/
-
-
-$pdfUrl = asset($pdfPath);
 
 
 @endphp
+
 
 
 
@@ -568,7 +458,7 @@ rel="noopener noreferrer"
 
 >
 
-📄 Open PDF Resource
+📄 Open Notes
 
 </a>
 
@@ -614,12 +504,9 @@ href="{{ route('user.notes') }}"
 
 
 
-
 </div>
 
 
-
 </body>
-
 
 </html>
