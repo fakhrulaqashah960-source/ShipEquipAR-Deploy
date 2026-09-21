@@ -286,36 +286,25 @@ Enter your email and we will send a password reset link.
 @endif
 
 
-
-
-
 <form method="POST" action="{{ route('password.email') }}">
 
 @csrf
 
 
 <input
-
 type="email"
-
 name="email"
-
 placeholder="Enter your email"
-
 required
-
 >
 
 
-<button>
-
+<button type="submit">
 SEND RESET LINK
-
 </button>
 
 
 </form>
-
 
 
 <div class="back">
