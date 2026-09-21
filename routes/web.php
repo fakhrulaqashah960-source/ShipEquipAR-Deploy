@@ -260,6 +260,59 @@ Route::get(
 
 /*
 |--------------------------------------------------------------------------
+| PDF FILE ACCESS
+|--------------------------------------------------------------------------
+*/
+
+Route::get(
+    '/pdf/{file}',
+    function ($file) {
+
+
+        $file = basename($file);
+
+
+        abort_unless(
+            str_ends_with(
+                strtolower($file),
+                '.pdf'
+            ),
+            404
+        );
+
+
+        $path = public_path(
+            'uploads/notes/'.$file
+        );
+
+
+        abort_unless(
+            is_file($path),
+            404
+        );
+
+
+        return response()->file(
+            $path,
+            [
+                'Content-Type'=>'application/pdf',
+                'Content-Disposition'=>'inline',
+                'Cache-Control'=>'public,max-age=86400'
+            ]
+        );
+
+
+    }
+)
+->where(
+    'file',
+    '[^/]+\.pdf'
+)
+->name('pdf.view');
+
+
+/*
+|--------------------------------------------------------------------------
 | USER AREA
 |--------------------------------------------------------------------------
 */
@@ -636,41 +689,7 @@ Route::middleware([
 
 });
 
-/*
-|--------------------------------------------------------------------------
-| PDF CHECK
-|--------------------------------------------------------------------------
-*/
 
-Route::get('/check-pdf', function(){
-
-    $publicPath = public_path('uploads/notes');
-
-    $storagePath = storage_path('app/public/notes');
-
-
-    return response()->json([
-
-        'public_folder_exists' =>
-            is_dir($publicPath),
-
-        'public_files' =>
-            is_dir($publicPath)
-            ? scandir($publicPath)
-            : [],
-
-
-        'storage_folder_exists' =>
-            is_dir($storagePath),
-
-        'storage_files' =>
-            is_dir($storagePath)
-            ? scandir($storagePath)
-            : [],
-
-    ]);
-
-});
 
 
 /*

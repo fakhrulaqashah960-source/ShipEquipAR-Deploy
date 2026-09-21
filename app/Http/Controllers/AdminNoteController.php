@@ -23,6 +23,7 @@ class AdminNoteController extends Controller
 
         $notes = Note::with('module')->get();
 
+
         return view(
             'admin.notes.index',
             compact('notes')
@@ -33,10 +34,9 @@ class AdminNoteController extends Controller
 
 
 
-
     /*
     |--------------------------------------------------------------------------
-    | Create Page
+    | Create
     |--------------------------------------------------------------------------
     */
 
@@ -59,7 +59,7 @@ class AdminNoteController extends Controller
 
     /*
     |--------------------------------------------------------------------------
-    | Store Notes
+    | Store
     |--------------------------------------------------------------------------
     */
 
@@ -69,13 +69,13 @@ class AdminNoteController extends Controller
 
         $request->validate([
 
-            'title' => 'required',
+            'title'=>'required',
 
-            'module_id' => 'required',
+            'module_id'=>'required',
 
-            'content' => 'required',
+            'content'=>'required',
 
-            'pdf' => 'nullable|mimes:pdf|max:20000'
+            'pdf'=>'nullable|mimes:pdf|max:20000'
 
         ]);
 
@@ -89,49 +89,12 @@ class AdminNoteController extends Controller
         {
 
 
-            $folder = public_path('uploads/notes');
-
-
-            if(!File::exists($folder))
-            {
-
-                File::makeDirectory(
-                    $folder,
-                    0755,
-                    true
-                );
-
-            }
-
-
-
-            $file = $request->file('pdf');
-
-
-            $filename =
-                time()
-                .'_'
-                .preg_replace(
-                    '/[^A-Za-z0-9_\-\.]/',
-                    '_',
-                    $file->getClientOriginalName()
-                );
-
-
-
-            $file->move(
-                $folder,
-                $filename
+            $pdf = $this->uploadPDF(
+                $request->file('pdf')
             );
 
 
-
-            $pdf =
-                'uploads/notes/'.$filename;
-
-
         }
-
 
 
 
@@ -141,12 +104,9 @@ class AdminNoteController extends Controller
 
             'title'=>$request->title,
 
-
             'module_id'=>$request->module_id,
 
-
             'content'=>$request->content,
-
 
             'pdf'=>$pdf
 
@@ -159,12 +119,12 @@ class AdminNoteController extends Controller
 
         return redirect()
 
-            ->route('admin.notes.index')
+        ->route('admin.notes.index')
 
-            ->with(
-                'success',
-                'Notes added successfully'
-            );
+        ->with(
+            'success',
+            'Notes added successfully'
+        );
 
 
     }
@@ -174,10 +134,9 @@ class AdminNoteController extends Controller
 
 
 
-
     /*
     |--------------------------------------------------------------------------
-    | Show Notes
+    | Show
     |--------------------------------------------------------------------------
     */
 
@@ -185,8 +144,7 @@ class AdminNoteController extends Controller
     {
 
 
-        $note =
-            Note::with('module')
+        $note = Note::with('module')
             ->findOrFail($id);
 
 
@@ -205,10 +163,9 @@ class AdminNoteController extends Controller
 
 
 
-
     /*
     |--------------------------------------------------------------------------
-    | Edit Notes
+    | Edit
     |--------------------------------------------------------------------------
     */
 
@@ -216,13 +173,10 @@ class AdminNoteController extends Controller
     {
 
 
-        $note =
-            Note::findOrFail($id);
+        $note = Note::findOrFail($id);
 
 
-
-        $modules =
-            Module::all();
+        $modules = Module::all();
 
 
 
@@ -243,10 +197,9 @@ class AdminNoteController extends Controller
 
 
 
-
     /*
     |--------------------------------------------------------------------------
-    | Update Notes
+    | Update
     |--------------------------------------------------------------------------
     */
 
@@ -254,8 +207,7 @@ class AdminNoteController extends Controller
     {
 
 
-        $note =
-            Note::findOrFail($id);
+        $note = Note::findOrFail($id);
 
 
 
@@ -265,12 +217,9 @@ class AdminNoteController extends Controller
 
             'title'=>'required',
 
-
             'module_id'=>'required',
 
-
             'content'=>'required',
-
 
             'pdf'=>'nullable|mimes:pdf|max:20000'
 
@@ -280,9 +229,7 @@ class AdminNoteController extends Controller
 
 
 
-        $pdf =
-            $note->pdf;
-
+        $pdf = $note->pdf;
 
 
 
@@ -292,53 +239,34 @@ class AdminNoteController extends Controller
         {
 
 
-            $folder =
-                public_path('uploads/notes');
+            // delete old pdf
 
-
-
-            if(!File::exists($folder))
+            if($note->pdf)
             {
 
-                File::makeDirectory(
-                    $folder,
-                    0755,
-                    true
-                );
+                $old =
+                public_path($note->pdf);
+
+
+                if(File::exists($old))
+                {
+
+                    File::delete($old);
+
+                }
 
             }
 
 
 
 
-            $file =
-                $request->file('pdf');
 
-
-
-            $filename =
-                time()
-                .'_'
-                .preg_replace(
-                    '/[^A-Za-z0-9_\-\.]/',
-                    '_',
-                    $file->getClientOriginalName()
-                );
-
-
-
-
-            $file->move(
-                $folder,
-                $filename
-            );
-
-
-
+            // upload new pdf
 
             $pdf =
-                'uploads/notes/'.$filename;
-
+            $this->uploadPDF(
+                $request->file('pdf')
+            );
 
 
         }
@@ -352,12 +280,9 @@ class AdminNoteController extends Controller
 
             'title'=>$request->title,
 
-
             'module_id'=>$request->module_id,
 
-
             'content'=>$request->content,
-
 
             'pdf'=>$pdf
 
@@ -372,12 +297,12 @@ class AdminNoteController extends Controller
 
         return redirect()
 
-            ->route('admin.notes.index')
+        ->route('admin.notes.index')
 
-            ->with(
-                'success',
-                'Notes updated successfully'
-            );
+        ->with(
+            'success',
+            'Notes updated successfully'
+        );
 
 
     }
@@ -388,10 +313,9 @@ class AdminNoteController extends Controller
 
 
 
-
     /*
     |--------------------------------------------------------------------------
-    | Delete Notes
+    | Delete
     |--------------------------------------------------------------------------
     */
 
@@ -400,7 +324,9 @@ class AdminNoteController extends Controller
 
 
         $note =
-            Note::findOrFail($id);
+        Note::findOrFail($id);
+
+
 
 
 
@@ -409,7 +335,7 @@ class AdminNoteController extends Controller
 
 
             $file =
-                public_path($note->pdf);
+            public_path($note->pdf);
 
 
 
@@ -426,8 +352,8 @@ class AdminNoteController extends Controller
 
 
 
-
         $note->delete();
+
 
 
 
@@ -435,15 +361,83 @@ class AdminNoteController extends Controller
 
         return redirect()
 
-            ->route('admin.notes.index')
+        ->route('admin.notes.index')
 
-            ->with(
-                'success',
-                'Notes deleted successfully'
-            );
+        ->with(
+            'success',
+            'Notes deleted successfully'
+        );
 
 
     }
+
+
+
+
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Upload PDF Helper
+    |--------------------------------------------------------------------------
+    */
+
+    private function uploadPDF($file)
+    {
+
+
+        $folder =
+        public_path('uploads/notes');
+
+
+
+
+        if(!File::exists($folder))
+        {
+
+            File::makeDirectory(
+                $folder,
+                0755,
+                true
+            );
+
+        }
+
+
+
+
+        $filename =
+
+        time()
+        .'_'
+        .
+        preg_replace(
+            '/[^A-Za-z0-9_\-\.]/',
+            '_',
+            $file->getClientOriginalName()
+        );
+
+
+
+
+
+        $file->move(
+            $folder,
+            $filename
+        );
+
+
+
+
+
+        return
+        'uploads/notes/'.$filename;
+
+
+    }
+
+
 
 
 
