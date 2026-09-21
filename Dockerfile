@@ -35,7 +35,6 @@ RUN apt-get update && apt-get install -y \
 
 
 
-
 # =========================================================
 # NODE.JS 22
 # =========================================================
@@ -47,13 +46,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
 
 
 
-
 # =========================================================
 # COMPOSER
 # =========================================================
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
 
 
 
@@ -65,13 +62,11 @@ WORKDIR /var/www/html
 
 
 
-
 # =========================================================
 # COPY PROJECT
 # =========================================================
 
 COPY . .
-
 
 
 
@@ -82,7 +77,6 @@ COPY . .
 ENV COMPOSER_MAX_PARALLEL_HTTP=2
 ENV COMPOSER_PROCESS_TIMEOUT=900
 ENV COMPOSER_ALLOW_SUPERUSER=1
-
 
 
 
@@ -99,14 +93,12 @@ RUN composer install \
 
 
 
-
 # =========================================================
 # VITE BUILD
 # =========================================================
 
 RUN npm ci \
     && npm run build
-
 
 
 
@@ -125,8 +117,6 @@ RUN sed -ri \
 
 
 
-
-
 # =========================================================
 # LARAVEL DIRECTORIES
 # =========================================================
@@ -138,12 +128,10 @@ RUN mkdir -p \
     /var/www/html/storage/logs \
     /var/www/html/storage/app/public/notes \
     /var/www/html/bootstrap/cache \
+    /var/www/html/public/uploads/notes \
     /var/www/html/public/uploads/reality \
     /var/www/html/public/uploads/modules \
-    /var/www/html/public/uploads/equipment \
-    /var/www/html/public/uploads/notes
-
-
+    /var/www/html/public/uploads/equipment
 
 
 
@@ -154,19 +142,17 @@ RUN mkdir -p \
 RUN chown -R www-data:www-data \
         /var/www/html/storage \
         /var/www/html/bootstrap/cache \
+        /var/www/html/public/uploads/notes \
         /var/www/html/public/uploads/reality \
         /var/www/html/public/uploads/modules \
         /var/www/html/public/uploads/equipment \
-        /var/www/html/public/uploads/notes \
     && chmod -R 775 \
         /var/www/html/storage \
         /var/www/html/bootstrap/cache \
+        /var/www/html/public/uploads/notes \
         /var/www/html/public/uploads/reality \
         /var/www/html/public/uploads/modules \
-        /var/www/html/public/uploads/equipment \
-        /var/www/html/public/uploads/notes
-
-
+        /var/www/html/public/uploads/equipment
 
 
 
@@ -174,10 +160,7 @@ RUN chown -R www-data:www-data \
 # APACHE SERVER NAME
 # =========================================================
 
-RUN echo "ServerName localhost" \
-    >> /etc/apache2/apache2.conf
-
-
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 
 
@@ -191,8 +174,6 @@ EXPOSE 10000
 
 
 
-
-
 # =========================================================
 # START APPLICATION
 # =========================================================
@@ -200,36 +181,36 @@ EXPOSE 10000
 CMD ["sh", "-c", "\
 PORT=${PORT:-10000}; \
 \
-echo \"========================================\"; \
-echo \"ShipEquipAR starting\"; \
+echo '========================================'; \
+echo 'ShipEquipAR starting'; \
 echo \"Apache port: ${PORT}\"; \
-echo \"========================================\"; \
+echo '========================================'; \
 \
 sed -ri \"s/^Listen [0-9]+/Listen ${PORT}/\" /etc/apache2/ports.conf; \
 sed -ri \"s/<VirtualHost \\*:[0-9]+>/<VirtualHost *:${PORT}>/\" /etc/apache2/sites-available/000-default.conf; \
 \
-echo \"========================================\"; \
-echo \"Clearing Laravel cache...\"; \
-echo \"========================================\"; \
+echo '========================================'; \
+echo 'Clearing Laravel cache...'; \
+echo '========================================'; \
 php artisan optimize:clear || true; \
 \
-echo \"========================================\"; \
-echo \"Running database migrations...\"; \
-echo \"========================================\"; \
+echo '========================================'; \
+echo 'Running database migrations...'; \
+echo '========================================'; \
 php artisan migrate --force; \
 \
-echo \"========================================\"; \
-echo \"Creating Laravel storage link...\"; \
-echo \"========================================\"; \
+echo '========================================'; \
+echo 'Creating Laravel storage link...'; \
+echo '========================================'; \
 php artisan storage:link || true; \
 \
-echo \"========================================\"; \
-echo \"Syncing AR Reality models...\"; \
-echo \"========================================\"; \
+echo '========================================'; \
+echo 'Syncing AR Reality models...'; \
+echo '========================================'; \
 php artisan ar:sync || true; \
 \
-echo \"========================================\"; \
+echo '========================================'; \
 echo \"Starting Apache on port ${PORT}\"; \
-echo \"========================================\"; \
+echo '========================================'; \
 exec apache2-foreground \
 "]
