@@ -17,8 +17,9 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+font-family:'Segoe UI',Arial,sans-serif;
 }
+
 
 
 body{
@@ -39,24 +40,32 @@ url('/images/ship-bg.jpg');
 
 background-size:cover;
 background-position:center;
+background-attachment:fixed;
 
 }
+
+
+
 
 
 .container{
 
 max-width:1180px;
+
 margin:auto;
 
 }
 
 
 
+
+/* HERO */
+
 .hero{
 
-padding:35px;
+padding:40px;
 
-border-radius:28px;
+border-radius:30px;
 
 background:
 linear-gradient(
@@ -65,25 +74,35 @@ linear-gradient(
 #0f172a
 );
 
+
 color:white;
 
+
 box-shadow:
+
 0 20px 40px rgba(0,0,0,.25);
 
 }
 
 
+
+
 .hero h1{
 
 font-size:42px;
-font-weight:900;
+
+font-weight:950;
 
 }
+
+
 
 
 .hero p{
 
 margin-top:12px;
+
+font-size:16px;
 
 color:#dbeafe;
 
@@ -92,20 +111,29 @@ color:#dbeafe;
 
 
 
+/* CONTENT CARD */
+
 
 .card{
 
-margin-top:25px;
+
+margin-top:30px;
+
 
 background:white;
 
-padding:40px;
 
-border-radius:28px;
+padding:45px;
+
+
+border-radius:30px;
+
 
 
 box-shadow:
-0 20px 40px rgba(0,0,0,.2);
+
+0 20px 45px rgba(0,0,0,.22);
+
 
 }
 
@@ -114,86 +142,165 @@ box-shadow:
 
 .title{
 
-font-size:32px;
+
+font-size:38px;
+
 
 font-weight:900;
 
+
+line-height:1.3;
+
+
 color:#0369a1;
 
+
+margin-bottom:20px;
+
+
 }
+
+
+
 
 
 
 .module{
 
 
-margin-top:20px;
+display:inline-block;
 
-padding:15px;
 
-border-radius:15px;
+margin-top:10px;
+
+
+padding:14px 22px;
+
+
+border-radius:999px;
+
 
 background:#e0f2fe;
 
+
 color:#0369a1;
 
-font-weight:800;
+
+font-size:15px;
+
+
+font-weight:900;
+
 
 }
 
 
+
+
+
+
+/* NOTE CONTENT */
 
 
 .content{
 
-margin-top:30px;
 
-padding:30px;
+margin-top:35px;
 
-border-radius:20px;
+
+padding:35px;
+
+
+border-radius:22px;
+
 
 background:#f8fafc;
 
+
+border:1px solid #e2e8f0;
+
+
 color:#334155;
 
-line-height:1.8;
 
-font-size:17px;
+font-size:18px;
+
+
+line-height:2;
+
+
+letter-spacing:.2px;
+
 
 }
 
+
+
+
+.content p{
+
+margin-bottom:15px;
+
+}
+
+
+
+
+
+/* PDF */
 
 
 .pdf-box{
 
 
-margin-top:30px;
+margin-top:35px;
 
-padding:25px;
 
-border-radius:20px;
+padding:30px;
+
+
+border-radius:22px;
+
 
 background:#eff6ff;
 
+
+border:1px solid #dbeafe;
+
+
 }
+
 
 
 
 .pdf-box h3{
 
+
 color:#0369a1;
 
+
+font-size:22px;
+
+
+font-weight:900;
+
+
 }
+
 
 
 
 .pdf-box p{
 
-margin-top:8px;
+
+margin-top:10px;
+
 
 color:#64748b;
 
+
 }
+
 
 
 
@@ -202,17 +309,27 @@ color:#64748b;
 
 display:inline-flex;
 
-margin-top:18px;
 
-padding:13px 25px;
+align-items:center;
 
 
-border-radius:12px;
+justify-content:center;
+
+
+margin-top:20px;
+
+
+padding:14px 28px;
+
+
+border-radius:14px;
 
 
 background:#16a34a;
 
+
 color:white;
+
 
 text-decoration:none;
 
@@ -224,6 +341,19 @@ font-weight:900;
 
 
 
+.pdf-btn:hover{
+
+background:#15803d;
+
+}
+
+
+
+
+
+
+/* BACK */
+
 
 .back{
 
@@ -231,13 +361,13 @@ font-weight:900;
 display:inline-flex;
 
 
-margin-top:25px;
+margin-top:30px;
 
 
-padding:13px 25px;
+padding:14px 30px;
 
 
-border-radius:12px;
+border-radius:14px;
 
 
 background:#0f172a;
@@ -264,10 +394,53 @@ background:#0284c7;
 
 
 
+
+@media(max-width:768px){
+
+
+.card{
+
+padding:25px;
+
+}
+
+
+
+.title{
+
+font-size:28px;
+
+}
+
+
+
+.hero h1{
+
+font-size:32px;
+
+}
+
+
+
+.content{
+
+font-size:16px;
+
+padding:22px;
+
+}
+
+
+}
+
+
+
 </style>
 
 
 </head>
+
+
 
 
 <body>
@@ -277,16 +450,22 @@ background:#0284c7;
 
 
 
+
+
 <div class="hero">
 
 
 <h1>
+
 📘 Module Notes
+
 </h1>
 
 
 <p>
+
 ShipEquipAR maritime learning resources
+
 </p>
 
 
@@ -295,7 +474,13 @@ ShipEquipAR maritime learning resources
 
 
 
+
+
+
+
 <div class="card">
+
+
 
 
 
@@ -308,7 +493,10 @@ ShipEquipAR maritime learning resources
 
 
 
+
+
 <div class="module">
+
 
 📚 Module:
 
@@ -321,11 +509,18 @@ ShipEquipAR maritime learning resources
 
 
 
+
+
+
 <div class="content">
+
 
 {!! $note->content !!}
 
+
 </div>
+
+
 
 
 
@@ -336,26 +531,54 @@ ShipEquipAR maritime learning resources
 @if($note->pdf)
 
 
+@php
+
+$pdfPath = str_replace(
+'public/',
+'',
+$note->pdf
+);
+
+
+$pdfPath = str_replace(
+'storage/',
+'',
+$pdfPath
+);
+
+
+@endphp
+
+
+
+
 <div class="pdf-box">
 
 
 <h3>
+
 📄 PDF Learning Resource
+
 </h3>
 
 
 <p>
+
 Open the official module PDF document.
+
 </p>
+
 
 
 
 
 <a
 
-href="{{ route('pdf.view',$note->pdf) }}"
+href="{{ asset('storage/'.$pdfPath) }}"
 
 target="_blank"
+
+rel="noopener noreferrer"
 
 class="pdf-btn"
 
@@ -364,6 +587,7 @@ class="pdf-btn"
 📄 Open PDF Resource
 
 </a>
+
 
 
 
@@ -377,28 +601,34 @@ class="pdf-btn"
 
 
 
+
 <a
 
-href="{{ route('dashboard') }}"
+href="{{ route('user.notes') }}"
 
 class="back"
 
 >
 
-← Back To Dashboard
+← Back To Notes List
 
 </a>
 
 
 
 
-</div>
 
 
 </div>
 
+
+
+
+
+</div>
 
 
 </body>
+
 
 </html>
