@@ -4,7 +4,7 @@
 <head>
 
 <title>
-ShipEquipAR Maritime Quiz
+ShipEquipAR Maritime Assessment
 </title>
 
 
@@ -27,14 +27,12 @@ body{
 
     background:
     linear-gradient(
-        rgba(2,24,45,.92),
+        rgba(2,24,45,.90),
         rgba(3,105,161,.75)
     ),
     url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
 
-
     background-size:cover;
-
     background-position:center;
 
     padding:40px 20px;
@@ -46,7 +44,7 @@ body{
 
 .container{
 
-    max-width:1100px;
+    max-width:1150px;
 
     margin:auto;
 
@@ -55,8 +53,10 @@ body{
 
 
 
-.header{
 
+/* HEADER */
+
+.header{
 
     background:
     linear-gradient(
@@ -65,16 +65,14 @@ body{
         #0369a1
     );
 
+    padding:45px;
 
-    padding:40px;
-
-    border-radius:25px;
+    border-radius:30px;
 
     color:white;
 
     box-shadow:
-    0 20px 40px rgba(0,0,0,.3);
-
+    0 20px 40px rgba(0,0,0,.35);
 
 }
 
@@ -88,9 +86,9 @@ body{
 
     color:#082f49;
 
-    padding:7px 15px;
+    padding:8px 18px;
 
-    border-radius:20px;
+    border-radius:30px;
 
     font-size:13px;
 
@@ -102,9 +100,11 @@ body{
 
 .header h1{
 
-    margin-top:15px;
+    margin-top:20px;
 
-    font-size:38px;
+    font-size:42px;
+
+    font-weight:900;
 
 }
 
@@ -116,24 +116,31 @@ body{
 
     color:#dbeafe;
 
+    max-width:800px;
+
+    line-height:1.6;
+
 }
 
 
 
 
+
+
+
+/* QUIZ CARD */
+
+
 .quiz-list{
 
-
     margin-top:35px;
-
 
     display:grid;
 
     grid-template-columns:
     repeat(2,1fr);
 
-    gap:25px;
-
+    gap:30px;
 
 }
 
@@ -146,29 +153,44 @@ body{
 
     background:white;
 
-    padding:30px;
+    padding:35px;
 
     border-radius:25px;
 
 
     box-shadow:
-    0 15px 30px rgba(0,0,0,.2);
+
+    0 15px 35px rgba(0,0,0,.25);
+
+
+    transition:.3s;
 
 
 }
 
 
 
-.quiz-icon{
+
+.quiz-card:hover{
+
+    transform:translateY(-5px);
+
+}
 
 
-    width:60px;
 
-    height:60px;
+
+.icon{
+
+
+    width:65px;
+
+    height:65px;
 
     background:#e0f2fe;
 
-    border-radius:15px;
+    border-radius:18px;
+
 
     display:flex;
 
@@ -176,9 +198,7 @@ body{
 
     justify-content:center;
 
-    font-size:32px;
-
-    margin-bottom:20px;
+    font-size:35px;
 
 
 }
@@ -187,10 +207,11 @@ body{
 
 .quiz-card h2{
 
+    margin-top:20px;
 
     color:#0369a1;
 
-    font-size:24px;
+    font-size:25px;
 
 }
 
@@ -198,40 +219,53 @@ body{
 
 .quiz-card p{
 
-
     margin-top:15px;
 
     color:#475569;
 
     line-height:1.6;
 
-
 }
 
 
 
-.details{
 
 
-    margin-top:20px;
+.info{
+
+
+    margin-top:25px;
 
     background:#f0f9ff;
 
-    padding:15px;
+    padding:18px;
 
     border-radius:15px;
 
+
 }
 
 
 
-.details strong{
+.info div{
 
+    margin-bottom:10px;
+
+    color:#334155;
+
+    font-weight:600;
+
+}
+
+
+.info strong{
 
     color:#0369a1;
 
-
 }
+
+
+
 
 
 
@@ -241,19 +275,26 @@ body{
 
     display:inline-block;
 
+
     margin-top:25px;
+
 
     background:#0f172a;
 
+
     color:white;
 
-    padding:12px 25px;
 
-    border-radius:12px;
+    padding:14px 30px;
+
+
+    border-radius:15px;
+
 
     text-decoration:none;
 
-    font-weight:700;
+
+    font-weight:800;
 
 
 }
@@ -262,9 +303,34 @@ body{
 
 .start-btn:hover{
 
+
     background:#0369a1;
 
+
 }
+
+
+
+
+
+
+
+.empty{
+
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+}
+
+
+
+
 
 
 
@@ -280,12 +346,13 @@ body{
 
 .header h1{
 
-    font-size:28px;
+    font-size:30px;
 
 }
 
 
 }
+
 
 
 
@@ -295,11 +362,15 @@ body{
 </head>
 
 
+
+
 <body>
 
 
 
 <div class="container">
+
+
 
 
 
@@ -313,6 +384,7 @@ body{
 </div>
 
 
+
 <h1>
 
 ShipEquipAR Knowledge Assessment
@@ -320,9 +392,10 @@ ShipEquipAR Knowledge Assessment
 </h1>
 
 
+
 <p>
 
-Select an assessment below to test your understanding of maritime engineering, ship safety, security and propulsion.
+Test your knowledge in maritime engineering, ship classification, safety systems, security and propulsion. Complete the assessment to receive your certificate.
 
 </p>
 
@@ -334,7 +407,14 @@ Select an assessment below to test your understanding of maritime engineering, s
 
 
 
+
+
+
 <div class="quiz-list">
+
+
+
+@if($quizzes->count() > 0)
 
 
 
@@ -345,11 +425,13 @@ Select an assessment below to test your understanding of maritime engineering, s
 <div class="quiz-card">
 
 
-<div class="quiz-icon">
 
-📘
+<div class="icon">
+
+🚢
 
 </div>
+
 
 
 
@@ -361,19 +443,22 @@ Select an assessment below to test your understanding of maritime engineering, s
 
 
 
+
 <p>
 
-Complete this maritime assessment and achieve the required passing score to receive your certificate.
+This assessment is conducted through ProProfs Quiz Maker. Complete all questions and achieve the required passing score.
 
 </p>
 
 
 
 
-<div class="details">
 
 
-<p>
+<div class="info">
+
+
+<div>
 
 🎯 Passing Score:
 
@@ -381,11 +466,11 @@ Complete this maritime assessment and achieve the required passing score to rece
 {{ $quiz->passing_score }}%
 </strong>
 
-</p>
+</div>
 
 
 
-<p>
+<div>
 
 🌐 Platform:
 
@@ -393,22 +478,24 @@ Complete this maritime assessment and achieve the required passing score to rece
 {{ $quiz->platform }}
 </strong>
 
-</p>
+</div>
 
 
 
-<p>
+<div>
 
 🏆 Certificate:
 
 <strong>
-Available
+Available after passing
 </strong>
 
-</p>
+</div>
+
 
 
 </div>
+
 
 
 
@@ -423,6 +510,7 @@ Start Assessment →
 
 
 
+
 </div>
 
 
@@ -431,7 +519,30 @@ Start Assessment →
 
 
 
+@else
+
+
+
+<div class="empty">
+
+<h2>No Quiz Available</h2>
+
+<p>
+Please check again later.
+</p>
+
 </div>
+
+
+
+@endif
+
+
+
+</div>
+
+
+
 
 
 
@@ -440,5 +551,6 @@ Start Assessment →
 
 
 </body>
+
 
 </html>
