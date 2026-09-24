@@ -4,8 +4,9 @@
 <head>
 
 <title>
-{{ $quiz->title }}
+ShipEquipAR Maritime Quiz
 </title>
+
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -27,25 +28,25 @@ body{
     background:
     linear-gradient(
         rgba(2,24,45,.92),
-        rgba(3,105,161,.78)
+        rgba(3,105,161,.75)
     ),
     url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
+
 
     background-size:cover;
 
     background-position:center;
 
-    padding:35px 20px;
+    padding:40px 20px;
 
 }
 
 
 
-/* MAIN */
 
 .container{
 
-    max-width:1050px;
+    max-width:1100px;
 
     margin:auto;
 
@@ -53,9 +54,9 @@ body{
 
 
 
-/* HEADER */
 
 .header{
+
 
     background:
     linear-gradient(
@@ -64,14 +65,16 @@ body{
         #0369a1
     );
 
-    padding:35px;
+
+    padding:40px;
 
     border-radius:25px;
 
     color:white;
 
     box-shadow:
-    0 15px 35px rgba(0,0,0,.3);
+    0 20px 40px rgba(0,0,0,.3);
+
 
 }
 
@@ -85,7 +88,7 @@ body{
 
     color:#082f49;
 
-    padding:7px 16px;
+    padding:7px 15px;
 
     border-radius:20px;
 
@@ -93,17 +96,15 @@ body{
 
     font-weight:800;
 
-    margin-bottom:15px;
-
 }
 
 
 
 .header h1{
 
-    font-size:36px;
+    margin-top:15px;
 
-    font-weight:900;
+    font-size:38px;
 
 }
 
@@ -111,54 +112,55 @@ body{
 
 .header p{
 
-    margin-top:12px;
+    margin-top:15px;
 
     color:#dbeafe;
 
-    font-size:16px;
+}
+
+
+
+
+.quiz-list{
+
+
+    margin-top:35px;
+
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:25px;
+
 
 }
 
 
 
-/* CARD */
 
 
-.card{
+.quiz-card{
+
 
     background:white;
 
-    margin-top:30px;
-
-    padding:35px;
+    padding:30px;
 
     border-radius:25px;
 
+
     box-shadow:
-    0 15px 35px rgba(0,0,0,.25);
+    0 15px 30px rgba(0,0,0,.2);
 
-}
-
-
-
-/* TITLE */
-
-
-.quiz-title{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    margin-bottom:30px;
 
 }
 
 
 
 .quiz-icon{
+
 
     width:60px;
 
@@ -170,134 +172,82 @@ body{
 
     display:flex;
 
-    justify-content:center;
-
     align-items:center;
+
+    justify-content:center;
 
     font-size:32px;
 
+    margin-bottom:20px;
+
+
 }
 
 
 
-.quiz-title h2{
+.quiz-card h2{
+
 
     color:#0369a1;
 
-    font-size:28px;
-
-    font-weight:800;
+    font-size:24px;
 
 }
 
 
 
-/* INFO */
+.quiz-card p{
 
 
-.info{
+    margin-top:15px;
 
-    display:grid;
+    color:#475569;
 
-    grid-template-columns:
-    repeat(3,1fr);
+    line-height:1.6;
 
-    gap:20px;
-
-    margin-bottom:35px;
 
 }
 
 
 
-.info-card{
+.details{
+
+
+    margin-top:20px;
 
     background:#f0f9ff;
 
-    padding:20px;
+    padding:15px;
 
     border-radius:15px;
 
-    border-left:5px solid #0284c7;
-
 }
 
 
 
-.info-card span{
+.details strong{
 
-    display:block;
-
-    font-size:13px;
 
     color:#0369a1;
 
-    font-weight:700;
-
-    margin-bottom:8px;
 
 }
 
 
 
-.info-card strong{
 
-    color:#0f172a;
+.start-btn{
 
-}
-
-
-
-/* PROPROFS */
-
-
-.quiz-box{
-
-    background:#ffffff;
-
-    border-radius:20px;
-
-    padding:15px;
-
-    border:1px solid #dbeafe;
-
-    box-shadow:
-    0 10px 25px rgba(0,0,0,.12);
-
-    text-align:center;
-
-}
-
-
-
-#proprofs{
-
-    width:100% !important;
-
-    max-width:800px;
-
-    height:1100px;
-
-    border:none;
-
-}
-
-
-
-/* BUTTON */
-
-
-.back{
 
     display:inline-block;
 
-    margin-top:30px;
+    margin-top:25px;
 
     background:#0f172a;
 
     color:white;
 
-    padding:14px 30px;
+    padding:12px 25px;
 
     border-radius:12px;
 
@@ -305,11 +255,12 @@ body{
 
     font-weight:700;
 
+
 }
 
 
 
-.back:hover{
+.start-btn:hover{
 
     background:#0369a1;
 
@@ -317,13 +268,10 @@ body{
 
 
 
-/* RESPONSIVE */
-
-
 @media(max-width:768px){
 
 
-.info{
+.quiz-list{
 
     grid-template-columns:1fr;
 
@@ -337,21 +285,8 @@ body{
 }
 
 
-.card{
-
-    padding:20px;
-
 }
 
-
-#proprofs{
-
-    height:1200px;
-
-}
-
-
-}
 
 
 </style>
@@ -373,23 +308,24 @@ body{
 
 <div class="badge">
 
-⚓ Maritime Assessment Module
+⚓ Maritime Learning Platform
 
 </div>
 
 
 <h1>
 
-ShipEquipAR Knowledge Evaluation
+ShipEquipAR Knowledge Assessment
 
 </h1>
 
 
 <p>
 
-Complete this assessment to evaluate your understanding of maritime engineering, ship operations, safety and propulsion fundamentals.
+Select an assessment below to test your understanding of maritime engineering, ship safety, security and propulsion.
 
 </p>
+
 
 
 </div>
@@ -398,11 +334,15 @@ Complete this assessment to evaluate your understanding of maritime engineering,
 
 
 
-<div class="card">
+<div class="quiz-list">
 
 
 
-<div class="quiz-title">
+@foreach($quizzes as $quiz)
+
+
+
+<div class="quiz-card">
 
 
 <div class="quiz-icon">
@@ -412,6 +352,7 @@ Complete this assessment to evaluate your understanding of maritime engineering,
 </div>
 
 
+
 <h2>
 
 {{ $quiz->title }}
@@ -419,75 +360,52 @@ Complete this assessment to evaluate your understanding of maritime engineering,
 </h2>
 
 
-</div>
+
+<p>
+
+Complete this maritime assessment and achieve the required passing score to receive your certificate.
+
+</p>
 
 
 
 
-
-<div class="info">
-
+<div class="details">
 
 
-<div class="info-card">
+<p>
 
-<span>
-
-🎯 PASSING SCORE
-
-</span>
-
+🎯 Passing Score:
 
 <strong>
-
 {{ $quiz->passing_score }}%
-
 </strong>
 
-
-</div>
-
+</p>
 
 
-<div class="info-card">
 
-<span>
+<p>
 
-🌐 QUIZ PLATFORM
-
-</span>
-
+🌐 Platform:
 
 <strong>
-
 {{ $quiz->platform }}
-
 </strong>
 
-
-</div>
-
+</p>
 
 
 
-<div class="info-card">
+<p>
 
-<span>
-
-🏆 CERTIFICATE
-
-</span>
-
+🏆 Certificate:
 
 <strong>
-
-Available After Passing
-
+Available
 </strong>
 
-
-</div>
-
+</p>
 
 
 </div>
@@ -495,68 +413,21 @@ Available After Passing
 
 
 
+<a href="{{ route('quiz.show',$quiz->id) }}"
 
+class="start-btn">
 
-<div class="quiz-box">
-
-
-
-@php
-
-$proProfsUrl =
-'https://www.proprofs.com/quiz-school/ugc/story.php?' .
-http_build_query([
-
-'title' => 'shipequipar-maritime-knowledge-quiz-272',
-
-'id' => '4794765',
-
-'ew' => '720',
-
-'user_name' => auth()->user()->name ?? 'Guest',
-
-'user_email' => auth()->user()->email ?? '',
-
-'user_id' => auth()->id() ?? ''
-
-]);
-
-
-@endphp
-
-
-
-
-<iframe
-
-name="proprofs"
-
-id="proprofs"
-
-src="{{ $proProfsUrl }}"
-
-allow="camera *; microphone *; fullscreen"
-
-allowfullscreen>
-
-</iframe>
-
-
-
-</div>
-
-
-
-
-
-
-<a href="{{ route('quiz.index') }}"
-
-class="back">
-
-← Back to Dashboard
+Start Assessment →
 
 </a>
+
+
+
+</div>
+
+
+
+@endforeach
 
 
 
