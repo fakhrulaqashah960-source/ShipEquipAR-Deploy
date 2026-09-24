@@ -490,48 +490,24 @@ Route::middleware([
     )
     ->name('lesson.show');
 
-
     /*
-    |--------------------------------------------------------------------------
-    | QUIZ
-    |--------------------------------------------------------------------------
-    |
-    | quiz.index boleh digunakan untuk page ProProfs embedded quiz.
-    |
-    | Route show dan submit lama dikekalkan buat sementara supaya
-    | route lama tidak rosak jika masih dipanggil di mana-mana Blade.
-    |
-    */
-
-    Route::get(
-        '/quiz',
-        [
-            QuizController::class,
-            'index'
-        ]
-    )
-    ->name('quiz.index');
+|--------------------------------------------------------------------------
+| QUIZ
+|--------------------------------------------------------------------------
+|
+| Single ProProfs Quiz
+| No database required
+|
+*/
 
 
-    Route::get(
-        '/quiz/start/{id}',
-        [
-            QuizController::class,
-            'show'
-        ]
-    )
-    ->name('quiz.show');
+Route::get('/quiz', function () {
 
+    return view('user.quiz.show');
 
-    Route::post(
-        '/quiz/{id}/submit',
-        [
-            QuizController::class,
-            'submit'
-        ]
-    )
-    ->name('quiz.submit');
-
+})
+->name('quiz.show');
+    
 
 });
 

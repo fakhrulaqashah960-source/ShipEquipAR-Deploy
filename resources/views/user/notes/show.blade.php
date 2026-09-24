@@ -3,180 +3,87 @@
 
 <head>
 
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>
-{{ $note->title }} - ShipEquipAR Learning
+ShipEquipAR Maritime Engineering Assessment
 </title>
 
 
-@vite([
-    'resources/css/app.css',
-    'resources/js/app.js'
-])
+@vite(['resources/css/app.css','resources/js/app.js'])
 
 
 <style>
 
-:root{
-
-    --navy:#0f172a;
-    --blue:#0284c7;
-    --green:#16a34a;
-    --line:#e2e8f0;
-
-}
-
-
 *{
-
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',Arial,sans-serif;
 }
 
 
 body{
 
-    min-height:100vh;
-    padding:35px 18px;
+min-height:100vh;
 
-    background:
+background:
+linear-gradient(
+rgba(2,24,45,.92),
+rgba(3,105,161,.75)
+),
+url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
 
-    linear-gradient(
-        135deg,
-        rgba(15,23,42,.92),
-        rgba(2,132,199,.75)
-    ),
+background-size:cover;
+background-position:center;
 
-    url('/images/ship-bg.jpg');
-
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
+padding:40px 20px;
 
 }
 
 
 
-.page-wrapper{
+.container{
 
-    width:100%;
-    max-width:1050px;
-    margin:auto;
-
-}
-
-
-
-
-.learning-hero{
-
-    padding:35px;
-    border-radius:28px;
-    margin-bottom:25px;
-
-    color:white;
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #0369a1,
-        #0f172a
-    );
-
-    box-shadow:
-    0 18px 40px rgba(0,0,0,.25);
+max-width:1100px;
+margin:auto;
 
 }
 
 
 
-.hero-badge{
+.header{
 
-    display:inline-flex;
-    padding:8px 15px;
-    border-radius:50px;
+background:
+linear-gradient(
+135deg,
+#082f49,
+#0369a1
+);
 
-    background:
-    rgba(255,255,255,.15);
+padding:45px;
 
-    color:#e0f2fe;
+border-radius:30px;
 
-    font-weight:800;
-    font-size:13px;
+color:white;
 
-}
-
-
-
-.learning-hero h1{
-
-    margin-top:15px;
-    font-size:clamp(30px,4vw,44px);
-    font-weight:900;
+box-shadow:
+0 20px 40px rgba(0,0,0,.3);
 
 }
 
 
 
-.hero-description{
+.header h1{
 
-    margin-top:12px;
-    color:#dbeafe;
-    line-height:1.7;
-
-}
-
-
-
-
-.note-container{
-
-    background:white;
-
-    border-radius:28px;
-
-    padding:35px;
-
-    box-shadow:
-    0 18px 40px rgba(0,0,0,.18);
+font-size:40px;
+font-weight:900;
 
 }
 
 
+.header p{
 
-.section-title{
-
-    font-size:22px;
-
-    font-weight:900;
-
-    padding-bottom:15px;
-
-    margin-bottom:20px;
-
-    border-bottom:1px solid var(--line);
-
-}
-
-
-
-
-.note-content{
-
-    color:#334155;
-
-    font-size:15px;
-
-    line-height:1.9;
-
-    white-space:pre-line;
+margin-top:15px;
+color:#dbeafe;
 
 }
 
@@ -184,281 +91,217 @@ body{
 
 
 
-.resource-box{
+.quiz-box{
 
-    margin-top:30px;
+background:white;
 
-    padding:22px;
+margin-top:35px;
 
-    border-radius:20px;
+padding:35px;
 
-    background:#f8fafc;
+border-radius:30px;
 
-    border:1px solid var(--line);
-
-}
-
-
-
-.resource-title{
-
-    font-weight:900;
-
-    margin-bottom:15px;
+box-shadow:
+0 15px 35px rgba(0,0,0,.25);
 
 }
 
 
 
-.pdf-button{
 
-    display:inline-flex;
+.quiz-box h2{
 
-    padding:13px 25px;
+color:#0369a1;
 
-    border-radius:14px;
+font-size:30px;
 
-    background:#16a34a;
-
-    color:white;
-
-    text-decoration:none;
-
-    font-weight:900;
+margin-bottom:25px;
 
 }
 
 
 
-.pdf-button:hover{
 
-    background:#15803d;
-
-}
+.info{
 
 
+background:#eff6ff;
 
-.action-area{
+padding:20px;
 
-    margin-top:30px;
+border-radius:20px;
 
-    padding-top:25px;
-
-    border-top:1px solid var(--line);
-
-    text-align:center;
+margin-bottom:30px;
 
 }
 
 
 
-.back-button{
+.info p{
 
-    display:inline-flex;
+margin:10px 0;
 
-    padding:13px 30px;
+font-weight:600;
 
-    border-radius:14px;
-
-    background:#0f172a;
-
-    color:white;
-
-    text-decoration:none;
-
-    font-weight:900;
+color:#334155;
 
 }
 
 
 
-.back-button:hover{
+.embed{
 
-    background:#0284c7;
+background:white;
+
+border-radius:20px;
+
+overflow:hidden;
+
+border:1px solid #dbeafe;
 
 }
+
+
+
+iframe{
+
+width:100%;
+
+height:1100px;
+
+border:none;
+
+}
+
+
+
+.back{
+
+
+display:inline-block;
+
+margin-top:25px;
+
+padding:14px 25px;
+
+background:#0f172a;
+
+color:white;
+
+border-radius:15px;
+
+text-decoration:none;
+
+font-weight:700;
+
+}
+
+
+
+.back:hover{
+
+background:#0369a1;
+
+}
+
 
 
 </style>
 
+
 </head>
+
 
 
 <body>
 
 
-<div class="page-wrapper">
+
+<div class="container">
 
 
 
-<section class="learning-hero">
-
-
-<div class="hero-badge">
-
-📘 Interactive Learning Module
-
-</div>
-
+<div class="header">
 
 
 <h1>
-
-{{ $note->title }}
-
+⚓ ShipEquipAR Quiz
 </h1>
 
 
-
-<p class="hero-description">
-
-Explore marine engineering learning materials
-through ShipEquipAR digital learning resources.
-
+<p>
+Complete the maritime engineering assessment and obtain your certificate.
 </p>
 
 
-
-<br>
-
-
-<div class="hero-badge">
-
-📚
-
-{{ $note->module->title
-?? $note->module->name
-?? '-' }}
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-<article class="note-container">
-
-
-
-<div class="section-title">
-
-📖 Learning Notes
-
-</div>
-
-
-
-
-<div class="note-content">
-
-{{ $note->content }}
-
 </div>
 
 
 
 
 
-@if($note->pdf)
+<div class="quiz-box">
 
 
-@php
+<h2>
 
+Maritime Engineering Fundamentals:
+Ships, Safety, Security and Propulsion
 
-$pdfPath = str_replace(
-    '\\',
-    '/',
-    $note->pdf
-);
-
-
-$pdfPath = ltrim(
-    $pdfPath,
-    '/'
-);
+</h2>
 
 
 
-if(str_starts_with($pdfPath,'public/')){
-
-    $pdfPath = str_replace(
-        'public/',
-        '',
-        $pdfPath
-    );
-
-}
+<div class="info">
 
 
-
-if(str_starts_with($pdfPath,'storage/')){
-
-    $pdfPath = str_replace(
-        'storage/',
-        '',
-        $pdfPath
-    );
-
-}
-
-
-
-
-$pdfUrl = url($pdfPath);
-
-
-
-@endphp
-
-
-
-
-
-
-<div class="resource-box">
-
-
-<div class="resource-title">
-
-📄 Additional Learning Resource
-
-</div>
-
-
-
-<p style="
-color:#64748b;
-font-size:14px;
-margin-bottom:15px;
-">
-
-Open the PDF resource to explore
-additional learning materials.
-
+<p>
+🎯 Passing Score: <b>80%</b>
 </p>
 
 
+<p>
+🌐 Platform: <b>ProProfs Quiz Maker</b>
+</p>
 
 
-<a
+<p>
+🏆 Certificate: <b>Available after successful completion</b>
+</p>
 
-class="pdf-button"
 
-href="{{ $pdfUrl }}"
+</div>
 
-target="_blank"
 
-rel="noopener noreferrer"
 
->
 
-📄 Open Notes
+
+
+<div class="embed">
+
+
+
+<iframe
+
+src="https://www.proprofs.com/quiz-school/ugc/story.php?title=shipequipar-maritime-knowledge-quiz-272&id=4794765&ew=720"
+
+allow="camera *; microphone *; fullscreen"
+
+allowfullscreen>
+
+</iframe>
+
+
+
+</div>
+
+
+
+
+
+<a href="/dashboard" class="back">
+
+← Back to Dashboard
 
 </a>
 
@@ -468,43 +311,8 @@ rel="noopener noreferrer"
 
 
 
-@endif
-
-
-
-
-
-
-<div class="action-area">
-
-
-<a
-
-class="back-button"
-
-href="{{ route('user.notes') }}"
-
->
-
-← Back to Module Notes
-
-</a>
-
-
 </div>
 
-
-
-
-
-</article>
-
-
-
-
-
-
-</div>
 
 
 </body>
