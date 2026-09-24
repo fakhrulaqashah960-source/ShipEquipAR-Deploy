@@ -1514,21 +1514,19 @@
              QUIZ
         ================================================== --}}
 
-        <a
-            href="{{ route('quiz.index') }}"
-            class="user-menu-link"
-            onclick="closeUserSidebar()"
-        >
+        <a href="{{ route('quiz.show') }}"
+class="user-menu-link"
+onclick="closeUserSidebar()">
 
-            <span class="user-menu-icon">
-                📝
-            </span>
+<span class="user-menu-icon">
+📑
+</span>
 
-            <span class="user-menu-text">
-                Start Quiz
-            </span>
+<span class="user-menu-text">
+Start Quiz
+</span>
 
-        </a>
+</a>
 
 {{-- =========================================================
      NAVIBOT

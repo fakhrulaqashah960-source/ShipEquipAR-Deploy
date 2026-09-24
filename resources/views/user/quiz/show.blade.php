@@ -4,45 +4,38 @@
 <head>
 
 <title>
-{{ $quiz->title }}
+ShipEquipAR Maritime Engineering Quiz
 </title>
 
 
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-
+@vite(['resources/css/app.css','resources/js/app.js'])
 
 
 <style>
 
 *{
-
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',Arial,sans-serif;
-
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Arial,sans-serif;
 }
-
 
 
 body{
 
-min-height:100vh;
+    min-height:100vh;
 
-background:
-linear-gradient(
-rgba(2,24,45,.90),
-rgba(3,105,161,.75)
-),
-url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
+    background:
+    linear-gradient(
+        rgba(2,24,45,.92),
+        rgba(3,105,161,.75)
+    ),
+    url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
 
+    background-size:cover;
+    background-position:center;
 
-background-size:cover;
-
-background-position:center;
-
-padding:40px 20px;
-
+    padding:40px 20px;
 
 }
 
@@ -50,30 +43,32 @@ padding:40px 20px;
 
 .container{
 
-max-width:1100px;
-
-margin:auto;
+    max-width:1100px;
+    margin:auto;
 
 }
 
 
 
+
 .header{
 
-background:
-linear-gradient(
-135deg,
-#082f49,
-#0369a1
-);
+    background:
+    linear-gradient(
+        135deg,
+        #0284c7,
+        #0f172a
+    );
 
 
-padding:40px;
+    padding:45px;
 
-border-radius:30px;
+    border-radius:30px;
 
-color:white;
+    color:white;
 
+    box-shadow:
+    0 20px 40px rgba(0,0,0,.3);
 
 }
 
@@ -81,19 +76,82 @@ color:white;
 
 .header h1{
 
-font-size:38px;
+    font-size:42px;
+    font-weight:900;
 
-font-weight:900;
+}
+
+
+.header p{
+
+    margin-top:15px;
+    color:#dbeafe;
+    font-size:18px;
 
 }
 
 
 
-.header p{
 
-margin-top:15px;
 
-color:#dbeafe;
+.card{
+
+
+    margin-top:35px;
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:30px;
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,.25);
+
+}
+
+
+
+
+
+.title{
+
+
+    color:#0369a1;
+
+    font-size:32px;
+
+    font-weight:900;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+
+.info{
+
+
+    background:#eff6ff;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    margin-bottom:30px;
+
+}
+
+
+.info p{
+
+    margin:10px 0;
+
+    font-weight:700;
+
+    color:#334155;
 
 }
 
@@ -103,133 +161,92 @@ color:#dbeafe;
 .quiz-box{
 
 
-margin-top:30px;
+    border-radius:25px;
 
-background:white;
+    overflow:hidden;
 
-padding:30px;
+    border:2px solid #dbeafe;
 
-border-radius:30px;
-
-
-box-shadow:
-
-0 15px 35px rgba(0,0,0,.25);
+    background:white;
 
 
 }
 
 
 
-.title{
 
-color:#0369a1;
-
-font-size:30px;
-
-font-weight:800;
-
-margin-bottom:20px;
+iframe{
 
 
-}
+    width:100%;
 
+    height:1100px;
 
-
-.info{
-
-background:#eff6ff;
-
-padding:20px;
-
-border-radius:15px;
-
-margin-bottom:25px;
-
+    border:none;
 
 }
 
 
-
-.info p{
-
-margin:8px 0;
-
-font-weight:600;
-
-color:#334155;
-
-}
-
-
-
-
-
-.proprofs-container{
-
-
-border-radius:20px;
-
-overflow:hidden;
-
-border:1px solid #dbeafe;
-
-
-display:flex;
-
-justify-content:center;
-
-
-}
-
-
-
-#proprofs{
-
-
-width:100%;
-
-max-width:900px;
-
-height:1200px;
-
-border:none;
-
-
-}
 
 
 
 .back{
 
 
-display:inline-block;
+    display:inline-block;
 
-margin-top:25px;
+    margin-top:30px;
 
-background:#0f172a;
+    background:#0f172a;
 
-color:white;
+    color:white;
 
-padding:12px 25px;
+    padding:14px 30px;
 
-border-radius:12px;
+    border-radius:15px;
 
-text-decoration:none;
+    text-decoration:none;
 
-font-weight:700;
-
+    font-weight:800;
 
 }
-
 
 
 .back:hover{
 
-background:#0369a1;
+    background:#0284c7;
 
 }
 
+
+
+
+
+@media(max-width:768px){
+
+
+.header h1{
+
+    font-size:30px;
+
+}
+
+
+.card{
+
+    padding:20px;
+
+}
+
+
+iframe{
+
+    height:900px;
+
+}
+
+
+}
 
 
 </style>
@@ -242,25 +259,63 @@ background:#0369a1;
 <body>
 
 
-<div class="container">
 
+<div class="container">
 
 
 <div class="header">
 
 
 <h1>
-
 ⚓ ShipEquipAR Quiz
-
 </h1>
 
 
 <p>
-
-Complete the maritime assessment to unlock your certificate.
-
+Complete the maritime engineering assessment to unlock your certificate.
 </p>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+
+<h2 class="title">
+
+Maritime Engineering Fundamentals:
+Ships, Safety, Security and Propulsion
+
+</h2>
+
+
+
+
+<div class="info">
+
+
+<p>
+🎯 Passing Score:
+<strong>80%</strong>
+</p>
+
+
+<p>
+🌐 Platform:
+<strong>ProProfs Quiz Maker</strong>
+</p>
+
+
+<p>
+🏆 Certificate:
+<strong>Generated after successful completion</strong>
+</p>
+
 
 
 </div>
@@ -272,61 +327,9 @@ Complete the maritime assessment to unlock your certificate.
 <div class="quiz-box">
 
 
-
-<div class="title">
-
-{{ $quiz->title }}
-
-</div>
-
-
-
-<div class="info">
-
-
-<p>
-
-🎯 Passing Score:
-
-{{ $quiz->passing_score }}%
-
-</p>
-
-
-<p>
-
-🌐 Platform:
-
-ProProfs Quiz Maker
-
-</p>
-
-
-<p>
-
-🏆 Certificate:
-
-Generated after successful completion
-
-</p>
-
-
-</div>
-
-
-
-
-<div class="proprofs-container">
-
-
-
 <iframe
 
-id="proprofs"
-
-name="proprofs"
-
-src="https://www.proprofs.com/quiz-school/ugc/story.php?title=shipequipar-maritime-knowledge-quiz-272&id=4794765&ew=900"
+src="https://www.proprofs.com/quiz-school/ugc/story.php?title=shipequipar-maritime-knowledge-quiz-272&id=4794765&ew=720"
 
 allow="camera *; microphone *; fullscreen"
 
@@ -341,11 +344,11 @@ allowfullscreen>
 
 
 
-<a href="{{ route('quiz.index') }}"
 
-class="back">
 
-← Back to Quiz List
+<a href="{{ route('dashboard') }}" class="back">
+
+← Back to Dashboard
 
 </a>
 
