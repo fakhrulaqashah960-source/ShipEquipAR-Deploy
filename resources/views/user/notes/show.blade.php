@@ -4,7 +4,7 @@
 <head>
 
 <title>
-{{ $note->title }}
+{{ $note->title }} - ShipEquipAR Notes
 </title>
 
 
@@ -17,7 +17,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Segoe UI',Arial,sans-serif;
+font-family:'Segoe UI',sans-serif;
 }
 
 
@@ -25,93 +25,100 @@ body{
 
 min-height:100vh;
 
+padding:35px 18px;
+
+
 background:
 linear-gradient(
-rgba(2,24,45,.9),
-rgba(3,105,161,.7)
+135deg,
+rgba(15,23,42,.92),
+rgba(2,132,199,.75)
 ),
-url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
+url('/images/ship-bg.jpg');
+
 
 background-size:cover;
 background-position:center;
 
-padding:40px 20px;
-
 }
-
 
 
 .container{
 
-max-width:1100px;
+max-width:1180px;
 margin:auto;
 
 }
 
 
 
-.header{
+.hero{
+
+padding:35px;
+
+border-radius:28px;
 
 background:
 linear-gradient(
 135deg,
-#082f49,
-#0369a1
+#0284c7,
+#0f172a
 );
-
-padding:40px;
-
-border-radius:30px;
 
 color:white;
 
 box-shadow:
-0 20px 40px rgba(0,0,0,.3);
+0 20px 40px rgba(0,0,0,.25);
 
 }
 
 
-.header h1{
+.hero h1{
 
-font-size:38px;
+font-size:42px;
 font-weight:900;
 
 }
 
 
-.header p{
+.hero p{
 
-margin-top:15px;
+margin-top:12px;
+
 color:#dbeafe;
 
 }
 
 
 
+
+
 .card{
+
+margin-top:25px;
 
 background:white;
 
-margin-top:30px;
-
 padding:40px;
 
-border-radius:30px;
+border-radius:28px;
+
 
 box-shadow:
-0 15px 35px rgba(0,0,0,.25);
+0 20px 40px rgba(0,0,0,.2);
 
 }
 
 
 
-.card h2{
 
-color:#0369a1;
+.title{
 
 font-size:32px;
 
-margin-bottom:15px;
+font-weight:900;
+
+color:#0369a1;
 
 }
 
@@ -119,23 +126,33 @@ margin-bottom:15px;
 
 .module{
 
-background:#e0f2fe;
+
+margin-top:20px;
 
 padding:15px;
 
 border-radius:15px;
 
+background:#e0f2fe;
+
 color:#0369a1;
 
-font-weight:700;
+font-weight:800;
 
 }
+
 
 
 
 .content{
 
 margin-top:30px;
+
+padding:30px;
+
+border-radius:20px;
+
+background:#f8fafc;
 
 color:#334155;
 
@@ -147,47 +164,108 @@ font-size:17px;
 
 
 
-.pdf-btn{
+.pdf-box{
 
-display:inline-block;
 
 margin-top:30px;
 
-background:#0284c7;
+padding:25px;
 
-color:white;
+border-radius:20px;
 
-padding:14px 25px;
+background:#eff6ff;
+
+}
+
+
+
+.pdf-box h3{
+
+color:#0369a1;
+
+}
+
+
+
+.pdf-box p{
+
+margin-top:8px;
+
+color:#64748b;
+
+}
+
+
+
+.pdf-btn{
+
+
+display:inline-flex;
+
+margin-top:18px;
+
+padding:13px 25px;
+
 
 border-radius:12px;
 
+
+background:#16a34a;
+
+color:white;
+
 text-decoration:none;
 
-font-weight:700;
+
+font-weight:900;
+
 
 }
+
+
 
 
 .back{
 
-display:inline-block;
 
-margin-top:20px;
+display:inline-flex;
 
-background:#0f172a;
 
-color:white;
+margin-top:25px;
 
-padding:12px 25px;
+
+padding:13px 25px;
+
 
 border-radius:12px;
 
+
+background:#0f172a;
+
+
+color:white;
+
+
 text-decoration:none;
+
+
+font-weight:900;
+
 
 }
 
 
+
+.back:hover{
+
+background:#0284c7;
+
+}
+
+
+
 </style>
+
 
 </head>
 
@@ -198,7 +276,9 @@ text-decoration:none;
 <div class="container">
 
 
-<div class="header">
+
+<div class="hero">
+
 
 <h1>
 📘 Module Notes
@@ -218,11 +298,13 @@ ShipEquipAR maritime learning resources
 <div class="card">
 
 
-<h2>
+
+<h2 class="title">
 
 {{ $note->title }}
 
 </h2>
+
 
 
 
@@ -232,7 +314,9 @@ ShipEquipAR maritime learning resources
 
 {{ $note->module->name ?? 'General Module' }}
 
+
 </div>
+
 
 
 
@@ -246,37 +330,73 @@ ShipEquipAR maritime learning resources
 
 
 
+
+
+
 @if($note->pdf)
 
-<a href="{{ route('pdf.view',$note->pdf) }}"
+
+<div class="pdf-box">
+
+
+<h3>
+📄 PDF Learning Resource
+</h3>
+
+
+<p>
+Open the official module PDF document.
+</p>
+
+
+
+
+<a
+
+href="{{ route('pdf.view',$note->pdf) }}"
+
+target="_blank"
+
 class="pdf-btn"
-target="_blank">
+
+>
 
 📄 Open PDF Resource
 
 </a>
+
+
+
+</div>
+
 
 @endif
 
 
 
 
-<br>
 
 
-<a href="{{ route('user.notes') }}"
-class="back">
+<a
 
-← Back To Notes
+href="{{ route('dashboard') }}"
+
+class="back"
+
+>
+
+← Back To Dashboard
 
 </a>
 
 
 
+
 </div>
 
 
 </div>
+
 
 
 </body>

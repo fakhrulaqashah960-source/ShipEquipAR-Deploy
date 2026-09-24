@@ -665,7 +665,7 @@ body{
             class="back"
             href="{{ route('dashboard') }}"
         >
-            ← Back
+            ← Back to Dashboard
         </a>
 
     </div>
