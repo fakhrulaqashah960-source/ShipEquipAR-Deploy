@@ -4,7 +4,7 @@
 <head>
 
 <title>
-ShipEquipAR Maritime Engineering Assessment
+{{ $note->title }}
 </title>
 
 
@@ -27,8 +27,8 @@ min-height:100vh;
 
 background:
 linear-gradient(
-rgba(2,24,45,.92),
-rgba(3,105,161,.75)
+rgba(2,24,45,.9),
+rgba(3,105,161,.7)
 ),
 url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
 
@@ -59,7 +59,7 @@ linear-gradient(
 #0369a1
 );
 
-padding:45px;
+padding:40px;
 
 border-radius:30px;
 
@@ -71,10 +71,9 @@ box-shadow:
 }
 
 
-
 .header h1{
 
-font-size:40px;
+font-size:38px;
 font-weight:900;
 
 }
@@ -89,15 +88,13 @@ color:#dbeafe;
 
 
 
-
-
-.quiz-box{
+.card{
 
 background:white;
 
-margin-top:35px;
+margin-top:30px;
 
-padding:35px;
+padding:40px;
 
 border-radius:30px;
 
@@ -108,87 +105,61 @@ box-shadow:
 
 
 
-
-.quiz-box h2{
+.card h2{
 
 color:#0369a1;
 
-font-size:30px;
+font-size:32px;
 
-margin-bottom:25px;
-
-}
-
-
-
-
-.info{
-
-
-background:#eff6ff;
-
-padding:20px;
-
-border-radius:20px;
-
-margin-bottom:30px;
+margin-bottom:15px;
 
 }
 
 
 
-.info p{
+.module{
 
-margin:10px 0;
+background:#e0f2fe;
 
-font-weight:600;
+padding:15px;
+
+border-radius:15px;
+
+color:#0369a1;
+
+font-weight:700;
+
+}
+
+
+
+.content{
+
+margin-top:30px;
 
 color:#334155;
 
-}
+line-height:1.8;
 
-
-
-.embed{
-
-background:white;
-
-border-radius:20px;
-
-overflow:hidden;
-
-border:1px solid #dbeafe;
+font-size:17px;
 
 }
 
 
 
-iframe{
-
-width:100%;
-
-height:1100px;
-
-border:none;
-
-}
-
-
-
-.back{
-
+.pdf-btn{
 
 display:inline-block;
 
-margin-top:25px;
+margin-top:30px;
 
-padding:14px 25px;
-
-background:#0f172a;
+background:#0284c7;
 
 color:white;
 
-border-radius:15px;
+padding:14px 25px;
+
+border-radius:12px;
 
 text-decoration:none;
 
@@ -197,40 +168,45 @@ font-weight:700;
 }
 
 
+.back{
 
-.back:hover{
+display:inline-block;
 
-background:#0369a1;
+margin-top:20px;
+
+background:#0f172a;
+
+color:white;
+
+padding:12px 25px;
+
+border-radius:12px;
+
+text-decoration:none;
 
 }
 
 
-
 </style>
 
-
 </head>
-
 
 
 <body>
 
 
-
 <div class="container">
-
 
 
 <div class="header">
 
-
 <h1>
-⚓ ShipEquipAR Quiz
+📘 Module Notes
 </h1>
 
 
 <p>
-Complete the maritime engineering assessment and obtain your certificate.
+ShipEquipAR maritime learning resources
 </p>
 
 
@@ -239,69 +215,59 @@ Complete the maritime engineering assessment and obtain your certificate.
 
 
 
-
-<div class="quiz-box">
+<div class="card">
 
 
 <h2>
 
-Maritime Engineering Fundamentals:
-Ships, Safety, Security and Propulsion
+{{ $note->title }}
 
 </h2>
 
 
 
-<div class="info">
+<div class="module">
 
+📚 Module:
 
-<p>
-🎯 Passing Score: <b>80%</b>
-</p>
-
-
-<p>
-🌐 Platform: <b>ProProfs Quiz Maker</b>
-</p>
-
-
-<p>
-🏆 Certificate: <b>Available after successful completion</b>
-</p>
-
+{{ $note->module->name ?? 'General Module' }}
 
 </div>
 
 
 
 
+<div class="content">
 
-
-<div class="embed">
-
-
-
-<iframe
-
-src="https://www.proprofs.com/quiz-school/ugc/story.php?title=shipequipar-maritime-knowledge-quiz-272&id=4794765&ew=720"
-
-allow="camera *; microphone *; fullscreen"
-
-allowfullscreen>
-
-</iframe>
-
-
+{!! $note->content !!}
 
 </div>
 
 
 
 
+@if($note->pdf)
 
-<a href="/dashboard" class="back">
+<a href="{{ route('pdf.view',$note->pdf) }}"
+class="pdf-btn"
+target="_blank">
 
-← Back to Dashboard
+📄 Open PDF Resource
+
+</a>
+
+@endif
+
+
+
+
+<br>
+
+
+<a href="{{ route('user.notes') }}"
+class="back">
+
+← Back To Notes
 
 </a>
 
@@ -310,9 +276,7 @@ allowfullscreen>
 </div>
 
 
-
 </div>
-
 
 
 </body>
