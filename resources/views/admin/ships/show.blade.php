@@ -324,13 +324,11 @@
     ========================== --}}
 
     <a
-        href="{{ route('admin.ships.index') }}"
-        class="btn"
-    >
-
-        ← Back
-
-    </a>
+    href="{{ route('modules.index') }}"
+    class="back-dashboard"
+>
+    ← Back to Dashboard
+</a>
 
 
 </div>

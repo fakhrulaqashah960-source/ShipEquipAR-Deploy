@@ -1031,7 +1031,7 @@
                 </span>
 
                 <span class="admin-setting-value">
-                    70%
+                    80%
                 </span>
 
             </div>
@@ -1250,7 +1250,7 @@
             href="{{ route('admin.dashboard') }}"
             class="admin-back-btn"
         >
-            ← Admin Dashboard
+            ← Back to Dashboard
         </a>
 
     </div>
