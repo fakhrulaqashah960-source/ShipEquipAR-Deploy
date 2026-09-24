@@ -3,7 +3,9 @@
 
 <head>
 
-<title>{{ $quiz->title }}</title>
+<title>
+{{ $quiz->title }}
+</title>
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -14,7 +16,7 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Segoe UI', Arial, sans-serif;
+    font-family:'Segoe UI',Arial,sans-serif;
 }
 
 
@@ -24,25 +26,26 @@ body{
 
     background:
     linear-gradient(
-        rgba(3,37,65,.93),
-        rgba(2,132,199,.75)
+        rgba(2,24,45,.92),
+        rgba(3,105,161,.78)
     ),
     url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
 
     background-size:cover;
+
     background-position:center;
 
-    padding:40px 20px;
+    padding:35px 20px;
 
 }
 
 
 
-/* MAIN WRAPPER */
+/* MAIN */
 
-.quiz-wrapper{
+.container{
 
-    max-width:1000px;
+    max-width:1050px;
 
     margin:auto;
 
@@ -50,31 +53,31 @@ body{
 
 
 
-/* TOP HEADER */
+/* HEADER */
 
-.portal-header{
+.header{
 
     background:
     linear-gradient(
         135deg,
-        #0f172a,
+        #082f49,
         #0369a1
     );
 
-    padding:40px;
+    padding:35px;
 
     border-radius:25px;
 
     color:white;
 
     box-shadow:
-    0 20px 40px rgba(0,0,0,.25);
+    0 15px 35px rgba(0,0,0,.3);
 
 }
 
 
 
-.portal-header .badge{
+.badge{
 
     display:inline-block;
 
@@ -82,13 +85,13 @@ body{
 
     color:#082f49;
 
-    padding:6px 15px;
+    padding:7px 16px;
 
     border-radius:20px;
 
     font-size:13px;
 
-    font-weight:700;
+    font-weight:800;
 
     margin-bottom:15px;
 
@@ -96,9 +99,9 @@ body{
 
 
 
-.portal-header h1{
+.header h1{
 
-    font-size:38px;
+    font-size:36px;
 
     font-weight:900;
 
@@ -106,23 +109,22 @@ body{
 
 
 
-.portal-header p{
+.header p{
 
-    margin-top:15px;
+    margin-top:12px;
 
     color:#dbeafe;
 
-    font-size:17px;
+    font-size:16px;
 
 }
 
 
 
+/* CARD */
 
-/* CONTENT CARD */
 
-
-.quiz-card{
+.card{
 
     background:white;
 
@@ -133,7 +135,6 @@ body{
     border-radius:25px;
 
     box-shadow:
-
     0 15px 35px rgba(0,0,0,.25);
 
 }
@@ -151,29 +152,29 @@ body{
 
     gap:15px;
 
-    margin-bottom:25px;
+    margin-bottom:30px;
 
 }
 
 
 
-.quiz-title .icon{
+.quiz-icon{
 
-    width:55px;
+    width:60px;
 
-    height:55px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
+    height:60px;
 
     background:#e0f2fe;
 
     border-radius:15px;
 
-    font-size:30px;
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:32px;
 
 }
 
@@ -191,11 +192,10 @@ body{
 
 
 
+/* INFO */
 
-/* INFORMATION */
 
-
-.info-grid{
+.info{
 
     display:grid;
 
@@ -210,25 +210,29 @@ body{
 
 
 
-.info-box{
+.info-card{
 
     background:#f0f9ff;
-
-    border-left:5px solid #0284c7;
 
     padding:20px;
 
     border-radius:15px;
 
+    border-left:5px solid #0284c7;
+
 }
 
 
 
-.info-box h4{
+.info-card span{
+
+    display:block;
+
+    font-size:13px;
 
     color:#0369a1;
 
-    font-size:14px;
+    font-weight:700;
 
     margin-bottom:8px;
 
@@ -236,20 +240,18 @@ body{
 
 
 
-.info-box p{
+.info-card strong{
 
-    color:#334155;
-
-    font-weight:700;
+    color:#0f172a;
 
 }
 
 
 
-/* QUIZ AREA */
+/* PROPROFS */
 
 
-.quiz-frame{
+.quiz-box{
 
     background:#ffffff;
 
@@ -257,12 +259,9 @@ body{
 
     padding:15px;
 
-    border:
-
-    1px solid #dbeafe;
+    border:1px solid #dbeafe;
 
     box-shadow:
-
     0 10px 25px rgba(0,0,0,.12);
 
     text-align:center;
@@ -273,9 +272,9 @@ body{
 
 #proprofs{
 
-    width:720px !important;
+    width:100% !important;
 
-    max-width:100% !important;
+    max-width:800px;
 
     height:1100px;
 
@@ -285,11 +284,10 @@ body{
 
 
 
+/* BUTTON */
 
-/* BACK BUTTON */
 
-
-.back-btn{
+.back{
 
     display:inline-block;
 
@@ -299,7 +297,7 @@ body{
 
     color:white;
 
-    padding:14px 28px;
+    padding:14px 30px;
 
     border-radius:12px;
 
@@ -311,83 +309,71 @@ body{
 
 
 
-.back-btn:hover{
+.back:hover{
 
-    background:#0284c7;
+    background:#0369a1;
 
 }
 
 
 
+/* RESPONSIVE */
 
-/* MOBILE */
 
 @media(max-width:768px){
 
 
-    body{
+.info{
 
-        padding:20px 10px;
+    grid-template-columns:1fr;
 
-    }
-
-
-    .portal-header{
-
-        padding:25px;
-
-    }
+}
 
 
-    .portal-header h1{
+.header h1{
 
-        font-size:28px;
+    font-size:28px;
 
-    }
-
-
-
-    .quiz-card{
-
-        padding:20px;
-
-    }
+}
 
 
+.card{
 
-    .info-grid{
+    padding:20px;
 
-        grid-template-columns:1fr;
+}
 
-    }
+
+#proprofs{
+
+    height:1200px;
+
+}
 
 
 }
 
 
-
 </style>
 
-</head>
 
+</head>
 
 
 <body>
 
 
-<div class="quiz-wrapper">
+
+<div class="container">
 
 
 
-<!-- HEADER -->
-
-
-<div class="portal-header">
+<div class="header">
 
 
 <div class="badge">
 
-⚓ Maritime Assessment
+⚓ Maritime Assessment Module
 
 </div>
 
@@ -401,7 +387,7 @@ ShipEquipAR Knowledge Evaluation
 
 <p>
 
-Complete the maritime engineering assessment and achieve the required score to receive your certificate.
+Complete this assessment to evaluate your understanding of maritime engineering, ship operations, safety and propulsion fundamentals.
 
 </p>
 
@@ -412,17 +398,14 @@ Complete the maritime engineering assessment and achieve the required score to r
 
 
 
-<!-- QUIZ CONTENT -->
-
-
-<div class="quiz-card">
+<div class="card">
 
 
 
 <div class="quiz-title">
 
 
-<div class="icon">
+<div class="quiz-icon">
 
 📘
 
@@ -442,99 +425,104 @@ Complete the maritime engineering assessment and achieve the required score to r
 
 
 
-<div class="info-grid">
+<div class="info">
 
 
 
-<div class="info-box">
+<div class="info-card">
 
-<h4>
+<span>
 
 🎯 PASSING SCORE
 
-</h4>
+</span>
 
-<p>
+
+<strong>
 
 {{ $quiz->passing_score }}%
 
-</p>
+</strong>
+
 
 </div>
 
 
 
+<div class="info-card">
 
-<div class="info-box">
+<span>
 
-<h4>
+🌐 QUIZ PLATFORM
 
-🌐 PLATFORM
+</span>
 
-</h4>
 
-<p>
+<strong>
 
 {{ $quiz->platform }}
 
-</p>
+</strong>
+
 
 </div>
 
 
 
 
-<div class="info-box">
+<div class="info-card">
 
-<h4>
+<span>
 
 🏆 CERTIFICATE
 
-</h4>
+</span>
 
-<p>
 
-Available after passing
+<strong>
 
-</p>
+Available After Passing
 
-</div>
-
+</strong>
 
 
 </div>
 
 
 
+</div>
 
 
-<div class="quiz-frame">
+
+
+
+
+<div class="quiz-box">
+
 
 
 @php
 
-
-$proProfsUrl = 
+$proProfsUrl =
 'https://www.proprofs.com/quiz-school/ugc/story.php?' .
 http_build_query([
 
-    'title' => 'shipequipar-maritime-knowledge-quiz-272',
+'title' => 'shipequipar-maritime-knowledge-quiz-272',
 
-    'id' => '4794765',
+'id' => '4794765',
 
-    'ew' => '720',
+'ew' => '720',
 
-    'user_name' => auth()->user()->name ?? 'Guest',
+'user_name' => auth()->user()->name ?? 'Guest',
 
-    'user_email' => auth()->user()->email ?? '',
+'user_email' => auth()->user()->email ?? '',
 
-    'user_id' => auth()->id() ?? ''
+'user_id' => auth()->id() ?? ''
 
 ]);
 
 
 @endphp
-
 
 
 
@@ -561,11 +549,12 @@ allowfullscreen>
 
 
 
+
 <a href="{{ route('quiz.index') }}"
 
-class="back-btn">
+class="back">
 
-← Back to Quiz List
+← Back to Dashboard
 
 </a>
 
