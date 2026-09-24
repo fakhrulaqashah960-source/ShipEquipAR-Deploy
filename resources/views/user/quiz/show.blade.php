@@ -4,9 +4,8 @@
 <head>
 
 <title>
-ShipEquipAR Maritime Engineering Quiz
+{{ $note->title }} - ShipEquipAR Notes
 </title>
-
 
 @vite(['resources/css/app.css','resources/js/app.js'])
 
@@ -51,15 +50,15 @@ body{
 
 
 
+
 .header{
 
     background:
     linear-gradient(
         135deg,
-        #0284c7,
-        #0f172a
+        #082f49,
+        #0369a1
     );
-
 
     padding:45px;
 
@@ -82,10 +81,13 @@ body{
 }
 
 
+
 .header p{
 
     margin-top:15px;
+
     color:#dbeafe;
+
     font-size:18px;
 
 }
@@ -94,14 +96,13 @@ body{
 
 
 
-.card{
-
+.note-card{
 
     margin-top:35px;
 
     background:white;
 
-    padding:35px;
+    padding:40px;
 
     border-radius:30px;
 
@@ -114,14 +115,35 @@ body{
 
 
 
-.title{
-
+.note-title{
 
     color:#0369a1;
 
     font-size:32px;
 
     font-weight:900;
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+
+.module{
+
+    display:inline-block;
+
+    background:#e0f2fe;
+
+    color:#0369a1;
+
+    padding:8px 18px;
+
+    border-radius:20px;
+
+    font-weight:700;
 
     margin-bottom:25px;
 
@@ -131,8 +153,29 @@ body{
 
 
 
-.info{
+.content{
 
+    background:#f8fafc;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    line-height:1.8;
+
+    color:#334155;
+
+    font-size:17px;
+
+}
+
+
+
+
+
+.pdf-box{
+
+    margin-top:30px;
 
     background:#eff6ff;
 
@@ -140,58 +183,33 @@ body{
 
     border-radius:20px;
 
-    margin-bottom:30px;
-
-}
-
-
-.info p{
-
-    margin:10px 0;
-
-    font-weight:700;
-
-    color:#334155;
-
 }
 
 
 
+.pdf-btn{
 
-.quiz-box{
+    display:inline-block;
 
+    margin-top:15px;
 
-    border-radius:25px;
+    background:#0284c7;
 
-    overflow:hidden;
+    color:white;
 
-    border:2px solid #dbeafe;
+    padding:14px 30px;
 
-    background:white;
+    border-radius:15px;
 
+    text-decoration:none;
 
-}
-
-
-
-
-iframe{
-
-
-    width:100%;
-
-    height:1100px;
-
-    border:none;
+    font-weight:800;
 
 }
-
-
 
 
 
 .back{
-
 
     display:inline-block;
 
@@ -212,39 +230,10 @@ iframe{
 }
 
 
+
 .back:hover{
 
     background:#0284c7;
-
-}
-
-
-
-
-
-@media(max-width:768px){
-
-
-.header h1{
-
-    font-size:30px;
-
-}
-
-
-.card{
-
-    padding:20px;
-
-}
-
-
-iframe{
-
-    height:900px;
-
-}
-
 
 }
 
@@ -255,24 +244,23 @@ iframe{
 </head>
 
 
-
 <body>
 
 
-
 <div class="container">
+
 
 
 <div class="header">
 
 
 <h1>
-⚓ ShipEquipAR Quiz
+📘 ShipEquipAR Learning Notes
 </h1>
 
 
 <p>
-Complete the maritime engineering assessment to unlock your certificate.
+Access maritime engineering learning materials and module resources.
 </p>
 
 
@@ -282,40 +270,38 @@ Complete the maritime engineering assessment to unlock your certificate.
 
 
 
-<div class="card">
+<div class="note-card">
 
 
 
-<h2 class="title">
+<h2 class="note-title">
 
-Maritime Engineering Fundamentals:
-Ships, Safety, Security and Propulsion
+{{ $note->title }}
 
 </h2>
 
 
 
 
-<div class="info">
+@if($note->module)
+
+<div class="module">
+
+📚 {{ $note->module->name }}
+
+</div>
+
+@endif
 
 
-<p>
-🎯 Passing Score:
-<strong>80%</strong>
-</p>
 
 
-<p>
-🌐 Platform:
-<strong>ProProfs Quiz Maker</strong>
-</p>
 
 
-<p>
-🏆 Certificate:
-<strong>Generated after successful completion</strong>
-</p>
+<div class="content">
 
+
+{!! $note->content !!}
 
 
 </div>
@@ -324,38 +310,39 @@ Ships, Safety, Security and Propulsion
 
 
 
-<div class="quiz-box">
+@if($note->pdf)
+
+<div class="pdf-box">
 
 
-<iframe
+<h3>
+📄 PDF Resource
+</h3>
 
-src="https://www.proprofs.com/quiz-school/ugc/story.php?title=shipequipar-maritime-knowledge-quiz-272&id=4794765&ew=720"
 
-allow="camera *; microphone *; fullscreen"
+<a href="{{ route('pdf.view',$note->pdf) }}"
+class="pdf-btn"
+target="_blank">
 
-allowfullscreen>
+Open PDF Notes →
 
-</iframe>
-
+</a>
 
 
 </div>
 
+@endif
 
-
-
-
-
-<a href="{{ route('dashboard') }}" class="back">
+<a href="{{ route('dashboard') }}"
+class="back">
 
 ← Back to Dashboard
 
 </a>
 
 
-
-
 </div>
+
 
 
 </div>
