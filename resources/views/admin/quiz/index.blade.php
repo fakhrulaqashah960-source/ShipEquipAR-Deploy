@@ -923,7 +923,7 @@
                 </strong>
 
                 <span>
-                    70% or above
+                    80% or above
                 </span>
 
             </div>
