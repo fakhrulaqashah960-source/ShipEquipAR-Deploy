@@ -32,8 +32,8 @@
 
             background:
                 linear-gradient(
-                    rgba(3,37,65,.86),
-                    rgba(2,132,199,.65)
+                    rgba(3,37,65,.94),
+                    rgba(2,132,199,.82)
                 ),
                 url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
 
@@ -237,23 +237,30 @@
             align-items: flex-start;
 
             overflow: hidden;
+
+            background:white;
+
+            border-radius:20px;
+
+            padding:10px;
+
+            box-shadow:
+            0 10px 25px rgba(0,0,0,.15);
         }
 
         body.shipquiz-page #proprofs {
-            display: block;
 
-            width: 430px !important;
-            max-width: 100% !important;
+        width:720px !important;
 
-            height: 900px;
+        max-width:100% !important;
 
-            margin: 0 auto !important;
+        height:1100px;
 
-            border: none;
+        border:none;
 
-            background: white;
+        background:white;
+
         }
-
 
         /* =====================================================
            CERTIFICATE NOTICE
@@ -333,7 +340,7 @@
             }
 
             body.shipquiz-page .shipquiz-wrapper {
-                max-width: 100% !important;
+                max-width:1000px !important;
             }
 
             body.shipquiz-page .shipquiz-brand {
@@ -408,7 +415,7 @@
 
         <h1>
 
-            ShipEquipAR Maritime Knowledge Quiz
+           ShipEquipAR Maritime Assessment
 
         </h1>
 
