@@ -60,14 +60,18 @@ return redirect()
 }
 
 
-
-
-
 public function destroy($id)
 {
     $user = User::findOrFail($id);
 
+
+    // delete related progress first
+    $user->progress()->delete();
+
+
+    // delete user
     $user->delete();
+
 
     return redirect()
         ->route('admin.users.index')

@@ -25,8 +25,6 @@ body{
 }
 
 
-
-
 h1{
 
     font-size:40px;
@@ -34,10 +32,6 @@ h1{
     margin-bottom:20px;
 
 }
-
-
-
-
 
 .header-card{
 
@@ -57,21 +51,13 @@ h1{
 
 }
 
-
-
-
 .header-card h1{
-
 
     margin:0;
 
     font-size:40px;
 
-
 }
-
-
-
 
 .header-card p{
 
@@ -82,12 +68,7 @@ h1{
 
 }
 
-
-
-
-
 .container{
-
 
     display:grid;
 
@@ -95,16 +76,9 @@ h1{
 
     gap:30px;
 
-
 }
 
-
-
-
-
-
 .card{
-
 
     background:white;
 
@@ -117,11 +91,6 @@ h1{
 
 
 }
-
-
-
-
-
 
 
 .card img{
@@ -148,27 +117,16 @@ h1{
 
 }
 
-
-
-
 .card h2{
-
 
     font-size:22px;
 
     margin-bottom:15px;
 
-
 }
 
 
-
-
-
-
-
 .card h3{
-
 
     font-size:16px;
 
@@ -176,31 +134,17 @@ h1{
 
     color:#0284c7;
 
-
 }
 
-
-
-
-
 .card p{
-
 
     line-height:1.7;
 
     color:#475569;
 
-
 }
 
-
-
-
-
-
-
 .btn{
-
 
     display:inline-block;
 
@@ -218,25 +162,16 @@ h1{
 
     font-weight:bold;
 
-
 }
-
 
 
 .btn:hover{
 
-
     background:#0369a1;
-
 
 }
 
-
-
-
-
 .back-btn{
-
 
     display:inline-block;
 
@@ -267,21 +202,12 @@ h1{
 
 }
 
-
-
 </style>
-
-
 
 </head>
 
 
-
-
 <body>
-
-
-
 
 <div class="header-card">
 
@@ -306,20 +232,10 @@ Users can visualize ship structures and components digitally.
 
 
 
-
-
-
-
 <div class="container">
 
 
-
-
-
 @foreach($markers as $marker)
-
-
-
 
 
 <div class="card">
@@ -348,10 +264,6 @@ class="ship-image">
 </h2>
 
 
-
-
-
-
 <h3>
 
 Description
@@ -359,15 +271,11 @@ Description
 </h3>
 
 
-
-
 <p>
 
 {{ $marker->description }}
 
 </p>
-
-
 
 
 
