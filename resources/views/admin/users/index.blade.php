@@ -1118,7 +1118,7 @@ body{
             onclick="closeAdminSidebar()"
         >
             <span class="admin-menu-icon">📚</span>
-            <span>Module</span>
+            <span>Modules</span>
         </a>
 
 
@@ -1158,7 +1158,7 @@ body{
             onclick="closeAdminSidebar()"
         >
             <span class="admin-menu-icon">📝</span>
-            <span>Quiz</span>
+            <span>Quizzes</span>
         </a>
 
 

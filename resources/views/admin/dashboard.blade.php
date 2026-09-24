@@ -1166,7 +1166,7 @@
             </span>
 
             <span class="admin-menu-text">
-                Quiz
+                Quizzes
             </span>
 
         </a>
@@ -1404,7 +1404,7 @@
 
 
                 <h2>
-                    Learning Module Management
+                    Learning Modules Management
                 </h2>
 
 
@@ -1419,7 +1419,7 @@
                     href="/admin/modules"
                     class="admin-btn"
                 >
-                    Manage Module
+                    Manage Modules
                 </a>
 
 
@@ -1438,7 +1438,7 @@
 
 
                 <h2>
-                    Ship Management
+                    Ships Management
                 </h2>
 
 
@@ -1453,7 +1453,7 @@
                     href="{{ route('admin.ships.index') }}"
                     class="admin-btn"
                 >
-                    Manage Ship
+                    Manage Ships
                 </a>
 
 
@@ -1472,7 +1472,7 @@
 
 
                 <h2>
-                    Equipment Management
+                    Equipments Management
                 </h2>
 
 
@@ -1486,7 +1486,7 @@
                     href="/admin/equipment"
                     class="admin-btn"
                 >
-                    Manage Equipment
+                    Manage Equipments
                 </a>
 
 
