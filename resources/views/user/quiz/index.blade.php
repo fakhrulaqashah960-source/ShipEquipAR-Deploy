@@ -7,7 +7,6 @@
 ShipEquipAR Maritime Assessment
 </title>
 
-
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 
@@ -40,21 +39,14 @@ body{
 }
 
 
-
-
 .container{
 
     max-width:1150px;
-
     margin:auto;
 
 }
 
 
-
-
-
-/* HEADER */
 
 .header{
 
@@ -77,7 +69,6 @@ body{
 }
 
 
-
 .badge{
 
     display:inline-block;
@@ -97,7 +88,6 @@ body{
 }
 
 
-
 .header h1{
 
     margin-top:20px;
@@ -109,26 +99,16 @@ body{
 }
 
 
-
 .header p{
 
     margin-top:15px;
 
     color:#dbeafe;
 
-    max-width:800px;
-
     line-height:1.6;
 
 }
 
-
-
-
-
-
-
-/* QUIZ CARD */
 
 
 .quiz-list{
@@ -137,8 +117,7 @@ body{
 
     display:grid;
 
-    grid-template-columns:
-    repeat(2,1fr);
+    grid-template-columns:repeat(2,1fr);
 
     gap:30px;
 
@@ -146,10 +125,7 @@ body{
 
 
 
-
-
 .quiz-card{
-
 
     background:white;
 
@@ -157,40 +133,18 @@ body{
 
     border-radius:25px;
 
-
     box-shadow:
-
     0 15px 35px rgba(0,0,0,.25);
 
-
-    transition:.3s;
-
-
 }
-
-
-
-
-.quiz-card:hover{
-
-    transform:translateY(-5px);
-
-}
-
 
 
 
 .icon{
 
-
     width:65px;
 
     height:65px;
-
-    background:#e0f2fe;
-
-    border-radius:18px;
-
 
     display:flex;
 
@@ -198,8 +152,11 @@ body{
 
     justify-content:center;
 
-    font-size:35px;
+    background:#e0f2fe;
 
+    border-radius:18px;
+
+    font-size:35px;
 
 }
 
@@ -229,10 +186,7 @@ body{
 
 
 
-
-
 .info{
-
 
     margin-top:25px;
 
@@ -242,16 +196,12 @@ body{
 
     border-radius:15px;
 
-
 }
 
 
+.info p{
 
-.info div{
-
-    margin-bottom:10px;
-
-    color:#334155;
+    margin:8px 0;
 
     font-weight:600;
 
@@ -266,76 +216,36 @@ body{
 
 
 
-
-
-
-
 .start-btn{
-
 
     display:inline-block;
 
-
     margin-top:25px;
-
 
     background:#0f172a;
 
-
     color:white;
-
 
     padding:14px 30px;
 
-
     border-radius:15px;
-
 
     text-decoration:none;
 
-
     font-weight:800;
 
-
 }
-
 
 
 .start-btn:hover{
 
-
     background:#0369a1;
 
-
 }
-
-
-
-
-
-
-
-.empty{
-
-
-    background:white;
-
-    padding:40px;
-
-    border-radius:20px;
-
-    text-align:center;
-
-}
-
-
-
-
 
 
 
 @media(max-width:768px){
-
 
 .quiz-list{
 
@@ -343,35 +253,24 @@ body{
 
 }
 
-
 .header h1{
 
     font-size:30px;
 
 }
 
-
 }
-
-
 
 
 </style>
 
-
 </head>
-
-
 
 
 <body>
 
 
-
 <div class="container">
-
-
-
 
 
 <div class="header">
@@ -384,7 +283,6 @@ body{
 </div>
 
 
-
 <h1>
 
 ShipEquipAR Knowledge Assessment
@@ -392,13 +290,11 @@ ShipEquipAR Knowledge Assessment
 </h1>
 
 
-
 <p>
 
-Test your knowledge in maritime engineering, ship classification, safety systems, security and propulsion. Complete the assessment to receive your certificate.
+Evaluate your understanding of maritime engineering, ship safety, security systems and marine propulsion through our interactive assessment.
 
 </p>
-
 
 
 </div>
@@ -406,24 +302,13 @@ Test your knowledge in maritime engineering, ship classification, safety systems
 
 
 
-
-
-
-
 <div class="quiz-list">
-
-
-
-@if($quizzes->count() > 0)
-
 
 
 @foreach($quizzes as $quiz)
 
 
-
 <div class="quiz-card">
-
 
 
 <div class="icon">
@@ -433,8 +318,6 @@ Test your knowledge in maritime engineering, ship classification, safety systems
 </div>
 
 
-
-
 <h2>
 
 {{ $quiz->title }}
@@ -442,23 +325,18 @@ Test your knowledge in maritime engineering, ship classification, safety systems
 </h2>
 
 
-
-
 <p>
 
-This assessment is conducted through ProProfs Quiz Maker. Complete all questions and achieve the required passing score.
+Complete this ProProfs powered maritime assessment and achieve the required score to obtain your certificate.
 
 </p>
-
-
-
 
 
 
 <div class="info">
 
 
-<div>
+<p>
 
 🎯 Passing Score:
 
@@ -466,23 +344,23 @@ This assessment is conducted through ProProfs Quiz Maker. Complete all questions
 {{ $quiz->passing_score }}%
 </strong>
 
-</div>
+</p>
 
 
 
-<div>
+<p>
 
 🌐 Platform:
 
 <strong>
-{{ $quiz->platform }}
+ProProfs Quiz Maker
 </strong>
 
-</div>
+</p>
 
 
 
-<div>
+<p>
 
 🏆 Certificate:
 
@@ -490,12 +368,10 @@ This assessment is conducted through ProProfs Quiz Maker. Complete all questions
 Available after passing
 </strong>
 
+</p>
+
+
 </div>
-
-
-
-</div>
-
 
 
 
@@ -509,48 +385,18 @@ Start Assessment →
 </a>
 
 
-
-
 </div>
-
 
 
 @endforeach
 
 
-
-@else
-
-
-
-<div class="empty">
-
-<h2>No Quiz Available</h2>
-
-<p>
-Please check again later.
-</p>
-
 </div>
 
 
-
-@endif
-
-
-
 </div>
-
-
-
-
-
-
-</div>
-
 
 
 </body>
-
 
 </html>

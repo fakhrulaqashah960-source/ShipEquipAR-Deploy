@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -7,68 +7,72 @@
 {{ $quiz->title }}
 </title>
 
+
 @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 
 
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',Arial,sans-serif;
+
 }
 
 
 
 body{
 
-    min-height:100vh;
+min-height:100vh;
 
-    background:
-    linear-gradient(
-        rgba(3,37,65,.85),
-        rgba(2,132,199,.65)
-    ),
-    url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
+background:
+linear-gradient(
+rgba(2,24,45,.90),
+rgba(3,105,161,.75)
+),
+url('https://images.unsplash.com/photo-1569263979104-865ab7cd8d13');
 
 
-    background-size:cover;
+background-size:cover;
 
-    background-position:center;
+background-position:center;
 
-    padding:40px;
+padding:40px 20px;
+
 
 }
 
 
 
-/* HEADER */
+.container{
+
+max-width:1100px;
+
+margin:auto;
+
+}
+
 
 
 .header{
 
-
-    max-width:1100px;
-
-    margin:auto;
-
-    background:
-    linear-gradient(
-        135deg,
-        #0284c7,
-        #0f172a
-    );
+background:
+linear-gradient(
+135deg,
+#082f49,
+#0369a1
+);
 
 
-    padding:40px;
+padding:40px;
 
-    border-radius:30px;
+border-radius:30px;
 
-    color:white;
-
-    box-shadow:
-    0 15px 30px rgba(0,0,0,.25);
+color:white;
 
 
 }
@@ -77,9 +81,9 @@ body{
 
 .header h1{
 
-    font-size:42px;
+font-size:38px;
 
-    font-weight:900;
+font-weight:900;
 
 }
 
@@ -87,90 +91,60 @@ body{
 
 .header p{
 
-    margin-top:12px;
+margin-top:15px;
 
-    font-size:18px;
-
-    color:#dbeafe;
+color:#dbeafe;
 
 }
 
 
 
 
-
-/* QUIZ CARD */
-
-
-.quiz-container{
+.quiz-box{
 
 
-    max-width:1100px;
+margin-top:30px;
 
-    margin:35px auto;
+background:white;
 
+padding:30px;
 
-    background:white;
-
-    padding:30px;
-
-    border-radius:30px;
+border-radius:30px;
 
 
-    box-shadow:
+box-shadow:
 
-    0 15px 35px rgba(0,0,0,.25);
+0 15px 35px rgba(0,0,0,.25);
 
 
 }
 
 
 
-.quiz-title{
+.title{
 
+color:#0369a1;
 
-    display:flex;
+font-size:30px;
 
-    align-items:center;
+font-weight:800;
 
-    gap:15px;
-
-    margin-bottom:25px;
+margin-bottom:20px;
 
 
 }
-
-
-
-.icon{
-
-    font-size:40px;
-
-}
-
-
-
-.quiz-title h2{
-
-    font-size:32px;
-
-    color:#0284c7;
-
-}
-
 
 
 
 .info{
 
+background:#eff6ff;
 
-    background:#eff6ff;
+padding:20px;
 
-    padding:20px;
+border-radius:15px;
 
-    border-radius:15px;
-
-    margin-bottom:25px;
+margin-bottom:25px;
 
 
 }
@@ -179,77 +153,80 @@ body{
 
 .info p{
 
-    margin:8px 0;
+margin:8px 0;
 
-    color:#334155;
+font-weight:600;
 
-    font-weight:600;
-
-}
-
-
-
-
-
-/* GOOGLE FORM */
-
-
-.form-wrapper{
-
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    border:1px solid #dbeafe;
-
+color:#334155;
 
 }
 
 
 
-iframe{
 
 
-    width:100%;
+.proprofs-container{
 
-    min-height:1000px;
 
-    border:none;
+border-radius:20px;
+
+overflow:hidden;
+
+border:1px solid #dbeafe;
+
+
+display:flex;
+
+justify-content:center;
 
 
 }
 
 
+
+#proprofs{
+
+
+width:100%;
+
+max-width:900px;
+
+height:1200px;
+
+border:none;
+
+
+}
 
 
 
 .back{
 
 
-    display:inline-block;
+display:inline-block;
 
-    margin-top:25px;
+margin-top:25px;
 
-    padding:12px 25px;
+background:#0f172a;
 
-    background:#0f172a;
+color:white;
 
-    color:white;
+padding:12px 25px;
 
-    border-radius:12px;
+border-radius:12px;
 
-    text-decoration:none;
+text-decoration:none;
 
-    font-weight:700;
+font-weight:700;
 
 
 }
 
 
+
 .back:hover{
 
-    background:#0284c7;
+background:#0369a1;
 
 }
 
@@ -261,8 +238,11 @@ iframe{
 </head>
 
 
+
 <body>
 
+
+<div class="container">
 
 
 
@@ -278,7 +258,7 @@ iframe{
 
 <p>
 
-Complete assessment to unlock your certificate.
+Complete the maritime assessment to unlock your certificate.
 
 </p>
 
@@ -289,29 +269,15 @@ Complete assessment to unlock your certificate.
 
 
 
-<div class="quiz-container">
+<div class="quiz-box">
 
 
-<div class="quiz-title">
 
-
-<div class="icon">
-
-📄
-
-</div>
-
-
-<h2>
+<div class="title">
 
 {{ $quiz->title }}
 
-</h2>
-
-
 </div>
-
-
 
 
 
@@ -321,6 +287,7 @@ Complete assessment to unlock your certificate.
 <p>
 
 🎯 Passing Score:
+
 {{ $quiz->passing_score }}%
 
 </p>
@@ -329,15 +296,17 @@ Complete assessment to unlock your certificate.
 <p>
 
 🌐 Platform:
-{{ $quiz->platform }}
+
+ProProfs Quiz Maker
 
 </p>
-
 
 
 <p>
 
-🏆 Certificate will be generated after completion.
+🏆 Certificate:
+
+Generated after successful completion
 
 </p>
 
@@ -347,24 +316,33 @@ Complete assessment to unlock your certificate.
 
 
 
+<div class="proprofs-container">
 
-<div class="form-wrapper">
 
 
 <iframe
 
-src="{{ $quiz->google_form_url }}">
+id="proprofs"
+
+name="proprofs"
+
+src="https://www.proprofs.com/quiz-school/ugc/story.php?title=shipequipar-maritime-knowledge-quiz-272&id=4794765&ew=900"
+
+allow="camera *; microphone *; fullscreen"
+
+allowfullscreen>
 
 </iframe>
 
 
-</div>
 
+</div>
 
 
 
 
 <a href="{{ route('quiz.index') }}"
+
 class="back">
 
 ← Back to Quiz List
@@ -377,8 +355,10 @@ class="back">
 </div>
 
 
+</div>
 
 
 </body>
+
 
 </html>
