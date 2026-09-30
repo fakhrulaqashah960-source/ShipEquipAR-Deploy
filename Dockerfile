@@ -8,7 +8,6 @@ FROM php:8.2-apache
 COPY docker/uploads.ini /usr/local/etc/php/conf.d/uploads.ini
 
 
-
 # =========================================================
 # SYSTEM DEPENDENCIES
 # =========================================================
@@ -34,7 +33,6 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 
-
 # =========================================================
 # NODE.JS 22
 # =========================================================
@@ -45,13 +43,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && rm -rf /var/lib/apt/lists/*
 
 
-
 # =========================================================
 # COMPOSER
 # =========================================================
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
 
 
 # =========================================================
@@ -61,13 +57,11 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 
-
 # =========================================================
 # COPY PROJECT
 # =========================================================
 
 COPY . .
-
 
 
 # =========================================================
@@ -77,7 +71,6 @@ COPY . .
 ENV COMPOSER_MAX_PARALLEL_HTTP=2
 ENV COMPOSER_PROCESS_TIMEOUT=900
 ENV COMPOSER_ALLOW_SUPERUSER=1
-
 
 
 # =========================================================
@@ -92,7 +85,6 @@ RUN composer install \
     --no-progress
 
 
-
 # =========================================================
 # VITE BUILD
 # =========================================================
@@ -101,20 +93,24 @@ RUN npm ci \
     && npm run build
 
 
-
 # =========================================================
 # APACHE DOCUMENT ROOT
 # =========================================================
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
+# Disable Apache's default /icons/ alias.
+# Laravel PWA icons are served from /public/icons/.
+RUN sed -ri \
+    's!^Alias /icons/.*!# Alias /icons/ disabled for Laravel PWA icons!' \
+    /etc/apache2/mods-enabled/alias.conf
 
 RUN sed -ri \
-    -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
+    -e 's!DocumentRoot /var/www/html!DocumentRoot /var/www/html/public!g' \
+    -e 's!<Directory /var/www/html>!<Directory /var/www/html/public>!g' \
     /etc/apache2/sites-available/*.conf \
     /etc/apache2/apache2.conf \
     /etc/apache2/conf-available/*.conf
-
 
 
 # =========================================================
@@ -132,7 +128,6 @@ RUN mkdir -p \
     /var/www/html/public/uploads/reality \
     /var/www/html/public/uploads/modules \
     /var/www/html/public/uploads/equipment
-
 
 
 # =========================================================
@@ -155,13 +150,11 @@ RUN chown -R www-data:www-data \
         /var/www/html/public/uploads/equipment
 
 
-
 # =========================================================
 # APACHE SERVER NAME
 # =========================================================
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
 
 
 # =========================================================
@@ -171,7 +164,6 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 ENV PORT=10000
 
 EXPOSE 10000
-
 
 
 # =========================================================
