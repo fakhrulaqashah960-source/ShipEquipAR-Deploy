@@ -1,4 +1,4 @@
-const CACHE_NAME = 'shipequipar-v1';
+const CACHE_NAME = 'shipequipar-v2';
 
 const STATIC_ASSETS = [
     '/manifest.json',
@@ -9,9 +9,7 @@ const STATIC_ASSETS = [
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => {
-                return cache.addAll(STATIC_ASSETS);
-            })
+            .then(cache => cache.addAll(STATIC_ASSETS))
             .then(() => self.skipWaiting())
     );
 });
@@ -33,14 +31,19 @@ self.addEventListener('fetch', event => {
 
     const request = event.request;
 
-    // Jangan cache POST / form submission
+    // Jangan intercept POST / form submission
     if (request.method !== 'GET') {
         return;
     }
 
     const url = new URL(request.url);
 
-    // Jangan cache API / Laravel dynamic request
+    // Hanya handle request dari domain sendiri
+    if (url.origin !== self.location.origin) {
+        return;
+    }
+
+    // Jangan cache API / Laravel dynamic routes
     if (
         url.pathname.startsWith('/api/') ||
         url.pathname.startsWith('/login') ||
@@ -51,7 +54,10 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    // Cache static assets
+    // =====================================================
+    // STATIC ASSETS
+    // =====================================================
+
     if (
         url.pathname.startsWith('/build/') ||
         url.pathname.startsWith('/css/') ||
@@ -59,36 +65,53 @@ self.addEventListener('fetch', event => {
         url.pathname.startsWith('/icons/')
     ) {
         event.respondWith(
-            caches.match(request).then(cachedResponse => {
+            caches.match(request)
+                .then(cachedResponse => {
 
-                const networkFetch = fetch(request)
-                    .then(response => {
+                    if (cachedResponse) {
+                        return cachedResponse;
+                    }
 
-                        if (
-                            response &&
-                            response.status === 200 &&
-                            response.type === 'basic'
-                        ) {
-                            const responseClone = response.clone();
+                    return fetch(request)
+                        .then(response => {
 
-                            caches.open(CACHE_NAME)
-                                .then(cache => {
-                                    cache.put(request, responseClone);
-                                });
-                        }
+                            if (
+                                response &&
+                                response.status === 200 &&
+                                response.type === 'basic'
+                            ) {
+                                const responseClone = response.clone();
 
-                        return response;
-                    });
+                                caches.open(CACHE_NAME)
+                                    .then(cache => {
+                                        cache.put(request, responseClone);
+                                    });
+                            }
 
-                return cachedResponse || networkFetch;
-            })
+                            return response;
+                        })
+                        .catch(() => {
+                            return new Response(
+                                'Offline - resource tidak tersedia.',
+                                {
+                                    status: 503,
+                                    statusText: 'Service Unavailable',
+                                    headers: {
+                                        'Content-Type': 'text/plain; charset=utf-8'
+                                    }
+                                }
+                            );
+                        });
+                })
         );
 
         return;
     }
 
-    // Untuk halaman Laravel:
-    // Network first supaya data user sentiasa terbaru
+    // =====================================================
+    // LARAVEL PAGES
+    // =====================================================
+
     event.respondWith(
         fetch(request)
             .then(response => {
@@ -109,7 +132,25 @@ self.addEventListener('fetch', event => {
                 return response;
             })
             .catch(() => {
-                return caches.match(request);
+
+                return caches.match(request)
+                    .then(cachedResponse => {
+
+                        if (cachedResponse) {
+                            return cachedResponse;
+                        }
+
+                        return new Response(
+                            'Offline - halaman tidak tersedia.',
+                            {
+                                status: 503,
+                                statusText: 'Service Unavailable',
+                                headers: {
+                                    'Content-Type': 'text/plain; charset=utf-8'
+                                }
+                            }
+                        );
+                    });
             })
     );
 });
