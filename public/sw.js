@@ -1,4 +1,4 @@
-const CACHE_NAME = 'shipequipar-v2';
+const CACHE_NAME = 'shipequipar-v3';
 
 const STATIC_ASSETS = [
     '/manifest.json',
@@ -38,12 +38,12 @@ self.addEventListener('fetch', event => {
 
     const url = new URL(request.url);
 
-    // Hanya handle request dari domain sendiri
+    // Jangan intercept request dari domain lain
     if (url.origin !== self.location.origin) {
         return;
     }
 
-    // Jangan cache API / Laravel dynamic routes
+    // Jangan intercept API / Laravel routes
     if (
         url.pathname.startsWith('/api/') ||
         url.pathname.startsWith('/login') ||
@@ -55,102 +55,27 @@ self.addEventListener('fetch', event => {
     }
 
     // =====================================================
-    // STATIC ASSETS
+    // CACHE HANYA MANIFEST + ICON
     // =====================================================
 
     if (
-        url.pathname.startsWith('/build/') ||
-        url.pathname.startsWith('/css/') ||
-        url.pathname.startsWith('/js/') ||
-        url.pathname.startsWith('/icons/')
+        url.pathname === '/manifest.json' ||
+        url.pathname === '/icons/icon-192.png' ||
+        url.pathname === '/icons/icon-512.png'
     ) {
         event.respondWith(
-            caches.match(request)
-                .then(cachedResponse => {
-
-                    if (cachedResponse) {
-                        return cachedResponse;
-                    }
-
-                    return fetch(request)
-                        .then(response => {
-
-                            if (
-                                response &&
-                                response.status === 200 &&
-                                response.type === 'basic'
-                            ) {
-                                const responseClone = response.clone();
-
-                                caches.open(CACHE_NAME)
-                                    .then(cache => {
-                                        cache.put(request, responseClone);
-                                    });
-                            }
-
-                            return response;
-                        })
-                        .catch(() => {
-                            return new Response(
-                                'Offline - resource tidak tersedia.',
-                                {
-                                    status: 503,
-                                    statusText: 'Service Unavailable',
-                                    headers: {
-                                        'Content-Type': 'text/plain; charset=utf-8'
-                                    }
-                                }
-                            );
-                        });
-                })
+            caches.match(request).then(cachedResponse => {
+                return cachedResponse || fetch(request);
+            })
         );
 
         return;
     }
 
     // =====================================================
-    // LARAVEL PAGES
+    // SEMUA REQUEST LAIN TERUS KE SERVER
     // =====================================================
 
-    event.respondWith(
-        fetch(request)
-            .then(response => {
-
-                if (
-                    response &&
-                    response.status === 200 &&
-                    response.type === 'basic'
-                ) {
-                    const responseClone = response.clone();
-
-                    caches.open(CACHE_NAME)
-                        .then(cache => {
-                            cache.put(request, responseClone);
-                        });
-                }
-
-                return response;
-            })
-            .catch(() => {
-
-                return caches.match(request)
-                    .then(cachedResponse => {
-
-                        if (cachedResponse) {
-                            return cachedResponse;
-                        }
-
-                        return new Response(
-                            'Offline - halaman tidak tersedia.',
-                            {
-                                status: 503,
-                                statusText: 'Service Unavailable',
-                                headers: {
-                                    'Content-Type': 'text/plain; charset=utf-8'
-                                }
-                            }
-                        );
-                    });
-            })
-    );
+    // Jangan event.respondWith()
+    // Browser akan handle request secara normal.
 });
