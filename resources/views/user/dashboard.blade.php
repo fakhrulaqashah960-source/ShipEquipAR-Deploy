@@ -14,9 +14,20 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ShipEquipAR">
+
     <link rel="manifest" href="{{ asset('manifest.json') }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('icons/icon-192.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('icons/icon-192.png') }}">
+
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="192x192"
+        href="{{ asset('icons/icon-192.png') }}"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="{{ asset('icons/icon-192.png') }}"
+    >
 
     <title>ShipEquipAR Dashboard</title>
 
@@ -808,8 +819,6 @@
 
                 @foreach($modules as $module)
 
-                    {{-- MODULE TITLE --}}
-
                     <div
                         class="user-module-item"
                         onclick="toggleEquipment({{ $module->id }})"
@@ -826,14 +835,10 @@
                     </div>
 
 
-                    {{-- MODULE LIST --}}
-
                     <div
                         id="equipment{{ $module->id }}"
                         class="user-module-list"
                     >
-
-                        {{-- INTRODUCTION --}}
 
                         <a
                             href="{{ route('learning.show', $module->id) }}"
@@ -844,8 +849,6 @@
                             {{ ucfirst($module->category) }}
                         </a>
 
-
-                        {{-- SHIP LIST --}}
 
                         @if(
                             str_contains(
@@ -890,8 +893,6 @@
 
                         @endif
 
-
-                        {{-- EQUIPMENT --}}
 
                         @foreach($module->equipments as $equipment)
 
@@ -1001,7 +1002,7 @@
         </a>
 
 
-        {{-- NAVIBOT (Botpress custom launcher: element selector = naviBotButton) --}}
+        {{-- NAVIBOT --}}
 
         <a
             href="#"
@@ -1058,8 +1059,6 @@
 
     <div class="user-content-inner">
 
-        {{-- WELCOME --}}
-
         <section class="user-welcome">
 
             <div class="user-welcome-copy">
@@ -1086,8 +1085,6 @@
 
         </section>
 
-
-        {{-- WEBSITE INTRODUCTION --}}
 
         <section class="user-introduction">
 
@@ -1203,31 +1200,54 @@
     /* ESC CLOSE */
 
     document.addEventListener('keydown', function (event) {
+
         if (event.key === 'Escape') {
             closeUserSidebar();
         }
+
     });
 
 
     /* RESET WHEN DESKTOP */
 
     window.addEventListener('resize', function () {
+
         if (window.innerWidth > 768) {
             closeUserSidebar();
         }
+
     });
 
 
     /* ================= PWA SERVICE WORKER ================= */
 
     if ('serviceWorker' in navigator) {
+
         window.addEventListener('load', function () {
+
             navigator.serviceWorker
-                .register('/sw.js', { scope: '/' })
+                .register('/sw.js', {
+                    scope: '/'
+                })
+                .then(function (registration) {
+
+                    console.log(
+                        'PWA Service Worker registered:',
+                        registration.scope
+                    );
+
+                })
                 .catch(function (error) {
-                    console.error('PWA service worker registration failed:', error);
+
+                    console.error(
+                        'PWA service worker registration failed:',
+                        error
+                    );
+
                 });
+
         });
+
     }
 
 </script>
