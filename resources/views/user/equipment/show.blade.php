@@ -212,11 +212,9 @@
 
     display:flex;
 
-    justify-content:space-between;
-
     align-items:center;
 
-    gap:15px;
+    gap:12px;
 
     margin-top:22px;
 
@@ -225,8 +223,6 @@
     border-top:1px solid #e2e8f0;
 
 }
-
-
 
 /* =====================
    AR BUTTON
@@ -362,49 +358,20 @@
 
 .back-btn{
 
-
     display:flex;
-
 
     align-items:center;
 
-
     justify-content:center;
 
+    width:95px;
 
-    width:170px;
-
-
-    height:46px;
-
-
-    background:#0f172a;
-
-
-    color:white;
-
-
-    border-radius:11px;
-
-
-    text-decoration:none;
-
-
-    font-size:13px;
-
-
-    font-weight:800;
-
-
-    transition:.2s ease;
-
-
+    height:45px;
 }
 
 
 
 .back-btn:hover{
-
 
     background:#0284c7;
 
@@ -412,9 +379,6 @@
     transform:translateY(-2px);
 
 }
-
-
-
 
 /* =====================
    MOBILE
@@ -437,15 +401,11 @@
 
 
 
-    .ar-btn,
+    .ar-btn{
 
-    .back-btn{
+    width:180px;
 
-
-        width:100%;
-
-
-    }
+    height:45px;
 
 
 }
