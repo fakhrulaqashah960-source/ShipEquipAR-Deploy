@@ -202,134 +202,253 @@
         }
 
         /* =====================================================
-           AR QUICK LOOK
-        ===================================================== */
+   ACTION BUTTONS
+===================================================== */
 
-        .ar-container{
-            width:100%;
 
-            display:flex;
-            justify-content:flex-start;
+.equipment-actions{
 
-            margin-top:22px;
-            padding-top:20px;
+    width:100%;
 
-            border-top:1px solid #e2e8f0;
-        }
+    display:flex;
 
-        /*
-        |--------------------------------------------------------------------------
-        | Keep a real child <img> inside <a rel="ar"> for Apple Quick Look.
-        |--------------------------------------------------------------------------
-        */
+    justify-content:space-between;
 
-        .ar-btn{
-            position:relative;
+    align-items:center;
 
-            display:block;
+    gap:15px;
 
-            width:210px;
-            height:46px;
+    margin-top:22px;
 
-            margin:0;
+    padding-top:20px;
 
-            overflow:hidden;
+    border-top:1px solid #e2e8f0;
 
-            background:#0284c7;
+}
 
-            border-radius:11px;
 
-            text-decoration:none;
 
-            cursor:pointer;
+/* =====================
+   AR BUTTON
+===================== */
 
-            box-shadow:
-                0 7px 18px rgba(2,132,199,.22);
 
-            transition:.2s ease;
-        }
+.ar-btn{
 
-        .ar-btn:hover{
-            background:#0369a1;
 
-            transform:translateY(-2px);
-        }
+    position:relative;
 
-        .ar-btn:active{
-            transform:scale(.98);
-        }
 
-        .ar-btn img{
-            position:absolute;
+    display:flex;
 
-            inset:0;
 
-            width:100%;
-            height:100%;
+    align-items:center;
 
-            object-fit:cover;
 
-            opacity:.001;
+    justify-content:center;
 
-            pointer-events:none;
-        }
 
-        .ar-btn::after{
-            content:"📱 Open AR Model";
+    width:210px;
 
-            position:absolute;
 
-            inset:0;
+    height:46px;
 
-            z-index:2;
 
-            display:flex;
-            align-items:center;
-            justify-content:center;
+    background:#0284c7;
 
-            color:white;
 
-            font-size:13px;
-            font-weight:800;
+    border-radius:11px;
 
-            pointer-events:none;
-        }
 
-        /* =====================================================
-           BACK
-        ===================================================== */
+    text-decoration:none;
 
-        .back-btn{
-            display:inline-flex;
 
-            align-items:center;
-            justify-content:center;
+    overflow:hidden;
 
-            min-height:45px;
 
-            margin-top:12px;
+    cursor:pointer;
 
-            padding:10px 18px;
 
-            background:#0f172a;
+    box-shadow:
 
-            color:white;
+    0 7px 18px rgba(2,132,199,.22);
 
-            border-radius:11px;
 
-            text-decoration:none;
+    transition:.2s ease;
 
-            font-size:13px;
-            font-weight:800;
+}
 
-            transition:.2s ease;
-        }
 
-        .back-btn:hover{
-            background:#0284c7;
 
-            transform:translateY(-2px);
-        }
+.ar-btn:hover{
+
+    background:#0369a1;
+
+    transform:translateY(-2px);
+
+}
+
+
+
+.ar-btn img{
+
+
+    position:absolute;
+
+
+    inset:0;
+
+
+    width:100%;
+
+
+    height:100%;
+
+
+    object-fit:cover;
+
+
+    opacity:.001;
+
+
+    pointer-events:none;
+
+}
+
+
+
+.ar-btn::after{
+
+
+    content:"📱 Open AR Model";
+
+
+    position:absolute;
+
+
+    inset:0;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    color:white;
+
+
+    font-size:13px;
+
+
+    font-weight:800;
+
+
+    z-index:2;
+
+
+}
+
+
+
+
+/* =====================
+   BACK BUTTON
+===================== */
+
+
+.back-btn{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    width:170px;
+
+
+    height:46px;
+
+
+    background:#0f172a;
+
+
+    color:white;
+
+
+    border-radius:11px;
+
+
+    text-decoration:none;
+
+
+    font-size:13px;
+
+
+    font-weight:800;
+
+
+    transition:.2s ease;
+
+
+}
+
+
+
+.back-btn:hover{
+
+
+    background:#0284c7;
+
+
+    transform:translateY(-2px);
+
+}
+
+
+
+
+/* =====================
+   MOBILE
+===================== */
+
+
+@media(max-width:600px){
+
+
+    .equipment-actions{
+
+
+        flex-direction:column-reverse;
+
+
+        align-items:stretch;
+
+
+    }
+
+
+
+    .ar-btn,
+
+    .back-btn{
+
+
+        width:100%;
+
+
+    }
+
+
+}
 
         /* =====================================================
            MOBILE
@@ -555,134 +674,142 @@
 
 
         {{-- =========================
-             AR QUICK LOOK
-        ========================== --}}
-
-        @if($equipment->model_file)
-
-            @php
-
-                /*
-                |--------------------------------------------------------------------------
-                | GET MODEL FILE NAME
-                |--------------------------------------------------------------------------
-                */
-
-                $modelValue =
-                    trim(
-                        $equipment->model_file
-                    );
+     ACTION BUTTONS
+========================= --}}
 
 
-                if (
-                    str_starts_with(
-                        $modelValue,
-                        'http://'
-                    )
-                    ||
-                    str_starts_with(
-                        $modelValue,
-                        'https://'
-                    )
-                ) {
-
-                    $modelPath =
-                        parse_url(
-                            $modelValue,
-                            PHP_URL_PATH
-                        );
+<div class="equipment-actions">
 
 
-                    $modelName =
-                        rawurldecode(
-                            basename(
-                                $modelPath
-                            )
-                        );
-
-                }
-
-                else {
-
-                    $modelName =
-                        rawurldecode(
-                            basename(
-                                $modelValue
-                            )
-                        );
-
-                }
+    <a
+        href="{{ route('dashboard') }}"
+        class="back-btn"
+    >
+        ← Back
+    </a>
 
 
-                /*
-                |--------------------------------------------------------------------------
-                | PREVIEW
-                |--------------------------------------------------------------------------
-                */
-
-                $arPreviewImage =
-                    $equipmentImage
-                    ??
-                    asset('favicon.ico');
 
 
-                /*
-                |--------------------------------------------------------------------------
-                | LOCAL RENDER URL
-                |--------------------------------------------------------------------------
-                */
+    @if($equipment->model_file)
 
-                $arUrl =
-                    route(
-                        'ar.model',
-                        [
-                            'file' =>
-                                $modelName
-                        ]
-                    );
+        @php
 
-            @endphp
+            $modelValue =
+                trim(
+                    $equipment->model_file
+                );
 
 
-            @if(
-                str_ends_with(
-                    strtolower($modelName),
-                    '.reality'
+            if (
+
+                str_starts_with(
+                    $modelValue,
+                    'http://'
                 )
+
+                ||
+
+                str_starts_with(
+                    $modelValue,
+                    'https://'
+                )
+
+            ) {
+
+
+                $modelPath =
+                    parse_url(
+                        $modelValue,
+                        PHP_URL_PATH
+                    );
+
+
+                $modelName =
+                    rawurldecode(
+                        basename(
+                            $modelPath
+                        )
+                    );
+
+
+            }
+
+            else {
+
+
+                $modelName =
+                    rawurldecode(
+                        basename(
+                            $modelValue
+                        )
+                    );
+
+
+            }
+
+
+
+            $arPreviewImage =
+                $equipmentImage
+                ??
+                asset('favicon.ico');
+
+
+
+            $arUrl =
+
+                route(
+                    'ar.model',
+                    [
+                        'file'=>$modelName
+                    ]
+                );
+
+
+        @endphp
+
+
+
+
+        @if(
+            str_ends_with(
+                strtolower($modelName),
+                '.reality'
             )
+        )
 
-                <div class="ar-container">
 
-                    <a
-                        rel="ar"
-                        href="{{ $arUrl }}"
-                        class="ar-btn"
-                    >
+        <a
 
-                        <img
-                            src="{{ $arPreviewImage }}"
-                            alt="Open {{ $equipment->name }} in AR"
-                        >
+            rel="ar"
 
-                    </a>
+            href="{{ $arUrl }}"
 
-                </div>
+            class="ar-btn"
 
-            @endif
+        >
+
+            <img
+
+                src="{{ $arPreviewImage }}"
+
+                alt="Open {{ $equipment->name }} in AR"
+
+            >
+
+
+        </a>
+
 
         @endif
 
 
-        {{-- =========================
-             BACK
-        ========================== --}}
+    @endif
 
-        <a
-            href="{{ route('dashboard') }}"
-            class="back-btn"
-        >
-            ← Back to Dashboard
-        </a>
+
+
+</div>
 
 
     </div>
