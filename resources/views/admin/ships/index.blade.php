@@ -592,7 +592,7 @@ body{
     href="{{ route('modules.index') }}"
     class="back-dashboard"
 >
-    ← Back to Dashboard
+    ← Back
 </a>
 
 

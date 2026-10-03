@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 
 <title>
@@ -34,6 +34,7 @@ Admin Module Notes
     --line:#dbe5ef;
 
 }
+
 
 
 *{
@@ -92,7 +93,9 @@ body.notes-page{
 
 
 
-/* HERO */
+/* =====================
+HERO
+===================== */
 
 
 .notes-hero{
@@ -132,6 +135,7 @@ body.notes-page{
     0 18px 40px rgba(0,0,0,.25);
 
 }
+
 
 
 
@@ -185,15 +189,19 @@ body.notes-page{
 
     height:90px;
 
+
     display:flex;
 
     align-items:center;
 
     justify-content:center;
 
+
     border-radius:22px;
 
+
     background:rgba(255,255,255,.15);
+
 
     font-size:45px;
 
@@ -203,7 +211,9 @@ body.notes-page{
 
 
 
-/* PANEL */
+/* =====================
+PANEL
+===================== */
 
 
 .notes-panel{
@@ -214,11 +224,15 @@ body.notes-page{
 
     background:white;
 
+
     box-shadow:
 
     0 16px 38px rgba(0,0,0,.18);
 
 }
+
+
+
 
 
 
@@ -230,6 +244,7 @@ body.notes-page{
 
     border-radius:12px;
 
+
     background:#dcfce7;
 
     color:#166534;
@@ -240,6 +255,12 @@ body.notes-page{
 
 
 
+
+
+
+/* =====================
+TOOLBAR
+===================== */
 
 
 .notes-toolbar{
@@ -279,31 +300,66 @@ body.notes-page{
 
 
 
-.notes-btn{
+
+/* =====================
+BUTTON SYSTEM
+===================== */
+
+
+.notes-btn,
+.pdf-btn{
+
+
+    width:120px;
+
+    height:42px;
+
 
     display:inline-flex;
 
+
     align-items:center;
+
 
     justify-content:center;
 
-    padding:11px 18px;
 
     border-radius:12px;
 
+
     color:white;
+
 
     text-decoration:none;
 
+
     font-size:13px;
+
 
     font-weight:900;
 
+
     border:none;
+
 
     cursor:pointer;
 
+
+    transition:.2s ease;
+
+
 }
+
+
+
+.notes-btn:hover,
+.pdf-btn:hover{
+
+
+    transform:translateY(-2px);
+
+}
+
 
 
 
@@ -328,6 +384,14 @@ body.notes-page{
 }
 
 
+.pdf-btn{
+
+    background:#16a34a;
+
+}
+
+
+
 .notes-btn-dark{
 
     background:#0f172a;
@@ -341,78 +405,410 @@ body.notes-page{
     background:#16a34a;
 
 }
+
+
+
+
+.notes-toolbar .notes-btn{
+
+    width:auto;
+
+    padding:0 18px;
+
+}
+<style>
+
+/* =====================
+NOTES GRID
+===================== */
+
+
 .notes-list{
 
     display:grid;
 
-    grid-template-columns:repeat(
+    grid-template-columns:
+
+    repeat(
         auto-fit,
-        minmax(280px,1fr)
+        minmax(320px,1fr)
     );
+
 
     gap:20px;
 
+    align-items:stretch;
+
 }
 
+
+
+
+
+/* =====================
+NOTE CARD
+===================== */
 
 
 .note-card{
 
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    height:100%;
+
+
     padding:22px;
+
 
     border-radius:20px;
 
+
     border:1px solid var(--line);
+
 
     background:#f8fafc;
 
+
+    transition:.25s ease;
+
+
 }
+
+
+
+.note-card:hover{
+
+
+    transform:translateY(-3px);
+
+
+    box-shadow:
+
+    0 12px 25px rgba(15,23,42,.12);
+
+
+}
+
 
 
 
 .note-card h3{
 
+
     font-size:20px;
+
 
     font-weight:950;
 
-    margin-bottom:10px;
+
+    line-height:1.4;
+
+
+    margin-bottom:12px;
+
 
 }
+
+
 
 
 
 .note-module{
 
+
     display:inline-flex;
+
+
+    width:max-content;
+
 
     padding:6px 12px;
 
+
     border-radius:999px;
+
 
     background:#e0f2fe;
 
+
     color:#0369a1;
+
 
     font-size:12px;
 
+
     font-weight:900;
 
+
     margin-bottom:15px;
+
 
 }
 
 
 
+
+
 .note-content-preview{
+
 
     color:#475569;
 
+
     font-size:14px;
 
-    line-height:1.6;
 
-    min-height:70px;
+    line-height:1.7;
+
+
+    min-height:90px;
+
+
+    flex:1;
+
+
+}
+
+
+
+
+
+/* =====================
+ACTION BUTTON AREA
+===================== */
+
+
+.note-actions{
+
+
+    display:flex;
+
+
+    gap:10px;
+
+
+    flex-wrap:wrap;
+
+
+    margin-top:auto;
+
+
+    padding-top:20px;
+
+
+}
+
+
+
+.note-actions form{
+
+
+    margin:0;
+
+
+}
+
+
+
+
+
+.note-actions .notes-btn,
+.note-actions .pdf-btn{
+
+
+    width:120px;
+
+
+    height:42px;
+
+
+}
+
+
+
+
+
+/* =====================
+EMPTY
+===================== */
+
+
+.empty-box{
+
+
+    text-align:center;
+
+
+    padding:40px;
+
+
+    color:#64748b;
+
+
+}
+
+
+
+
+
+/* =====================
+BACK BUTTON
+===================== */
+
+
+.action-area{
+
+
+    margin-top:40px;
+
+
+    padding-top:25px;
+
+
+    border-top:1px solid #e2e8f0;
+
+
+}
+
+
+
+
+.back-button{
+
+
+    display:inline-flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    padding:13px 30px;
+
+
+    border-radius:14px;
+
+
+    background:#0f172a;
+
+
+    color:white;
+
+
+    text-decoration:none;
+
+
+    font-weight:900;
+
+
+}
+
+
+
+.back-button:hover{
+
+
+    background:#0284c7;
+
+
+}
+
+
+
+
+/* =====================
+MOBILE
+===================== */
+
+
+@media(max-width:700px){
+
+
+
+body.notes-page{
+
+
+    padding:15px;
+
+
+}
+
+
+
+.notes-hero{
+
+
+    flex-direction:column;
+
+
+    align-items:flex-start;
+
+
+    padding:25px;
+
+
+}
+
+
+
+.notes-hero-icon{
+
+
+    display:none;
+
+
+}
+
+
+
+.notes-panel{
+
+
+    padding:18px;
+
+
+}
+
+
+
+.notes-toolbar{
+
+
+    flex-direction:column;
+
+
+    align-items:flex-start;
+
+
+    gap:15px;
+
+
+}
+
+
+
+.notes-toolbar .notes-btn{
+
+
+    width:100%;
+
+
+}
+
+
+
+.notes-list{
+
+
+    grid-template-columns:1fr;
+
 
 }
 
@@ -420,144 +816,38 @@ body.notes-page{
 
 .note-actions{
 
-    display:flex;
 
-    gap:8px;
-
-    flex-wrap:wrap;
-
-    margin-top:20px;
-
-}
+    display:grid;
 
 
-
-.pdf-btn{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:10px 15px;
-
-    border-radius:10px;
-
-    background:#16a34a;
-
-    color:white;
-
-    text-decoration:none;
-
-    font-size:12px;
-
-    font-weight:900;
-
-}
-
-
-
-.empty-box{
-
-    text-align:center;
-
-    padding:40px;
-
-    color:#64748b;
-
-}
-
-
-
-@media(max-width:700px){
-
-
-    body.notes-page{
-
-        padding:15px;
-
-    }
-
-
-    .notes-hero{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-        padding:25px;
-
-    }
-
-
-
-    .notes-panel{
-
-        padding:18px;
-
-    }
-
-
-
-    .notes-toolbar{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-
-        gap:15px;
-
-    }
-
-
-    .notes-btn{
-
-        width:100%;
-
-    }
+    grid-template-columns:1fr;
 
 
 }
 
-.action-area{
 
-    margin-top:40px;
 
-    padding-top:25px;
+.note-actions form,
 
-    border-top:1px solid #e2e8f0;
+
+.note-actions .notes-btn,
+
+
+.note-actions .pdf-btn{
+
+
+    width:100%;
+
 
 }
 
 
-.back-button{
-
-    display:inline-flex;
-
-    padding:13px 30px;
-
-    border-radius:14px;
-
-    background:#0f172a;
-
-    color:white;
-
-    text-decoration:none;
-
-    font-weight:900;
-
-}
-
-
-.back-button:hover{
-
-    background:#0284c7;
 
 }
 
 
 </style>
+
 
 
 </head>
@@ -567,7 +857,6 @@ body.notes-page{
 
 
 <div class="notes-shell">
-
 
 
 <section class="notes-hero">
@@ -583,13 +872,11 @@ body.notes-page{
 </div>
 
 
-
 <h1>
 
 Module Notes
 
 </h1>
-
 
 
 <p>
@@ -620,13 +907,13 @@ and marine engineering modules.
 <section class="notes-panel">
 
 
+
 @if(session('success'))
 
 
 <div class="alert">
 
 {{ session('success') }}
-
 
 </div>
 
@@ -641,6 +928,7 @@ and marine engineering modules.
 
 
 <div>
+
 
 <h2>
 
@@ -657,7 +945,6 @@ Create, update and manage module learning content.
 
 
 </div>
-
 
 
 
@@ -699,36 +986,59 @@ class="notes-btn notes-btn-blue"
 $pdfUrl = null;
 
 
+
 if($note->pdf){
 
 
     $pdfPath = trim(
+
         str_replace(
+
             '\\',
+
             '/',
+
             $note->pdf
+
         )
+
     );
 
 
+
     $pdfPath = str_replace(
+
         'public/',
+
         '',
+
         $pdfPath
+
     );
+
 
 
     $pdfPath = str_replace(
+
         'storage/',
+
         '',
+
         $pdfPath
+
     );
 
 
-   $pdfUrl = asset($note->pdf);
+
+    $pdfUrl = asset(
+
+        $note->pdf
+
+    );
 
 
 }
+
 
 
 @endphp
@@ -736,7 +1046,9 @@ if($note->pdf){
 
 
 
+
 <article class="note-card">
+
 
 
 <h3>
@@ -752,21 +1064,35 @@ if($note->pdf){
 
 📚
 
-{{ $note->module->title 
-?? $note->module->name 
-?? '-' }}
+{{ 
+$note->module->title 
+?? 
+$note->module->name 
+?? 
+'-'
+}}
 
 </div>
 
 
 
 
+
 <div class="note-content-preview">
 
-{{ Str::limit(
+
+{{ 
+
+Str::limit(
+
     $note->content,
+
     120
-) }}
+
+)
+
+}}
+
 
 </div>
 
@@ -799,8 +1125,6 @@ class="pdf-btn"
 
 
 @endif
-
-
 <a
 
 href="{{ route('admin.notes.edit',$note->id) }}"
@@ -812,6 +1136,7 @@ class="notes-btn notes-btn-edit"
 ✏ Edit
 
 </a>
+
 
 
 
@@ -833,6 +1158,7 @@ onsubmit="return confirm('Delete this note?')"
 
 
 
+
 <button
 
 type="submit"
@@ -847,6 +1173,7 @@ class="notes-btn notes-btn-red"
 
 
 </form>
+
 
 
 
@@ -873,6 +1200,8 @@ class="notes-btn notes-btn-red"
 
 
 
+
+
 <div class="empty-box">
 
 📘
@@ -889,6 +1218,8 @@ Create your first learning note.
 
 
 
+
+
 @endif
 
 
@@ -898,21 +1229,34 @@ Create your first learning note.
 </section>
 
 
+
+
+
 <div class="action-area">
 
-<a 
+
+<a
+
 href="{{ route('admin.dashboard') }}"
+
 class="back-button"
+
 >
 
 ← Back to Dashboard
 
 </a>
 
+
 </div>
 
 
+
+
+
 </div>
+
+
 
 
 
