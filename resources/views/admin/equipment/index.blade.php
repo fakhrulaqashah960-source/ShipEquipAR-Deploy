@@ -403,9 +403,14 @@ body{
 ========================================================= */
 
 .equipment-content{
-    min-width:0;
-}
 
+    min-width:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
 
 .equipment-title{
     display:flex;
@@ -543,19 +548,21 @@ body{
 ========================================================= */
 
 .actions{
+
     display:flex;
 
     align-items:center;
 
-    gap:9px;
+    gap:10px;
 
     flex-wrap:wrap;
 
-    margin-top:18px;
+    margin-top:auto;
 
     padding-top:16px;
 
     border-top:1px solid #e2e8f0;
+
 }
 
 
@@ -570,14 +577,18 @@ body{
 
 .edit-btn,
 .delete-btn{
+
     display:inline-flex;
 
     align-items:center;
+
     justify-content:center;
 
-    min-height:43px;
+    width:120px;
 
-    padding:10px 16px;
+    height:43px;
+
+    padding:0;
 
     border:none;
 
@@ -596,6 +607,7 @@ body{
     cursor:pointer;
 
     transition:.2s ease;
+
 }
 
 
@@ -835,11 +847,14 @@ body{
 
 
     .actions{
-        display:grid;
 
-        grid-template-columns:1fr 1fr;
-    }
+    display:flex;
 
+    flex-direction:column;
+
+    width:100%;
+
+}
 
     .actions form,
     .edit-btn,
@@ -1298,4 +1313,4 @@ body{
 
 </body>
 
-</html>
+</html
