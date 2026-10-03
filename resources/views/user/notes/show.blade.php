@@ -14,10 +14,12 @@
 <style>
 
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Segoe UI',Arial,sans-serif;
+
 }
 
 
@@ -28,12 +30,15 @@ min-height:100vh;
 
 padding:35px 20px;
 
+
 background:
+
 linear-gradient(
 135deg,
 rgba(15,23,42,.95),
 rgba(2,132,199,.75)
 ),
+
 url('/images/ship-bg.jpg');
 
 
@@ -61,13 +66,16 @@ margin:auto;
 
 
 
-
-/* HERO */
+/* =========================
+HERO
+========================= */
 
 
 .hero{
 
+
 padding:45px;
+
 
 border-radius:30px;
 
@@ -90,7 +98,6 @@ box-shadow:
 
 
 }
-
 
 
 
@@ -160,10 +167,9 @@ font-size:17px;
 
 
 
-
-
-/* MAIN CARD */
-
+/* =========================
+MAIN CARD
+========================= */
 
 
 .learning-card{
@@ -187,7 +193,6 @@ box-shadow:
 
 
 }
-
 
 
 
@@ -240,51 +245,42 @@ font-weight:900;
 }
 
 
+
+
+
 /* =========================
-   MOBILE BACK BUTTON
+LESSON CONTENT
 ========================= */
 
-@media(max-width:700px){
+
+.lesson-area{
 
 
-    .back-button{
+margin-top:35px;
 
-    width:100%;
 
-    min-height:52px;
+padding:35px;
 
-    display:flex;
 
-    align-items:center;
+width:100%;
 
-    justify-content:center;
 
-    background:#0f172a;
+border-radius:25px;
 
-    color:white;
 
-    border-radius:18px;
+background:#f8fafc;
 
-    text-decoration:none;
 
-    font-size:16px;
+border:1px solid #dbeafe;
 
-    font-weight:900;
 
-    margin-top:25px;
+overflow:hidden;
 
-    transition:.2s ease;
 
 }
 
 
-.back-button:hover{
 
-    background:#0284c7;
-
-    transform:translateY(-2px);
-
-}
 
 .lesson-title{
 
@@ -304,13 +300,13 @@ margin-bottom:25px;
 }
 
 
+
+
+
 .content{
 
 
 width:100%;
-
-
-max-width:100%;
 
 
 font-size:18px;
@@ -326,7 +322,6 @@ text-align:left;
 
 
 }
-
 
 
 
@@ -358,6 +353,7 @@ margin-bottom:18px;
 
 
 
+
 .content table{
 
 
@@ -365,6 +361,7 @@ width:100% !important;
 
 
 }
+
 
 
 
@@ -381,9 +378,9 @@ width:auto !important;
 
 
 
-
-
-/* PDF RESOURCE */
+/* =========================
+PDF RESOURCE
+========================= */
 
 
 .resource{
@@ -430,7 +427,6 @@ font-weight:900;
 
 
 
-
 .resource p{
 
 
@@ -441,8 +437,6 @@ color:#475569;
 
 
 }
-
-
 
 
 
@@ -478,6 +472,8 @@ font-weight:900;
 
 
 
+
+
 .pdf-btn:hover{
 
 
@@ -492,7 +488,9 @@ background:#15803d;
 
 
 
-/* BUTTON */
+/* =========================
+BACK BUTTON
+========================= */
 
 
 .actions{
@@ -507,47 +505,93 @@ margin-top:35px;
 
 
 
-.back-dashboard-btn{
+.back-button{
 
-    width:100%;
 
-    min-height:45px;
+width:100%;
 
-    display:flex;
 
-    align-items:center;
+min-height:52px;
 
-    justify-content:center;
 
-    background:#0f172a;
+display:flex;
 
-    color:white;
 
-    border-radius:12px;
+align-items:center;
 
-    text-decoration:none;
 
-    font-size:13px;
+justify-content:center;
 
-    font-weight:800;
 
-    transition:.2s ease;
+background:#0f172a;
+
+
+color:white;
+
+
+border-radius:18px;
+
+
+text-decoration:none;
+
+
+font-size:16px;
+
+
+font-weight:900;
+
+
+transition:.2s ease;
+
 
 }
 
 
 
-.back-dashboard-btn:hover{
 
-    background:#0284c7;
 
-    transform:translateY(-2px);
+.back-button:hover{
+
+
+background:#0284c7;
+
+
+transform:translateY(-2px);
+
 
 }
 
+
+
+
+
+/* =========================
+MOBILE
+========================= */
 
 
 @media(max-width:768px){
+
+
+
+body{
+
+padding:15px;
+
+}
+
+
+
+.hero{
+
+
+padding:25px;
+
+
+border-radius:22px;
+
+
+}
 
 
 
@@ -567,7 +611,11 @@ font-size:30px;
 padding:25px;
 
 
+border-radius:22px;
+
+
 }
+
 
 
 
@@ -581,32 +629,61 @@ font-size:28px;
 
 
 
+.lesson-area{
+
+
+padding:20px;
+
+
+}
+
+
+
+
+.lesson-title{
+
+
+font-size:21px;
+
+
+}
+
+
+
 .content{
 
 
 font-size:16px;
 
 
+line-height:1.8;
+
+
+}
+
+
+
+
+.back-button{
+
+
+height:52px;
+
+
+font-size:15px;
+
+
 }
 
 
 
 }
-
-
-
 
 </style>
 
 
 </head>
-
-
-
-
-
 <body>
-
 
 
 <div class="container">
@@ -615,9 +692,7 @@ font-size:16px;
 
 
 
-
 <section class="hero">
-
 
 
 <div class="tag">
@@ -657,6 +732,7 @@ ShipEquipAR Maritime Engineering Learning Module
 
 
 
+
 <section class="learning-card">
 
 
@@ -670,6 +746,8 @@ ShipEquipAR Maritime Engineering Learning Module
 
 
 </h2>
+
+
 
 
 
@@ -693,6 +771,7 @@ ShipEquipAR Maritime Engineering Learning Module
 
 
 
+
 <div class="lesson-area">
 
 
@@ -708,6 +787,7 @@ ShipEquipAR Maritime Engineering Learning Module
 
 
 
+
 <div class="content">
 
 
@@ -715,6 +795,7 @@ ShipEquipAR Maritime Engineering Learning Module
 
 
 </div>
+
 
 
 
@@ -734,16 +815,28 @@ ShipEquipAR Maritime Engineering Learning Module
 
 @php
 
+
 $pdfUrl = asset(
+
 str_replace(
+
 'public/',
+
 '',
+
 $note->pdf
+
 )
 
 );
 
+
+
 @endphp
+
+
+
+
 
 <div class="resource">
 
@@ -758,11 +851,15 @@ $note->pdf
 
 
 
+
 <p>
 
 Open official PDF learning document for this module.
 
 </p>
+
+
+
 
 
 <a
@@ -781,7 +878,12 @@ class="pdf-btn"
 
 </a>
 
+
+
+
 </div>
+
+
 
 
 
@@ -791,18 +893,35 @@ class="pdf-btn"
 
 
 
+
+
+
+
 <div class="actions">
 
 
+
 <a
+
 href="{{ url()->previous() }}"
+
 class="back-button"
+
 >
+
 ← Back To Notes List
+
 </a>
 
 
+
+
 </div>
+
+
+
+
+
 
 </section>
 
@@ -811,10 +930,14 @@ class="back-button"
 
 
 
+
 </div>
 
 
 
+
+
 </body>
+
 
 </html>
