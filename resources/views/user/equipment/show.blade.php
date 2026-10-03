@@ -355,26 +355,22 @@
    BACK BUTTON
 ===================== */
 
-
 .back-btn{
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    width:95px;
+    width:100px;
 
     height:45px;
+
+    background:#0f172a !important;
+
+    color:white !important;
 }
 
 
 
 .back-btn:hover{
 
-    background:#0284c7;
-
+    background:#0284c7 !important;
 
     transform:translateY(-2px);
 
@@ -390,24 +386,23 @@
 
     .equipment-actions{
 
+    width:100%;
 
-        flex-direction:column-reverse;
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+}
 
 
-        align-items:stretch;
 
+.ar-btn{
 
-    }
-
-
-
-    .ar-btn{
-
-    width:180px;
+    width:170px;
 
     height:45px;
-
-
 }
 
         /* =====================================================
