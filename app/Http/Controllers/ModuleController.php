@@ -117,17 +117,15 @@ class ModuleController extends Controller
         if ($request->hasFile('image')) {
 
 
-            $imageName =
-                time() . '_' .
-                $request->image
-                    ->getClientOriginalName();
+            $$imageName =
+    $request->image->getClientOriginalName();
 
 
 
             $request->image->move(
 
                 public_path(
-                    'images/modules'
+                    'uploads/modules'
                 ),
 
                 $imageName
@@ -290,9 +288,7 @@ class ModuleController extends Controller
 
 
             $imageName =
-                time() .
-                '_' .
-                $image->getClientOriginalName();
+    $image->getClientOriginalName();
 
 
 
