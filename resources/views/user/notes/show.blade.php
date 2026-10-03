@@ -503,47 +503,43 @@ margin-top:35px;
 
 
 
-.back{
+.back-dashboard-btn{
 
+    width:100%;
 
-display:inline-flex;
+    min-height:45px;
 
+    display:flex;
 
-padding:14px 30px;
+    align-items:center;
 
+    justify-content:center;
 
-border-radius:14px;
+    background:#0f172a;
 
+    color:white;
 
-background:#0f172a;
+    border-radius:12px;
 
+    text-decoration:none;
 
-color:white;
+    font-size:13px;
 
+    font-weight:800;
 
-text-decoration:none;
-
-
-font-weight:900;
-
-
-}
-
-
-
-
-
-.back:hover{
-
-
-background:#0284c7;
-
+    transition:.2s ease;
 
 }
 
 
 
+.back-dashboard-btn:hover{
 
+    background:#0284c7;
+
+    transform:translateY(-2px);
+
+}
 
 
 

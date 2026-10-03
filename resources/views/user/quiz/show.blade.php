@@ -340,19 +340,17 @@ allowfullscreen>
 </div>
 
 
+<a
 
+href="{{ route('dashboard') }}"
 
+class="back-dashboard-btn"
 
+>
 
-<a href="{{ route('dashboard') }}" class="back">
-
-← Back to Dashboard
+← Back To Dashboard
 
 </a>
-
-
-
-
 
 </div>
 
