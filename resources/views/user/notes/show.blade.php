@@ -241,98 +241,50 @@ font-weight:900;
 
 
 /* =========================
-   MOBILE BACK DASHBOARD
+   MOBILE BACK BUTTON
 ========================= */
 
+@media(max-width:700px){
 
-.back-dashboard-mobile{
 
+    .back-button{
 
     width:100%;
 
-
-    height:52px;
-
+    min-height:52px;
 
     display:flex;
 
-
     align-items:center;
-
 
     justify-content:center;
 
-
     background:#0f172a;
-
 
     color:white;
 
-
     border-radius:18px;
-
 
     text-decoration:none;
 
-
     font-size:16px;
-
 
     font-weight:900;
 
-
     margin-top:25px;
-
 
     transition:.2s ease;
 
-
 }
 
 
-
-.back-dashboard-mobile:hover{
-
+.back-button:hover{
 
     background:#0284c7;
 
+    transform:translateY(-2px);
 
 }
-
-
-
-/* CONTENT */
-
-
-.lesson-area{
-
-
-margin-top:35px;
-
-
-padding:35px;
-
-
-width:100%;
-
-
-border-radius:25px;
-
-
-background:#f8fafc;
-
-
-border:1px solid #dbeafe;
-
-
-overflow:hidden;
-
-
-}
-
-
-
-
 
 .lesson-title{
 
@@ -350,9 +302,6 @@ margin-bottom:25px;
 
 
 }
-
-
-
 
 
 .content{
@@ -842,35 +791,18 @@ class="pdf-btn"
 
 
 
-
-
-
-
 <div class="actions">
 
 
 <a
-
-href="{{ route('admin.notes.index') }}"
-
-class="back-dashboard-mobile"
-
+href="{{ url()->previous() }}"
+class="back-button"
 >
-
 ← Back To Notes List
-
 </a>
 
 
-
 </div>
-
-
-
-
-
-
-
 
 </section>
 
