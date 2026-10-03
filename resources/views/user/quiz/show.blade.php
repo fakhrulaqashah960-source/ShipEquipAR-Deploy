@@ -226,6 +226,64 @@ background:#0284c7;
 
 }
 
+/* =========================
+   MOBILE BACK DASHBOARD
+========================= */
+
+
+.back-dashboard-mobile{
+
+
+    width:100%;
+
+
+    height:52px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    background:#0f172a;
+
+
+    color:white;
+
+
+    border-radius:18px;
+
+
+    text-decoration:none;
+
+
+    font-size:16px;
+
+
+    font-weight:900;
+
+
+    margin-top:25px;
+
+
+    transition:.2s ease;
+
+
+}
+
+
+
+.back-dashboard-mobile:hover{
+
+
+    background:#0284c7;
+
+
+}
 
 
 
@@ -344,7 +402,7 @@ allowfullscreen>
 
 href="{{ route('dashboard') }}"
 
-class="back-dashboard-btn"
+class="back-dashboard-mobile"
 
 >
 
