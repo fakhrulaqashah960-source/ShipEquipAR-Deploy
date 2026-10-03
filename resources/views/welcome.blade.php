@@ -5,18 +5,27 @@
 
 <title>ShipEquipAR</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta 
+name="viewport" 
+content="width=device-width, initial-scale=1.0">
 
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+
+@vite([
+'resources/css/app.css',
+'resources/js/app.js'
+])
+
 
 <style>
 
 
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Segoe UI',sans-serif;
+
 }
 
 
@@ -42,7 +51,6 @@ NAVBAR
 
 nav{
 
-
 width:100%;
 
 z-index:20;
@@ -57,11 +65,11 @@ padding:25px 70px;
 
 
 background:
+
 linear-gradient(
 rgba(3,15,35,.75),
 transparent
 );
-
 
 }
 
@@ -69,63 +77,69 @@ transparent
 
 .logo{
 
+display:flex;
+
+align-items:center;
+
+gap:10px;
 
 font-size:34px;
 
-
 font-weight:800;
-
 
 color:#38bdf8;
 
-
 letter-spacing:1px;
-
 
 }
 
 
 
-.menu a{
+.logo span:first-child{
 
+font-size:38px;
+
+}
+
+
+
+.auth-buttons{
+
+display:flex;
+
+gap:15px;
+
+}
+
+
+
+.auth-btn{
 
 text-decoration:none;
 
-
 color:white;
 
-
-background:#0284c7;
-
-
-padding:12px 28px;
-
+padding:12px 30px;
 
 border-radius:30px;
 
+background:#0284c7;
 
-margin-left:15px;
-
+font-weight:600;
 
 transition:.3s;
 
-
 }
 
 
 
-.menu a:hover{
-
+.auth-btn:hover{
 
 background:#0ea5e9;
 
-
 transform:translateY(-2px);
 
-
 }
-
-
 
 
 
@@ -137,95 +151,63 @@ FULL SCREEN CAROUSEL
 
 .carousel{
 
-
 height:100vh;
-
 
 width:100%;
 
-
 position:relative;
-
 
 overflow:hidden;
 
-
 }
-
-
 
 
 
 .slide{
 
-
 position:absolute;
-
 
 width:100%;
 
-
 height:100%;
 
-
 opacity:0;
-
 
 transition:
 
 opacity 1.5s ease-in-out;
 
-
 }
-
-
 
 
 
 .slide.active{
 
-
 opacity:1;
-
 
 z-index:2;
 
-
 }
-
-
 
 
 
 .slide img{
 
-
 width:100%;
-
 
 height:100%;
 
-
 object-fit:cover;
-
 
 }
 
 
 
-
-
-/* BLUE MARINE GRADIENT */
-
-
 .overlay{
-
 
 position:absolute;
 
-
 inset:0;
-
 
 
 background:
@@ -259,11 +241,6 @@ transparent
 
 
 
-
-
-
-
-
 /* =====================
 CONTENT CARD
 ===================== */
@@ -271,31 +248,23 @@ CONTENT CARD
 
 .carousel-content{
 
-
 position:absolute;
-
 
 top:50%;
 
-
 left:50%;
-
 
 transform:
 
 translate(-50%,-50%);
 
 
-
 width:480px;
-
 
 max-width:85%;
 
 
-
 padding:30px 35px;
-
 
 
 background:
@@ -303,13 +272,10 @@ background:
 rgba(5,25,55,.72);
 
 
-
 backdrop-filter:blur(12px);
 
 
-
 border-radius:25px;
-
 
 
 border:
@@ -317,15 +283,12 @@ border:
 1px solid rgba(255,255,255,.25);
 
 
-
 text-align:center;
-
 
 
 box-shadow:
 
 0 20px 45px rgba(0,0,0,.5);
-
 
 
 z-index:5;
@@ -335,19 +298,13 @@ z-index:5;
 
 
 
-
-
 .carousel-content h2{
-
 
 font-size:34px;
 
-
 line-height:1.3;
 
-
 color:#38bdf8;
-
 
 margin-bottom:15px;
 
@@ -361,15 +318,11 @@ text-shadow:
 
 
 
-
 .carousel-content h3{
-
 
 font-size:22px;
 
-
 color:#7dd3fc;
-
 
 margin-bottom:15px;
 
@@ -378,15 +331,11 @@ margin-bottom:15px;
 
 
 
-
 .carousel-content p{
-
 
 font-size:15px;
 
-
 line-height:1.6;
-
 
 color:#e2e8f0;
 
@@ -395,33 +344,23 @@ color:#e2e8f0;
 
 
 
-
 .carousel-content a{
-
 
 display:inline-block;
 
-
 margin-top:25px;
-
 
 padding:12px 35px;
 
-
 background:#0284c7;
-
 
 color:white;
 
-
 border-radius:30px;
-
 
 text-decoration:none;
 
-
 font-size:16px;
-
 
 transition:.3s;
 
@@ -432,54 +371,42 @@ transition:.3s;
 
 .carousel-content a:hover{
 
-
 background:#0ea5e9;
-
 
 transform:translateY(-3px);
 
-
 }
-
-
-
 
 
 
 
 /* =====================
-WELCOME SPECIAL
+WELCOME
 ===================== */
 
 
 .welcome h2{
 
-
 font-size:48px;
 
-
 }
-
 
 
 .welcome h2 span{
 
-
 color:#38bdf8;
 
-
 }
-
 
 
 
 .welcome p{
 
-
 font-size:18px;
 
-
 }
+
+
 
 
 /* =====================
@@ -489,47 +416,33 @@ DOTS
 
 .dots{
 
-
 position:absolute;
-
 
 bottom:35px;
 
-
 left:50%;
-
 
 transform:translateX(-50%);
 
-
 z-index:10;
-
 
 }
 
 
 
-
 .dots span{
-
 
 display:inline-block;
 
-
 width:12px;
-
 
 height:12px;
 
-
 border-radius:50%;
-
 
 border:2px solid white;
 
-
 margin:6px;
-
 
 }
 
@@ -537,19 +450,11 @@ margin:6px;
 
 .dots .active-dot{
 
-
 background:#38bdf8;
-
 
 transform:scale(1.3);
 
-
 }
-
-
-
-
-
 /* =====================
 TABLET
 ===================== */
@@ -560,9 +465,7 @@ TABLET
 
 nav{
 
-
 padding:20px 35px;
-
 
 }
 
@@ -570,20 +473,31 @@ padding:20px 35px;
 
 .logo{
 
-
 font-size:28px;
-
 
 }
 
 
 
+.logo span:first-child{
+
+font-size:32px;
+
+}
+
+
+
+.auth-btn{
+
+padding:11px 25px;
+
+}
+
+
 
 .carousel-content{
 
-
 width:450px;
-
 
 }
 
@@ -591,9 +505,7 @@ width:450px;
 
 .carousel-content h2{
 
-
 font-size:32px;
-
 
 }
 
@@ -601,33 +513,53 @@ font-size:32px;
 
 .welcome h2{
 
-
 font-size:40px;
 
-
 }
 
 
 
 }
-
-
 
 
 
 
 /* =====================
-MOBILE
+MOBILE IMPROVED
 ===================== */
 
 
 @media(max-width:600px){
 
 
+body{
+
+overflow:hidden;
+
+}
+
+
+
+/* NAVBAR */
+
 nav{
 
 
-padding:20px;
+padding:18px 20px;
+
+
+flex-direction:column;
+
+
+gap:15px;
+
+
+background:
+
+linear-gradient(
+rgba(3,15,35,.95),
+transparent
+);
 
 
 }
@@ -640,50 +572,131 @@ padding:20px;
 font-size:24px;
 
 
+gap:8px;
+
+
 }
 
 
 
-.menu a{
+.logo span:first-child{
 
 
-padding:10px 18px;
+font-size:28px;
+
+
+}
+
+
+
+
+.auth-buttons{
+
+
+display:flex;
+
+
+gap:10px;
+
+
+}
+
+
+
+.auth-btn{
+
+
+padding:
+
+9px 22px;
 
 
 font-size:14px;
 
 
+border-radius:25px;
+
+
 }
 
+
+
+
+/* IMAGE */
+
+.slide img{
+
+
+object-position:center;
+
+
+}
+
+
+
+
+/* OVERLAY */
+
+.overlay{
+
+
+background:
+
+
+linear-gradient(
+
+180deg,
+
+rgba(0,25,70,.75),
+
+rgba(0,20,60,.90)
+
+);
+
+
+}
+
+
+
+
+/* CARD */
 
 
 .carousel-content{
 
 
-width:90%;
+width:88%;
 
 
-padding:25px 20px;
+max-width:none;
+
+
+padding:24px 18px;
+
+
+border-radius:22px;
+
+
+top:56%;
+
+
+animation:
+
+fadeIn .8s ease;
 
 
 }
+
 
 
 
 .carousel-content h2{
 
 
-font-size:27px;
+font-size:28px;
 
 
-}
-
-
-
-.welcome h2{
-
-
-font-size:34px;
+margin-bottom:10px;
 
 
 }
@@ -693,7 +706,13 @@ font-size:34px;
 .carousel-content h3{
 
 
-font-size:18px;
+font-size:17px;
+
+
+line-height:1.4;
+
+
+margin-bottom:12px;
 
 
 }
@@ -706,14 +725,42 @@ font-size:18px;
 font-size:14px;
 
 
+line-height:1.7;
+
+
 }
+
 
 
 
 .carousel-content a{
 
 
-padding:11px 28px;
+padding:11px 30px;
+
+
+font-size:14px;
+
+
+margin-top:20px;
+
+
+}
+
+
+
+
+.welcome h2{
+
+
+font-size:31px;
+
+
+}
+
+
+
+.welcome p{
 
 
 font-size:14px;
@@ -723,10 +770,75 @@ font-size:14px;
 
 
 
+/* DOTS */
+
+
+.dots{
+
+
+bottom:22px;
+
+
 }
 
 
 
+.dots span{
+
+
+width:10px;
+
+
+height:10px;
+
+
+}
+
+
+
+}
+
+
+
+
+/* =====================
+ANIMATION
+===================== */
+
+
+@keyframes fadeIn{
+
+
+from{
+
+
+opacity:0;
+
+
+transform:
+
+translate(-50%,-45%);
+
+
+}
+
+
+
+to{
+
+
+opacity:1;
+
+
+transform:
+
+translate(-50%,-50%);
+
+
+}
+
+
+}
 </style>
 
 </head>
@@ -744,7 +856,13 @@ NAVIGATION
 
 <div class="logo">
 
-⚓ ShipEquipAR
+<span>
+⚓
+</span>
+
+<span>
+ShipEquipAR
+</span>
 
 </div>
 
