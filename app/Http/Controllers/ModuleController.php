@@ -4,20 +4,16 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 use App\Models\Module;
 use App\Models\Ship;
 
 
+
 class ModuleController extends Controller
 {
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN MODULE LIST
-    |--------------------------------------------------------------------------
-    */
 
     public function index()
     {
@@ -35,12 +31,6 @@ class ModuleController extends Controller
 
 
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN VIEW EQUIPMENT
-    |--------------------------------------------------------------------------
-    */
 
     public function equipment($id)
     {
@@ -66,12 +56,6 @@ class ModuleController extends Controller
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN CREATE MODULE
-    |--------------------------------------------------------------------------
-    */
-
     public function create()
     {
 
@@ -85,28 +69,24 @@ class ModuleController extends Controller
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN STORE MODULE
-    |--------------------------------------------------------------------------
-    */
-
     public function store(Request $request)
     {
 
+
         $request->validate([
 
-            'title' => 'required',
+            'title'=>'required',
 
-            'category' => 'required',
+            'category'=>'required',
 
-            'description' => 'required',
+            'description'=>'required',
 
-            'function' => 'nullable',
+            'function'=>'nullable',
 
-            'image' => 'nullable|image'
+            'image'=>'nullable|image|mimes:jpg,jpeg,png|max:2048'
 
         ]);
+
 
 
 
@@ -114,15 +94,36 @@ class ModuleController extends Controller
 
 
 
-        if ($request->hasFile('image')) {
+        if($request->hasFile('image')){
 
 
-            $$imageName =
-    $request->image->getClientOriginalName();
+            $image = $request->file('image');
 
 
 
-            $request->image->move(
+            $imageName =
+
+                Str::slug(
+
+                    pathinfo(
+                        $image->getClientOriginalName(),
+                        PATHINFO_FILENAME
+                    )
+
+                )
+
+                .
+
+                '.'
+
+                .
+
+                $image->getClientOriginalExtension();
+
+
+
+
+            $image->move(
 
                 public_path(
                     'uploads/modules'
@@ -132,28 +133,34 @@ class ModuleController extends Controller
 
             );
 
+
         }
+
+
 
 
 
         Module::create([
 
-            'title' =>
-                $request->title,
 
-            'category' =>
-                $request->category,
+            'title'=>$request->title,
 
-            'description' =>
-                $request->description,
 
-            'function' =>
-                $request->function,
+            'category'=>$request->category,
 
-            'image' =>
-                $imageName
+
+            'description'=>$request->description,
+
+
+            'function'=>$request->function,
+
+
+            'image'=>$imageName
+
 
         ]);
+
+
 
 
 
@@ -170,17 +177,13 @@ class ModuleController extends Controller
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN EDIT MODULE
-    |--------------------------------------------------------------------------
-    */
-
     public function edit($id)
     {
 
+
         $module =
             Module::findOrFail($id);
+
 
 
         return view(
@@ -197,89 +200,97 @@ class ModuleController extends Controller
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN UPDATE MODULE
-    |--------------------------------------------------------------------------
-    */
-
     public function update(
         Request $request,
         Module $module
     ) {
 
+
         $request->validate([
 
-            'title' =>
-                'required',
 
-            'category' =>
-                'required',
+            'title'=>'required',
 
-            'description' =>
-                'required',
 
-            'function' =>
-                'required',
+            'category'=>'required',
 
-            'image' =>
-                'nullable|image|mimes:jpg,jpeg,png|max:2048'
+
+            'description'=>'required',
+
+
+            'function'=>'required',
+
+
+            'image'=>'nullable|image|mimes:jpg,jpeg,png|max:2048'
+
 
         ]);
 
 
 
+
+
         $data = [
 
-            'title' =>
-                $request->title,
 
-            'category' =>
-                $request->category,
+            'title'=>$request->title,
 
-            'description' =>
-                $request->description,
 
-            'function' =>
-                $request->function,
+            'category'=>$request->category,
+
+
+            'description'=>$request->description,
+
+
+            'function'=>$request->function,
+
 
         ];
 
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | UPDATE IMAGE
-        |--------------------------------------------------------------------------
-        */
 
-        if ($request->hasFile('image')) {
+
+
+
+        if($request->hasFile('image')){
+
 
 
             /*
-            |--------------------------------------------------------------------------
-            | DELETE OLD IMAGE
-            |--------------------------------------------------------------------------
+             DELETE OLD IMAGE
             */
 
-            if (
+
+            if(
+
                 $module->image &&
+
                 file_exists(
+
                     public_path(
                         'uploads/modules/' .
                         $module->image
                     )
+
                 )
-            ) {
+
+            ){
 
                 unlink(
+
                     public_path(
                         'uploads/modules/' .
                         $module->image
                     )
+
                 );
 
             }
+
+
+
+
 
 
 
@@ -287,8 +298,34 @@ class ModuleController extends Controller
                 $request->file('image');
 
 
+
+
             $imageName =
-    $image->getClientOriginalName();
+
+
+                Str::slug(
+
+                    pathinfo(
+
+                        $image->getClientOriginalName(),
+
+                        PATHINFO_FILENAME
+
+                    )
+
+                )
+
+                .
+
+                '.'
+
+                .
+
+                $image->getClientOriginalExtension();
+
+
+
+
 
 
 
@@ -304,14 +341,24 @@ class ModuleController extends Controller
 
 
 
+
+
             $data['image'] =
                 $imageName;
+
+
 
         }
 
 
 
+
+
+
         $module->update($data);
+
+
+
 
 
 
@@ -324,49 +371,77 @@ class ModuleController extends Controller
                 'Module updated successfully'
             );
 
+
     }
 
 
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN DELETE MODULE
-    |--------------------------------------------------------------------------
-    */
+
 
     public function destroy($id)
     {
+
 
         $module =
             Module::findOrFail($id);
 
 
+
+        if(
+
+            $module->image &&
+
+            file_exists(
+
+                public_path(
+                    'uploads/modules/' .
+                    $module->image
+                )
+
+            )
+
+        ){
+
+            unlink(
+
+                public_path(
+                    'uploads/modules/' .
+                    $module->image
+                )
+
+            );
+
+        }
+
+
+
+
         $module->delete();
+
 
 
         return redirect(
             '/admin/modules'
         );
 
+
     }
 
 
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | USER INTRO PAGE
-    |--------------------------------------------------------------------------
-    */
+
 
     public function intro($id)
     {
 
+
         $module =
             Module::findOrFail($id);
+
 
 
         return view(
@@ -377,73 +452,44 @@ class ModuleController extends Controller
 
         );
 
+
     }
 
 
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | USER MODULE PAGE
-    |--------------------------------------------------------------------------
-    |
-    | Page:
-    | /learning-module/{id}
-    |
-    | Equipment datang daripada relationship module.
-    |
-    | Ship pula datang daripada table ships.
-    | Data ships akan digunakan oleh Ship Model module
-    | untuk paparkan:
-    |
-    | - Bulk Carrier
-    | - Container Vessel
-    | - ship lain yang admin tambah
-    |
-    |--------------------------------------------------------------------------
-    */
+
 
     public function userShow($id)
     {
 
-        /*
-        |--------------------------------------------------------------------------
-        | GET MODULE + EQUIPMENT
-        |--------------------------------------------------------------------------
-        */
 
         $module =
+
             Module::with('equipments')
-                ->findOrFail($id);
+
+            ->findOrFail($id);
 
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | GET SHIPS FROM DATABASE
-        |--------------------------------------------------------------------------
-        |
-        | Ini yang sebelum ini tiada.
-        |
-        | Semua ship yang admin tambah akan dihantar
-        | ke user.modules.show.
-        |
-        */
+
+
 
         $ships =
+
             Ship::orderBy(
                 'id',
                 'asc'
-            )->get();
+            )
+
+            ->get();
 
 
 
-        /*
-        |--------------------------------------------------------------------------
-        | SEND DATA TO USER MODULE PAGE
-        |--------------------------------------------------------------------------
-        */
+
+
+
 
         return view(
 
@@ -456,23 +502,22 @@ class ModuleController extends Controller
 
         );
 
+
     }
 
 
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | USER VIDEO PAGE
-    |--------------------------------------------------------------------------
-    */
+
 
     public function video($id)
     {
 
+
         $module =
             Module::findOrFail($id);
+
 
 
         return view(
@@ -482,6 +527,7 @@ class ModuleController extends Controller
             compact('module')
 
         );
+
 
     }
 
